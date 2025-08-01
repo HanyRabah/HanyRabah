@@ -2,7 +2,7 @@ import { MetadataRoute } from 'next'
 import { prisma } from '@/lib/prisma'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://yoursite.com'
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://hanyrabah.com'
 
   let posts: any[] = []
   let projects: any[] = []
