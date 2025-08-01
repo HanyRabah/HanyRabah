@@ -4,16 +4,26 @@ import { formatDate } from '@/lib/utils'
 import Link from 'next/link'
 import Image from 'next/image'
 
+// Disable static generation until database is set up
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
+  metadataBase: new URL('http://localhost:3001'),
   title: 'Blog',
   description: 'Thoughts, tutorials, and insights about web development and design',
 }
 
 export default async function BlogPage() {
-  const posts = await prisma.post.findMany({
-    where: { published: true },
-    orderBy: { publishedAt: 'desc' },
-  })
+  let posts: any[] = []
+  
+  try {
+    posts = await prisma.post.findMany({
+      where: { published: true },
+      orderBy: { publishedAt: 'desc' },
+    })
+  } catch (error) {
+    console.warn('Database not available, showing empty blog page')
+  }
 
   return (
     <div className="container mx-auto px-4 py-16">
@@ -58,7 +68,7 @@ export default async function BlogPage() {
                       {formatDate(post.publishedAt || post.createdAt)}
                     </time>
                     <div className="flex gap-2">
-                      {post.tags.map((tag) => (
+                      {post.tags.map((tag: string) => (
                         <span
                           key={tag}
                           className="px-2 py-1 bg-secondary text-secondary-foreground text-xs rounded"

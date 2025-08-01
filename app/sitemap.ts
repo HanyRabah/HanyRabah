@@ -2,18 +2,25 @@ import { MetadataRoute } from 'next'
 import { prisma } from '@/lib/prisma'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const baseUrl = 'https://yourportfolio.vercel.app'
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://yoursite.com'
 
-  // Get all published posts
-  const posts = await prisma.post.findMany({
-    where: { published: true },
-    select: { slug: true, updatedAt: true },
-  })
+  let posts: any[] = []
+  let projects: any[] = []
 
-  // Get all projects
-  const projects = await prisma.project.findMany({
-    select: { slug: true, updatedAt: true },
-  })
+  try {
+    // Get all published posts
+    posts = await prisma.post.findMany({
+      where: { published: true },
+      select: { slug: true, updatedAt: true },
+    })
+
+    // Get all projects
+    projects = await prisma.project.findMany({
+      select: { slug: true, updatedAt: true },
+    })
+  } catch (error) {
+    console.warn('Database not available during sitemap generation, using static routes only')
+  }
 
   const postUrls = posts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,

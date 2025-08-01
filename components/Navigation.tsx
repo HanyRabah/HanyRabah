@@ -1,3 +1,5 @@
+
+"use client";
 import { useState, useEffect } from 'react';
 import { Button } from './ui/button';
 
@@ -40,12 +42,12 @@ export function Navigation() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-md border-b border-border">
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-        <button
+        {/* <button
           onClick={() => scrollToSection('hero')}
           className="text-2xl font-semibold text-teal-primary hover:text-teal-secondary transition-colors"
         >
           Hany
-        </button>
+        </button> */}
         
         <div className="hidden md:flex items-center space-x-8">
           {navItems.map((item) => (

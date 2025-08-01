@@ -1,3 +1,5 @@
+
+"use client";
 import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
@@ -12,12 +14,35 @@ export function ContactSection() {
     message: ''
   });
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission here
-    console.log('Form submitted:', formData);
-    // Reset form
-    setFormData({ name: '', email: '', message: '' });
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -94,10 +119,23 @@ export function ContactSection() {
                 
                 <Button
                   type="submit"
-                  className="w-full bg-teal-primary hover:bg-teal-secondary text-black"
+                  disabled={isSubmitting}
+                  className="w-full bg-teal-primary hover:bg-teal-secondary text-black disabled:opacity-50"
                 >
-                  Send Message
+                  {isSubmitting ? 'Sending...' : 'Send Message'}
                 </Button>
+                
+                {submitStatus === 'success' && (
+                  <div className="text-green-600 text-sm mt-2">
+                    ✅ Message sent successfully! I'll get back to you soon.
+                  </div>
+                )}
+                
+                {submitStatus === 'error' && (
+                  <div className="text-red-600 text-sm mt-2">
+                    ❌ Failed to send message. Please try again or contact me directly.
+                  </div>
+                )}
               </form>
             </CardContent>
           </Card>
@@ -186,7 +224,7 @@ export function ContactSection() {
         {/* Footer */}
         <div className="mt-24 pt-8 border-t border-border text-center">
           <p className="text-muted-foreground">
-            © 2025 Hany El Saydawy. All rights reserved.
+            © 2025. All rights reserved.
           </p>
         </div>
       </div>

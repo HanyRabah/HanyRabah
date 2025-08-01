@@ -9,6 +9,8 @@ interface ProjectPageProps {
   }
 }
 
+export const dynamic = 'force-dynamic'
+
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
   const project = await prisma.project.findUnique({
     where: { slug: params.slug },
@@ -32,13 +34,19 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
 }
 
 export async function generateStaticParams() {
-  const projects = await prisma.project.findMany({
-    select: { slug: true },
-  })
+  try {
+    const projects = await prisma.project.findMany({
+      select: { slug: true },
+    })
 
-  return projects.map((project) => ({
-    slug: project.slug,
-  }))
+    return projects.map((project) => ({
+      slug: project.slug,
+    }))
+  } catch (error) {
+    // Return empty array if database is not set up yet
+    console.warn('Database not available during build, skipping static generation for projects')
+    return []
+  }
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {

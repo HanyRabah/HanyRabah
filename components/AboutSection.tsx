@@ -19,9 +19,9 @@ export function AboutSection() {
   return (
     <section id="about" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-16 items-start">
+        <div className="grid lg:grid-cols-1 gap-16 items-start">
           {/* Profile Image */}
-          <div className="relative">
+          {/* <div className="relative">
             <div className="relative w-80 h-80 mx-auto lg:mx-0">
               <div className="absolute inset-0 bg-gradient-to-br from-teal-primary to-green-accent rounded-2xl blur-xl opacity-20"></div>
               <ImageWithFallback
@@ -30,37 +30,36 @@ export function AboutSection() {
                 className="relative z-10 w-full h-full object-cover rounded-2xl border-2 border-teal-primary/20"
               />
             </div>
-          </div>
+          </div> */}
 
           {/* Bio and Content */}
-          <div className="space-y-8">
+          <div className="space-y-16">
             <div>
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-teal-primary">
+              <h2 className="text-center text-3xl md:text-4xl font-bold mb-6 text-teal-primary">
                 About Me
               </h2>
-              <div className="space-y-4 text-muted-foreground">
+              <div className="space-y-8 text-muted-foreground">
                 <p>
                   I'm a Senior Fullstack Engineer and Technical Lead based in Berlin, 
-                  with over 8 years of experience building scalable web applications 
-                  and leading development teams. I specialize in React, Node.js, and 
-                  cloud architecture, with a passion for creating exceptional user experiences.
+                  with over 10 years of experience building scalable web applications 
+                  and leading development teams. I specialize in React, Node.js, and Next.js, 
+                  with a passion for creating exceptional user experiences.
                 </p>
                 <p>
-                  Currently, I lead a team of developers at a fast-growing fintech startup, 
+                  Currently, I work at a fast-growing fintech startup <a href="https://www.godiligent.ai/" className="text-teal-primary hover:underline" target="_blank" rel="noopener noreferrer">GoDiligent</a>, 
                   where I've architected systems that handle millions of transactions daily. 
                   I believe in writing clean, maintainable code and fostering a culture of 
                   continuous learning and collaboration.
                 </p>
                 <p>
-                  When I'm not coding, you'll find me exploring Berlin's tech scene, 
-                  contributing to open source projects, or sharing my knowledge through 
-                  technical blog posts and mentoring junior developers.
+                When I’m not coding, you’ll find me behind the lens doing photography, deep 
+                into a good book, or enjoying a strategic game of chess.
                 </p>
               </div>
             </div>
 
             {/* Skills Grid */}
-            <div className="space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <div>
                 <h3 className="text-lg font-semibold mb-3 text-foreground">Tech Stack</h3>
                 <div className="flex flex-wrap gap-2">
