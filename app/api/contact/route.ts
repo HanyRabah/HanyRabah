@@ -1,5 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { prisma } from '@/lib/prisma'
+
+// Lazy import prisma to avoid connection during build
+let prisma: any = null
+
+async function getPrisma() {
+  if (!prisma) {
+    try {
+      const { prisma: prismaClient } = await import('@/lib/prisma')
+      prisma = prismaClient
+    } catch (error) {
+      console.error('Failed to initialize Prisma:', error)
+      throw new Error('Database connection failed')
+    }
+  }
+  return prisma
+}
 
 export async function POST(request: NextRequest) {
   try {
@@ -14,7 +29,8 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    const contact = await prisma.contact.create({
+    const prismaClient = await getPrisma()
+    const contact = await prismaClient.contact.create({
       data: {
         name,
         email,
@@ -41,7 +57,8 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url)
     const status = searchParams.get('status')
 
-    const contacts = await prisma.contact.findMany({
+    const prismaClient = await getPrisma()
+    const contacts = await prismaClient.contact.findMany({
       where: {
         ...(status && { status: status as any }),
       },
