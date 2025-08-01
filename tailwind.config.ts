@@ -43,6 +43,11 @@ const config: Config = {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+        // Custom portfolio colors
+        'teal-primary': '#14b8a6',
+        'teal-secondary': '#0d9488',
+        'teal-muted': '#115e59',
+        'green-accent': '#10b981',
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -58,10 +63,21 @@ const config: Config = {
           from: { height: 'var(--radix-accordion-content-height)' },
           to: { height: '0' },
         },
+        'gradient': {
+          '0%, 100%': {
+            'background-size': '200% 200%',
+            'background-position': 'left center'
+          },
+          '50%': {
+            'background-size': '200% 200%',
+            'background-position': 'right center'
+          },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
         'accordion-up': 'accordion-up 0.2s ease-out',
+        'gradient': 'gradient 15s ease infinite',
       },
     },
   },

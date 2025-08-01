@@ -4,6 +4,9 @@ import { prisma } from '@/lib/prisma'
 import { formatDate } from '@/lib/utils'
 import Image from 'next/image'
 
+// Disable static generation until database is set up
+export const dynamic = 'force-dynamic'
+
 interface BlogPostPageProps {
   params: {
     slug: string
@@ -33,14 +36,20 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 }
 
 export async function generateStaticParams() {
-  const posts = await prisma.post.findMany({
-    where: { published: true },
-    select: { slug: true },
-  })
+  try {
+    const posts = await prisma.post.findMany({
+      where: { published: true },
+      select: { slug: true },
+    })
 
-  return posts.map((post) => ({
-    slug: post.slug,
-  }))
+    return posts.map((post) => ({
+      slug: post.slug,
+    }))
+  } catch (error) {
+    // Return empty array if database is not set up yet
+    console.warn('Database not available during build, skipping static generation for blog posts')
+    return []
+  }
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {

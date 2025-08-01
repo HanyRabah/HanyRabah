@@ -3,15 +3,25 @@ import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import Image from 'next/image'
 
+// Disable static generation until database is set up
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = {
+  metadataBase: new URL('http://localhost:3001'),
   title: 'Projects',
   description: 'A showcase of my latest work and projects',
 }
 
 export default async function ProjectsPage() {
-  const projects = await prisma.project.findMany({
-    orderBy: { createdAt: 'desc' },
-  })
+  let projects: any[] = []
+  
+  try {
+    projects = await prisma.project.findMany({
+      orderBy: { createdAt: 'desc' },
+    })
+  } catch (error) {
+    console.warn('Database not available, showing empty projects page')
+  }
 
   return (
     <div className="container mx-auto px-4 py-16">
@@ -41,7 +51,7 @@ export default async function ProjectsPage() {
                 <p className="text-muted-foreground mb-4">{project.description}</p>
                 
                 <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech) => (
+                  {project.technologies.map((tech: string) => (
                     <span
                       key={tech}
                       className="px-2 py-1 bg-secondary text-secondary-foreground text-xs rounded"

@@ -6,6 +6,7 @@ import { GoogleAnalytics } from '@/components/GoogleAnalytics'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
+  metadataBase: new URL('http://localhost:3001'),
   title: {
     default: 'Your Name - Portfolio',
     template: '%s | Your Name - Portfolio'
