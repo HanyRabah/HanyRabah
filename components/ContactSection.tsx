@@ -1,0 +1,195 @@
+import { Button } from './ui/button';
+import { Input } from './ui/input';
+import { Textarea } from './ui/textarea';
+import { Card, CardContent } from './ui/card';
+import { Mail, Linkedin, Github, Twitter, MapPin } from 'lucide-react';
+import { useState } from 'react';
+
+export function ContactSection() {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Handle form submission here
+    console.log('Form submitted:', formData);
+    // Reset form
+    setFormData({ name: '', email: '', message: '' });
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  return (
+    <section id="contact" className="py-24 px-6">
+      <div className="max-w-6xl mx-auto">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-teal-primary">
+            Let's Work Together
+          </h2>
+          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+            Have a project in mind or want to discuss opportunities? 
+            I'd love to hear from you and explore how we can collaborate.
+          </p>
+        </div>
+
+        <div className="grid lg:grid-cols-2 gap-12">
+          {/* Contact Form */}
+          <Card className="border-border">
+            <CardContent className="p-8">
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <label htmlFor="name" className="block text-sm font-medium mb-2">
+                    Name
+                  </label>
+                  <Input
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Your name"
+                    required
+                    className="bg-background border-border focus:border-teal-primary"
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium mb-2">
+                    Email
+                  </label>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="your.email@example.com"
+                    required
+                    className="bg-background border-border focus:border-teal-primary"
+                  />
+                </div>
+                
+                <div>
+                  <label htmlFor="message" className="block text-sm font-medium mb-2">
+                    Message
+                  </label>
+                  <Textarea
+                    id="message"
+                    name="message"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Tell me about your project or how I can help..."
+                    rows={5}
+                    required
+                    className="bg-background border-border focus:border-teal-primary resize-none"
+                  />
+                </div>
+                
+                <Button
+                  type="submit"
+                  className="w-full bg-teal-primary hover:bg-teal-secondary text-black"
+                >
+                  Send Message
+                </Button>
+              </form>
+            </CardContent>
+          </Card>
+
+          {/* Contact Information */}
+          <div className="space-y-8">
+            <div>
+              <h3 className="text-xl font-semibold mb-6 text-foreground">
+                Get in Touch
+              </h3>
+              
+              <div className="space-y-6">
+                <div className="flex items-center">
+                  <div className="w-12 h-12 rounded-lg bg-teal-primary/10 flex items-center justify-center mr-4">
+                    <MapPin className="w-5 h-5 text-teal-primary" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-foreground">Location</p>
+                    <p className="text-muted-foreground">Berlin, Germany</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-center">
+                  <div className="w-12 h-12 rounded-lg bg-teal-primary/10 flex items-center justify-center mr-4">
+                    <Mail className="w-5 h-5 text-teal-primary" />
+                  </div>
+                  <div>
+                    <p className="font-medium text-foreground">Email</p>
+                    <a
+                      href="mailto:hany@example.com"
+                      className="text-teal-primary hover:text-teal-secondary transition-colors"
+                    >
+                      hany@example.com
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <h3 className="text-xl font-semibold mb-6 text-foreground">
+                Connect with Me
+              </h3>
+              
+              <div className="flex space-x-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-teal-primary text-teal-primary hover:bg-teal-primary hover:text-black"
+                  asChild
+                >
+                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                    <Linkedin className="w-4 h-4 mr-2" />
+                    LinkedIn
+                  </a>
+                </Button>
+                
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-teal-primary text-teal-primary hover:bg-teal-primary hover:text-black"
+                  asChild
+                >
+                  <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+                    <Github className="w-4 h-4 mr-2" />
+                    GitHub
+                  </a>
+                </Button>
+                
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="border-teal-primary text-teal-primary hover:bg-teal-primary hover:text-black"
+                  asChild
+                >
+                  <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+                    <Twitter className="w-4 h-4 mr-2" />
+                    Twitter
+                  </a>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-24 pt-8 border-t border-border text-center">
+          <p className="text-muted-foreground">
+            © 2025 Hany El Saydawy. All rights reserved.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+}
