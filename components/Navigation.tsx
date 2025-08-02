@@ -5,7 +5,10 @@ import { Button } from './ui/button';
 
 export function Navigation() {
   const [activeSection, setActiveSection] = useState('');
-
+  //check if page not home
+  const isHome = window.location.pathname === '/';
+  // then change links to got to page with section
+ 
   useEffect(() => {
     const handleScroll = () => {
       const sections = ['hero', 'about', 'projects', 'services', 'blog', 'contact'];
@@ -25,13 +28,18 @@ export function Navigation() {
   }, []);
 
   const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (isHome) {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
+    } else {
+      window.location.href = `/#${sectionId}`;
     }
   };
 
   const navItems = [
+    { id: 'hero', label: 'Home' },
     { id: 'about', label: 'About' },
     { id: 'projects', label: 'Projects' },
     { id: 'services', label: 'Services' },

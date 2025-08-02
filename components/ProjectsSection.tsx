@@ -68,6 +68,7 @@ export async function ProjectsSection() {
                 </div>
                 
                 <div className="flex gap-3">
+                  {project.githubUrl && (
                   <Button
                     variant="outline"
                     size="sm"
@@ -79,7 +80,9 @@ export async function ProjectsSection() {
                       Code
                     </a>
                   </Button>
-                  <Button
+                  )}
+                  {project.liveUrl && (
+                    <Button
                     size="sm"
                     className="bg-teal-primary hover:bg-teal-secondary text-black"
                     asChild
@@ -89,6 +92,7 @@ export async function ProjectsSection() {
                       Live Demo
                     </a>
                   </Button>
+                  )}
                 </div>
               </CardContent>
             </Card>

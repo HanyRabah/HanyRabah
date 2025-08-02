@@ -3,8 +3,8 @@ import { Badge } from './ui/badge';
 
 export function AboutSection() {
   const techSkills = [
-    'React', 'TypeScript', 'Node.js', 'Python', 'PostgreSQL', 'AWS',
-    'Docker', 'GraphQL', 'Next.js', 'Tailwind CSS', 'MongoDB', 'Redis'
+    'React', 'TypeScript', 'Node.js', 'PostgreSQL', 'AWS',
+    'Docker', 'GraphQL', 'Next.js', 'Tailwind CSS', 'MongoDB'
   ];
 
   const softSkills = [
@@ -40,19 +40,27 @@ export function AboutSection() {
               </h2>
               <div className="space-y-8 text-muted-foreground">
                 <p>
-                  I'm a Senior Fullstack Engineer and Technical Lead based in Berlin, 
-                  with over 10 years of experience building scalable web applications 
-                  and leading development teams. I specialize in React, Node.js, and Next.js, 
-                  with a passion for creating exceptional user experiences.
+                  I’m a Senior Fullstack Engineer and Technical Lead based in Berlin, 
+                  with over 15 years of experience building scalable, high-performance 
+                  web applications and leading engineering teams.
+                </p>
+                <p>
+                  My expertise lies in React, Next.js, Node.js, and AWS delivering clean, 
+                  maintainable code and user-centered design systems across industries 
+                  like fintech, classifieds, and e-commerce.
+
                 </p>
                 <p>
                   Currently, I work at a fast-growing fintech startup <a href="https://www.godiligent.ai/" className="text-teal-primary hover:underline" target="_blank" rel="noopener noreferrer">GoDiligent</a>, 
-                  where I've architected systems that handle millions of transactions daily. 
-                  I believe in writing clean, maintainable code and fostering a culture of 
-                  continuous learning and collaboration.
+                  An AI-driven platform built to analyze complex customer data and streamline due diligence for banks and fintech firms.  
+                  I contributed to the integration of AI agents into compliance pipelines, developed interfaces to visualize risk insights, and ensured the system provides full auditability for enterprise-ready deployments.
                 </p>
                 <p>
-                When I’m not coding, you’ll find me behind the lens doing photography, deep 
+                  I believe in mentoring, continuous learning, and building bridges between 
+                  design, product, and engineering.
+                </p>
+                <p>
+                When I’m not coding, you’ll find me traveling, behind the lens doing photography, deep 
                 into a good book, or enjoying a strategic game of chess.
                 </p>
               </div>

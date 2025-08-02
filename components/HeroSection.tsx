@@ -36,21 +36,22 @@ export function HeroSection() {
       <div className="relative z-20 max-w-4xl mx-auto px-6 text-center">
 
         <div className="mb-10">
-          <h2 className="text-foreground text-xl mb-2">👋 Hi, I'm </h2>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 pb-2 bg-gradient-to-r from-teal-secondary via-teal-primary to-green-accent bg-clip-text text-transparent">
+          <h2 className="text-foreground text-xl mb-2">👋 Hi, I'm Hany El Saydawy </h2>
+          {/* <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 pb-2 bg-gradient-to-r from-teal-secondary via-teal-primary to-green-accent bg-clip-text text-transparent">
             Hany El Saydawy
-          </h1>
-          {/* <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 pb-2 bg-gradient-to-r from-foreground via-teal-primary to-green-accent bg-clip-text text-transparent">
+          </h1> */}
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 pb-2 bg-gradient-to-r from-foreground via-teal-primary to-green-accent bg-clip-text text-transparent">
             Technical Lead &<br />
             Fullstack Engineer
-          </h1> */}
+          </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-            I build accessible, high-performance digital products that scale.
+            I craft accessible, high-performance digital products
             <br />
-            Transforming complex problems into elegant solutions.
+            turning complex problems into elegant, scalable solutions.
             <br /><br />
-            
-            I'm based in Berlin, Germany.
+            <span className='text-sm font-light'>Available for freelance, contract, and consulting work</span>
+            <br />
+          <span className='text-sm font-light'>based in Berlin</span>
           </p>
         </div>
 
