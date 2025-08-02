@@ -54,11 +54,11 @@ export const metadata: Metadata = {
     siteName: 'Hany Rabah Portfolio',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Hany Rabah - Senior Fullstack Engineer & Technical Lead',
-        type: 'image/jpeg',
+        type: 'image/png',
       },
     ],
   },
@@ -66,7 +66,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Hany Rabah - Senior Fullstack Engineer & Technical Lead',
     description: 'Senior Fullstack Engineer and Technical Lead based in Berlin, crafting accessible, high-performance digital products.',
-    images: ['/og-image.jpg'],
+    images: ['/og-image.png'],
     creator: '@hanyrabah',
     site: '@hanyrabah',
   },
