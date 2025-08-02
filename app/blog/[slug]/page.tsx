@@ -7,6 +7,7 @@ import { Calendar, Clock, Tag, Share2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { RelatedPosts } from '@/components/RelatedPosts'
+import { StructuredData } from '@/components/StructuredData'
 
 // Disable static generation until database is set up
 export const dynamic = 'force-dynamic'
@@ -24,17 +25,92 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
 
   if (!post) {
     return {
-      title: 'Post Not Found',
+      title: 'Post Not Found - Hany Rabah Blog',
+      description: 'The requested blog post could not be found.',
+      robots: {
+        index: false,
+        follow: false,
+      },
     }
   }
 
+  // Generate cover image if none exists
+  const coverImageUrl = post.coverImage || generatePostImage(post.title, post.tags)
+  
+  // Calculate reading time
+  const wordCount = post.content.replace(/<[^>]*>/g, '').split(/\s+/).length
+  const readingTime = Math.ceil(wordCount / 200)
+  
+  // Create rich description
+  const description = post.excerpt || 
+    post.content.replace(/<[^>]*>/g, '').substring(0, 155) + '...'
+  
+  // Format publish date
+  const publishDate = post.publishedAt || post.createdAt
+  const formattedDate = publishDate.toISOString()
+
   return {
-    title: post.title,
-    description: post.excerpt || post.content.substring(0, 160),
+    title: `${post.title} - Hany Rabah Blog`,
+    description,
+    keywords: [
+      ...post.tags,
+      'Hany Rabah',
+      'Technical Blog',
+      'Web Development',
+      'Software Engineering',
+      'Programming Tutorial',
+      'Code Examples',
+      'Best Practices'
+    ],
+    authors: [{ name: 'Hany Rabah', url: 'https://hanyrabah.com' }],
+    creator: 'Hany Rabah',
+    publisher: 'Hany Rabah',
     openGraph: {
       title: post.title,
-      description: post.excerpt || post.content.substring(0, 160),
-      images: post.coverImage ? [post.coverImage] : [],
+      description,
+      type: 'article',
+      locale: 'en_US',
+      url: `https://hanyrabah.com/blog/${post.slug}`,
+      siteName: 'Hany Rabah Blog',
+      publishedTime: formattedDate,
+      modifiedTime: post.updatedAt.toISOString(),
+      authors: ['Hany Rabah'],
+      tags: post.tags,
+      images: [
+        {
+          url: coverImageUrl,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+          type: 'image/jpeg',
+        },
+      ],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: post.title,
+      description,
+      images: [coverImageUrl],
+      creator: '@hanyrabah',
+    },
+    alternates: {
+      canonical: `https://hanyrabah.com/blog/${post.slug}`,
+    },
+    category: 'technology',
+    other: {
+      'article:author': 'Hany Rabah',
+      'article:published_time': formattedDate,
+      'article:modified_time': post.updatedAt.toISOString(),
+      'article:section': 'Technology',
+      'article:tag': post.tags.join(','),
+      'twitter:label1': 'Reading time',
+      'twitter:data1': `${readingTime} min read`,
+      'twitter:label2': 'Published',
+      'twitter:data2': publishDate.toLocaleDateString('en-US', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      }),
     },
   }
 }
@@ -114,8 +190,26 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   // Generate cover image if none exists
   const coverImageUrl = post.coverImage || generatePostImage(post.title, post.tags)
 
+  // Structured data for SEO
+  const structuredData = {
+    title: post.title,
+    description: post.excerpt || post.content.replace(/<[^>]*>/g, '').substring(0, 155) + '...',
+    image: coverImageUrl,
+    author: {
+      name: 'Hany Rabah',
+      url: 'https://hanyrabah.com'
+    },
+    datePublished: (post.publishedAt || post.createdAt).toISOString(),
+    dateModified: post.updatedAt.toISOString(),
+    url: `https://hanyrabah.com/blog/${post.slug}`,
+    keywords: post.tags,
+    wordCount,
+    readingTime
+  }
+
   return (
     <div className="min-h-screen bg-background mt-24">
+      <StructuredData type="Article" data={structuredData} />
 
       <article className="container mx-auto px-4 py-12 max-w-4xl">
         {/* Header */}

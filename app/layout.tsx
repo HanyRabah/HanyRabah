@@ -11,51 +11,82 @@ import { ContactSection } from '@/components/ContactSection'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  metadataBase: new URL('http://localhost:3001'),
+  metadataBase: new URL('https://hanyrabah.com'),
   title: {
-    default: 'Your Name - Portfolio',
-    template: '%s | Your Name - Portfolio'
+    default: 'Hany Rabah - Senior Fullstack Engineer & Technical Lead',
+    template: '%s | Hany Rabah'
   },
-  description: 'Full-stack developer and designer creating digital experiences',
-  keywords: ['developer', 'designer', 'portfolio', 'web development', 'UI/UX'],
-  authors: [{ name: 'Your Name' }],
-  creator: 'Your Name',
+  description: 'Senior Fullstack Engineer and Technical Lead based in Berlin, crafting accessible, high-performance digital products. Expertise in React, Next.js, Node.js, and AWS.',
+  keywords: [
+    'Hany Rabah',
+    'Senior Fullstack Engineer',
+    'Technical Lead',
+    'React Developer',
+    'Next.js Expert',
+    'Node.js Developer',
+    'TypeScript',
+    'AWS',
+    'Berlin Developer',
+    'Fintech Engineer',
+    'Full Stack Developer',
+    'JavaScript Expert',
+    'Web Development',
+    'Software Engineer',
+    'Frontend Developer',
+    'Backend Developer',
+    'Portfolio',
+    'GoDiligent'
+  ],
+  authors: [{ name: 'Hany Rabah', url: 'https://hanyrabah.com' }],
+  creator: 'Hany Rabah',
+  publisher: 'Hany Rabah',
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://yourportfolio.vercel.app',
-    title: 'Your Name - Portfolio',
-    description: 'Full-stack developer and designer creating digital experiences',
-    siteName: 'Your Name Portfolio',
+    url: 'https://hanyrabah.com',
+    title: 'Hany Rabah - Senior Fullstack Engineer & Technical Lead',
+    description: 'Senior Fullstack Engineer and Technical Lead based in Berlin, crafting accessible, high-performance digital products. Expertise in React, Next.js, Node.js, and AWS.',
+    siteName: 'Hany Rabah Portfolio',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Your Name - Portfolio',
+        alt: 'Hany Rabah - Senior Fullstack Engineer & Technical Lead',
+        type: 'image/jpeg',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Your Name - Portfolio',
-    description: 'Full-stack developer and designer creating digital experiences',
+    title: 'Hany Rabah - Senior Fullstack Engineer & Technical Lead',
+    description: 'Senior Fullstack Engineer and Technical Lead based in Berlin, crafting accessible, high-performance digital products.',
     images: ['/og-image.jpg'],
+    creator: '@hanyrabah',
+    site: '@hanyrabah',
   },
   robots: {
     index: true,
     follow: true,
+    nocache: true,
     googleBot: {
       index: true,
       follow: true,
+      noimageindex: false,
       'max-video-preview': -1,
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
   },
-  verification: {
-    google: 'your-google-verification-code',
+  alternates: {
+    canonical: 'https://hanyrabah.com',
   },
+  category: 'technology',
 }
 
 export default function RootLayout({

@@ -3,14 +3,65 @@ import { prisma } from '@/lib/prisma'
 import { formatDate } from '@/lib/utils'
 import Link from 'next/link'
 import Image from 'next/image'
+import { StructuredData } from '@/components/StructuredData'
 
 // Disable static generation until database is set up
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('http://localhost:3001'),
-  title: 'Blog',
-  description: 'Thoughts, tutorials, and insights about web development and design',
+  title: 'Blog - Hany Rabah | Technical Insights & Web Development Tutorials',
+  description: 'Technical blog by Hany Rabah, Senior Fullstack Engineer. Deep dives into React, Next.js, TypeScript, Node.js, AWS, and modern web development practices. Learn from 15+ years of industry experience.',
+  keywords: [
+    'Hany Rabah Blog',
+    'Technical Blog',
+    'Web Development Tutorials',
+    'React Tutorials',
+    'Next.js Guide',
+    'TypeScript Tips',
+    'Node.js Best Practices',
+    'AWS Tutorials',
+    'JavaScript Advanced',
+    'Frontend Development',
+    'Backend Development',
+    'Full Stack Development',
+    'Software Engineering',
+    'Technical Leadership',
+    'Code Quality',
+    'Performance Optimization',
+    'Scalable Applications',
+    'Developer Experience'
+  ],
+  openGraph: {
+    title: 'Technical Blog - Hany Rabah',
+    description: 'Technical insights, tutorials, and best practices from a Senior Fullstack Engineer with 15+ years of experience in React, Next.js, Node.js, and AWS.',
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://hanyrabah.com/blog',
+    siteName: 'Hany Rabah Portfolio',
+    images: [
+      {
+        url: '/og-blog.jpg',
+        width: 1200,
+        height: 630,
+        alt: 'Hany Rabah Technical Blog - Web Development Insights',
+        type: 'image/jpeg',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Technical Blog - Hany Rabah',
+    description: 'Technical insights and tutorials from a Senior Fullstack Engineer. React, Next.js, TypeScript, and more.',
+    images: ['/og-blog.jpg'],
+    creator: '@hanyrabah',
+  },
+  alternates: {
+    canonical: 'https://hanyrabah.com/blog',
+    types: {
+      'application/rss+xml': 'https://hanyrabah.com/blog/rss.xml',
+    },
+  },
+  category: 'technology',
 }
 
 export default async function BlogPage() {
@@ -25,12 +76,30 @@ export default async function BlogPage() {
     console.warn('Database not available, showing empty blog page')
   }
 
+  // Structured data for SEO
+  const blogData = {
+    name: 'Hany Rabah Technical Blog',
+    description: 'Technical insights, tutorials, and best practices from a Senior Fullstack Engineer with 15+ years of experience.',
+    url: 'https://hanyrabah.com/blog',
+    author: {
+      name: 'Hany Rabah',
+      url: 'https://hanyrabah.com'
+    },
+    posts: posts.map(post => ({
+      title: post.title,
+      slug: post.slug,
+      datePublished: (post.publishedAt || post.createdAt).toISOString()
+    }))
+  }
+
   return (
     <div className="container mx-auto px-4 py-16 mt-24">
+      <StructuredData type="Blog" data={blogData} />
+      
       <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl font-bold mb-8">Blog</h1>
         <p className="text-xl text-muted-foreground mb-12">
-          Thoughts, tutorials, and insights about web development and design
+          Technical insights, tutorials, and best practices from 15+ years of experience
         </p>
 
         <div className="grid gap-8">

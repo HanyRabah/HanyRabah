@@ -5,9 +5,6 @@ import { Button } from './ui/button';
 
 export function Navigation() {
   const [activeSection, setActiveSection] = useState('');
-  //check if page not home
-  const isHome = window.location.pathname === '/';
-  // then change links to got to page with section
  
   useEffect(() => {
     const handleScroll = () => {
@@ -28,6 +25,7 @@ export function Navigation() {
   }, []);
 
   const scrollToSection = (sectionId: string) => {
+    const isHome = window.location.pathname === '/';
     if (isHome) {
       const element = document.getElementById(sectionId);
       if (element) {
