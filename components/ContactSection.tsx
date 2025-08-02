@@ -153,7 +153,7 @@ export function ContactSection() {
                   </div>
                   <div>
                     <p className="font-medium text-foreground">Location</p>
-                    <p className="text-muted-foreground">Berlin, Germany</p>
+                    <p className="text-muted-foreground">🇩🇪 Berlin, Germany</p>
                   </div>
                 </div>
                 
@@ -210,7 +210,7 @@ export function ContactSection() {
                   className="border-teal-primary text-teal-primary hover:bg-teal-primary hover:text-black"
                   asChild
                 >
-                  <a href="https://instagram.com/hanyrabah" target="_blank" rel="noopener noreferrer">
+                  <a href="https://instagram.com/hany.rabah" target="_blank" rel="noopener noreferrer">
                     <Instagram className="w-4 h-4 mr-2" />
                     Instagram
                   </a>
@@ -223,7 +223,7 @@ export function ContactSection() {
         {/* Footer */}
         <div className="mt-24 pt-8 border-t border-border text-center">
           <p className="text-muted-foreground">
-            © 2025. All rights reserved.
+            © {new Date().getFullYear()}. All rights reserved.
           </p>
         </div>
       </div>
