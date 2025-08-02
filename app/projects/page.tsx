@@ -7,9 +7,26 @@ import Image from 'next/image'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  metadataBase: new URL('http://localhost:3001'),
+  metadataBase: new URL('https://hanyrabah.com'),
   title: 'Projects',
   description: 'A showcase of my latest work and projects',
+  openGraph: {
+    title: 'Projects',
+    description: 'A showcase of my latest work and projects',
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://hanyrabah.com/projects',
+    siteName: 'Hany Rabah Portfolio',
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'Hany Rabah - Projects',
+        type: 'image/png',
+      },
+    ],
+  },
 }
 
 export default async function ProjectsPage() {

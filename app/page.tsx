@@ -44,11 +44,11 @@ export const metadata: Metadata = {
     siteName: 'Hany Rabah Portfolio',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
         alt: 'Hany Rabah - Senior Fullstack Engineer & Technical Lead',
-        type: 'image/jpeg',
+        type: 'image/png',
       },
     ],
   },
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Hany Rabah - Senior Fullstack Engineer & Technical Lead',
     description: 'Senior Fullstack Engineer with 15+ years of experience. Expert in React, Next.js, Node.js, and AWS.',
-    images: ['/og-image.jpg'],
+    images: ['/og-image.png'],
     creator: '@hanyrabah',
   },
   alternates: {
@@ -77,7 +77,7 @@ export default function Home() {
     jobTitle: 'Senior Fullstack Engineer & Technical Lead',
     description: 'Senior Fullstack Engineer and Technical Lead with 15+ years of experience building scalable, high-performance web applications.',
     url: 'https://hanyrabah.com',
-    image: 'https://hanyrabah.com/og-image.jpg',
+    image: 'https://hanyrabah.com/og-image.png',
     location: 'Berlin',
     company: 'GoDiligent',
     companyUrl: 'https://www.godiligent.ai/',
