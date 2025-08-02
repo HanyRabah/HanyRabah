@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import { formatDate } from '@/lib/utils'
-import Image from 'next/image'
+import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
 import { Calendar, Clock, Tag, Share2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -258,12 +258,12 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
           {/* Cover Image */}
           <div className="relative aspect-video mb-12 rounded-xl overflow-hidden bg-muted">
-            <Image
+            <ImageWithFallback
               src={coverImageUrl}
               alt={post.title}
-              fill
+              width={1200}
+              height={630}
               className="object-cover"
-              priority
             />
           </div>
         </header>

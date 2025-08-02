@@ -2,7 +2,7 @@ import { Metadata } from 'next'
 import { prisma } from '@/lib/prisma'
 import { formatDate } from '@/lib/utils'
 import Link from 'next/link'
-import Image from 'next/image'
+import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
 import { StructuredData } from '@/components/StructuredData'
 
 // Disable static generation until database is set up
@@ -111,7 +111,7 @@ export default async function BlogPage() {
               <div className="flex flex-col md:flex-row gap-6">
                 {post.coverImage && (
                   <div className="md:w-1/3">
-                    <Image
+                    <ImageWithFallback
                       src={post.coverImage}
                       alt={post.title}
                       width={300}
