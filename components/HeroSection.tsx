@@ -51,7 +51,7 @@ export function HeroSection() {
             <br /><br />
             <span className='text-sm font-light'>Available for freelance, contract, and consulting work</span>
             <br />
-          <span className='text-sm font-light'>based in Berlin</span>
+          <span className='text-sm font-light'>based in Berlin 🇩🇪</span>
           </p>
         </div>
 
