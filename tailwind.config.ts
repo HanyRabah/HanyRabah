@@ -44,10 +44,14 @@ const config: Config = {
           foreground: 'hsl(var(--card-foreground))',
         },
         // Custom portfolio colors
+        // let's try to make the color purple
         'teal-primary': '#14b8a6',
         'teal-secondary': '#0d9488',
         'teal-muted': '#115e59',
         'green-accent': '#10b981',
+        'purple-primary': '#8b5cf6',
+        'purple-secondary': '#7c3aed',
+        'purple-muted': '#6b21a8',
       },
       borderRadius: {
         lg: 'var(--radius)',

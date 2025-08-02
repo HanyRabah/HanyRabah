@@ -36,15 +36,13 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <Navigation />
-      <SocialLinks />
+     
       <main>
         <HeroSection />
         <AboutSection />
         <ProjectsSection />
         <ServicesSection />
         <BlogSection />
-        <ContactSection />
       </main>
     </div>
   );

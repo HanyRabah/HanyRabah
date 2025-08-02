@@ -4,7 +4,7 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Card, CardContent } from './ui/card';
-import { Mail, Linkedin, Github, Twitter, MapPin } from 'lucide-react';
+import { Mail, Linkedin, Github, MapPin, Instagram } from 'lucide-react';
 import { useState } from 'react';
 
 export function ContactSection() {
@@ -60,8 +60,7 @@ export function ContactSection() {
             Let's Work Together
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Have a project in mind or want to discuss opportunities? 
-            I'd love to hear from you and explore how we can collaborate.
+            Have a project, role, or idea in mind? Reach out and let’s explore how I can help.
           </p>
         </div>
 
@@ -165,10 +164,10 @@ export function ContactSection() {
                   <div>
                     <p className="font-medium text-foreground">Email</p>
                     <a
-                      href="mailto:hany@example.com"
+                      href="mailto:contact@hanyrabah.com"
                       className="text-teal-primary hover:text-teal-secondary transition-colors"
                     >
-                      hany@example.com
+                      contact@hanyrabah.com
                     </a>
                   </div>
                 </div>
@@ -187,7 +186,7 @@ export function ContactSection() {
                   className="border-teal-primary text-teal-primary hover:bg-teal-primary hover:text-black"
                   asChild
                 >
-                  <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer">
+                  <a href="https://linkedin.com/in/hany-rabah" target="_blank" rel="noopener noreferrer">
                     <Linkedin className="w-4 h-4 mr-2" />
                     LinkedIn
                   </a>
@@ -199,7 +198,7 @@ export function ContactSection() {
                   className="border-teal-primary text-teal-primary hover:bg-teal-primary hover:text-black"
                   asChild
                 >
-                  <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+                  <a href="https://github.com/hanyrabah" target="_blank" rel="noopener noreferrer">
                     <Github className="w-4 h-4 mr-2" />
                     GitHub
                   </a>
@@ -211,9 +210,9 @@ export function ContactSection() {
                   className="border-teal-primary text-teal-primary hover:bg-teal-primary hover:text-black"
                   asChild
                 >
-                  <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
-                    <Twitter className="w-4 h-4 mr-2" />
-                    Twitter
+                  <a href="https://instagram.com/hanyrabah" target="_blank" rel="noopener noreferrer">
+                    <Instagram className="w-4 h-4 mr-2" />
+                    Instagram
                   </a>
                 </Button>
               </div>

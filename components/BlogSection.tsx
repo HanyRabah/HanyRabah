@@ -80,7 +80,9 @@ export async function BlogSection() {
             variant="outline"
             className="border-teal-primary text-teal-primary hover:bg-teal-primary hover:text-black"
           >
-            View All Articles
+            <a href="/blog" className="flex items-center gap-2">
+              View All Articles
+            </a>
           </Button>
         </div>
       </div>

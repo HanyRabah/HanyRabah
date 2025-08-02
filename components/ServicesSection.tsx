@@ -1,5 +1,5 @@
 import { Card, CardContent } from './ui/card';
-import { Code, Layers, Zap, BarChart3, Wrench, Goal, TestTubeIcon, VectorSquare,ZapIcon,  BriefcaseBusinessIcon, LucideIcon } from 'lucide-react';
+import { Code, Layers, Zap, BarChart3, Wrench, Goal, TestTubeIcon, VectorSquare,ZapIcon,  BriefcaseBusinessIcon, Bot, LucideIcon  } from 'lucide-react';
 import { prisma } from '@/lib/prisma';
 
 const Icons: Record<string, LucideIcon> = {
@@ -13,6 +13,7 @@ const Icons: Record<string, LucideIcon> = {
   TestTubeIcon,
   ZapIcon,
   BriefcaseBusinessIcon,
+  Bot,
 };
 async function getServices() {
   try {
