@@ -10,7 +10,7 @@ const SocialLinks = () => {
             aria-label="GitHub"
             target="_blank"
             rel="noreferrer"
-            className="relative inline-block text-gray-600 transition-all duration-200 hover:text-teal-primary hover:translate-y-[-3px]"
+            className="relative inline-block text-gray-600 transition-all duration-200 hover:text-theme-primary hover:translate-y-[-3px]"
           >
             <Github />
           </a>
@@ -21,7 +21,7 @@ const SocialLinks = () => {
             aria-label="Instagram"
             target="_blank"
             rel="noreferrer"
-            className="relative inline-block text-gray-600 transition-all duration-200 hover:text-teal-primary hover:translate-y-[-3px]"
+            className="relative inline-block text-gray-600 transition-all duration-200 hover:text-theme-primary hover:translate-y-[-3px]"
           >
             <Instagram />
           </a>
@@ -32,7 +32,7 @@ const SocialLinks = () => {
             aria-label="Twitter"
             target="_blank"
             rel="noreferrer"
-            className="relative inline-block text-gray-600 transition-all duration-200 hover:text-teal-primary hover:translate-y-[-3px]"
+            className="relative inline-block text-gray-600 transition-all duration-200 hover:text-theme-primary hover:translate-y-[-3px]"
           >
             <Twitter />
           </a>
@@ -43,7 +43,7 @@ const SocialLinks = () => {
             aria-label="Linkedin"
             target="_blank"
             rel="noreferrer"
-            className="relative inline-block text-gray-600 transition-all duration-200 hover:text-teal-primary hover:translate-y-[-3px]"
+            className="relative inline-block text-gray-600 transition-all duration-200 hover:text-theme-primary hover:translate-y-[-3px]"
           >
             <Linkedin />
           </a>
@@ -54,7 +54,7 @@ const SocialLinks = () => {
             aria-label="Codepen"
             target="_blank"
             rel="noreferrer"
-            className="relative inline-block text-gray-600 transition-all duration-200 hover:text-teal-primary hover:translate-y-[-3px]"
+            className="relative inline-block text-gray-600 transition-all duration-200 hover:text-theme-primary hover:translate-y-[-3px]"
           > 
             <Mail />
           </a>

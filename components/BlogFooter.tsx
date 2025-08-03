@@ -11,7 +11,7 @@ export function BlogFooter() {
           <div className="md:col-span-2">
             <Link 
               href="/" 
-              className="text-xl font-bold text-foreground hover:text-teal-primary transition-colors"
+              className="text-xl font-bold text-foreground hover:text-theme-primary transition-colors"
             >
               Hany Rabah
             </Link>

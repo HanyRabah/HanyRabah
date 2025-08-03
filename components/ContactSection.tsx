@@ -56,7 +56,7 @@ export function ContactSection() {
     <section id="contact" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-teal-primary">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-theme-primary">
             Let's Work Together
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -80,7 +80,7 @@ export function ContactSection() {
                     onChange={handleChange}
                     placeholder="Your name"
                     required
-                    className="bg-background border-border focus:border-teal-primary"
+                    className="bg-background border-border focus:border-theme-primary"
                   />
                 </div>
                 
@@ -96,7 +96,7 @@ export function ContactSection() {
                     onChange={handleChange}
                     placeholder="your.email@example.com"
                     required
-                    className="bg-background border-border focus:border-teal-primary"
+                    className="bg-background border-border focus:border-theme-primary"
                   />
                 </div>
                 
@@ -112,14 +112,14 @@ export function ContactSection() {
                     placeholder="Tell me about your project or how I can help..."
                     rows={5}
                     required
-                    className="bg-background border-border focus:border-teal-primary resize-none"
+                    className="bg-background border-border focus:border-theme-primary resize-none"
                   />
                 </div>
                 
                 <Button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-teal-primary hover:bg-teal-secondary text-black disabled:opacity-50"
+                  className="w-full border border-theme-primary bg-transparent text-theme-primary hover:bg-theme-primary hover:text-white disabled:opacity-50"
                 >
                   {isSubmitting ? 'Sending...' : 'Send Message'}
                 </Button>
@@ -148,8 +148,8 @@ export function ContactSection() {
               
               <div className="space-y-6">
                 <div className="flex items-center">
-                  <div className="w-12 h-12 rounded-lg bg-teal-primary/10 flex items-center justify-center mr-4">
-                    <MapPin className="w-5 h-5 text-teal-primary" />
+                  <div className="w-12 h-12 rounded-lg bg-theme-primary/10 flex items-center justify-center mr-4">
+                    <MapPin className="w-5 h-5 text-theme-primary" />
                   </div>
                   <div>
                     <p className="font-medium text-foreground">Location</p>
@@ -158,14 +158,14 @@ export function ContactSection() {
                 </div>
                 
                 <div className="flex items-center">
-                  <div className="w-12 h-12 rounded-lg bg-teal-primary/10 flex items-center justify-center mr-4">
-                    <Mail className="w-5 h-5 text-teal-primary" />
+                  <div className="w-12 h-12 rounded-lg bg-theme-primary/10 flex items-center justify-center mr-4">
+                    <Mail className="w-5 h-5 text-theme-primary" />
                   </div>
                   <div>
                     <p className="font-medium text-foreground">Email</p>
                     <a
                       href="mailto:contact@hanyrabah.com"
-                      className="text-teal-primary hover:text-teal-secondary transition-colors"
+                      className="text-theme-primary hover:text-theme-secondary transition-colors"
                     >
                       contact@hanyrabah.com
                     </a>
@@ -183,7 +183,7 @@ export function ContactSection() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="border-teal-primary text-teal-primary hover:bg-teal-primary hover:text-black"
+                  className="border-theme-primary text-theme-primary hover:bg-theme-primary hover:text-black"
                   asChild
                 >
                   <a href="https://linkedin.com/in/hany-rabah" target="_blank" rel="noopener noreferrer">
@@ -195,7 +195,7 @@ export function ContactSection() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="border-teal-primary text-teal-primary hover:bg-teal-primary hover:text-black"
+                  className="border-theme-primary text-theme-primary hover:bg-theme-primary hover:text-black"
                   asChild
                 >
                   <a href="https://github.com/hanyrabah" target="_blank" rel="noopener noreferrer">
@@ -207,7 +207,7 @@ export function ContactSection() {
                 <Button
                   variant="outline"
                   size="sm"
-                  className="border-teal-primary text-teal-primary hover:bg-teal-primary hover:text-black"
+                  className="border-theme-primary text-theme-primary hover:bg-theme-primary hover:text-black"
                   asChild
                 >
                   <a href="https://instagram.com/hany.rabah" target="_blank" rel="noopener noreferrer">

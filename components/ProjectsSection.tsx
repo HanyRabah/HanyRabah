@@ -30,7 +30,7 @@ export async function ProjectsSection() {
     <section id="projects" className="py-24 px-6 bg-muted/20">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-teal-primary">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-theme-primary">
             Latest Work
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -41,7 +41,7 @@ export async function ProjectsSection() {
 
         <div className="grid md:grid-cols-2 gap-8">
           {projects.map((project) => (
-            <Card key={project.id} className="group overflow-hidden border-border hover:border-teal-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-teal-primary/10">
+            <Card key={project.id} className="group overflow-hidden border-border hover:border-theme-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-theme-primary/10">
               <div className="relative overflow-hidden">
                 <ImageWithFallback
                   src={project.coverImage || ''}
@@ -52,7 +52,7 @@ export async function ProjectsSection() {
               </div>
               
               <CardContent className="p-6">
-                <h3 className="text-xl font-semibold mb-3 text-foreground group-hover:text-teal-primary transition-colors">
+                <h3 className="text-xl font-semibold mb-3 text-foreground group-hover:text-theme-primary transition-colors">
                   {project.title}
                 </h3>
                 <p className="text-muted-foreground mb-4 leading-relaxed">
@@ -72,7 +72,7 @@ export async function ProjectsSection() {
                   <Button
                     variant="outline"
                     size="sm"
-                    className="border-teal-primary text-teal-primary hover:bg-teal-primary hover:text-black"
+                    className="border-theme-primary text-theme-primary hover:bg-theme-primary hover:text-white"
                     asChild
                   >
                     <a href={project.githubUrl || '#'} target="_blank" rel="noopener noreferrer">
@@ -84,8 +84,8 @@ export async function ProjectsSection() {
                   {project.liveUrl && (
                     <Button
                     size="sm"
-                    className="bg-teal-primary hover:bg-teal-secondary text-black"
                     asChild
+                    className="border border-theme-primary bg-transparent text-theme-primary hover:bg-theme-primary hover:text-white"
                   >
                     <a href={project.liveUrl || '#'} target="_blank" rel="noopener noreferrer">
                       <ExternalLink className="w-4 h-4 mr-2" />

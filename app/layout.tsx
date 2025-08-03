@@ -7,6 +7,7 @@ import { Analytics } from "@vercel/analytics/next"
 import SocialLinks from '@/components/socialLinks'
 import { Navigation } from '@/components/Navigation'
 import { ContactSection } from '@/components/ContactSection'
+import { ThemeProvider } from '@/contexts/ThemeContext'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -95,16 +96,14 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en" className="scroll-smooth">
       <body className={inter.className}>
-      <Navigation />
-      <SocialLinks /> 
-        {children}
-        <GoogleAnalytics />
-        <SpeedInsights />
-        <Analytics />
-        <ContactSection />
-      
+        <ThemeProvider>
+          {children}
+          <GoogleAnalytics />
+          <SpeedInsights />
+          <Analytics />
+        </ThemeProvider>
       </body>
     </html>
   )

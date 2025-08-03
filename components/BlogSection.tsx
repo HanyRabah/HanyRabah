@@ -23,7 +23,7 @@ export async function BlogSection() {
     <section id="blog" className="py-24 px-6 bg-muted/20">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-teal-primary">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-theme-primary">
             Insights & Articles
           </h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
@@ -34,10 +34,10 @@ export async function BlogSection() {
 
         <div className="grid lg:grid-cols-3 gap-8">
           {blogPosts.map((post) => (
-            <Card key={post.id} className="group border-border hover:border-teal-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-teal-primary/10">
+            <Card key={post.id} className="group border-border hover:border-theme-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-theme-primary/10">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-4">
-                  <span className="text-xs font-medium text-teal-primary bg-teal-primary/10 px-2 py-1 rounded">
+                  <span className="text-xs font-medium text-theme-primary bg-theme-primary/10 px-2 py-1 rounded">
                     {post.tags[0]}
                   </span>
                   <div className="flex items-center text-xs text-muted-foreground">
@@ -46,7 +46,7 @@ export async function BlogSection() {
                   </div>
                 </div>
                 
-                <h3 className="text-lg font-semibold mb-3 text-foreground group-hover:text-teal-primary transition-colors leading-tight">
+                <h3 className="text-lg font-semibold mb-3 text-foreground group-hover:text-theme-primary transition-colors leading-tight">
                   {post.title}
                 </h3>
                 
@@ -61,7 +61,7 @@ export async function BlogSection() {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className="text-teal-primary hover:text-teal-secondary hover:bg-teal-primary/10 p-0 h-auto group/btn"
+                    className="text-theme-primary hover:text-theme-secondary hover:bg-theme-primary/10 p-0 h-auto group/btn"
                     asChild
                   >
                     <a href={`/blog/${post.slug}`}>
@@ -78,7 +78,7 @@ export async function BlogSection() {
         <div className="text-center mt-12">
           <Button
             variant="outline"
-            className="border-teal-primary text-teal-primary hover:bg-teal-primary hover:text-black"
+            className="border border-theme-primary bg-transparent text-theme-primary hover:bg-theme-primary hover:text-white"
           >
             <a href="/blog" className="flex items-center gap-2">
               View All Articles

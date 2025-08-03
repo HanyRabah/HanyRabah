@@ -98,7 +98,7 @@ export function RelatedPosts({ posts, currentPostId }: RelatedPostsProps) {
                   )}
 
                   {/* Title */}
-                  <h3 className="text-lg font-semibold text-foreground group-hover:text-teal-primary transition-colors line-clamp-2 mb-2">
+                  <h3 className="text-lg font-semibold text-foreground group-hover:text-theme-primary transition-colors line-clamp-2 mb-2">
                     {post.title}
                   </h3>
 

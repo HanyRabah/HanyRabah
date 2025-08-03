@@ -9,11 +9,13 @@ interface ContactEmailData {
   message: string
 }
 
+const SENDER_EMAIL = process.env.SENDER_EMAIL as string;
+const RECIPIENT_EMAIL = process.env.RECIPIENT_EMAIL as string;
+
 export async function sendContactEmail(data: ContactEmailData) {
   try {
     const { name, email, subject, message } = data
     
-    // Email template for the notification
     const emailHtml = `
       <!DOCTYPE html>
       <html>
@@ -69,11 +71,10 @@ export async function sendContactEmail(data: ContactEmailData) {
       </html>
     `
 
-    // Send email to yourself
     const result = await resend.emails.send({
-      from: 'Portfolio Contact <noreply@hanyrabah.com>',
-      to: ['contact@hanyrabah.com'],
-      replyTo: email, // This allows you to reply directly to the sender
+      from: `Portfolio Contact <${SENDER_EMAIL}>`,
+      to: [RECIPIENT_EMAIL],
+      replyTo: email,
       subject: subject ? `Portfolio Contact: ${subject}` : `Portfolio Contact from ${name}`,
       html: emailHtml,
     })
@@ -89,7 +90,6 @@ export async function sendAutoReply(data: ContactEmailData) {
   try {
     const { name, email } = data
     
-    // Auto-reply email template
     const autoReplyHtml = `
       <!DOCTYPE html>
       <html>
@@ -122,7 +122,7 @@ export async function sendAutoReply(data: ContactEmailData) {
               <ul>
                 <li>Check out my latest projects on <a href="https://hanyrabah.com/#projects" style="color: #14b8a6;">my portfolio</a></li>
                 <li>Read my technical blog posts at <a href="https://hanyrabah.com/blog" style="color: #14b8a6;">hanyrabah.com/blog</a></li>
-                <li>Connect with me on <a href="https://linkedin.com/in/hany-rabah" style="color: #14b8a6;">LinkedIn</a></li>
+                <li>Connect with me on <a href="https://www.linkedin.com/in/hanyrabah/" style="color: #14b8a6;">LinkedIn</a></li>
               </ul>
               
               <div class="signature">
@@ -132,7 +132,7 @@ export async function sendAutoReply(data: ContactEmailData) {
                 
                 <div class="social-links">
                   <a href="https://hanyrabah.com">Portfolio</a>
-                  <a href="https://linkedin.com/in/hany-rabah">LinkedIn</a>
+                  <a href="https://www.linkedin.com/in/hanyrabah/">LinkedIn</a>
                   <a href="https://github.com/hanyrabah">GitHub</a>
                 </div>
               </div>
@@ -142,9 +142,8 @@ export async function sendAutoReply(data: ContactEmailData) {
       </html>
     `
 
-    // Send auto-reply to the sender
     const result = await resend.emails.send({
-      from: 'Hany Rabah <noreply@hanyrabah.com>',
+      from: `Hany Rabah <${SENDER_EMAIL}>`,
       to: [email],
       subject: 'Thank you for contacting me - Hany Rabah',
       html: autoReplyHtml,
