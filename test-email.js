@@ -157,7 +157,6 @@ async function testSendContactEmail(data) {
   }
 }
 
-// Step 4: Test Auto-Reply Function
 async function testSendAutoReply(data) {
   console.log('\n📧 Testing Auto-Reply Email Function:');
   console.log('====================================');
