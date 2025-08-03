@@ -85,6 +85,23 @@ export function MouseFollowAnimation() {
       const mouse = mouseRef.current;
       const fadeMultiplier = isHoveringButtonRef.current ? 0.1 : 1;
 
+      // Get dynamic theme primary color from CSS variables
+      const themeColor = getComputedStyle(document.documentElement)
+        .getPropertyValue('--theme-primary')
+        .trim();
+      
+      // Convert hex to RGB for canvas usage
+      const hexToRgb = (hex: string) => {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+          r: parseInt(result[1], 16),
+          g: parseInt(result[2], 16),
+          b: parseInt(result[3], 16)
+        } : { r: 20, g: 184, b: 166 }; // fallback to teal
+      };
+      
+      const rgb = hexToRgb(themeColor);
+
       dotsRef.current.forEach((dot) => {
         // Calculate distance from mouse to dot
         const dx = mouse.x - dot.x;
@@ -106,22 +123,22 @@ export function MouseFollowAnimation() {
         if (dot.opacity > 0.05) {
           ctx.save();
           
-          // Create gradient for glow effect
+          // Create gradient for glow effect using dynamic theme color
           const gradient = ctx.createRadialGradient(
             dot.x, dot.y, 0,
             dot.x, dot.y, 8 * dot.scale
           );
-          gradient.addColorStop(0, `rgba(20, 184, 166, ${dot.opacity})`);
-          gradient.addColorStop(0.5, `rgba(20, 184, 166, ${dot.opacity * 0.5})`);
-          gradient.addColorStop(1, `rgba(20, 184, 166, 0)`);
+          gradient.addColorStop(0, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${dot.opacity})`);
+          gradient.addColorStop(0.5, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${dot.opacity * 0.5})`);
+          gradient.addColorStop(1, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0)`);
 
           ctx.fillStyle = gradient;
           ctx.beginPath();
           ctx.arc(dot.x, dot.y, 8 * dot.scale, 0, Math.PI * 2);
           ctx.fill();
 
-          // Draw core dot
-          ctx.fillStyle = `rgba(20, 184, 166, ${dot.opacity})`;
+          // Draw core dot using dynamic theme color
+          ctx.fillStyle = `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${dot.opacity})`;
           ctx.beginPath();
           ctx.arc(dot.x, dot.y, 2 * dot.scale, 0, Math.PI * 2);
           ctx.fill();
@@ -139,9 +156,10 @@ export function MouseFollowAnimation() {
           mouse.x, mouse.y, 0,
           mouse.x, mouse.y, 100
         );
-        glareGradient.addColorStop(0, `rgba(20, 184, 166, ${0.15 * glareOpacity})`);
-        glareGradient.addColorStop(0.3, `rgba(16, 185, 129, ${0.08 * glareOpacity})`);
-        glareGradient.addColorStop(1, `rgba(20, 184, 166, 0)`);
+        // Use dynamic theme colors for glare effect
+        glareGradient.addColorStop(0, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${0.15 * glareOpacity})`);
+        glareGradient.addColorStop(0.3, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, ${0.08 * glareOpacity})`);
+        glareGradient.addColorStop(1, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0)`);
 
         ctx.fillStyle = glareGradient;
         ctx.beginPath();

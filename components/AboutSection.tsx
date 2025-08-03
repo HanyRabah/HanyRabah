@@ -45,11 +45,11 @@ export function AboutSection() {
           {/* Profile Image */}
           {/* <div className="relative">
             <div className="relative w-80 h-80 mx-auto lg:mx-0">
-              <div className="absolute inset-0 bg-gradient-to-br from-teal-primary to-green-accent rounded-2xl blur-xl opacity-20"></div>
+              <div className="absolute inset-0 bg-gradient-to-br from-theme-primary to-green-accent rounded-2xl blur-xl opacity-20"></div>
               <ImageWithFallback
                 src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
                 alt="Hany El Saydawy"
-                className="relative z-10 w-full h-full object-cover rounded-2xl border-2 border-teal-primary/20"
+                className="relative z-10 w-full h-full object-cover rounded-2xl border-2 border-theme-primary/20"
               />
             </div>
           </div> */}
@@ -57,7 +57,7 @@ export function AboutSection() {
           {/* Bio and Content */}
           <div className="space-y-16">
             <div>
-              <h2 className="text-center text-3xl md:text-4xl font-bold mb-6 text-teal-primary">
+              <h2 className="text-center text-3xl md:text-4xl font-bold mb-6 text-theme-primary">
                 About Me
               </h2>
               <div className="space-y-8 text-muted-foreground">
@@ -77,7 +77,7 @@ export function AboutSection() {
                   Currently, I work at a fast-growing fintech startup{" "}
                   <a
                     href="https://www.godiligent.ai/"
-                    className="text-teal-primary hover:underline"
+                    className="text-theme-primary hover:underline"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -112,8 +112,7 @@ export function AboutSection() {
                   {techSkills.map((skill) => (
                     <Badge
                       key={skill}
-                      variant="secondary"
-                      className="bg-teal-muted/20 text-teal-primary border-teal-primary/20"
+                      variant="primary"
                     >
                       {skill}
                     </Badge>
@@ -130,7 +129,6 @@ export function AboutSection() {
                     <Badge
                       key={skill}
                       variant="secondary"
-                      className="bg-green-accent/20 text-green-accent border-green-accent/20"
                     >
                       {skill}
                     </Badge>
@@ -146,8 +144,7 @@ export function AboutSection() {
                   {languages.map((language) => (
                     <Badge
                       key={language}
-                      variant="outline"
-                      className="border-muted-foreground/20"
+                      variant="tertiary"
                     >
                       {language}
                     </Badge>
@@ -160,7 +157,19 @@ export function AboutSection() {
                 onClick={downloadResume}
                 variant="outline"
                 size="lg"
-                className="border-teal-primary text-teal-primary hover:bg-teal-primary hover:text-white"
+                className="border hover:text-white transition-colors"
+                style={{
+                  borderColor: 'var(--theme-primary)',
+                  color: 'var(--theme-primary)',
+                  '--hover-bg': 'var(--theme-primary)'
+                } as React.CSSProperties & { '--hover-bg': string }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.backgroundColor = 'var(--theme-primary)';
+                  e.currentTarget.style.color = 'white';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.backgroundColor = 'transparent';
+                }}
               >
                 <Download className="mr-2 h-4 w-4" />
                 Download Resume

@@ -99,7 +99,7 @@ export default async function ArticlesPage() {
                       </div>
                     </div>
                     
-                    <h3 className="text-xl font-semibold mb-3 text-foreground group-hover:text-teal-primary transition-colors">
+                    <h3 className="text-xl font-semibold mb-3 text-foreground group-hover:text-theme-primary transition-colors">
                       <Link href={`/blog/${article.slug}`}>
                         {article.title}
                       </Link>
@@ -124,7 +124,7 @@ export default async function ArticlesPage() {
                     
                     <Link
                       href={`/blog/${article.slug}`}
-                      className="text-teal-primary hover:text-teal-secondary font-medium text-sm transition-colors"
+                      className="text-theme-primary hover:text-theme-secondary font-medium text-sm transition-colors"
                     >
                       Read more →
                     </Link>

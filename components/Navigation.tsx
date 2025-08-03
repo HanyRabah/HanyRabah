@@ -1,7 +1,9 @@
-
 "use client";
 import { useState, useEffect } from 'react';
+import { Menu, X } from 'lucide-react';
 import { Button } from './ui/button';
+import { cn } from '@/lib/utils';
+import { ThemeSwitcher } from './ThemeSwitcher';
 
 export function Navigation() {
   const [activeSection, setActiveSection] = useState('');
@@ -50,7 +52,7 @@ export function Navigation() {
       <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* <button
           onClick={() => scrollToSection('hero')}
-          className="text-2xl font-semibold text-teal-primary hover:text-teal-secondary transition-colors"
+          className="text-2xl font-semibold text-theme-primary hover:text-teal-secondary transition-colors"
         >
           Hany
         </button> */}
@@ -60,21 +62,25 @@ export function Navigation() {
             <button
               key={item.id}
               onClick={() => scrollToSection(item.id)}
-              className={`text-sm transition-colors hover:text-teal-primary ${
-                activeSection === item.id ? 'text-teal-primary' : 'text-muted-foreground'
+              className={`text-sm transition-colors hover:text-theme-primary ${
+                activeSection === item.id ? 'text-theme-primary' : 'text-muted-foreground'
               }`}
             >
               {item.label}
             </button>
           ))}
+          {/* Theme Switcher */}
         </div>
 
+        <div className="flex items-center space-x-4">
         <Button
           onClick={() => scrollToSection('contact')}
-          className="bg-teal-primary hover:bg-teal-secondary text-black"
+          className="bg-theme-primary hover:bg-theme-secondary text-black"
         >
           Let's Talk
         </Button>
+          <ThemeSwitcher />
+        </div>
       </div>
     </nav>
   );

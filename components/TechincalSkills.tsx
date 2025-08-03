@@ -27,7 +27,7 @@ const TechincalSkills = () => {
             <Badge
               key={skill}
               variant="secondary"
-              className="bg-teal-primary/10 text-teal-primary border-teal-primary/20"
+              className="bg-theme-primary/10 text-theme-primary border-theme-primary/20"
             >
               {skill}
             </Badge>

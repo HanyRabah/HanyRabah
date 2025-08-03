@@ -1,12 +1,9 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import './globals.css'
+import '../globals.css'
 import { GoogleAnalytics } from '@/components/GoogleAnalytics'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/next"
-import SocialLinks from '@/components/socialLinks'
-import { Navigation } from '@/components/Navigation'
-import { ContactSection } from '@/components/ContactSection'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 
 const inter = Inter({ subsets: ['latin'] })

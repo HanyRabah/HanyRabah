@@ -26,7 +26,7 @@ export function HeroAboutSection() {
     <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Animated gradient background */}
       <div className="absolute inset-0 opacity-30">
-        <div className="absolute inset-0 bg-gradient-to-br from-teal-primary/20 via-background to-green-accent/20 animate-gradient"></div>
+        <div className="absolute inset-0 bg-gradient-to-br from-theme-primary/20 via-background to-green-accent/20 animate-gradient"></div>
       </div>
       
       {/* Grid pattern overlay */}
@@ -42,8 +42,8 @@ export function HeroAboutSection() {
           {/* Left Column - Name and Title */}
           <div className="space-y-8">
             <div>
-              <p className="text-teal-primary text-lg mb-2">Hi, I'm Hany</p>
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground via-teal-primary to-green-accent bg-clip-text text-transparent">
+              <p className="text-theme-primary text-lg mb-2">Hi, I'm Hany</p>
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground via-theme-primary to-green-accent bg-clip-text text-transparent">
                 Technical Lead & <br />
                 Fullstack Engineer
               </h1>
@@ -74,7 +74,7 @@ export function HeroAboutSection() {
               <Button
                 onClick={scrollToProjects}
                 size="lg"
-                className="bg-teal-primary hover:bg-teal-secondary text-black group"
+                className="bg-theme-primary hover:bg-theme-secondary text-black group"
               >
                 View My Work
                 <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
@@ -84,7 +84,7 @@ export function HeroAboutSection() {
                 onClick={scrollToContact}
                 variant="outline"
                 size="lg"
-                className="border-teal-primary text-teal-primary hover:bg-teal-primary hover:text-black"
+                className="border-theme-primary text-theme-primary hover:bg-theme-primary hover:text-black"
               >
                 <Download className="mr-2 h-4 w-4" />
                 Download CV
