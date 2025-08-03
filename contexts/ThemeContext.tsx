@@ -3,7 +3,7 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
 
 export type ColorTheme = 'teal' | 'purple' | 'blue' | 'orange' | 'green'
-export type Mode = 'light' | 'dark'
+export type Mode =  'dark' | 'light'
 
 interface ThemeContextType {
   colorTheme: ColorTheme
@@ -88,7 +88,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [colorTheme, setColorTheme] = useState<ColorTheme>(randomizeTheme())
   const [mode, setMode] = useState<Mode>('dark')
 
-  // Load theme from localStorage on mount
   useEffect(() => {
     const savedColorTheme = localStorage.getItem('color-theme') as ColorTheme
     const savedMode = localStorage.getItem('mode') as Mode
@@ -100,18 +99,16 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     if (savedMode) {
       setMode(savedMode)
     } else {
-      // Check system preference
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
+      // Default to dark mode instead of system preference
+      const prefersDark = true; //window.matchMedia('(prefers-color-scheme: dark)').matches
       setMode(prefersDark ? 'dark' : 'light')
     }
   }, [])
 
-  // Apply theme to document
   useEffect(() => {
     const root = document.documentElement
     const theme = colorThemes[colorTheme]
     
-    // Helper function to convert hex to RGB
     const hexToRgb = (hex: string) => {
       const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
       return result ? {
@@ -121,15 +118,18 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       } : null
     }
     
-    // Apply color theme CSS variables
+    
     root.style.setProperty('--theme-primary', theme.primary)
     root.style.setProperty('--theme-secondary', theme.secondary)
+    root.style.setProperty('--theme-tertiary', theme.tertiary)
+    root.style.setProperty('--theme-forth', theme.forth)
     root.style.setProperty('--theme-muted', theme.muted)
     root.style.setProperty('--theme-accent', theme.accent)
     
-    // Apply RGB versions for opacity support
     const primaryRgb = hexToRgb(theme.primary)
     const secondaryRgb = hexToRgb(theme.secondary)
+    const tertiaryRgb = hexToRgb(theme.tertiary)
+    const forthRgb = hexToRgb(theme.forth)
     const mutedRgb = hexToRgb(theme.muted)
     const accentRgb = hexToRgb(theme.accent)
     
@@ -141,6 +141,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
     if (mutedRgb) {
       root.style.setProperty('--theme-muted-rgb', `${mutedRgb.r}, ${mutedRgb.g}, ${mutedRgb.b}`)
+    }
+    if (tertiaryRgb) {
+      root.style.setProperty('--theme-tertiary-rgb', `${tertiaryRgb.r}, ${tertiaryRgb.g}, ${tertiaryRgb.b}`)
+    }
+    if (forthRgb) {
+      root.style.setProperty('--theme-forth-rgb', `${forthRgb.r}, ${forthRgb.g}, ${forthRgb.b}`)
     }
     if (accentRgb) {
       root.style.setProperty('--theme-accent-rgb', `${accentRgb.r}, ${accentRgb.g}, ${accentRgb.b}`)
