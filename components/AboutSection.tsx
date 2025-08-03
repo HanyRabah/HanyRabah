@@ -128,7 +128,7 @@ export function AboutSection() {
                   {softSkills.map((skill) => (
                     <Badge
                       key={skill}
-                      variant="secondary"
+                      variant="primary"
                     >
                       {skill}
                     </Badge>
@@ -144,7 +144,7 @@ export function AboutSection() {
                   {languages.map((language) => (
                     <Badge
                       key={language}
-                      variant="tertiary"
+                      variant="primary"
                     >
                       {language}
                     </Badge>
