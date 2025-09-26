@@ -47,7 +47,7 @@ export function Navigation() {
     { id: 'hero', label: 'Home' },
     { id: 'about', label: 'About' },
     { id: 'projects', label: 'Projects' },
-    { id: 'design', href: '/design', label: 'Design Portfolio' },
+    { id: 'design', href: '/design', label: 'Portfolio' },
     { id: 'services', label: 'Services' },
     { id: 'blog', label: 'Blog' },
     { id: 'contact', label: 'Contact' },
