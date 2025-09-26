@@ -27,6 +27,17 @@ export function AboutSection() {
     "Agile/Scrum",
   ];
 
+  const designSkills = [
+    "UI/UX Design",
+    "Figma",
+    "Adobe Creative Suite",
+    "Prototyping",
+    "User Research",
+    "Design Systems",
+    "Wireframing",
+    "Visual Design",
+  ];
+
   const languages = [
     "English (Fluent)",
     "Arabic (Native)",
@@ -68,10 +79,11 @@ export function AboutSection() {
                   teams.
                 </p>
                 <p>
-                  My expertise lies in React, Next.js, Node.js, and AWS
-                  delivering clean, maintainable code and user-centered design
-                  systems across industries like fintech, classifieds, and
-                  e-commerce.
+                  My expertise spans both technical development and design, with
+                  deep knowledge in React, Next.js, Node.js, and AWS, combined
+                  with strong UI/UX design skills. I deliver clean, maintainable
+                  code and user-centered design systems across industries like
+                  fintech, classifieds, and e-commerce.
                 </p>
                 <p>
                   Currently, I work at a fast-growing fintech startup{" "}
@@ -92,7 +104,10 @@ export function AboutSection() {
                 </p>
                 <p>
                   I believe in mentoring, continuous learning, and building
-                  bridges between design, product, and engineering.
+                  bridges between design, product, and engineering. My unique
+                  combination of technical expertise and design sensibility allows
+                  me to create solutions that are both technically sound and
+                  visually compelling.
                 </p>
                 <p>
                   When I’m not coding, you’ll find me traveling, behind the lens
@@ -103,7 +118,7 @@ export function AboutSection() {
             </div>
 
             {/* Skills Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               <div>
                 <h3 className="text-lg font-semibold mb-3 text-foreground">
                   Tech Stack
@@ -126,6 +141,22 @@ export function AboutSection() {
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {softSkills.map((skill) => (
+                    <Badge
+                      key={skill}
+                      variant="primary"
+                    >
+                      {skill}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-lg font-semibold mb-3 text-foreground">
+                  Design & UX
+                </h3>
+                <div className="flex flex-wrap gap-2">
+                  {designSkills.map((skill) => (
                     <Badge
                       key={skill}
                       variant="primary"
