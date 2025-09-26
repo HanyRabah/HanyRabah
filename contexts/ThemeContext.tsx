@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react'
 
-export type ColorTheme = 'teal' | 'purple' | 'blue' | 'orange' | 'green'
+export type ColorTheme = 'teal' | 'purple' | 'blue' | 'green'
 export type Mode =  'dark' | 'light'
 
 interface ThemeContextType {
@@ -52,18 +52,18 @@ export const colorThemes = {
       background: 'linear-gradient(to right, #3b82f6, #2563eb)'
     }
   },
-  orange: {
-    name: 'Orange',
-    primary: '#f97316',
-    secondary: '#ea580c',
-    tertiary: '#DF362D',
-    forth: '#FF8300',
-    muted: '#c2410c',
-    accent: '#fb923c',
-    previewStyle: {
-      background: 'linear-gradient(to right, #f97316, #ea580c)'
-    }
-  },
+  // orange: {
+  //   name: 'Orange',
+  //   primary: '#f97316',
+  //   secondary: '#ea580c',
+  //   tertiary: '#DF362D',
+  //   forth: '#FF8300',
+  //   muted: '#c2410c',
+  //   accent: '#fb923c',
+  //   previewStyle: {
+  //     background: 'linear-gradient(to right, #f97316, #ea580c)'
+  //   }
+  // },
   green: {
     name: 'Green',
     primary: '#22c55e',
@@ -84,11 +84,33 @@ const randomizeTheme = () => {
   return randomTheme as ColorTheme
 }
 
+const getInitialTheme = (): ColorTheme => {
+  if (typeof window !== 'undefined') {
+    const savedColorTheme = localStorage.getItem('color-theme') as ColorTheme
+    if (savedColorTheme && colorThemes[savedColorTheme]) {
+      return savedColorTheme
+    }
+  }
+  return randomizeTheme()
+}
+
+const getInitialMode = (): Mode => {
+  if (typeof window !== 'undefined') {
+    const savedMode = localStorage.getItem('mode') as Mode
+    if (savedMode) {
+      return savedMode
+    }
+  }
+  return 'dark'
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [colorTheme, setColorTheme] = useState<ColorTheme>(randomizeTheme())
-  const [mode, setMode] = useState<Mode>('dark')
+  const [colorTheme, setColorTheme] = useState<ColorTheme>(getInitialTheme())
+  const [mode, setMode] = useState<Mode>(getInitialMode())
+  const [isInitialized, setIsInitialized] = useState(false)
 
   useEffect(() => {
+    // This effect runs only on client-side to ensure proper hydration
     const savedColorTheme = localStorage.getItem('color-theme') as ColorTheme
     const savedMode = localStorage.getItem('mode') as Mode
     
@@ -98,11 +120,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     
     if (savedMode) {
       setMode(savedMode)
-    } else {
-      // Default to dark mode instead of system preference
-      const prefersDark = true; //window.matchMedia('(prefers-color-scheme: dark)').matches
-      setMode(prefersDark ? 'dark' : 'light')
     }
+    
+    setIsInitialized(true)
   }, [])
 
   useEffect(() => {
@@ -156,10 +176,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     root.classList.remove('light', 'dark')
     root.classList.add(mode)
     
-    // Save to localStorage
-    localStorage.setItem('color-theme', colorTheme)
-    localStorage.setItem('mode', mode)
-  }, [colorTheme, mode])
+    // Save to localStorage only after initialization to prevent unnecessary saves
+    if (isInitialized) {
+      localStorage.setItem('color-theme', colorTheme)
+      localStorage.setItem('mode', mode)
+    }
+  }, [colorTheme, mode, isInitialized])
 
   const toggleMode = () => {
     setMode(mode === 'light' ? 'dark' : 'light')
