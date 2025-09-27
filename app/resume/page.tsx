@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { Sidebar } from '@/components/resume/Sidebar';
 import { CVContent } from '@/components/resume/CVContent';
+import Head from 'next/head';
 
 export default function App() {
   const [activeSection, setActiveSection] = useState('summary');

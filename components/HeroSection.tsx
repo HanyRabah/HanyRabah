@@ -2,7 +2,8 @@
 
 import { MouseFollowAnimation } from './MouseFollowAnimation';
 import { Button } from './ui/button';
-import { Phone } from 'lucide-react';
+import { Phone, FolderOpen, Palette } from 'lucide-react';
+import Link from 'next/link';
 
 export function HeroSection() {
   const scrollToProjects = () => {
@@ -74,6 +75,28 @@ export function HeroSection() {
             <Phone className="mr-2 h-4 w-4" />
             Contact Me
           </Button>
+          
+          <Link href="/projects">
+            <Button
+              variant="secondary"
+              size="lg"
+              className="hover:bg-theme-primary hover:text-white transition-colors"
+            >
+              <FolderOpen className="mr-2 h-4 w-4" />
+              View Projects
+            </Button>
+          </Link>
+          
+          <Link href="/design">
+            <Button
+              variant="ghost"
+              size="lg"
+              className="hover:bg-theme-primary hover:text-white transition-colors"
+            >
+              <Palette className="mr-2 h-4 w-4" />
+              Design Portfolio
+            </Button>
+          </Link>
         </div>
       </div>
     </section>

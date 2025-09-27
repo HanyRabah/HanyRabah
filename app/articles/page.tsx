@@ -8,11 +8,52 @@ import { prisma } from '@/lib/prisma'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Articles - Portfolio',
-  description: 'Read my latest articles on web development, programming, and technology.',
+  title: 'Articles - Hany Rabah | Web Development Insights & Programming Tutorials Berlin',
+  description: 'Read Hany Rabah\'s latest articles on web development, React, Next.js, TypeScript, Node.js, AI integration, and modern programming practices. Technical insights from a Berlin-based Senior Fullstack Engineer.',
+  keywords: [
+    'Hany Rabah Articles',
+    'Web Development Articles',
+    'React Tutorials',
+    'Next.js Guides',
+    'TypeScript Articles',
+    'Node.js Tutorials',
+    'AI Integration Articles',
+    'Programming Tutorials',
+    'JavaScript Articles',
+    'Technical Blog Posts',
+    'Software Engineering Articles',
+    'Berlin Developer Articles',
+    'Fullstack Development',
+    'AWS Tutorials',
+    'Technical Writing',
+    'Developer Insights'
+  ],
   openGraph: {
-    title: 'Articles - Portfolio',
-    description: 'Read my latest articles on web development, programming, and technology.',
+    title: 'Articles - Hany Rabah | Web Development Insights & Programming Tutorials',
+    description: 'Technical articles on web development, React, Next.js, TypeScript, and AI integration by Berlin-based Senior Fullstack Engineer Hany Rabah.',
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://hanyrabah.com/articles',
+    siteName: 'Hany Rabah Portfolio',
+    images: [
+      {
+        url: '/og-articles.png',
+        width: 1200,
+        height: 630,
+        alt: 'Hany Rabah Articles - Web Development Insights and Programming Tutorials',
+        type: 'image/png',
+      },
+    ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Articles - Hany Rabah | Web Development Insights',
+    description: 'Technical articles on web development, React, Next.js, and AI integration by Berlin-based Senior Fullstack Engineer.',
+    images: ['/og-articles.png'],
+    creator: '@hanyrabah',
+  },
+  alternates: {
+    canonical: 'https://hanyrabah.com/articles',
   },
 }
 
