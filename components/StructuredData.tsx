@@ -1,5 +1,5 @@
 interface StructuredDataProps {
-  type: 'Person' | 'Article' | 'WebSite' | 'Blog'
+  type: 'Person' | 'Article' | 'WebSite' | 'Blog' | 'Project' | 'BlogPosting'
   data: any
 }
 
@@ -111,6 +111,72 @@ export function StructuredData({ type, data }: StructuredDataProps) {
             url: data.author.url
           }
         }))
+      }
+      break
+
+    case 'Project':
+      schema = {
+        '@context': 'https://schema.org',
+        '@type': 'SoftwareApplication',
+        name: data.title,
+        description: data.description,
+        url: data.url,
+        image: data.image,
+        author: {
+          '@type': 'Person',
+          name: data.author.name,
+          url: data.author.url
+        },
+        creator: {
+          '@type': 'Person',
+          name: data.author.name,
+          url: data.author.url
+        },
+        dateCreated: data.dateCreated,
+        dateModified: data.dateModified,
+        programmingLanguage: data.technologies,
+        applicationCategory: 'WebApplication',
+        operatingSystem: 'Web Browser',
+        offers: {
+          '@type': 'Offer',
+          price: '0',
+          priceCurrency: 'USD'
+        },
+        sameAs: data.githubUrl ? [data.githubUrl] : undefined
+      }
+      break
+
+    case 'BlogPosting':
+      schema = {
+        '@context': 'https://schema.org',
+        '@type': 'BlogPosting',
+        headline: data.title,
+        description: data.description || data.excerpt,
+        image: data.image,
+        author: {
+          '@type': 'Person',
+          name: data.author.name,
+          url: data.author.url
+        },
+        publisher: {
+          '@type': 'Organization',
+          name: 'Hany Rabah Portfolio',
+          logo: {
+            '@type': 'ImageObject',
+            url: 'https://hanyrabah.com/favicon.ico'
+          }
+        },
+        datePublished: data.datePublished,
+        dateModified: data.dateModified,
+        mainEntityOfPage: {
+          '@type': 'WebPage',
+          '@id': data.url
+        },
+        keywords: data.keywords || data.tags,
+        articleSection: 'Technology',
+        wordCount: data.wordCount,
+        timeRequired: data.readingTime ? `PT${data.readingTime}M` : undefined,
+        inLanguage: 'en-US'
       }
       break
   }

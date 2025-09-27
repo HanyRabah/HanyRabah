@@ -2,7 +2,8 @@
 "use client";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import { Download } from "lucide-react";
+import { Download, ExternalLink } from "lucide-react";
+import Link from "next/link";
 
 export function AboutSection() {
   const techSkills = [
@@ -107,12 +108,24 @@ export function AboutSection() {
                   bridges between design, product, and engineering. My unique
                   combination of technical expertise and design sensibility allows
                   me to create solutions that are both technically sound and
-                  visually compelling.
+                  visually compelling. Check out my{" "}
+                  <Link href="/design" className="text-theme-primary hover:underline">
+                    design portfolio
+                  </Link>{" "}
+                  to see this approach in action.
                 </p>
                 <p>
-                  When I’m not coding, you’ll find me traveling, behind the lens
+                  When I'm not coding, you'll find me traveling, behind the lens
                   doing photography, deep into a good book, or enjoying a
-                  strategic game of chess.
+                  strategic game of chess. You can explore my latest{" "}
+                  <Link href="/projects" className="text-theme-primary hover:underline">
+                    technical projects
+                  </Link>{" "}
+                  or read my{" "}
+                  <Link href="/blog" className="text-theme-primary hover:underline">
+                    technical insights
+                  </Link>{" "}
+                  on modern web development.
                 </p>
               </div>
             </div>

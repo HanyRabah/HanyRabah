@@ -2,30 +2,58 @@ import { Metadata } from 'next'
 import { prisma } from '@/lib/prisma'
 import Link from 'next/link'
 import Image from 'next/image'
+import { StructuredData } from '@/components/StructuredData'
 
 // Disable static generation until database is set up
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://hanyrabah.com'),
-  title: 'Projects',
-  description: 'A showcase of my latest work and projects',
+  title: 'Projects - Hany Rabah | Interactive Globe Map, AI Integration & React Applications',
+  description: 'Explore my portfolio of fullstack projects including Interactive Globe Map, AI-powered fintech solutions, real-time applications, and scalable React/Next.js web applications. Built with TypeScript, Node.js, and AWS.',
+  keywords: [
+    'Hany Rabah Projects',
+    'Interactive Globe Map Project',
+    'AI Integration Projects',
+    'React Applications Portfolio',
+    'Next.js Projects',
+    'Fullstack Projects Berlin',
+    'TypeScript Projects',
+    'Node.js Applications',
+    'AWS Projects',
+    'Real-time Applications',
+    'Fintech Solutions',
+    'Scalable Web Applications',
+    'JavaScript Projects',
+    'Web Development Portfolio',
+    'Technical Projects'
+  ],
   openGraph: {
-    title: 'Projects',
-    description: 'A showcase of my latest work and projects',
+    title: 'Projects - Hany Rabah | Interactive Globe Map & AI Integration',
+    description: 'Portfolio of fullstack projects including Interactive Globe Map, AI-powered solutions, and scalable React applications. Built with modern technologies.',
     type: 'website',
     locale: 'en_US',
     url: 'https://hanyrabah.com/projects',
     siteName: 'Hany Rabah Portfolio',
     images: [
       {
-        url: '/og-image.png',
+        url: '/og-projects.png',
         width: 1200,
         height: 630,
-        alt: 'Hany Rabah - Projects',
+        alt: 'Hany Rabah Projects - Interactive Globe Map and AI Integration Portfolio',
         type: 'image/png',
       },
     ],
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: 'Projects - Hany Rabah | Interactive Globe Map & AI Integration',
+    description: 'Portfolio of fullstack projects including Interactive Globe Map, AI-powered solutions, and scalable React applications.',
+    images: ['/og-projects.png'],
+    creator: '@hanyrabah',
+  },
+  alternates: {
+    canonical: 'https://hanyrabah.com/projects',
   },
 }
 
@@ -40,8 +68,20 @@ export default async function ProjectsPage() {
     console.warn('Database not available, showing empty projects page')
   }
 
+  // Structured data for SEO
+  const websiteData = {
+    name: 'Hany Rabah Projects Portfolio',
+    description: 'Portfolio of fullstack projects including Interactive Globe Map, AI-powered solutions, and scalable React applications built by Hany Rabah.',
+    url: 'https://hanyrabah.com/projects',
+    author: {
+      name: 'Hany Rabah',
+      url: 'https://hanyrabah.com'
+    }
+  }
+
   return (
     <div className="container mx-auto px-4 py-16">
+      <StructuredData type="WebSite" data={websiteData} />
       <div className="max-w-6xl mx-auto">
         <h1 className="text-4xl font-bold mb-8">Projects</h1>
         <p className="text-xl text-muted-foreground mb-12">

@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import Image from 'next/image'
+import { StructuredData } from '@/components/StructuredData'
 
 interface ProjectPageProps {
   params: {
@@ -23,12 +24,38 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   }
 
   return {
-    title: project.title,
-    description: project.description,
+    title: `${project.title} - Hany Rabah | Project Portfolio`,
+    description: `${project.description} Built with ${project.technologies.join(', ')}. View live demo and source code.`,
+    keywords: [
+      project.title,
+      'Hany Rabah Project',
+      ...project.technologies,
+      'Web Development',
+      'Fullstack Project',
+      'React Application',
+      'Portfolio Project'
+    ],
     openGraph: {
-      title: project.title,
+      title: `${project.title} - Hany Rabah Project`,
+      description: project.description,
+      type: 'website',
+      url: `https://hanyrabah.com/projects/${project.slug}`,
+      images: project.coverImage ? [{
+        url: project.coverImage,
+        width: 1200,
+        height: 630,
+        alt: `${project.title} - Project by Hany Rabah`
+      }] : [],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${project.title} - Hany Rabah Project`,
       description: project.description,
       images: project.coverImage ? [project.coverImage] : [],
+      creator: '@hanyrabah',
+    },
+    alternates: {
+      canonical: `https://hanyrabah.com/projects/${project.slug}`,
     },
   }
 }
@@ -58,8 +85,25 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
     notFound()
   }
 
+  // Structured data for SEO
+  const projectData = {
+    title: project.title,
+    description: project.description,
+    url: `https://hanyrabah.com/projects/${project.slug}`,
+    image: project.coverImage,
+    author: {
+      name: 'Hany Rabah',
+      url: 'https://hanyrabah.com'
+    },
+    dateCreated: project.createdAt.toISOString(),
+    dateModified: project.updatedAt.toISOString(),
+    technologies: project.technologies,
+    githubUrl: project.githubUrl
+  }
+
   return (
     <div className="container mx-auto px-4 py-16">
+      <StructuredData type="Project" data={projectData} />
       <div className="max-w-4xl mx-auto">
         <header className="mb-8">
           <h1 className="text-4xl font-bold mb-4">{project.title}</h1>
