@@ -2,7 +2,7 @@
 
 import { MouseFollowAnimation } from './MouseFollowAnimation';
 import { Button } from './ui/button';
-import { Phone, FolderOpen, Palette } from 'lucide-react';
+import { Phone, FolderOpen, Palette, Download } from 'lucide-react';
 import Link from 'next/link';
 
 export function HeroSection() {
@@ -19,6 +19,12 @@ export function HeroSection() {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   };
+
+  const downloadResume = () => {
+    const resumeUrl = "/Hany_Elsaydawy_Aug_2025.pdf";
+    window.open(resumeUrl, "_blank");
+  };
+
 
   return (
     <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden">
@@ -76,7 +82,17 @@ export function HeroSection() {
             Contact Me
           </Button>
           
-          <Link href="/projects">
+             <Button
+              onClick={downloadResume}
+              variant="secondary"
+              size="lg"
+              className="hover:bg-theme-primary hover:text-white transition-colors"
+            >
+              <Download className="mr-2 h-4 w-4" />
+              Download Resume
+            </Button>
+           
+          {/* <Link href="/projects">
             <Button
               variant="secondary"
               size="lg"
@@ -85,18 +101,18 @@ export function HeroSection() {
               <FolderOpen className="mr-2 h-4 w-4" />
               View Projects
             </Button>
-          </Link>
+          </Link> */}
           
-          <Link href="/design">
+          {/* <Link href="/design">
             <Button
-              variant="ghost"
+              variant="secondary"
               size="lg"
               className="hover:bg-theme-primary hover:text-white transition-colors"
             >
               <Palette className="mr-2 h-4 w-4" />
               Design Portfolio
             </Button>
-          </Link>
+          </Link> */}
         </div>
       </div>
     </section>
