@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Critical styles - loaded immediately */
 /* Prevent FOUC with minimal approach */
 body {
   visibility: hidden;
@@ -9,6 +10,12 @@ body {
 
 html[data-theme-loaded] body {
   visibility: visible;
+}
+
+/* Optimize font rendering */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* Skeleton loading animations */

@@ -4,14 +4,16 @@ import './globals.css'
 import { GoogleAnalytics } from '@/components/GoogleAnalytics'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/next"
-import SocialLinks from '@/components/socialLinks'
-import { Navigation } from '@/components/Navigation'
-import { ContactSection } from '@/components/ContactSection'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 import { SessionProvider } from '@/components/providers/SessionProvider'
 import { ThemeScript } from '@/components/ThemeScript'
+import { CriticalCSS } from '@/components/CriticalCSS'
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ 
+  subsets: ['latin'],
+  display: 'swap', // Improve font loading performance
+  preload: true
+})
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://hanyrabah.com'),
@@ -100,7 +102,13 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
+        <CriticalCSS />
         <ThemeScript />
+        {/* Resource hints for performance */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://vercel.live" />
+        <link rel="dns-prefetch" href="https://vitals.vercel-analytics.com" />
       </head>
       <body className={inter.className}>
         <SessionProvider>
