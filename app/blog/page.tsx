@@ -4,6 +4,7 @@ import { formatDate } from '@/lib/utils'
 import Link from 'next/link'
 import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
 import { StructuredData } from '@/components/StructuredData'
+import MainLayout from '@/components/layout/MainLayout'
 
 // Disable static generation until database is set up
 export const dynamic = 'force-dynamic'
@@ -93,16 +94,31 @@ export default async function BlogPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-16 mt-24">
+    <div className="min-h-screen bg-background text-foreground">
       <StructuredData type="Blog" data={blogData} />
-      
-      <div className="max-w-4xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8">Blog</h1>
-        <p className="text-xl text-muted-foreground mb-12">
-          Technical insights, tutorials, and best practices from 15+ years of experience
-        </p>
+      <MainLayout>
+        <main>
+          {/* Header */}
+          <section className="py-24 px-6 border-b border-border mt-24">
+            <div className="max-w-4xl mx-auto text-center">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
+                Blog
+              </h1>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Technical insights, tutorials, and best practices from 15+ years of experience in web development.
+              </p>
+            </div>
+          </section>
 
-        <div className="grid gap-8">
+          {/* Blog Grid */}
+          <section className="py-16 px-6">
+            <div className="max-w-6xl mx-auto">
+              {posts.length === 0 ? (
+                <div className="text-center py-16">
+                  <p className="text-muted-foreground text-lg">No blog posts yet. Check back soon!</p>
+                </div>
+              ) : (
+                <div className="grid gap-8">
           {posts.map((post) => (
             <article
               key={post.id}
@@ -151,14 +167,12 @@ export default async function BlogPage() {
               </div>
             </article>
           ))}
-        </div>
-
-        {posts.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-muted-foreground">No blog posts yet. Check back soon!</p>
-          </div>
-        )}
-      </div>
+                </div>
+              )}
+            </div>
+          </section>
+        </main>
+      </MainLayout>
     </div>
   )
 }

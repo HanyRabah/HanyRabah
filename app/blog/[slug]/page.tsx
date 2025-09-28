@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { RelatedPosts } from '@/components/RelatedPosts'
 import { StructuredData } from '@/components/StructuredData'
+import MainLayout from '@/components/layout/MainLayout'
 
 // Disable static generation until database is set up
 export const dynamic = 'force-dynamic'
@@ -208,10 +209,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-background mt-24">
+    <div className="min-h-screen bg-background text-foreground">
       <StructuredData type="Article" data={structuredData} />
-
-      <article className="container mx-auto px-4 py-12 max-w-4xl">
+      <MainLayout>
+        <main className="mt-24">
+          <article className="container mx-auto px-4 py-12 max-w-4xl">
         {/* Header */}
         <header className="mb-12">
           {/* Tags */}
@@ -278,8 +280,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
         {/* Related Posts */}
         <RelatedPosts posts={relatedPosts} currentPostId={post.id} />
-      </article>
-
+          </article>
+        </main>
+      </MainLayout>
     </div>
   )
 }

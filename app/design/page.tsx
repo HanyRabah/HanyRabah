@@ -59,7 +59,7 @@ export const metadata: Metadata = {
 export default function DesignPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <MainLayout>
+      <MainLayout withoutContact={true}>
         <main>
           <DesignHeroSection />
           <DesignShowcase />

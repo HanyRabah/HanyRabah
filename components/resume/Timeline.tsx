@@ -10,6 +10,13 @@ interface TimelineProps {
   items: TimelineItem[];
 }
 
+const Flags = {
+  "Germany": "🇩🇪",
+  "Saudi Arabia": "🇸🇦",
+  "Egypt": "🇪🇬",
+  "Dubai": "🇦🇪",
+}
+
 export function Timeline({ items }: TimelineProps) {
   return (
     <div className="space-y-8">
@@ -20,7 +27,7 @@ export function Timeline({ items }: TimelineProps) {
           <div className="flex justify-between items-start mb-3">
             <div>
               <h3 className="text-primary mb-1">
-                {item.company} ({item.location}) - {item.position}
+                {item.company} ({Flags[item.location as keyof typeof Flags]}) - {item.position}
               </h3>
             </div>
             <span className="text-sm text-muted-foreground italic bg-muted/50 px-2 py-1 rounded-md">

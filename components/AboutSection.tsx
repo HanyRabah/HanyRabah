@@ -2,7 +2,7 @@
 "use client";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import { Download, ExternalLink } from "lucide-react";
+import { Download } from "lucide-react";
 import Link from "next/link";
 
 export function AboutSection() {

@@ -1,8 +1,8 @@
 import { Metadata } from 'next'
 import { prisma } from '@/lib/prisma'
-import Link from 'next/link'
-import Image from 'next/image'
 import { StructuredData } from '@/components/StructuredData'
+import MainLayout from '@/components/layout/MainLayout'
+import { ProjectCard } from '@/components/ProjectCard'
 
 // Disable static generation until database is set up
 export const dynamic = 'force-dynamic'
@@ -61,9 +61,26 @@ export default async function ProjectsPage() {
   let projects: any[] = []
   
   try {
-    projects = await prisma.project.findMany({
+    const allProjects = await prisma.project.findMany({
       orderBy: { createdAt: 'desc' },
     })
+    
+    // Filter projects with images for display
+    projects = allProjects.filter(project => 
+      project.coverImage && 
+      project.coverImage.trim() !== ''
+    )
+    
+    // Log projects without images for reference
+    const projectsWithoutImages = allProjects.filter(project => 
+      !project.coverImage || project.coverImage.trim() === ''
+    )
+    
+    if (projectsWithoutImages.length > 0) {
+      console.log('Projects without images (hidden from display):', 
+        projectsWithoutImages.map(p => ({ id: p.id, title: p.title }))
+      )
+    }
   } catch (error) {
     console.warn('Database not available, showing empty projects page')
   }
@@ -80,83 +97,40 @@ export default async function ProjectsPage() {
   }
 
   return (
-    <div className="container mx-auto px-4 py-16">
+    <div className="min-h-screen bg-background text-foreground">
       <StructuredData type="WebSite" data={websiteData} />
-      <div className="max-w-6xl mx-auto">
-        <h1 className="text-4xl font-bold mb-8">Projects</h1>
-        <p className="text-xl text-muted-foreground mb-12">
-          A showcase of my latest work and projects
-        </p>
+      <MainLayout>
+        <main>
+          {/* Header */}
+          <section className="py-24 px-6 border-b border-border mt-24">
+            <div className="max-w-4xl mx-auto text-center">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
+                Projects
+              </h1>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                A showcase of my latest work and projects. From AI integration to interactive web applications.
+              </p>
+            </div>
+          </section>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project) => (
-            <div
-              key={project.id}
-              className="border border-border rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
-            >
-              {project.coverImage && (
-                <Image
-                  src={project.coverImage}
-                  alt={project.title}
-                  width={400}
-                  height={250}
-                  className="w-full h-48 object-cover"
-                />
-              )}
-              <div className="p-6">
-                <h3 className="text-xl font-semibold mb-2">{project.title}</h3>
-                <p className="text-muted-foreground mb-4">{project.description}</p>
-                
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.technologies.map((tech: string) => (
-                    <span
-                      key={tech}
-                      className="px-2 py-1 bg-secondary text-secondary-foreground text-xs rounded"
-                    >
-                      {tech}
-                    </span>
+          {/* Projects Grid */}
+          <section className="py-16 px-6">
+            <div className="max-w-6xl mx-auto">
+              {projects.length === 0 ? (
+                <div className="text-center py-16">
+                  <p className="text-muted-foreground text-lg">No projects yet. Check back soon!</p>
+                </div>
+              ) : (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {projects.map((project) => (
+                    <ProjectCard key={project.id} project={project} />
                   ))}
                 </div>
-
-                <div className="flex gap-4">
-                  {project.liveUrl && (
-                    <a
-                      href={project.liveUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary hover:underline"
-                    >
-                      Live Demo
-                    </a>
-                  )}
-                  {project.githubUrl && (
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-primary hover:underline"
-                    >
-                      GitHub
-                    </a>
-                  )}
-                  <Link
-                    href={`/projects/${project.slug}`}
-                    className="text-primary hover:underline"
-                  >
-                    Learn More
-                  </Link>
-                </div>
-              </div>
+              )}
             </div>
-          ))}
-        </div>
-
-        {projects.length === 0 && (
-          <div className="text-center py-12">
-            <p className="text-muted-foreground">No projects yet. Check back soon!</p>
-          </div>
-        )}
-      </div>
+          </section>
+        </main>
+      </MainLayout>
     </div>
   )
 }

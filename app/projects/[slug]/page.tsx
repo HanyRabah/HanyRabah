@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import Image from 'next/image'
 import { StructuredData } from '@/components/StructuredData'
+import MainLayout from '@/components/layout/MainLayout'
 
 interface ProjectPageProps {
   params: {
@@ -102,9 +103,11 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   }
 
   return (
-    <div className="container mx-auto px-4 py-16">
+    <div className="min-h-screen bg-background text-foreground">
       <StructuredData type="Project" data={projectData} />
-      <div className="max-w-4xl mx-auto">
+      <MainLayout>
+        <main className="container mx-auto px-4 py-16 mt-24">
+          <div className="max-w-4xl mx-auto">
         <header className="mb-8">
           <h1 className="text-4xl font-bold mb-4">{project.title}</h1>
           <p className="text-xl text-muted-foreground mb-6">{project.description}</p>
@@ -174,7 +177,9 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
             ))}
           </div>
         )}
-      </div>
+          </div>
+        </main>
+      </MainLayout>
     </div>
   )
 }
