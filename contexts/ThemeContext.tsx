@@ -105,27 +105,47 @@ const getInitialMode = (): Mode => {
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [colorTheme, setColorTheme] = useState<ColorTheme>(getInitialTheme())
-  const [mode, setMode] = useState<Mode>(getInitialMode())
+  const [colorTheme, setColorTheme] = useState<ColorTheme>('teal') // Default fallback
+  const [mode, setMode] = useState<Mode>('dark') // Default fallback
   const [isInitialized, setIsInitialized] = useState(false)
 
   useEffect(() => {
-    // This effect runs only on client-side to ensure proper hydration
+    // Read the theme that was already applied by the script
     const savedColorTheme = localStorage.getItem('color-theme') as ColorTheme
     const savedMode = localStorage.getItem('mode') as Mode
     
+    // Set state to match what was already applied
     if (savedColorTheme && colorThemes[savedColorTheme]) {
       setColorTheme(savedColorTheme)
+    } else {
+      // If no saved theme, read what the script applied (random theme)
+      const themes = Object.keys(colorThemes) as ColorTheme[]
+      const currentPrimary = getComputedStyle(document.documentElement).getPropertyValue('--theme-primary').trim()
+      const foundTheme = themes.find(theme => colorThemes[theme].primary === currentPrimary)
+      if (foundTheme) {
+        setColorTheme(foundTheme)
+        localStorage.setItem('color-theme', foundTheme)
+      }
     }
     
     if (savedMode) {
       setMode(savedMode)
+    } else {
+      // Read the mode that was applied
+      const hasLightClass = document.documentElement.classList.contains('light')
+      const hasDarkClass = document.documentElement.classList.contains('dark')
+      const appliedMode = hasLightClass ? 'light' : hasDarkClass ? 'dark' : 'dark'
+      setMode(appliedMode)
+      localStorage.setItem('mode', appliedMode)
     }
     
     setIsInitialized(true)
   }, [])
 
   useEffect(() => {
+    // Only apply theme changes after initialization and when user actively changes theme
+    if (!isInitialized) return
+    
     const root = document.documentElement
     const theme = colorThemes[colorTheme]
     
@@ -137,7 +157,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         b: parseInt(result[3], 16)
       } : null
     }
-    
     
     root.style.setProperty('--theme-primary', theme.primary)
     root.style.setProperty('--theme-secondary', theme.secondary)
@@ -176,11 +195,9 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     root.classList.remove('light', 'dark')
     root.classList.add(mode)
     
-    // Save to localStorage only after initialization to prevent unnecessary saves
-    if (isInitialized) {
-      localStorage.setItem('color-theme', colorTheme)
-      localStorage.setItem('mode', mode)
-    }
+    // Save to localStorage
+    localStorage.setItem('color-theme', colorTheme)
+    localStorage.setItem('mode', mode)
   }, [colorTheme, mode, isInitialized])
 
   const toggleMode = () => {
