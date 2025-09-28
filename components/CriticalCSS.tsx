@@ -1,6 +1,7 @@
 export function CriticalCSS() {
   return (
-    <style jsx global>{`
+    <style dangerouslySetInnerHTML={{
+      __html: `
       /* Critical CSS - Above the fold styles */
       * {
         box-sizing: border-box;
@@ -71,6 +72,7 @@ export function CriticalCSS() {
       .text-center { text-align: center; }
       .hidden { display: none; }
       .block { display: block; }
-    `}</style>
+      `
+    }} />
   )
 }
