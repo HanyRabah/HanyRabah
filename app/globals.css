@@ -2,13 +2,25 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Prevent FOUC by hiding content until theme is loaded */
-html:not([data-theme-loaded]) body {
-  visibility: hidden;
+/* Skeleton loading animations */
+@keyframes skeleton-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.4;
+  }
 }
 
-html[data-theme-loaded] body {
-  visibility: visible;
+.skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.dark .skeleton {
+  background: linear-gradient(90deg, #2a2a2a 25%, #1a1a1a 50%, #2a2a2a 75%);
+  background-size: 200% 100%;
 }
 
 @layer base {
