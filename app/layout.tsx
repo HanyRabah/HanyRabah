@@ -9,6 +9,7 @@ import { Navigation } from '@/components/Navigation'
 import { ContactSection } from '@/components/ContactSection'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 import { SessionProvider } from '@/components/providers/SessionProvider'
+import { ThemeScript } from '@/components/ThemeScript'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -98,6 +99,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="scroll-smooth">
+      <head>
+        <ThemeScript />
+      </head>
       <body className={inter.className}>
         <SessionProvider>
           <ThemeProvider>

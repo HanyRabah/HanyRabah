@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Prevent FOUC by hiding content until theme is loaded */
+html:not([data-theme-loaded]) body {
+  visibility: hidden;
+}
+
+html[data-theme-loaded] body {
+  visibility: visible;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
