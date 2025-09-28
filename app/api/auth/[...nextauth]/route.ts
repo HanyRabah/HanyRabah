@@ -24,7 +24,10 @@ const authOptions: NextAuthOptions = {
     async session({ session, token }) {
       // Add admin role to session
       if (session.user?.email === 'hany.rabah@gmail.com') {
-        session.user.role = 'admin'
+        session.user = {
+          ...session.user,
+          role: 'admin'
+        }
       }
       return session
     },
