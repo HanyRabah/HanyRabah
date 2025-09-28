@@ -98,6 +98,9 @@ export function ThemeScript() {
         
         // Mark theme as loaded
         root.setAttribute('data-theme-loaded', 'true');
+        
+        // Show body immediately after theme is applied
+        document.body.style.visibility = 'visible';
       }
 
       // Get saved theme or use random

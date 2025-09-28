@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Prevent FOUC with minimal approach */
+body {
+  visibility: hidden;
+}
+
+html[data-theme-loaded] body {
+  visibility: visible;
+}
+
 /* Skeleton loading animations */
 @keyframes skeleton-pulse {
   0%, 100% {
