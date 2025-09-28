@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Mail, Phone, Linkedin, Globe } from 'lucide-react';
+import { Mail, Phone, Linkedin, Globe, Github } from 'lucide-react';
 import { Logo } from './Logo';
 
 interface SidebarProps {
@@ -33,33 +33,34 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
       <div className="relative z-10 p-6">
         <div className="mb-8">
           <div className="flex items-center gap-3 mb-4">
-            <Logo size={48} />
+            {/* <Logo size={48} /> */}
             <div>
-              <h1 className="text-primary mb-1">Hany El Saydawy</h1>
-              <p className="text-sm text-muted-foreground">Sr. Frontend Engineer</p>
+              <h1 className="text-primary mb-1 font-bold">Hany El Saydawy</h1>
+              <p className="text-sm text-muted-foreground">Technical Lead & Fullstack Engineer</p>
             </div>
           </div>
           
           <div className="space-y-1 text-sm mb-4">
             <div className="flex items-center gap-2 text-muted-foreground">
               <Mail className="w-3 h-3 text-primary" />
-              <span>Hany.rabah@gmail.com</span>
+              <span><a href="mailto:hany.rabah@gmail.com">contact@hanyrabah.com</a></span>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
               <Phone className="w-3 h-3 text-primary" />
-              <span>(+49)15114316821</span>
+              <span><a href="tel:+4915114316821">(+49)15114316821</a></span>
             </div>
+            <br/>
             <p className="text-muted-foreground">B.Sc. Management information systems</p>
             
             <div className="flex gap-2 mt-2">
-              <a href="#" className="text-primary hover:text-primary/80 transition-colors flex items-center gap-1">
+              <a href="https://www.linkedin.com/in/hany-rabah/" className="text-primary hover:text-primary/80 transition-colors flex items-center gap-1">
                 <Linkedin className="w-3 h-3" />
                 LinkedIn
               </a>
               <span className="text-muted-foreground">-</span>
-              <a href="#" className="text-primary hover:text-primary/80 transition-colors flex items-center gap-1">
-                <Globe className="w-3 h-3" />
-                Website
+              <a href="https://github.com/hanyrabah" className="text-primary hover:text-primary/80 transition-colors flex items-center gap-1">
+                <Github className="w-3 h-3" />
+                GitHub
               </a>
             </div>
           </div>

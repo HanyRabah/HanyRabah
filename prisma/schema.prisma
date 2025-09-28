@@ -72,6 +72,49 @@ model Contact {
   @@map("contacts")
 }
 
+model Article {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  excerpt     String?
+  content     String
+  published   Boolean  @default(false)
+  featured    Boolean  @default(false)
+  coverImage  String?
+  tags        String[]
+  category    String?
+  difficulty  ArticleDifficulty @default(BEGINNER)
+  readTime    Int?     // in minutes
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  publishedAt DateTime?
+  
+  @@map("articles")
+}
+
+model Design {
+  id          String   @id @default(cuid())
+  title       String
+  slug        String   @unique
+  description String
+  content     String?
+  featured    Boolean  @default(false)
+  coverImage  String?
+  images      String[]
+  tags        String[]
+  category    DesignCategory @default(WEB_DESIGN)
+  tools       String[] // Figma, Sketch, Adobe XD, etc.
+  clientName  String?
+  projectUrl  String?
+  figmaUrl    String?
+  behanceUrl  String?
+  dribbbleUrl String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@map("designs")
+}
+
 model Analytics {
   id        String   @id @default(cuid())
   page      String
@@ -94,4 +137,19 @@ enum ContactStatus {
   READ
   REPLIED
   ARCHIVED
+}
+
+enum ArticleDifficulty {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum DesignCategory {
+  WEB_DESIGN
+  MOBILE_APP
+  UI_UX
+  BRANDING
+  ILLUSTRATION
+  DESIGN_SYSTEM
 }

@@ -4,6 +4,7 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { CalendarDays, Clock } from 'lucide-react'
 import { prisma } from '@/lib/prisma'
+import MainLayout from '@/components/layout/MainLayout'
 
 export const dynamic = 'force-dynamic'
 
@@ -97,18 +98,20 @@ export default async function ArticlesPage() {
   const articles = await getArticles()
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <section className="py-24 px-6 border-b border-border">
-        <div className="max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
-            Articles
-          </h1>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Insights, tutorials, and thoughts on web development, programming, and technology.
-          </p>
-        </div>
-      </section>
+    <div className="min-h-screen bg-background text-foreground">
+      <MainLayout>
+        <main>
+          {/* Header */}
+          <section className="py-24 px-6 border-b border-border mt-24">
+            <div className="max-w-4xl mx-auto text-center">
+              <h1 className="text-4xl md:text-5xl font-bold mb-6 text-foreground">
+                Articles
+              </h1>
+              <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+                Insights, tutorials, and thoughts on web development, programming, and technology.
+              </p>
+            </div>
+          </section>
 
       {/* Articles Grid */}
       <section className="py-16 px-6">
@@ -176,6 +179,8 @@ export default async function ArticlesPage() {
           )}
         </div>
       </section>
+        </main>
+      </MainLayout>
     </div>
   )
 }

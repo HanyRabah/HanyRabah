@@ -8,6 +8,7 @@ import SocialLinks from '@/components/socialLinks'
 import { Navigation } from '@/components/Navigation'
 import { ContactSection } from '@/components/ContactSection'
 import { ThemeProvider } from '@/contexts/ThemeContext'
+import { SessionProvider } from '@/components/providers/SessionProvider'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -98,12 +99,14 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <body className={inter.className}>
-        <ThemeProvider>
-          {children}
-          <GoogleAnalytics />
-          <SpeedInsights />
-          <Analytics />
-        </ThemeProvider>
+        <SessionProvider>
+          <ThemeProvider>
+            {children}
+            <GoogleAnalytics />
+            <SpeedInsights />
+            <Analytics />
+          </ThemeProvider>
+        </SessionProvider>
       </body>
     </html>
   )
