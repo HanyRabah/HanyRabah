@@ -7,6 +7,7 @@ import SocialLinks from '@/components/socialLinks'
 import { Metadata } from 'next'
 import { StructuredData } from '@/components/StructuredData'
 import MainLayout from '@/components/layout/MainLayout'
+import { PageContent } from '@/components/PageContent'
 
 // Disable static generation until database is set up
 export const dynamic = 'force-dynamic';
@@ -120,15 +121,7 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground">
       <StructuredData type="Person" data={personData} />
       <StructuredData type="WebSite" data={websiteData} />
-     <MainLayout>
-      <main>
-        <HeroSection />
-        <AboutSection />
-        <ProjectsSection />
-        <ServicesSection />
-        <BlogSection />
-      </main>
-      </MainLayout>
+      <PageContent />
     </div>
   );
 }

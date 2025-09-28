@@ -11,6 +11,7 @@ interface ThemeContextType {
   setColorTheme: (theme: ColorTheme) => void
   setMode: (mode: Mode) => void
   toggleMode: () => void
+  isThemeReady: boolean
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
@@ -108,6 +109,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [colorTheme, setColorTheme] = useState<ColorTheme>('teal') // Default fallback
   const [mode, setMode] = useState<Mode>('dark') // Default fallback
   const [isInitialized, setIsInitialized] = useState(false)
+  const [isThemeReady, setIsThemeReady] = useState(false)
 
   useEffect(() => {
     // Read the theme that was already applied by the script
@@ -140,6 +142,22 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
     
     setIsInitialized(true)
+    
+    // Check if theme script has already loaded
+    const themeLoaded = document.documentElement.hasAttribute('data-theme-loaded')
+    setIsThemeReady(themeLoaded)
+    
+    // If theme script hasn't loaded yet, wait for it
+    if (!themeLoaded) {
+      const checkThemeLoaded = () => {
+        if (document.documentElement.hasAttribute('data-theme-loaded')) {
+          setIsThemeReady(true)
+        } else {
+          requestAnimationFrame(checkThemeLoaded)
+        }
+      }
+      checkThemeLoaded()
+    }
   }, [])
 
   useEffect(() => {
@@ -209,7 +227,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     mode,
     setColorTheme,
     setMode,
-    toggleMode
+    toggleMode,
+    isThemeReady
   }
 
   return (
