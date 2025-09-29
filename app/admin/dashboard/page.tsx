@@ -1,28 +1,113 @@
 'use client'
 
-import { useSession, signOut } from 'next-auth/react'
+import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { Badge } from '@/components/ui/badge'
 import { 
-  FileText, 
-  FolderOpen, 
-  Palette, 
-  PenTool, 
-  LogOut, 
-  User, 
-  Plus,
-  BarChart3,
-  Settings
-} from 'lucide-react'
+  Card, 
+  Col, 
+  Row, 
+  Statistic, 
+  Typography, 
+  Button, 
+  Space,
+  Tabs,
+  Table,
+  Tag,
+  Avatar
+} from 'antd'
+import {
+  FileTextOutlined,
+  ProjectOutlined,
+  PictureOutlined,
+  BookOutlined,
+  PlusOutlined,
+  EyeOutlined,
+  EditOutlined,
+  DeleteOutlined,
+  MailOutlined,
+  BarChartOutlined
+} from '@ant-design/icons'
 import Link from 'next/link'
-import PostsList from '@/components/admin/PostsList'
-import ProjectsList from '@/components/admin/ProjectsList'
-import ArticlesList from '@/components/admin/ArticlesList'
-import DesignsList from '@/components/admin/DesignsList'
+import AdminLayout from '@/components/admin/AdminLayout'
+import AntdProvider from '@/components/admin/AntdProvider'
+
+const { Title, Text } = Typography
+const { TabPane } = Tabs
+
+// Recent Content Table Component
+interface RecentContentTableProps {
+  data: any[]
+  type: string
+  loading: boolean
+}
+
+function RecentContentTable({ data, type, loading }: RecentContentTableProps) {
+  const getColumns = () => {
+    const baseColumns = [
+      {
+        title: 'Title',
+        dataIndex: 'title',
+        key: 'title',
+        render: (text: string, record: any) => (
+          <Link href={`/admin/${type}/${record.id}/edit`}>
+            <Button type="link" style={{ padding: 0, height: 'auto' }}>
+              {text}
+            </Button>
+          </Link>
+        ),
+      },
+      {
+        title: 'Status',
+        key: 'status',
+        render: (record: any) => {
+          const isPublished = record.published !== undefined ? record.published : true
+          const isFeatured = record.featured || false
+          return (
+            <Space>
+              <Tag color={isPublished ? 'green' : 'orange'}>
+                {isPublished ? 'Published' : 'Draft'}
+              </Tag>
+              {isFeatured && <Tag color='blue'>Featured</Tag>}
+            </Space>
+          )
+        },
+      },
+      {
+        title: 'Created',
+        dataIndex: 'createdAt',
+        key: 'createdAt',
+        render: (date: string) => new Date(date).toLocaleDateString(),
+      },
+      {
+        title: 'Actions',
+        key: 'actions',
+        render: (record: any) => (
+          <Space>
+            <Link href={`/admin/${type}/${record.id}/edit`}>
+              <Button size="small" icon={<EditOutlined />} />
+            </Link>
+            <Button size="small" icon={<EyeOutlined />} />
+          </Space>
+        ),
+      },
+    ]
+
+    return baseColumns
+  }
+
+  return (
+    <Table
+      columns={getColumns()}
+      dataSource={data}
+      loading={loading}
+      pagination={false}
+      size="small"
+      rowKey="id"
+      locale={{ emptyText: `No recent ${type} found` }}
+    />
+  )
+}
 
 export default function AdminDashboard() {
   const { data: session, status } = useSession()
@@ -31,8 +116,22 @@ export default function AdminDashboard() {
     posts: 0,
     projects: 0,
     designs: 0,
-    articles: 0
+    articles: 0,
+    contacts: 0,
+    views: 0
   })
+  const [recentContent, setRecentContent] = useState<{
+    posts: any[]
+    projects: any[]
+    designs: any[]
+    contacts: any[]
+  }>({
+    posts: [],
+    projects: [],
+    designs: [],
+    contacts: []
+  })
+  const [loading, setLoading] = useState(false)
 
   useEffect(() => {
     if (status === 'loading') return
@@ -42,226 +141,156 @@ export default function AdminDashboard() {
       return
     }
 
-    // Fetch stats
     fetchStats()
   }, [session, status, router])
 
   const fetchStats = async () => {
     try {
-      const response = await fetch('/api/admin/stats')
-      if (response.ok) {
-        const data = await response.json()
-        setStats(data)
+      setLoading(true)
+      const [statsRes, postsRes, projectsRes, designsRes] = await Promise.all([
+        fetch('/api/admin/stats'),
+        fetch('/api/admin/posts?limit=5'),
+        fetch('/api/admin/projects?limit=5'),
+        fetch('/api/admin/designs?limit=5')
+      ])
+      
+      if (statsRes.ok) {
+        const statsData = await statsRes.json()
+        setStats({
+          posts: statsData.posts || 0,
+          projects: statsData.projects || 0,
+          designs: statsData.designs || 0,
+          articles: statsData.articles || 0,
+          contacts: statsData.contacts || 0,
+          views: statsData.views || 0
+        })
       }
+      
+      const [posts, projects, designs] = await Promise.all([
+        postsRes.ok ? postsRes.json() : [],
+        projectsRes.ok ? projectsRes.json() : [],
+        designsRes.ok ? designsRes.json() : []
+      ])
+      
+      setRecentContent({ posts, projects, designs, contacts: [] })
     } catch (error) {
-      console.error('Failed to fetch stats:', error)
+      console.error('Failed to fetch dashboard data:', error)
+    } finally {
+      setLoading(false)
     }
   }
 
-  const handleSignOut = () => {
-    signOut({ callbackUrl: '/admin/login' })
-  }
 
-  if (status === 'loading') {
-    return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center space-y-4">
-          <div className="w-8 h-8 border-2 border-theme-primary/30 border-t-theme-primary rounded-full animate-spin mx-auto" />
-          <p className="text-muted-foreground">Loading dashboard...</p>
-        </div>
-      </div>
-    )
-  }
-
-  if (!session) {
+  if (status === 'loading' || !session) {
     return null
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="border-b border-border bg-theme-secondary">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="w-10 h-10 bg-theme-primary/10 rounded-lg flex items-center justify-center">
-                <Settings className="w-5 h-5 text-theme-primary" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold">Admin Dashboard</h1>
-                <p className="text-sm text-foreground">Portfolio Content Management</p>
-              </div>
-            </div>
-            
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <User className="w-4 h-4 text-foreground" />
-                <span className="text-sm text-foreground">{session.user?.email}</span>
-              </div>
-              <Button
-                onClick={handleSignOut}
-                variant="outline"
-                size="sm"
-                className="text-foreground hover:text-foreground"
-              >
-                <LogOut className="w-4 h-4 mr-2" />
-                Sign Out
-              </Button>
-            </div>
-          </div>
-        </div>
-      </header>
+    <AntdProvider>
+      <AdminLayout>
+        <div>
+          <Title level={2} style={{ marginBottom: 24 }}>Dashboard Overview</Title>
+          
+          {/* Stats Cards */}
+          <Row gutter={[16, 16]} style={{ marginBottom: 32 }}>
+            <Col xs={24} sm={12} lg={6}>
+              <Card>
+                <Statistic
+                  title="Blog Posts"
+                  value={stats.posts}
+                  prefix={<FileTextOutlined style={{ color: '#1890ff' }} />}
+                  loading={loading}
+                />
+                <Text type="secondary">Published articles</Text>
+              </Card>
+            </Col>
+            <Col xs={24} sm={12} lg={6}>
+              <Card>
+                <Statistic
+                  title="Projects"
+                  value={stats.projects}
+                  prefix={<ProjectOutlined style={{ color: '#52c41a' }} />}
+                  loading={loading}
+                />
+                <Text type="secondary">Portfolio projects</Text>
+              </Card>
+            </Col>
+            <Col xs={24} sm={12} lg={6}>
+              <Card>
+                <Statistic
+                  title="Designs"
+                  value={stats.designs}
+                  prefix={<PictureOutlined style={{ color: '#faad14' }} />}
+                  loading={loading}
+                />
+                <Text type="secondary">Design works</Text>
+              </Card>
+            </Col>
+          </Row>
 
-      <div className="container mx-auto px-4 py-8">
-        {/* Stats Overview */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card className="border border-gray-200 bg-white shadow-sm">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-900">Blog Posts</CardTitle>
-              <FileText className="h-4 w-4 text-gray-700" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-gray-900">{stats.posts}</div>
-              <p className="text-xs text-gray-700">Published articles</p>
-            </CardContent>
-          </Card>
-          
-          <Card className="border border-gray-200 bg-white shadow-sm">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-900">Projects</CardTitle>
-              <FolderOpen className="h-4 w-4 text-gray-700" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-gray-900">{stats.projects}</div>
-              <p className="text-xs text-gray-700">Portfolio projects</p>
-            </CardContent>
-          </Card>
-          
-          <Card className="border border-gray-200 bg-white shadow-sm">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-900">Designs</CardTitle>
-              <Palette className="h-4 w-4 text-gray-700" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-gray-900">{stats.designs}</div>
-              <p className="text-xs text-gray-700">Design works</p>
-            </CardContent>
-          </Card>
-          
-          <Card className="border border-gray-200 bg-white shadow-sm">
-            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium text-gray-900">Articles</CardTitle>
-              <PenTool className="h-4 w-4 text-gray-700" />
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-gray-900">{stats.articles}</div>
-              <p className="text-xs text-gray-700">Technical articles</p>
-            </CardContent>
+          {/* Quick Actions */}
+          <Row gutter={[16, 16]} style={{ marginBottom: 32 }}>
+            <Col span={24}>
+              <Card title="Quick Actions" size="small">
+                <Space wrap>
+                  <Link href="/admin/posts/new">
+                    <Button type="primary" icon={<PlusOutlined />}>
+                      New Blog Post
+                    </Button>
+                  </Link>
+                  <Link href="/admin/projects/new">
+                    <Button icon={<PlusOutlined />}>
+                      New Project
+                    </Button>
+                  </Link>
+                  <Link href="/admin/designs/new">
+                    <Button icon={<PlusOutlined />}>
+                      New Design
+                    </Button>
+                  </Link>
+                  <Link href="/admin/contacts">
+                    <Button icon={<MailOutlined />}>
+                      View Messages
+                    </Button>
+                  </Link>
+                  <Link href="/admin/analytics">
+                    <Button icon={<BarChartOutlined />}>
+                      Analytics
+                    </Button>
+                  </Link>
+                </Space>
+              </Card>
+            </Col>
+          </Row>
+
+          {/* Recent Content Tabs */}
+          <Card title="Recent Content" size="small">
+            <Tabs defaultActiveKey="posts">
+              <TabPane tab="Recent Posts" key="posts">
+                <RecentContentTable 
+                  data={recentContent.posts} 
+                  type="posts" 
+                  loading={loading}
+                />
+              </TabPane>
+              <TabPane tab="Recent Projects" key="projects">
+                <RecentContentTable 
+                  data={recentContent.projects} 
+                  type="projects" 
+                  loading={loading}
+                />
+              </TabPane>
+              <TabPane tab="Recent Designs" key="designs">
+                <RecentContentTable 
+                  data={recentContent.designs} 
+                  type="designs" 
+                  loading={loading}
+                />
+              </TabPane>
+            </Tabs>
           </Card>
         </div>
-
-        {/* Management Tabs */}
-        <Tabs defaultValue="posts" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4 bg-theme-primary text-white">
-            <TabsTrigger className="text-white hover:text-foreground" value="posts">Blog Posts</TabsTrigger>
-            <TabsTrigger className="text-white hover:text-foreground" value="projects">Projects</TabsTrigger>
-            <TabsTrigger className="text-white hover:text-foreground" value="designs">Designs</TabsTrigger>
-            <TabsTrigger className="text-white hover:text-foreground" value="articles">Articles</TabsTrigger>
-          </TabsList>
-          
-          <TabsContent value="posts" className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-2xl font-bold text-gray-900">Blog Posts</h2>
-                <p className="text-gray-700">Manage your blog content</p>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Link href="/admin/posts">
-                  <Button variant="outline">
-                    View All Posts
-                  </Button>
-                </Link>
-                <Link href="/admin/posts/new">
-                  <Button className="bg-theme-primary hover:bg-theme-secondary text-white">
-                    <Plus className="w-4 h-4 mr-2" />
-                    New Post
-                  </Button>
-                </Link>
-              </div>
-            </div>
-            <PostsList limit={5} showHeader={false} showCreateButton={false} />
-          </TabsContent>
-          
-          <TabsContent value="projects" className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-2xl font-bold">Projects</h2>
-                <p className="text-muted-foreground">Manage your portfolio projects</p>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Link href="/admin/projects">
-                  <Button variant="outline">
-                    View All Projects
-                  </Button>
-                </Link>
-                <Link href="/admin/projects/new">
-                  <Button className="bg-theme-primary hover:bg-theme-secondary text-white">
-                    <Plus className="w-4 h-4 mr-2" />
-                    New Project
-                  </Button>
-                </Link>
-              </div>
-            </div>
-            <ProjectsList limit={5} showHeader={false} showCreateButton={false} />
-          </TabsContent>
-          
-          <TabsContent value="designs" className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-2xl font-bold">Designs</h2>
-                <p className="text-muted-foreground">Manage your design portfolio</p>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Link href="/admin/designs">
-                  <Button variant="outline">
-                    View All Designs
-                  </Button>
-                </Link>
-                <Link href="/admin/designs/new">
-                  <Button className="bg-theme-primary hover:bg-theme-secondary text-white">
-                    <Plus className="w-4 h-4 mr-2" />
-                    New Design
-                  </Button>
-                </Link>
-              </div>
-            </div>
-            <DesignsList limit={5} showHeader={false} showCreateButton={false} />
-          </TabsContent>
-          
-          <TabsContent value="articles" className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div>
-                <h2 className="text-2xl font-bold">Technical Articles</h2>
-                <p className="text-muted-foreground">Manage technical articles and tutorials</p>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Link href="/admin/articles">
-                  <Button variant="outline">
-                    View All Articles
-                  </Button>
-                </Link>
-                <Link href="/admin/articles/new">
-                  <Button className="bg-theme-primary hover:bg-theme-secondary text-white">
-                    <Plus className="w-4 h-4 mr-2" />
-                    New Article
-                  </Button>
-                </Link>
-              </div>
-            </div>
-            <ArticlesList limit={5} showHeader={false} showCreateButton={false} />
-          </TabsContent>
-        </Tabs>
-      </div>
-    </div>
+      </AdminLayout>
+    </AntdProvider>
   )
 }

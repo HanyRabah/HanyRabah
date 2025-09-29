@@ -46,10 +46,10 @@ export function Navigation() {
   const navItems: NavItem[] = [
     { id: 'hero', label: 'Home' },
     { id: 'about', label: 'About' },
-    { id: 'projects', label: 'Projects' },
+    { id: 'projects', href: '/projects', label: 'Projects' },
     { id: 'design', href: '/design', label: 'Design' },
     { id: 'services', label: 'Services' },
-    { id: 'blog', label: 'Blog' },
+    { id: 'blog', href: '/blog', label: 'Blog' },
     { id: 'contact', label: 'Contact' },
   ];
 

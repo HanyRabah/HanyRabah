@@ -3,65 +3,72 @@
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
-import * as z from 'zod'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Label } from '@/components/ui/label'
-import { Switch } from '@/components/ui/switch'
-import { Badge } from '@/components/ui/badge'
 import { 
-  Form,
-  FormControl,
-  FormDescription,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
-import { 
-  ArrowLeft, 
-  Save, 
-  Eye, 
-  Plus, 
-  X,
+  Button, 
+  Card, 
+  Input, 
+  Form, 
+  Switch, 
+  Tag, 
+  Typography, 
+  Row, 
+  Col, 
+  Space,
+  message,
+  Spin,
+  Tabs,
   Upload,
-  Loader2
-} from 'lucide-react'
+  Modal
+} from 'antd'
+import {
+  ArrowLeftOutlined,
+  SaveOutlined,
+  PlusOutlined,
+  CloseOutlined,
+  EyeOutlined,
+  CodeOutlined,
+  PictureOutlined,
+  UploadOutlined
+} from '@ant-design/icons'
 import Link from 'next/link'
+import AdminLayout from '@/components/admin/AdminLayout'
+import AntdProvider from '@/components/admin/AntdProvider'
 
-const postSchema = z.object({
-  title: z.string().min(1, 'Title is required'),
-  slug: z.string().min(1, 'Slug is required'),
-  excerpt: z.string().optional(),
-  content: z.string().min(1, 'Content is required'),
-  coverImage: z.string().url().optional().or(z.literal('')),
-  published: z.boolean().default(false),
-  tags: z.array(z.string()).default([]),
-})
+const { Title, Text } = Typography
+const { TextArea } = Input
 
-type PostFormData = z.infer<typeof postSchema>
+interface PostFormData {
+  title: string
+  slug: string
+  excerpt: string
+  content: string
+  coverImage: string
+  published: boolean
+  tags: string[]
+}
 
 export default function NewPost() {
   const { data: session, status } = useSession()
   const router = useRouter()
+  const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState(false)
   const [newTag, setNewTag] = useState('')
-
-  const form = useForm<PostFormData>({
-    resolver: zodResolver(postSchema),
-    defaultValues: {
-      title: '',
-      slug: '',
-      excerpt: '',
-      content: '',
-      coverImage: '',
-      published: false,
-      tags: [],
-    },
+  const [tags, setTags] = useState<string[]>([])
+  const [contentMode, setContentMode] = useState<'write' | 'preview'>('write')
+  const [content, setContent] = useState('')
+  const [imageUrl, setImageUrl] = useState('')
+  const [showImageModal, setShowImageModal] = useState(false)
+  const [showCodeModal, setShowCodeModal] = useState(false)
+  const [codeSnippet, setCodeSnippet] = useState('')
+  const [codeLanguage, setCodeLanguage] = useState('javascript')
+  const [formData, setFormData] = useState<PostFormData>({
+    title: '',
+    slug: '',
+    excerpt: '',
+    content: '',
+    coverImage: '',
+    published: false,
+    tags: [],
   })
 
   useEffect(() => {
@@ -74,300 +81,457 @@ export default function NewPost() {
   }, [session, status, router])
 
   // Auto-generate slug from title
-  const watchTitle = form.watch('title')
-  useEffect(() => {
-    if (watchTitle) {
-      const slug = watchTitle
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)/g, '')
-      form.setValue('slug', slug)
-    }
-  }, [watchTitle, form])
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const title = e.target.value
+    const slug = title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '')
+    
+    setFormData(prev => ({ ...prev, title, slug }))
+    form.setFieldsValue({ title, slug })
+  }
 
-  const onSubmit = async (data: PostFormData) => {
+  const onFinish = async (values: any) => {
     try {
       setIsLoading(true)
+      
+      const postData = {
+        ...values,
+        tags: tags,
+        coverImage: values.coverImage || null,
+        excerpt: values.excerpt || null,
+      }
       
       const response = await fetch('/api/admin/posts', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data),
+        body: JSON.stringify(postData),
       })
 
       if (response.ok) {
-        const post = await response.json()
-        router.push(`/admin/posts`)
+        message.success('Post created successfully!')
+        router.push('/admin/posts')
       } else {
-        throw new Error('Failed to create post')
+        message.error('Failed to create post')
       }
     } catch (error) {
       console.error('Error creating post:', error)
+      message.error('Failed to create post')
     } finally {
       setIsLoading(false)
     }
   }
 
   const addTag = () => {
-    if (newTag.trim() && !form.getValues('tags').includes(newTag.trim())) {
-      const currentTags = form.getValues('tags')
-      form.setValue('tags', [...currentTags, newTag.trim()])
+    if (newTag.trim() && !tags.includes(newTag.trim())) {
+      setTags([...tags, newTag.trim()])
       setNewTag('')
     }
   }
 
   const removeTag = (tagToRemove: string) => {
-    const currentTags = form.getValues('tags')
-    form.setValue('tags', currentTags.filter(tag => tag !== tagToRemove))
+    setTags(tags.filter(tag => tag !== tagToRemove))
   }
 
-  if (status === 'loading') {
+  const insertImage = () => {
+    if (imageUrl.trim()) {
+      const imageHtml = `<img src="${imageUrl}" alt="Image" style="max-width: 100%; height: auto; margin: 10px 0;" />`
+      setContent(prev => prev + '\n\n' + imageHtml + '\n\n')
+      form.setFieldsValue({ content: content + '\n\n' + imageHtml + '\n\n' })
+      setImageUrl('')
+      setShowImageModal(false)
+    }
+  }
+
+  const insertCode = () => {
+    if (codeSnippet.trim()) {
+      const codeHtml = `<pre><code class="language-${codeLanguage}">${codeSnippet}</code></pre>`
+      setContent(prev => prev + '\n\n' + codeHtml + '\n\n')
+      form.setFieldsValue({ content: content + '\n\n' + codeHtml + '\n\n' })
+      setCodeSnippet('')
+      setShowCodeModal(false)
+    }
+  }
+
+  const insertHtml = (htmlTag: string) => {
+    const textarea = document.querySelector('textarea[name="content"]') as HTMLTextAreaElement
+    if (textarea) {
+      const start = textarea.selectionStart
+      const end = textarea.selectionEnd
+      const selectedText = textarea.value.substring(start, end)
+      
+      let htmlToInsert = ''
+      switch (htmlTag) {
+        case 'bold':
+          htmlToInsert = `<strong>${selectedText || 'Bold text'}</strong>`
+          break
+        case 'italic':
+          htmlToInsert = `<em>${selectedText || 'Italic text'}</em>`
+          break
+        case 'h1':
+          htmlToInsert = `<h1>${selectedText || 'Heading 1'}</h1>`
+          break
+        case 'h2':
+          htmlToInsert = `<h2>${selectedText || 'Heading 2'}</h2>`
+          break
+        case 'h3':
+          htmlToInsert = `<h3>${selectedText || 'Heading 3'}</h3>`
+          break
+        case 'p':
+          htmlToInsert = `<p>${selectedText || 'Paragraph text'}</p>`
+          break
+        case 'ul':
+          htmlToInsert = `<ul>\n  <li>${selectedText || 'List item'}</li>\n</ul>`
+          break
+        case 'ol':
+          htmlToInsert = `<ol>\n  <li>${selectedText || 'List item'}</li>\n</ol>`
+          break
+        case 'blockquote':
+          htmlToInsert = `<blockquote>${selectedText || 'Quote text'}</blockquote>`
+          break
+        case 'link':
+          htmlToInsert = `<a href="#">${selectedText || 'Link text'}</a>`
+          break
+      }
+      
+      const newContent = textarea.value.substring(0, start) + htmlToInsert + textarea.value.substring(end)
+      setContent(newContent)
+      form.setFieldsValue({ content: newContent })
+    }
+  }
+
+  const renderPreview = (htmlContent: string) => {
     return (
-      <div className="min-h-screen bg-background flex items-center justify-center">
-        <div className="text-center space-y-4">
-          <div className="w-8 h-8 border-2 border-theme-primary/30 border-t-theme-primary rounded-full animate-spin mx-auto" />
-          <p className="text-muted-foreground">Loading...</p>
-        </div>
-      </div>
+      <div 
+        className="content-preview"
+        style={{ 
+          minHeight: '400px', 
+          padding: '16px', 
+          border: '1px solid #d9d9d9', 
+          borderRadius: '6px',
+          backgroundColor: '#fafafa'
+        }}
+        dangerouslySetInnerHTML={{ __html: htmlContent }}
+      />
     )
   }
 
+  if (status === 'loading' || !session) {
+    return null
+  }
+
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center space-x-4">
+    <AntdProvider>
+      <AdminLayout>
+        <div>
+          {/* Header */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
+            <div>
+              <Title level={2} style={{ margin: 0 }}>
+                Create New Post
+              </Title>
+              <Text type="secondary">Write and publish a new blog post</Text>
+            </div>
             <Link href="/admin/posts">
-              <Button variant="outline" size="sm">
-                <ArrowLeft className="w-4 h-4 mr-2" />
+              <Button icon={<ArrowLeftOutlined />}>
                 Back to Posts
               </Button>
             </Link>
-            <div>
-              <h1 className="text-3xl font-bold">Create New Post</h1>
-              <p className="text-muted-foreground">Write and publish a new blog post</p>
-            </div>
           </div>
-        </div>
 
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <Form
+            form={form}
+            layout="vertical"
+            onFinish={onFinish}
+            initialValues={{
+              title: '',
+              slug: '',
+              excerpt: '',
+              content: '',
+              coverImage: '',
+              published: false,
+            }}
+          >
+            <Row gutter={24}>
               {/* Main Content */}
-              <div className="lg:col-span-2 space-y-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Post Content</CardTitle>
-                    <CardDescription>
-                      The main content and details of your blog post
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="space-y-6">
-                    <FormField
-                      control={form.control}
-                      name="title"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Title</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Enter post title..." {...field} />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
+              <Col xs={24} lg={16}>
+                <Card title="Post Content" style={{ marginBottom: 24 }}>
+                  <Form.Item
+                    label="Title"
+                    name="title"
+                    rules={[{ required: true, message: 'Please enter a title' }]}
+                  >
+                    <Input
+                      placeholder="Enter post title..."
+                      onChange={handleTitleChange}
+                      size="large"
                     />
+                  </Form.Item>
 
-                    <FormField
-                      control={form.control}
-                      name="slug"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Slug</FormLabel>
-                          <FormControl>
-                            <Input placeholder="post-url-slug" {...field} />
-                          </FormControl>
-                          <FormDescription>
-                            URL-friendly version of the title (auto-generated)
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                  <Form.Item
+                    label="Slug"
+                    name="slug"
+                    rules={[{ required: true, message: 'Please enter a slug' }]}
+                    help="URL-friendly version of the title (auto-generated)"
+                  >
+                    <Input placeholder="post-url-slug" />
+                  </Form.Item>
 
-                    <FormField
-                      control={form.control}
-                      name="excerpt"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Excerpt</FormLabel>
-                          <FormControl>
-                            <Textarea 
-                              placeholder="Brief description of the post..."
-                              className="min-h-[100px]"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormDescription>
-                            Short summary shown in post listings
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
+                  <Form.Item
+                    label="Excerpt"
+                    name="excerpt"
+                    help="Short summary shown in post listings"
+                  >
+                    <TextArea
+                      placeholder="Brief description of the post..."
+                      rows={3}
                     />
+                  </Form.Item>
 
-                    <FormField
-                      control={form.control}
-                      name="content"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Content</FormLabel>
-                          <FormControl>
-                            <Textarea 
-                              placeholder="Write your post content here... (Markdown supported)"
-                              className="min-h-[400px]"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormDescription>
-                            Full post content (Markdown formatting supported)
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </CardContent>
+                  <Form.Item
+                    label="Content"
+                    name="content"
+                    rules={[{ required: true, message: 'Please enter content' }]}
+                    help="Full post content (HTML supported)"
+                  >
+                    <div>
+                      {/* Rich Text Toolbar */}
+                      <div style={{ 
+                        marginBottom: '8px', 
+                        padding: '8px', 
+                        border: '1px solid #d9d9d9', 
+                        borderRadius: '6px 6px 0 0',
+                        backgroundColor: '#fafafa',
+                        display: 'flex',
+                        flexWrap: 'wrap',
+                        gap: '4px'
+                      }}>
+                        <Button size="small" onClick={() => insertHtml('bold')} title="Bold">
+                          <strong>B</strong>
+                        </Button>
+                        <Button size="small" onClick={() => insertHtml('italic')} title="Italic">
+                          <em>I</em>
+                        </Button>
+                        <Button size="small" onClick={() => insertHtml('h1')} title="Heading 1">
+                          H1
+                        </Button>
+                        <Button size="small" onClick={() => insertHtml('h2')} title="Heading 2">
+                          H2
+                        </Button>
+                        <Button size="small" onClick={() => insertHtml('h3')} title="Heading 3">
+                          H3
+                        </Button>
+                        <Button size="small" onClick={() => insertHtml('p')} title="Paragraph">
+                          P
+                        </Button>
+                        <Button size="small" onClick={() => insertHtml('ul')} title="Bullet List">
+                          • List
+                        </Button>
+                        <Button size="small" onClick={() => insertHtml('ol')} title="Numbered List">
+                          1. List
+                        </Button>
+                        <Button size="small" onClick={() => insertHtml('blockquote')} title="Quote">
+                          Quote
+                        </Button>
+                        <Button size="small" onClick={() => insertHtml('link')} title="Link">
+                          Link
+                        </Button>
+                        <Button 
+                          size="small" 
+                          icon={<PictureOutlined />} 
+                          onClick={() => setShowImageModal(true)}
+                          title="Insert Image"
+                        >
+                          Image
+                        </Button>
+                        <Button 
+                          size="small" 
+                          icon={<CodeOutlined />} 
+                          onClick={() => setShowCodeModal(true)}
+                          title="Insert Code"
+                        >
+                          Code
+                        </Button>
+                      </div>
+
+                      {/* Content Tabs */}
+                      <Tabs
+                        activeKey={contentMode}
+                        onChange={(key) => setContentMode(key as 'write' | 'preview')}
+                        items={[
+                          {
+                            key: 'write',
+                            label: 'Write',
+                            children: (
+                              <TextArea
+                                placeholder="Write your post content here... (HTML supported)\n\nYou can use HTML tags like:\n<h1>Heading</h1>\n<p>Paragraph</p>\n<strong>Bold</strong>\n<em>Italic</em>\n<img src='url' alt='description' />\n<pre><code>Code block</code></pre>"
+                                rows={15}
+                                value={content}
+                                onChange={(e) => {
+                                  setContent(e.target.value)
+                                  form.setFieldsValue({ content: e.target.value })
+                                }}
+                                style={{ borderRadius: '0 0 6px 6px' }}
+                              />
+                            )
+                          },
+                          {
+                            key: 'preview',
+                            label: (
+                              <span>
+                                <EyeOutlined /> Preview
+                              </span>
+                            ),
+                            children: renderPreview(content)
+                          }
+                        ]}
+                      />
+                    </div>
+                  </Form.Item>
                 </Card>
-              </div>
+              </Col>
 
               {/* Sidebar */}
-              <div className="space-y-6">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Publish Settings</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <FormField
-                      control={form.control}
+              <Col xs={24} lg={8}>
+                <Space direction="vertical" size="large" style={{ width: '100%' }}>
+                  <Card title="Publish Settings">
+                    <Form.Item
+                      label="Published"
                       name="published"
-                      render={({ field }) => (
-                        <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-                          <div className="space-y-0.5">
-                            <FormLabel className="text-base">
-                              Published
-                            </FormLabel>
-                            <FormDescription>
-                              Make this post visible to the public
-                            </FormDescription>
-                          </div>
-                          <FormControl>
-                            <Switch
-                              checked={field.value}
-                              onCheckedChange={field.onChange}
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
+                      valuePropName="checked"
+                      help="Make this post visible to the public"
+                    >
+                      <Switch />
+                    </Form.Item>
 
-                    <div className="flex space-x-2">
+                    <Form.Item>
                       <Button
-                        type="submit"
-                        disabled={isLoading}
-                        className="flex-1 bg-theme-primary hover:bg-theme-secondary text-white"
+                        type="primary"
+                        htmlType="submit"
+                        loading={isLoading}
+                        icon={<SaveOutlined />}
+                        size="large"
+                        block
                       >
-                        {isLoading ? (
-                          <>
-                            <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                            Saving...
-                          </>
-                        ) : (
-                          <>
-                            <Save className="w-4 h-4 mr-2" />
-                            Save Post
-                          </>
-                        )}
+                        {isLoading ? 'Saving...' : 'Save Post'}
                       </Button>
-                    </div>
-                  </CardContent>
-                </Card>
+                    </Form.Item>
+                  </Card>
 
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Cover Image</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <FormField
-                      control={form.control}
+                  <Card title="Cover Image">
+                    <Form.Item
                       name="coverImage"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormControl>
-                            <Input 
-                              placeholder="https://example.com/image.jpg"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormDescription>
-                            URL of the cover image for this post
-                          </FormDescription>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </CardContent>
-                </Card>
+                      help="URL of the cover image for this post"
+                    >
+                      <Input placeholder="https://example.com/image.jpg" />
+                    </Form.Item>
+                  </Card>
 
-                <Card>
-                  <CardHeader>
-                    <CardTitle>Tags</CardTitle>
-                  </CardHeader>
-                  <CardContent className="space-y-4">
-                    <div className="flex space-x-2">
+                  <Card title="Tags">
+                    <Space.Compact style={{ width: '100%', marginBottom: 16 }}>
                       <Input
                         placeholder="Add a tag..."
                         value={newTag}
                         onChange={(e) => setNewTag(e.target.value)}
-                        onKeyPress={(e) => {
-                          if (e.key === 'Enter') {
-                            e.preventDefault()
-                            addTag()
-                          }
-                        }}
+                        onPressEnter={addTag}
                       />
                       <Button
-                        type="button"
+                        type="primary"
                         onClick={addTag}
-                        size="sm"
-                        variant="outline"
-                      >
-                        <Plus className="w-4 h-4" />
-                      </Button>
-                    </div>
+                        icon={<PlusOutlined />}
+                      />
+                    </Space.Compact>
 
-                    <div className="flex flex-wrap gap-2">
-                      {form.watch('tags').map((tag) => (
-                        <Badge key={tag} variant="secondary" className="flex items-center gap-1">
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                      {tags.map((tag) => (
+                        <Tag
+                          key={tag}
+                          closable
+                          onClose={() => removeTag(tag)}
+                          closeIcon={<CloseOutlined />}
+                        >
                           {tag}
-                          <button
-                            type="button"
-                            onClick={() => removeTag(tag)}
-                            className="ml-1 hover:text-destructive"
-                          >
-                            <X className="w-3 h-3" />
-                          </button>
-                        </Badge>
+                        </Tag>
                       ))}
                     </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </div>
-          </form>
-        </Form>
-      </div>
-    </div>
+                  </Card>
+                </Space>
+              </Col>
+            </Row>
+          </Form>
+
+          {/* Image Modal */}
+          <Modal
+            title="Insert Image"
+            open={showImageModal}
+            onOk={insertImage}
+            onCancel={() => {
+              setShowImageModal(false)
+              setImageUrl('')
+            }}
+            okText="Insert"
+          >
+            <Form layout="vertical">
+              <Form.Item label="Image URL">
+                <Input
+                  placeholder="https://example.com/image.jpg"
+                  value={imageUrl}
+                  onChange={(e) => setImageUrl(e.target.value)}
+                />
+              </Form.Item>
+              <Form.Item help="Paste the URL of your image. The image will be inserted at the current cursor position.">
+                {imageUrl && (
+                  <div style={{ marginTop: '10px' }}>
+                    <img 
+                      src={imageUrl} 
+                      alt="Preview" 
+                      style={{ maxWidth: '100%', maxHeight: '200px', objectFit: 'contain' }}
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).style.display = 'none'
+                      }}
+                    />
+                  </div>
+                )}
+              </Form.Item>
+            </Form>
+          </Modal>
+
+          {/* Code Modal */}
+          <Modal
+            title="Insert Code Block"
+            open={showCodeModal}
+            onOk={insertCode}
+            onCancel={() => {
+              setShowCodeModal(false)
+              setCodeSnippet('')
+            }}
+            okText="Insert"
+            width={600}
+          >
+            <Form layout="vertical">
+              <Form.Item label="Programming Language">
+                <Input
+                  placeholder="javascript, python, html, css, etc."
+                  value={codeLanguage}
+                  onChange={(e) => setCodeLanguage(e.target.value)}
+                />
+              </Form.Item>
+              <Form.Item label="Code">
+                <TextArea
+                  placeholder="Enter your code here..."
+                  value={codeSnippet}
+                  onChange={(e) => setCodeSnippet(e.target.value)}
+                  rows={8}
+                  style={{ fontFamily: 'monospace' }}
+                />
+              </Form.Item>
+            </Form>
+          </Modal>
+        </div>
+      </AdminLayout>
+    </AntdProvider>
   )
 }

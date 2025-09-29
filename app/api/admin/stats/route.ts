@@ -12,11 +12,17 @@ export async function GET(request: NextRequest) {
     }
 
     // Fetch stats from database
-    const [posts, projects, articles, designs] = await Promise.all([
+    const [posts, projects, articles, designs, contacts, totalViews] = await Promise.all([
       prisma.post.count(),
       prisma.project.count(),
       prisma.article.count(),
       prisma.design.count(),
+      prisma.contact.count(),
+      prisma.analytics.aggregate({
+        _sum: {
+          visits: true,
+        },
+      }),
     ])
 
     const stats = {
@@ -24,6 +30,8 @@ export async function GET(request: NextRequest) {
       projects,
       articles,
       designs,
+      contacts,
+      views: totalViews._sum.visits || 0,
     }
 
     return NextResponse.json(stats)

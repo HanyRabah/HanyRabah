@@ -3,20 +3,34 @@
 import { useSession } from 'next-auth/react'
 import { useRouter, useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Switch } from '@/components/ui/switch'
 import { 
-  ArrowLeft,
-  Save,
-  Eye,
-  Loader2
-} from 'lucide-react'
+  Button, 
+  Card, 
+  Input, 
+  Form, 
+  Switch, 
+  Tag, 
+  Typography, 
+  Row, 
+  Col, 
+  Space,
+  message,
+  Spin,
+  Descriptions
+} from 'antd'
+import {
+  ArrowLeftOutlined,
+  SaveOutlined,
+  EyeOutlined,
+  PlusOutlined,
+  CloseOutlined
+} from '@ant-design/icons'
 import Link from 'next/link'
+import AdminLayout from '@/components/admin/AdminLayout'
+import AntdProvider from '@/components/admin/AntdProvider'
+
+const { Title, Text } = Typography
+const { TextArea } = Input
 
 interface Project {
   id: string
@@ -38,21 +52,14 @@ export default function EditProject() {
   const { data: session, status } = useSession()
   const router = useRouter()
   const params = useParams()
+  const [form] = Form.useForm()
   const [project, setProject] = useState<Project | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
-  const [formData, setFormData] = useState({
-    title: '',
-    slug: '',
-    description: '',
-    content: '',
-    featured: false,
-    thumbnail: '',
-    images: '',
-    technologies: '',
-    liveUrl: '',
-    githubUrl: ''
-  })
+  const [technologies, setTechnologies] = useState<string[]>([])
+  const [images, setImages] = useState<string[]>([])
+  const [newTech, setNewTech] = useState('')
+  const [newImage, setNewImage] = useState('')
 
   useEffect(() => {
     if (status === 'loading') return
@@ -71,284 +78,327 @@ export default function EditProject() {
       if (response.ok) {
         const projectData = await response.json()
         setProject(projectData)
-        setFormData({
+        setTechnologies(projectData.technologies || [])
+        setImages(projectData.images || [])
+        form.setFieldsValue({
           title: projectData.title,
           slug: projectData.slug,
           description: projectData.description,
           content: projectData.content,
           featured: projectData.featured,
           thumbnail: projectData.thumbnail || '',
-          images: projectData.images.join(', '),
-          technologies: projectData.technologies.join(', '),
           liveUrl: projectData.liveUrl || '',
           githubUrl: projectData.githubUrl || ''
         })
       } else {
+        message.error('Project not found')
         router.push('/admin/projects')
       }
     } catch (error) {
       console.error('Failed to fetch project:', error)
+      message.error('Failed to fetch project')
       router.push('/admin/projects')
     } finally {
       setLoading(false)
     }
   }
 
-  const handleSave = async () => {
-    setSaving(true)
+  const onFinish = async (values: any) => {
     try {
+      setSaving(true)
+      
+      const projectData = {
+        ...values,
+        technologies: technologies,
+        images: images,
+        thumbnail: values.thumbnail || null,
+        liveUrl: values.liveUrl || null,
+        githubUrl: values.githubUrl || null,
+      }
+      
       const response = await fetch(`/api/admin/projects/${params.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          title: formData.title,
-          slug: formData.slug,
-          description: formData.description,
-          content: formData.content,
-          featured: formData.featured,
-          thumbnail: formData.thumbnail || null,
-          images: formData.images.split(',').map(img => img.trim()).filter(img => img),
-          technologies: formData.technologies.split(',').map(tech => tech.trim()).filter(tech => tech),
-          liveUrl: formData.liveUrl || null,
-          githubUrl: formData.githubUrl || null,
-        }),
+        body: JSON.stringify(projectData),
       })
 
       if (response.ok) {
+        message.success('Project updated successfully!')
         router.push('/admin/projects')
       } else {
-        alert('Failed to save project')
+        message.error('Failed to update project')
       }
     } catch (error) {
       console.error('Failed to save project:', error)
-      alert('Failed to save project')
+      message.error('Failed to update project')
     } finally {
       setSaving(false)
     }
   }
 
+  const addTechnology = () => {
+    if (newTech.trim() && !technologies.includes(newTech.trim())) {
+      setTechnologies([...technologies, newTech.trim()])
+      setNewTech('')
+    }
+  }
+
+  const removeTechnology = (techToRemove: string) => {
+    setTechnologies(technologies.filter(tech => tech !== techToRemove))
+  }
+
+  const addImage = () => {
+    if (newImage.trim() && !images.includes(newImage.trim())) {
+      setImages([...images, newImage.trim()])
+      setNewImage('')
+    }
+  }
+
+  const removeImage = (imageToRemove: string) => {
+    setImages(images.filter(img => img !== imageToRemove))
+  }
+
   if (status === 'loading' || loading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center space-y-4">
-          <div className="w-8 h-8 border-2 border-blue-300 border-t-blue-600 rounded-full animate-spin mx-auto" />
-          <p className="text-gray-600">Loading project...</p>
-        </div>
-      </div>
+      <AntdProvider>
+        <AdminLayout>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
+            <Spin size="large" />
+          </div>
+        </AdminLayout>
+      </AntdProvider>
     )
   }
 
   if (!project) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center space-y-4">
-          <p className="text-gray-600">Project not found</p>
-          <Link href="/admin/projects">
-            <Button variant="outline">Back to Projects</Button>
-          </Link>
-        </div>
-      </div>
+      <AntdProvider>
+        <AdminLayout>
+          <div style={{ textAlign: 'center', padding: '50px' }}>
+            <Title level={3}>Project not found</Title>
+            <Link href="/admin/projects">
+              <Button type="primary">Back to Projects</Button>
+            </Link>
+          </div>
+        </AdminLayout>
+      </AntdProvider>
     )
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center space-x-4">
-            <Link href="/admin/projects">
-              <Button variant="outline" size="sm" className="border-gray-300">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Projects
-              </Button>
-            </Link>
+    <AntdProvider>
+      <AdminLayout>
+        <div>
+          {/* Header */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Edit Project</h1>
-              <p className="text-gray-600">Modify your project details</p>
+              <Title level={2} style={{ margin: 0 }}>
+                Edit Project
+              </Title>
+              <Text type="secondary">Modify your project details</Text>
             </div>
+            <Space>
+              <Link href={`/projects/${project.slug}`} target="_blank">
+                <Button icon={<EyeOutlined />}>
+                  Preview
+                </Button>
+              </Link>
+              <Link href="/admin/projects">
+                <Button icon={<ArrowLeftOutlined />}>
+                  Back to Projects
+                </Button>
+              </Link>
+            </Space>
           </div>
-          <div className="flex items-center space-x-2">
-            <Link href={`/projects/${project.slug}`} target="_blank">
-              <Button variant="outline" size="sm" className="border-gray-300">
-                <Eye className="w-4 h-4 mr-2" />
-                Preview
-              </Button>
-            </Link>
-            <Button 
-              onClick={handleSave}
-              disabled={saving}
-              className="bg-blue-600 hover:bg-blue-700 text-white"
-            >
-              {saving ? (
-                <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Saving...
-                </>
-              ) : (
-                <>
-                  <Save className="w-4 h-4 mr-2" />
-                  Save Changes
-                </>
-              )}
-            </Button>
-          </div>
+
+          <Form
+            form={form}
+            layout="vertical"
+            onFinish={onFinish}
+          >
+            <Row gutter={24}>
+              {/* Main Content */}
+              <Col xs={24} lg={16}>
+                <Card title="Project Details" style={{ marginBottom: 24 }}>
+                  <Form.Item
+                    label="Title"
+                    name="title"
+                    rules={[{ required: true, message: 'Please enter a title' }]}
+                  >
+                    <Input placeholder="Enter project title..." size="large" />
+                  </Form.Item>
+
+                  <Form.Item
+                    label="Slug"
+                    name="slug"
+                    rules={[{ required: true, message: 'Please enter a slug' }]}
+                  >
+                    <Input placeholder="project-url-slug" />
+                  </Form.Item>
+
+                  <Form.Item
+                    label="Description"
+                    name="description"
+                    rules={[{ required: true, message: 'Please enter a description' }]}
+                    help="Brief description shown in project listings"
+                  >
+                    <TextArea
+                      placeholder="Brief description of the project..."
+                      rows={3}
+                    />
+                  </Form.Item>
+
+                  <Form.Item
+                    label="Content"
+                    name="content"
+                    rules={[{ required: true, message: 'Please enter content' }]}
+                    help="Detailed project content"
+                  >
+                    <TextArea
+                      placeholder="Detailed project description..."
+                      rows={15}
+                    />
+                  </Form.Item>
+                </Card>
+              </Col>
+
+              {/* Sidebar */}
+              <Col xs={24} lg={8}>
+                <Space direction="vertical" size="large" style={{ width: '100%' }}>
+                  <Card title="Project Settings">
+                    <Form.Item
+                      label="Featured"
+                      name="featured"
+                      valuePropName="checked"
+                      help="Mark this project as featured"
+                    >
+                      <Switch />
+                    </Form.Item>
+
+                    <Form.Item>
+                      <Button
+                        type="primary"
+                        htmlType="submit"
+                        loading={saving}
+                        icon={<SaveOutlined />}
+                        size="large"
+                        block
+                      >
+                        {saving ? 'Saving...' : 'Save Changes'}
+                      </Button>
+                    </Form.Item>
+                  </Card>
+
+                  <Card title="Media">
+                    <Form.Item
+                      label="Thumbnail URL"
+                      name="thumbnail"
+                      help="Main project image"
+                    >
+                      <Input placeholder="https://example.com/image.jpg" />
+                    </Form.Item>
+
+                    <div style={{ marginBottom: 16 }}>
+                      <Text strong>Additional Images</Text>
+                      <Space.Compact style={{ width: '100%', marginTop: 8 }}>
+                        <Input
+                          placeholder="Image URL..."
+                          value={newImage}
+                          onChange={(e) => setNewImage(e.target.value)}
+                          onPressEnter={addImage}
+                        />
+                        <Button
+                          type="primary"
+                          onClick={addImage}
+                          icon={<PlusOutlined />}
+                        />
+                      </Space.Compact>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 8 }}>
+                        {images.map((image) => (
+                          <Tag
+                            key={image}
+                            closable
+                            onClose={() => removeImage(image)}
+                            closeIcon={<CloseOutlined />}
+                            style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis' }}
+                          >
+                            {image.length > 30 ? `${image.substring(0, 30)}...` : image}
+                          </Tag>
+                        ))}
+                      </div>
+                    </div>
+                  </Card>
+
+                  <Card title="Technologies">
+                    <Space.Compact style={{ width: '100%', marginBottom: 16 }}>
+                      <Input
+                        placeholder="Add technology..."
+                        value={newTech}
+                        onChange={(e) => setNewTech(e.target.value)}
+                        onPressEnter={addTechnology}
+                      />
+                      <Button
+                        type="primary"
+                        onClick={addTechnology}
+                        icon={<PlusOutlined />}
+                      />
+                    </Space.Compact>
+
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                      {technologies.map((tech) => (
+                        <Tag
+                          key={tech}
+                          closable
+                          onClose={() => removeTechnology(tech)}
+                          closeIcon={<CloseOutlined />}
+                        >
+                          {tech}
+                        </Tag>
+                      ))}
+                    </div>
+                  </Card>
+
+                  <Card title="Links">
+                    <Form.Item
+                      label="Live URL"
+                      name="liveUrl"
+                      help="Link to the live project"
+                    >
+                      <Input placeholder="https://project-demo.com" />
+                    </Form.Item>
+
+                    <Form.Item
+                      label="GitHub URL"
+                      name="githubUrl"
+                      help="Link to the source code"
+                    >
+                      <Input placeholder="https://github.com/user/repo" />
+                    </Form.Item>
+                  </Card>
+
+                  <Card title="Project Information">
+                    <Descriptions column={1} size="small">
+                      <Descriptions.Item label="Status">
+                        <Tag color={project.featured ? 'blue' : 'default'}>
+                          {project.featured ? 'Featured' : 'Regular'}
+                        </Tag>
+                      </Descriptions.Item>
+                      <Descriptions.Item label="Created">
+                        {new Date(project.createdAt).toLocaleDateString()}
+                      </Descriptions.Item>
+                      <Descriptions.Item label="Updated">
+                        {new Date(project.updatedAt).toLocaleDateString()}
+                      </Descriptions.Item>
+                    </Descriptions>
+                  </Card>
+                </Space>
+              </Col>
+            </Row>
+          </Form>
         </div>
-
-        {/* Form */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-6">
-            <Card className="border border-gray-200 bg-white shadow-sm">
-              <CardHeader className="bg-gray-50 border-b border-gray-200">
-                <CardTitle className="text-gray-900">Project Content</CardTitle>
-              </CardHeader>
-              <CardContent className="p-6 space-y-4">
-                <div>
-                  <Label htmlFor="title" className="text-gray-700">Title</Label>
-                  <Input
-                    id="title"
-                    value={formData.title}
-                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    className="mt-1 border-gray-300"
-                  />
-                </div>
-                
-                <div>
-                  <Label htmlFor="slug" className="text-gray-700">Slug</Label>
-                  <Input
-                    id="slug"
-                    value={formData.slug}
-                    onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                    className="mt-1 border-gray-300"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="description" className="text-gray-700">Description</Label>
-                  <Textarea
-                    id="description"
-                    value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    rows={3}
-                    className="mt-1 border-gray-300"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="content" className="text-gray-700">Content</Label>
-                  <Textarea
-                    id="content"
-                    value={formData.content}
-                    onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                    rows={15}
-                    className="mt-1 border-gray-300"
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="space-y-6">
-            <Card className="border border-gray-200 bg-white shadow-sm">
-              <CardHeader className="bg-gray-50 border-b border-gray-200">
-                <CardTitle className="text-gray-900">Project Settings</CardTitle>
-              </CardHeader>
-              <CardContent className="p-6 space-y-4">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="featured" className="text-gray-700">Featured</Label>
-                  <Switch
-                    id="featured"
-                    checked={formData.featured}
-                    onCheckedChange={(checked) => setFormData({ ...formData, featured: checked })}
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="technologies" className="text-gray-700">Technologies</Label>
-                  <Input
-                    id="technologies"
-                    value={formData.technologies}
-                    onChange={(e) => setFormData({ ...formData, technologies: e.target.value })}
-                    placeholder="React, TypeScript, Node.js"
-                    className="mt-1 border-gray-300"
-                  />
-                  <p className="text-sm text-gray-500 mt-1">Separate with commas</p>
-                </div>
-
-                <div>
-                  <Label htmlFor="thumbnail" className="text-gray-700">Thumbnail URL</Label>
-                  <Input
-                    id="thumbnail"
-                    value={formData.thumbnail}
-                    onChange={(e) => setFormData({ ...formData, thumbnail: e.target.value })}
-                    placeholder="https://example.com/image.jpg"
-                    className="mt-1 border-gray-300"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="images" className="text-gray-700">Additional Images</Label>
-                  <Textarea
-                    id="images"
-                    value={formData.images}
-                    onChange={(e) => setFormData({ ...formData, images: e.target.value })}
-                    placeholder="URL1, URL2, URL3"
-                    rows={3}
-                    className="mt-1 border-gray-300"
-                  />
-                  <p className="text-sm text-gray-500 mt-1">Separate URLs with commas</p>
-                </div>
-
-                <div>
-                  <Label htmlFor="liveUrl" className="text-gray-700">Live URL</Label>
-                  <Input
-                    id="liveUrl"
-                    value={formData.liveUrl}
-                    onChange={(e) => setFormData({ ...formData, liveUrl: e.target.value })}
-                    placeholder="https://example.com"
-                    className="mt-1 border-gray-300"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="githubUrl" className="text-gray-700">GitHub URL</Label>
-                  <Input
-                    id="githubUrl"
-                    value={formData.githubUrl}
-                    onChange={(e) => setFormData({ ...formData, githubUrl: e.target.value })}
-                    placeholder="https://github.com/user/repo"
-                    className="mt-1 border-gray-300"
-                  />
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border border-gray-200 bg-white shadow-sm">
-              <CardHeader className="bg-gray-50 border-b border-gray-200">
-                <CardTitle className="text-gray-900">Project Info</CardTitle>
-              </CardHeader>
-              <CardContent className="p-6 space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Status:</span>
-                  <Badge variant={project.featured ? "default" : "secondary"}>
-                    {project.featured ? 'Featured' : 'Regular'}
-                  </Badge>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Created:</span>
-                  <span className="text-gray-900">{new Date(project.createdAt).toLocaleDateString()}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Updated:</span>
-                  <span className="text-gray-900">{new Date(project.updatedAt).toLocaleDateString()}</span>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </div>
-    </div>
+      </AdminLayout>
+    </AntdProvider>
   )
 }

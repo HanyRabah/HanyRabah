@@ -124,7 +124,7 @@ export default function Home() {
         <main>
           <HeroSection />
           <AboutSection />
-          <ProjectsSection />
+          {/* <ProjectsSection /> */}
           <ServicesSection />
           <BlogSection />
         </main>

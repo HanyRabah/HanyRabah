@@ -3,21 +3,36 @@
 import { useSession } from 'next-auth/react'
 import { useRouter, useParams } from 'next/navigation'
 import { useEffect, useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Switch } from '@/components/ui/switch'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { 
-  ArrowLeft,
-  Save,
-  Eye,
-  Loader2
-} from 'lucide-react'
+  Button, 
+  Card, 
+  Input, 
+  Form, 
+  Switch, 
+  Tag, 
+  Typography, 
+  Row, 
+  Col, 
+  Space,
+  message,
+  Spin,
+  Descriptions,
+  Select
+} from 'antd'
+import {
+  ArrowLeftOutlined,
+  SaveOutlined,
+  EyeOutlined,
+  PlusOutlined,
+  CloseOutlined
+} from '@ant-design/icons'
 import Link from 'next/link'
+import AdminLayout from '@/components/admin/AdminLayout'
+import AntdProvider from '@/components/admin/AntdProvider'
+
+const { Title, Text } = Typography
+const { TextArea } = Input
+const { Option } = Select
 
 interface Design {
   id: string
@@ -40,30 +55,29 @@ interface Design {
   updatedAt: string
 }
 
+const DESIGN_CATEGORIES = [
+  'WEB_DESIGN',
+  'MOBILE_APP',
+  'UI_UX',
+  'BRANDING',
+  'ILLUSTRATION',
+  'DESIGN_SYSTEM'
+]
+
 export default function EditDesign() {
   const { data: session, status } = useSession()
   const router = useRouter()
   const params = useParams()
+  const [form] = Form.useForm()
   const [design, setDesign] = useState<Design | null>(null)
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
-  const [formData, setFormData] = useState({
-    title: '',
-    slug: '',
-    description: '',
-    content: '',
-    featured: false,
-    coverImage: '',
-    images: '',
-    tags: '',
-    category: 'WEB_DESIGN',
-    tools: '',
-    clientName: '',
-    projectUrl: '',
-    figmaUrl: '',
-    behanceUrl: '',
-    dribbbleUrl: ''
-  })
+  const [tools, setTools] = useState<string[]>([])
+  const [images, setImages] = useState<string[]>([])
+  const [tags, setTags] = useState<string[]>([])
+  const [newTool, setNewTool] = useState('')
+  const [newImage, setNewImage] = useState('')
+  const [newTag, setNewTag] = useState('')
 
   useEffect(() => {
     if (status === 'loading') return
@@ -82,17 +96,17 @@ export default function EditDesign() {
       if (response.ok) {
         const designData = await response.json()
         setDesign(designData)
-        setFormData({
+        setTools(designData.tools || [])
+        setImages(designData.images || [])
+        setTags(designData.tags || [])
+        form.setFieldsValue({
           title: designData.title,
           slug: designData.slug,
           description: designData.description,
           content: designData.content,
           featured: designData.featured,
-          coverImage: designData.coverImage || '',
-          images: designData.images.join(', '),
-          tags: designData.tags.join(', '),
           category: designData.category,
-          tools: designData.tools.join(', '),
+          coverImage: designData.coverImage || '',
           clientName: designData.clientName || '',
           projectUrl: designData.projectUrl || '',
           figmaUrl: designData.figmaUrl || '',
@@ -100,349 +114,399 @@ export default function EditDesign() {
           dribbbleUrl: designData.dribbbleUrl || ''
         })
       } else {
+        message.error('Design not found')
         router.push('/admin/designs')
       }
     } catch (error) {
       console.error('Failed to fetch design:', error)
+      message.error('Failed to fetch design')
       router.push('/admin/designs')
     } finally {
       setLoading(false)
     }
   }
 
-  const handleSave = async () => {
-    setSaving(true)
+  const onFinish = async (values: any) => {
     try {
+      setSaving(true)
+      
+      const designData = {
+        ...values,
+        tools: tools,
+        images: images,
+        tags: tags,
+        coverImage: values.coverImage || null,
+        clientName: values.clientName || null,
+        projectUrl: values.projectUrl || null,
+        figmaUrl: values.figmaUrl || null,
+        behanceUrl: values.behanceUrl || null,
+        dribbbleUrl: values.dribbbleUrl || null,
+      }
+      
       const response = await fetch(`/api/admin/designs/${params.id}`, {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          title: formData.title,
-          slug: formData.slug,
-          description: formData.description,
-          content: formData.content,
-          featured: formData.featured,
-          coverImage: formData.coverImage || null,
-          images: formData.images.split(',').map(img => img.trim()).filter(img => img),
-          tags: formData.tags.split(',').map(tag => tag.trim()).filter(tag => tag),
-          category: formData.category,
-          tools: formData.tools.split(',').map(tool => tool.trim()).filter(tool => tool),
-          clientName: formData.clientName || null,
-          projectUrl: formData.projectUrl || null,
-          figmaUrl: formData.figmaUrl || null,
-          behanceUrl: formData.behanceUrl || null,
-          dribbbleUrl: formData.dribbbleUrl || null,
-        }),
+        body: JSON.stringify(designData),
       })
 
       if (response.ok) {
+        message.success('Design updated successfully!')
         router.push('/admin/designs')
       } else {
-        alert('Failed to save design')
+        message.error('Failed to update design')
       }
     } catch (error) {
       console.error('Failed to save design:', error)
-      alert('Failed to save design')
+      message.error('Failed to update design')
     } finally {
       setSaving(false)
     }
   }
 
+  const addTool = () => {
+    if (newTool.trim() && !tools.includes(newTool.trim())) {
+      setTools([...tools, newTool.trim()])
+      setNewTool('')
+    }
+  }
+
+  const removeTool = (toolToRemove: string) => {
+    setTools(tools.filter(tool => tool !== toolToRemove))
+  }
+
+  const addImage = () => {
+    if (newImage.trim() && !images.includes(newImage.trim())) {
+      setImages([...images, newImage.trim()])
+      setNewImage('')
+    }
+  }
+
+  const removeImage = (imageToRemove: string) => {
+    setImages(images.filter(img => img !== imageToRemove))
+  }
+
+  const addTag = () => {
+    if (newTag.trim() && !tags.includes(newTag.trim())) {
+      setTags([...tags, newTag.trim()])
+      setNewTag('')
+    }
+  }
+
+  const removeTag = (tagToRemove: string) => {
+    setTags(tags.filter(tag => tag !== tagToRemove))
+  }
+
   if (status === 'loading' || loading) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center space-y-4">
-          <div className="w-8 h-8 border-2 border-blue-300 border-t-blue-600 rounded-full animate-spin mx-auto" />
-          <p className="text-gray-600">Loading design...</p>
-        </div>
-      </div>
+      <AntdProvider>
+        <AdminLayout>
+          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
+            <Spin size="large" />
+          </div>
+        </AdminLayout>
+      </AntdProvider>
     )
   }
 
   if (!design) {
     return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center space-y-4">
-          <p className="text-gray-600">Design not found</p>
-          <Link href="/admin/designs">
-            <Button variant="outline">Back to Designs</Button>
-          </Link>
-        </div>
-      </div>
+      <AntdProvider>
+        <AdminLayout>
+          <div style={{ textAlign: 'center', padding: '50px' }}>
+            <Title level={3}>Design not found</Title>
+            <Link href="/admin/designs">
+              <Button type="primary">Back to Designs</Button>
+            </Link>
+          </div>
+        </AdminLayout>
+      </AntdProvider>
     )
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center space-x-4">
-            <Link href="/admin/designs">
-              <Button variant="outline" size="sm" className="border-gray-300">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Designs
-              </Button>
-            </Link>
+    <AntdProvider>
+      <AdminLayout>
+        <div>
+          {/* Header */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">Edit Design</h1>
-              <p className="text-gray-600">Modify your design project</p>
+              <Title level={2} style={{ margin: 0 }}>
+                Edit Design
+              </Title>
+              <Text type="secondary">Modify your design details</Text>
             </div>
+            <Space>
+              <Link href={`/designs/${design.slug}`} target="_blank">
+                <Button icon={<EyeOutlined />}>
+                  Preview
+                </Button>
+              </Link>
+              <Link href="/admin/designs">
+                <Button icon={<ArrowLeftOutlined />}>
+                  Back to Designs
+                </Button>
+              </Link>
+            </Space>
           </div>
-          <div className="flex items-center space-x-2">
-            <Link href={`/design/${design.slug}`} target="_blank">
-              <Button variant="outline" size="sm" className="border-gray-300">
-                <Eye className="w-4 h-4 mr-2" />
-                Preview
-              </Button>
-            </Link>
-            <Button 
-              onClick={handleSave}
-              disabled={saving}
-              className="bg-blue-600 hover:bg-blue-700 text-white"
-            >
-              {saving ? (
-                <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Saving...
-                </>
-              ) : (
-                <>
-                  <Save className="w-4 h-4 mr-2" />
-                  Save Changes
-                </>
-              )}
-            </Button>
-          </div>
+
+          <Form
+            form={form}
+            layout="vertical"
+            onFinish={onFinish}
+          >
+            <Row gutter={24}>
+              {/* Main Content */}
+              <Col xs={24} lg={16}>
+                <Card title="Design Details" style={{ marginBottom: 24 }}>
+                  <Form.Item
+                    label="Title"
+                    name="title"
+                    rules={[{ required: true, message: 'Please enter a title' }]}
+                  >
+                    <Input placeholder="Enter design title..." size="large" />
+                  </Form.Item>
+
+                  <Form.Item
+                    label="Slug"
+                    name="slug"
+                    rules={[{ required: true, message: 'Please enter a slug' }]}
+                  >
+                    <Input placeholder="design-url-slug" />
+                  </Form.Item>
+
+                  <Form.Item
+                    label="Category"
+                    name="category"
+                    rules={[{ required: true, message: 'Please select a category' }]}
+                  >
+                    <Select placeholder="Select design category">
+                      {DESIGN_CATEGORIES.map(category => (
+                        <Option key={category} value={category}>
+                          {category.replace('_', ' ')}
+                        </Option>
+                      ))}
+                    </Select>
+                  </Form.Item>
+
+                  <Form.Item
+                    label="Description"
+                    name="description"
+                    rules={[{ required: true, message: 'Please enter a description' }]}
+                    help="Brief description shown in design listings"
+                  >
+                    <TextArea
+                      placeholder="Brief description of the design..."
+                      rows={3}
+                    />
+                  </Form.Item>
+
+                  <Form.Item
+                    label="Content"
+                    name="content"
+                    rules={[{ required: true, message: 'Please enter content' }]}
+                    help="Detailed design description and process"
+                  >
+                    <TextArea
+                      placeholder="Detailed design description, process, challenges, and solutions..."
+                      rows={15}
+                    />
+                  </Form.Item>
+                </Card>
+              </Col>
+
+              {/* Sidebar */}
+              <Col xs={24} lg={8}>
+                <Space direction="vertical" size="large" style={{ width: '100%' }}>
+                  <Card title="Design Settings">
+                    <Form.Item
+                      label="Featured"
+                      name="featured"
+                      valuePropName="checked"
+                      help="Mark this design as featured"
+                    >
+                      <Switch />
+                    </Form.Item>
+
+                    <Form.Item>
+                      <Button
+                        type="primary"
+                        htmlType="submit"
+                        loading={saving}
+                        icon={<SaveOutlined />}
+                        size="large"
+                        block
+                      >
+                        {saving ? 'Saving...' : 'Save Changes'}
+                      </Button>
+                    </Form.Item>
+                  </Card>
+
+                  <Card title="Media">
+                    <Form.Item
+                      label="Cover Image URL"
+                      name="coverImage"
+                      help="Main design image"
+                    >
+                      <Input placeholder="https://example.com/image.jpg" />
+                    </Form.Item>
+
+                    <div style={{ marginBottom: 16 }}>
+                      <Text strong>Additional Images</Text>
+                      <Space.Compact style={{ width: '100%', marginTop: 8 }}>
+                        <Input
+                          placeholder="Image URL..."
+                          value={newImage}
+                          onChange={(e) => setNewImage(e.target.value)}
+                          onPressEnter={addImage}
+                        />
+                        <Button
+                          type="primary"
+                          onClick={addImage}
+                          icon={<PlusOutlined />}
+                        />
+                      </Space.Compact>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 8 }}>
+                        {images.map((image) => (
+                          <Tag
+                            key={image}
+                            closable
+                            onClose={() => removeImage(image)}
+                            closeIcon={<CloseOutlined />}
+                            style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis' }}
+                          >
+                            {image.length > 30 ? `${image.substring(0, 30)}...` : image}
+                          </Tag>
+                        ))}
+                      </div>
+                    </div>
+                  </Card>
+
+                  <Card title="Tools & Technologies">
+                    <Space.Compact style={{ width: '100%', marginBottom: 16 }}>
+                      <Input
+                        placeholder="Add tool/technology..."
+                        value={newTool}
+                        onChange={(e) => setNewTool(e.target.value)}
+                        onPressEnter={addTool}
+                      />
+                      <Button
+                        type="primary"
+                        onClick={addTool}
+                        icon={<PlusOutlined />}
+                      />
+                    </Space.Compact>
+
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                      {tools.map((tool) => (
+                        <Tag
+                          key={tool}
+                          closable
+                          onClose={() => removeTool(tool)}
+                          closeIcon={<CloseOutlined />}
+                        >
+                          {tool}
+                        </Tag>
+                      ))}
+                    </div>
+                  </Card>
+
+                  <Card title="Client & Links">
+                    <Form.Item
+                      label="Client Name"
+                      name="clientName"
+                      help="Client or company name"
+                    >
+                      <Input placeholder="Client name" />
+                    </Form.Item>
+
+                    <Form.Item
+                      label="Project URL"
+                      name="projectUrl"
+                      help="Link to the live project"
+                    >
+                      <Input placeholder="https://project-url.com" />
+                    </Form.Item>
+
+                    <Form.Item
+                      label="Figma URL"
+                      name="figmaUrl"
+                      help="Link to Figma design"
+                    >
+                      <Input placeholder="https://figma.com/..." />
+                    </Form.Item>
+
+                    <Form.Item
+                      label="Behance URL"
+                      name="behanceUrl"
+                      help="Link to Behance project"
+                    >
+                      <Input placeholder="https://behance.net/..." />
+                    </Form.Item>
+
+                    <Form.Item
+                      label="Dribbble URL"
+                      name="dribbbleUrl"
+                      help="Link to Dribbble shot"
+                    >
+                      <Input placeholder="https://dribbble.com/..." />
+                    </Form.Item>
+                  </Card>
+
+                  <Card title="Tags">
+                    <Space.Compact style={{ width: '100%', marginBottom: 16 }}>
+                      <Input
+                        placeholder="Add tag..."
+                        value={newTag}
+                        onChange={(e) => setNewTag(e.target.value)}
+                        onPressEnter={addTag}
+                      />
+                      <Button
+                        type="primary"
+                        onClick={addTag}
+                        icon={<PlusOutlined />}
+                      />
+                    </Space.Compact>
+
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                      {tags.map((tag) => (
+                        <Tag
+                          key={tag}
+                          closable
+                          onClose={() => removeTag(tag)}
+                          closeIcon={<CloseOutlined />}
+                        >
+                          {tag}
+                        </Tag>
+                      ))}
+                    </div>
+                  </Card>
+
+                  <Card title="Design Information">
+                    <Descriptions column={1} size="small">
+                      <Descriptions.Item label="Status">
+                        <Tag color={design.featured ? 'blue' : 'default'}>
+                          {design.featured ? 'Featured' : 'Regular'}
+                        </Tag>
+                      </Descriptions.Item>
+                      <Descriptions.Item label="Category">
+                        {design.category.replace('_', ' ')}
+                      </Descriptions.Item>
+                      <Descriptions.Item label="Created">
+                        {new Date(design.createdAt).toLocaleDateString()}
+                      </Descriptions.Item>
+                      <Descriptions.Item label="Updated">
+                        {new Date(design.updatedAt).toLocaleDateString()}
+                      </Descriptions.Item>
+                    </Descriptions>
+                  </Card>
+                </Space>
+              </Col>
+            </Row>
+          </Form>
         </div>
-
-        {/* Form */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <div className="lg:col-span-2 space-y-6">
-            <Card className="border border-gray-200 bg-white shadow-sm">
-              <CardHeader className="bg-gray-50 border-b border-gray-200">
-                <CardTitle className="text-gray-900">Design Content</CardTitle>
-              </CardHeader>
-              <CardContent className="p-6 space-y-4">
-                <div>
-                  <Label htmlFor="title" className="text-gray-700">Title</Label>
-                  <Input
-                    id="title"
-                    value={formData.title}
-                    onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                    className="mt-1 border-gray-300"
-                  />
-                </div>
-                
-                <div>
-                  <Label htmlFor="slug" className="text-gray-700">Slug</Label>
-                  <Input
-                    id="slug"
-                    value={formData.slug}
-                    onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
-                    className="mt-1 border-gray-300"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="description" className="text-gray-700">Description</Label>
-                  <Textarea
-                    id="description"
-                    value={formData.description}
-                    onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                    rows={3}
-                    className="mt-1 border-gray-300"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="content" className="text-gray-700">Content</Label>
-                  <Textarea
-                    id="content"
-                    value={formData.content}
-                    onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-                    rows={15}
-                    className="mt-1 border-gray-300"
-                  />
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-
-          <div className="space-y-6">
-            <Card className="border border-gray-200 bg-white shadow-sm">
-              <CardHeader className="bg-gray-50 border-b border-gray-200">
-                <CardTitle className="text-gray-900">Design Settings</CardTitle>
-              </CardHeader>
-              <CardContent className="p-6 space-y-4">
-                <div className="flex items-center justify-between">
-                  <Label htmlFor="featured" className="text-gray-700">Featured</Label>
-                  <Switch
-                    id="featured"
-                    checked={formData.featured}
-                    onCheckedChange={(checked) => setFormData({ ...formData, featured: checked })}
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="category" className="text-gray-700">Category</Label>
-                  <Select value={formData.category} onValueChange={(value) => setFormData({ ...formData, category: value })}>
-                    <SelectTrigger className="mt-1 border-gray-300">
-                      <SelectValue />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="WEB_DESIGN">Web Design</SelectItem>
-                      <SelectItem value="MOBILE_APP">Mobile App</SelectItem>
-                      <SelectItem value="UI_UX">UI/UX</SelectItem>
-                      <SelectItem value="BRANDING">Branding</SelectItem>
-                      <SelectItem value="ILLUSTRATION">Illustration</SelectItem>
-                      <SelectItem value="DESIGN_SYSTEM">Design System</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
-
-                <div>
-                  <Label htmlFor="tools" className="text-gray-700">Tools</Label>
-                  <Input
-                    id="tools"
-                    value={formData.tools}
-                    onChange={(e) => setFormData({ ...formData, tools: e.target.value })}
-                    placeholder="Figma, Photoshop, Illustrator"
-                    className="mt-1 border-gray-300"
-                  />
-                  <p className="text-sm text-gray-500 mt-1">Separate with commas</p>
-                </div>
-
-                <div>
-                  <Label htmlFor="tags" className="text-gray-700">Tags</Label>
-                  <Input
-                    id="tags"
-                    value={formData.tags}
-                    onChange={(e) => setFormData({ ...formData, tags: e.target.value })}
-                    placeholder="modern, clean, responsive"
-                    className="mt-1 border-gray-300"
-                  />
-                  <p className="text-sm text-gray-500 mt-1">Separate tags with commas</p>
-                </div>
-
-                <div>
-                  <Label htmlFor="clientName" className="text-gray-700">Client Name</Label>
-                  <Input
-                    id="clientName"
-                    value={formData.clientName}
-                    onChange={(e) => setFormData({ ...formData, clientName: e.target.value })}
-                    placeholder="Company Name"
-                    className="mt-1 border-gray-300"
-                  />
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border border-gray-200 bg-white shadow-sm">
-              <CardHeader className="bg-gray-50 border-b border-gray-200">
-                <CardTitle className="text-gray-900">Images & Links</CardTitle>
-              </CardHeader>
-              <CardContent className="p-6 space-y-4">
-                <div>
-                  <Label htmlFor="coverImage" className="text-gray-700">Cover Image URL</Label>
-                  <Input
-                    id="coverImage"
-                    value={formData.coverImage}
-                    onChange={(e) => setFormData({ ...formData, coverImage: e.target.value })}
-                    placeholder="https://example.com/cover.jpg"
-                    className="mt-1 border-gray-300"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="images" className="text-gray-700">Additional Images</Label>
-                  <Textarea
-                    id="images"
-                    value={formData.images}
-                    onChange={(e) => setFormData({ ...formData, images: e.target.value })}
-                    placeholder="URL1, URL2, URL3"
-                    rows={3}
-                    className="mt-1 border-gray-300"
-                  />
-                  <p className="text-sm text-gray-500 mt-1">Separate URLs with commas</p>
-                </div>
-
-                <div>
-                  <Label htmlFor="projectUrl" className="text-gray-700">Project URL</Label>
-                  <Input
-                    id="projectUrl"
-                    value={formData.projectUrl}
-                    onChange={(e) => setFormData({ ...formData, projectUrl: e.target.value })}
-                    placeholder="https://project.com"
-                    className="mt-1 border-gray-300"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="figmaUrl" className="text-gray-700">Figma URL</Label>
-                  <Input
-                    id="figmaUrl"
-                    value={formData.figmaUrl}
-                    onChange={(e) => setFormData({ ...formData, figmaUrl: e.target.value })}
-                    placeholder="https://figma.com/file/..."
-                    className="mt-1 border-gray-300"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="behanceUrl" className="text-gray-700">Behance URL</Label>
-                  <Input
-                    id="behanceUrl"
-                    value={formData.behanceUrl}
-                    onChange={(e) => setFormData({ ...formData, behanceUrl: e.target.value })}
-                    placeholder="https://behance.net/gallery/..."
-                    className="mt-1 border-gray-300"
-                  />
-                </div>
-
-                <div>
-                  <Label htmlFor="dribbbleUrl" className="text-gray-700">Dribbble URL</Label>
-                  <Input
-                    id="dribbbleUrl"
-                    value={formData.dribbbleUrl}
-                    onChange={(e) => setFormData({ ...formData, dribbbleUrl: e.target.value })}
-                    placeholder="https://dribbble.com/shots/..."
-                    className="mt-1 border-gray-300"
-                  />
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border border-gray-200 bg-white shadow-sm">
-              <CardHeader className="bg-gray-50 border-b border-gray-200">
-                <CardTitle className="text-gray-900">Design Info</CardTitle>
-              </CardHeader>
-              <CardContent className="p-6 space-y-2">
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Status:</span>
-                  <Badge variant={design.featured ? "default" : "secondary"}>
-                    {design.featured ? 'Featured' : 'Regular'}
-                  </Badge>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Category:</span>
-                  <Badge variant="outline">{design.category.replace('_', ' ')}</Badge>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Created:</span>
-                  <span className="text-gray-900">{new Date(design.createdAt).toLocaleDateString()}</span>
-                </div>
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">Updated:</span>
-                  <span className="text-gray-900">{new Date(design.updatedAt).toLocaleDateString()}</span>
-                </div>
-              </CardContent>
-            </Card>
-          </div>
-        </div>
-      </div>
-    </div>
+      </AdminLayout>
+    </AntdProvider>
   )
 }
