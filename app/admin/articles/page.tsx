@@ -2,18 +2,21 @@
 
 import { useSession } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react'
-import { Button } from '@/components/ui/button'
-import { 
-  Plus, 
-  ArrowLeft
-} from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { Button, Typography, Card } from 'antd'
+import { BookOutlined, PlusOutlined, ReloadOutlined } from '@ant-design/icons'
 import Link from 'next/link'
-import ArticlesList from '@/components/admin/ArticlesList'
+import AdminLayout from '@/components/admin/AdminLayout'
+import AntdProvider from '@/components/admin/AntdProvider'
+import ContentTable from '@/components/admin/ContentTable'
+
+const { Title, Text } = Typography
 
 export default function ArticlesManagement() {
   const { data: session, status } = useSession()
   const router = useRouter()
+  const [articles, setArticles] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (status === 'loading') return
@@ -22,47 +25,67 @@ export default function ArticlesManagement() {
       router.push('/admin/login')
       return
     }
+
+    fetchArticles()
   }, [session, status, router])
 
-  if (status === 'loading') {
-    return (
-      <div className="min-h-screen bg-white flex items-center justify-center">
-        <div className="text-center space-y-4">
-          <div className="w-8 h-8 border-2 border-theme-primary/30 border-t-theme-primary rounded-full animate-spin mx-auto" />
-          <p className="text-muted-foreground">Loading articles...</p>
-        </div>
-      </div>
-    )
+  const fetchArticles = async () => {
+    try {
+      setLoading(true)
+      const response = await fetch('/api/admin/articles')
+      if (response.ok) {
+        const data = await response.json()
+        setArticles(data)
+      }
+    } catch (error) {
+      console.error('Failed to fetch articles:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  if (status === 'loading' || !session) {
+    return null
   }
 
   return (
-    <div className="min-h-screen bg-white">
-      <div className="container mx-auto px-4 py-8">
-        {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center space-x-4">
-            <Link href="/admin/dashboard">
-              <Button variant="outline" size="sm">
-                <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Dashboard
-              </Button>
-            </Link>
+    <AntdProvider>
+      <AdminLayout>
+        <div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
             <div>
-              <h1 className="text-3xl font-bold">Technical Articles</h1>
-              <p className="text-muted-foreground">Manage your technical articles and tutorials</p>
+              <Title level={2} style={{ margin: 0 }}>
+                <BookOutlined style={{ marginRight: 8 }} />
+                Technical Articles
+              </Title>
+              <Text type="secondary">Manage your technical articles and tutorials</Text>
+            </div>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <Button
+                icon={<ReloadOutlined />}
+                onClick={fetchArticles}
+                loading={loading}
+              >
+                Refresh
+              </Button>
+              <Link href="/admin/articles/new">
+                <Button type="primary" icon={<PlusOutlined />}>
+                  New Article
+                </Button>
+              </Link>
             </div>
           </div>
-          <Link href="/admin/articles/new">
-            <Button className="bg-theme-primary hover:bg-theme-secondary text-white">
-              <Plus className="w-4 h-4 mr-2" />
-              New Article
-            </Button>
-          </Link>
-        </div>
 
-        {/* Articles List */}
-        <ArticlesList />
-      </div>
-    </div>
+          <Card>
+            <ContentTable
+              data={articles}
+              type="articles"
+              loading={loading}
+              onRefresh={fetchArticles}
+            />
+          </Card>
+        </div>
+      </AdminLayout>
+    </AntdProvider>
   )
 }

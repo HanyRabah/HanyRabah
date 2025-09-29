@@ -15,9 +15,7 @@ import {
   Col, 
   Space,
   message,
-  Spin,
   Tabs,
-  Upload,
   Modal
 } from 'antd'
 import {
@@ -27,8 +25,7 @@ import {
   CloseOutlined,
   EyeOutlined,
   CodeOutlined,
-  PictureOutlined,
-  UploadOutlined
+  PictureOutlined
 } from '@ant-design/icons'
 import Link from 'next/link'
 import AdminLayout from '@/components/admin/AdminLayout'
@@ -37,23 +34,28 @@ import AntdProvider from '@/components/admin/AntdProvider'
 const { Title, Text } = Typography
 const { TextArea } = Input
 
-interface PostFormData {
+interface ProjectFormData {
   title: string
   slug: string
-  excerpt: string
+  description: string
   content: string
-  coverImage: string
-  published: boolean
-  tags: string[]
+  featured: boolean
+  thumbnail: string
+  images: string[]
+  technologies: string[]
+  liveUrl: string
+  githubUrl: string
 }
 
-export default function NewPost() {
+export default function NewProject() {
   const { data: session, status } = useSession()
   const router = useRouter()
   const [form] = Form.useForm()
   const [isLoading, setIsLoading] = useState(false)
-  const [newTag, setNewTag] = useState('')
-  const [tags, setTags] = useState<string[]>([])
+  const [newTech, setNewTech] = useState('')
+  const [technologies, setTechnologies] = useState<string[]>([])
+  const [newImage, setNewImage] = useState('')
+  const [images, setImages] = useState<string[]>([])
   const [contentMode, setContentMode] = useState<'write' | 'preview'>('write')
   const [content, setContent] = useState('')
   const [imageUrl, setImageUrl] = useState('')
@@ -61,15 +63,6 @@ export default function NewPost() {
   const [showCodeModal, setShowCodeModal] = useState(false)
   const [codeSnippet, setCodeSnippet] = useState('')
   const [codeLanguage, setCodeLanguage] = useState('javascript')
-  const [formData, setFormData] = useState<PostFormData>({
-    title: '',
-    slug: '',
-    excerpt: '',
-    content: '',
-    coverImage: '',
-    published: false,
-    tags: [],
-  })
 
   useEffect(() => {
     if (status === 'loading') return
@@ -88,7 +81,6 @@ export default function NewPost() {
       .replace(/[^a-z0-9]+/g, '-')
       .replace(/(^-|-$)/g, '')
     
-    setFormData(prev => ({ ...prev, title, slug }))
     form.setFieldsValue({ title, slug })
   }
 
@@ -96,44 +88,58 @@ export default function NewPost() {
     try {
       setIsLoading(true)
       
-      const postData = {
+      const projectData = {
         ...values,
-        tags: tags,
-        coverImage: values.coverImage || null,
-        excerpt: values.excerpt || null,
+        technologies: technologies,
+        images: images,
+        thumbnail: values.thumbnail || null,
+        liveUrl: values.liveUrl || null,
+        githubUrl: values.githubUrl || null,
+        content: content,
       }
       
-      const response = await fetch('/api/admin/posts', {
+      const response = await fetch('/api/admin/projects', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(postData),
+        body: JSON.stringify(projectData),
       })
 
       if (response.ok) {
-        message.success('Post created successfully!')
-        router.push('/admin/posts')
+        message.success('Project created successfully!')
+        router.push('/admin/projects')
       } else {
-        message.error('Failed to create post')
+        message.error('Failed to create project')
       }
     } catch (error) {
-      console.error('Error creating post:', error)
-      message.error('Failed to create post')
+      console.error('Error creating project:', error)
+      message.error('Failed to create project')
     } finally {
       setIsLoading(false)
     }
   }
 
-  const addTag = () => {
-    if (newTag.trim() && !tags.includes(newTag.trim())) {
-      setTags([...tags, newTag.trim()])
-      setNewTag('')
+  const addTechnology = () => {
+    if (newTech.trim() && !technologies.includes(newTech.trim())) {
+      setTechnologies([...technologies, newTech.trim()])
+      setNewTech('')
     }
   }
 
-  const removeTag = (tagToRemove: string) => {
-    setTags(tags.filter(tag => tag !== tagToRemove))
+  const removeTechnology = (techToRemove: string) => {
+    setTechnologies(technologies.filter(tech => tech !== techToRemove))
+  }
+
+  const addImage = () => {
+    if (newImage.trim() && !images.includes(newImage.trim())) {
+      setImages([...images, newImage.trim()])
+      setNewImage('')
+    }
+  }
+
+  const removeImage = (imageToRemove: string) => {
+    setImages(images.filter(img => img !== imageToRemove))
   }
 
   const insertImage = () => {
@@ -231,13 +237,13 @@ export default function NewPost() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
             <div>
               <Title level={2} style={{ margin: 0 }}>
-                Create New Post
+                Create New Project
               </Title>
-              <Text type="secondary">Write and publish a new blog post</Text>
+              <Text type="secondary">Add a new project to your portfolio</Text>
             </div>
-            <Link href="/admin/posts">
+            <Link href="/admin/projects">
               <Button icon={<ArrowLeftOutlined />}>
-                Back to Posts
+                Back to Projects
               </Button>
             </Link>
           </div>
@@ -249,23 +255,25 @@ export default function NewPost() {
             initialValues={{
               title: '',
               slug: '',
-              excerpt: '',
+              description: '',
               content: '',
-              coverImage: '',
-              published: false,
+              featured: false,
+              thumbnail: '',
+              liveUrl: '',
+              githubUrl: '',
             }}
           >
             <Row gutter={24}>
               {/* Main Content */}
               <Col xs={24} lg={16}>
-                <Card title="Post Content" style={{ marginBottom: 24 }}>
+                <Card title="Project Details" style={{ marginBottom: 24 }}>
                   <Form.Item
                     label="Title"
                     name="title"
                     rules={[{ required: true, message: 'Please enter a title' }]}
                   >
                     <Input
-                      placeholder="Enter post title..."
+                      placeholder="Enter project title..."
                       onChange={handleTitleChange}
                       size="large"
                     />
@@ -277,16 +285,17 @@ export default function NewPost() {
                     rules={[{ required: true, message: 'Please enter a slug' }]}
                     help="URL-friendly version of the title (auto-generated)"
                   >
-                    <Input placeholder="post-url-slug" />
+                    <Input placeholder="project-url-slug" />
                   </Form.Item>
 
                   <Form.Item
-                    label="Excerpt"
-                    name="excerpt"
-                    help="Short summary shown in post listings"
+                    label="Description"
+                    name="description"
+                    rules={[{ required: true, message: 'Please enter a description' }]}
+                    help="Brief description shown in project listings"
                   >
                     <TextArea
-                      placeholder="Brief description of the post..."
+                      placeholder="Brief description of the project..."
                       rows={3}
                     />
                   </Form.Item>
@@ -295,7 +304,7 @@ export default function NewPost() {
                     label="Content"
                     name="content"
                     rules={[{ required: true, message: 'Please enter content' }]}
-                    help="Full post content (HTML supported)"
+                    help="Detailed project content (HTML supported)"
                   >
                     <div>
                       {/* Rich Text Toolbar */}
@@ -367,7 +376,7 @@ export default function NewPost() {
                             label: 'Write',
                             children: (
                               <TextArea
-                                placeholder="Write your post content here... (HTML supported)\n\nYou can use HTML tags like:\n<h1>Heading</h1>\n<p>Paragraph</p>\n<strong>Bold</strong>\n<em>Italic</em>\n<img src='url' alt='description' />\n<pre><code>Code block</code></pre>"
+                                placeholder="Write your project content here... (HTML supported)\n\nDescribe your project, the challenges you faced, technologies used, and what you learned."
                                 rows={15}
                                 value={content}
                                 onChange={(e) => {
@@ -397,12 +406,12 @@ export default function NewPost() {
               {/* Sidebar */}
               <Col xs={24} lg={8}>
                 <Space direction="vertical" size="large" style={{ width: '100%' }}>
-                  <Card title="Publish Settings">
+                  <Card title="Project Settings">
                     <Form.Item
-                      label="Published"
-                      name="published"
+                      label="Featured"
+                      name="featured"
                       valuePropName="checked"
-                      help="Make this post visible to the public"
+                      help="Mark this project as featured"
                     >
                       <Switch />
                     </Form.Item>
@@ -416,47 +425,96 @@ export default function NewPost() {
                         size="large"
                         block
                       >
-                        {isLoading ? 'Saving...' : 'Save Post'}
+                        {isLoading ? 'Creating...' : 'Create Project'}
                       </Button>
                     </Form.Item>
                   </Card>
 
-                  <Card title="Cover Image">
+                  <Card title="Media">
                     <Form.Item
-                      name="coverImage"
-                      help="URL of the cover image for this post"
+                      label="Thumbnail URL"
+                      name="thumbnail"
+                      help="Main project image"
                     >
                       <Input placeholder="https://example.com/image.jpg" />
                     </Form.Item>
+
+                    <div style={{ marginBottom: 16 }}>
+                      <Text strong>Additional Images</Text>
+                      <Space.Compact style={{ width: '100%', marginTop: 8 }}>
+                        <Input
+                          placeholder="Image URL..."
+                          value={newImage}
+                          onChange={(e) => setNewImage(e.target.value)}
+                          onPressEnter={addImage}
+                        />
+                        <Button
+                          type="primary"
+                          onClick={addImage}
+                          icon={<PlusOutlined />}
+                        />
+                      </Space.Compact>
+                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 8 }}>
+                        {images.map((image) => (
+                          <Tag
+                            key={image}
+                            closable
+                            onClose={() => removeImage(image)}
+                            closeIcon={<CloseOutlined />}
+                            style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis' }}
+                          >
+                            {image.length > 30 ? `${image.substring(0, 30)}...` : image}
+                          </Tag>
+                        ))}
+                      </div>
+                    </div>
                   </Card>
 
-                  <Card title="Tags">
+                  <Card title="Technologies">
                     <Space.Compact style={{ width: '100%', marginBottom: 16 }}>
                       <Input
-                        placeholder="Add a tag..."
-                        value={newTag}
-                        onChange={(e) => setNewTag(e.target.value)}
-                        onPressEnter={addTag}
+                        placeholder="Add technology..."
+                        value={newTech}
+                        onChange={(e) => setNewTech(e.target.value)}
+                        onPressEnter={addTechnology}
                       />
                       <Button
                         type="primary"
-                        onClick={addTag}
+                        onClick={addTechnology}
                         icon={<PlusOutlined />}
                       />
                     </Space.Compact>
 
                     <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-                      {tags.map((tag) => (
+                      {technologies.map((tech) => (
                         <Tag
-                          key={tag}
+                          key={tech}
                           closable
-                          onClose={() => removeTag(tag)}
+                          onClose={() => removeTechnology(tech)}
                           closeIcon={<CloseOutlined />}
                         >
-                          {tag}
+                          {tech}
                         </Tag>
                       ))}
                     </div>
+                  </Card>
+
+                  <Card title="Links">
+                    <Form.Item
+                      label="Live URL"
+                      name="liveUrl"
+                      help="Link to the live project"
+                    >
+                      <Input placeholder="https://project-demo.com" />
+                    </Form.Item>
+
+                    <Form.Item
+                      label="GitHub URL"
+                      name="githubUrl"
+                      help="Link to the source code"
+                    >
+                      <Input placeholder="https://github.com/user/repo" />
+                    </Form.Item>
                   </Card>
                 </Space>
               </Col>

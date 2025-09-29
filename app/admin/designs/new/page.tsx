@@ -1,7 +1,7 @@
 'use client'
 
 import { useSession } from 'next-auth/react'
-import { useRouter, useParams } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { 
   Button, 
@@ -15,14 +15,11 @@ import {
   Col, 
   Space,
   message,
-  Spin,
-  Descriptions,
   Select
 } from 'antd'
 import {
   ArrowLeftOutlined,
   SaveOutlined,
-  EyeOutlined,
   PlusOutlined,
   CloseOutlined
 } from '@ant-design/icons'
@@ -34,25 +31,22 @@ const { Title, Text } = Typography
 const { TextArea } = Input
 const { Option } = Select
 
-interface Design {
-  id: string
+interface DesignFormData {
   title: string
   slug: string
   description: string
   content: string
   featured: boolean
-  coverImage: string | null
-  images: string[]
-  tags: string[]
   category: string
+  coverImage: string
+  images: string[]
   tools: string[]
-  clientName: string | null
-  projectUrl: string | null
-  figmaUrl: string | null
-  behanceUrl: string | null
-  dribbbleUrl: string | null
-  createdAt: string
-  updatedAt: string
+  clientName: string
+  projectUrl: string
+  figmaUrl: string
+  behanceUrl: string
+  dribbbleUrl: string
+  tags: string[]
 }
 
 const DESIGN_CATEGORIES = [
@@ -64,20 +58,17 @@ const DESIGN_CATEGORIES = [
   'DESIGN_SYSTEM'
 ]
 
-export default function EditDesign() {
+export default function NewDesign() {
   const { data: session, status } = useSession()
   const router = useRouter()
-  const params = useParams()
   const [form] = Form.useForm()
-  const [design, setDesign] = useState<Design | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [saving, setSaving] = useState(false)
-  const [tools, setTools] = useState<string[]>([])
-  const [images, setImages] = useState<string[]>([])
-  const [tags, setTags] = useState<string[]>([])
+  const [isLoading, setIsLoading] = useState(false)
   const [newTool, setNewTool] = useState('')
+  const [tools, setTools] = useState<string[]>([])
   const [newImage, setNewImage] = useState('')
+  const [images, setImages] = useState<string[]>([])
   const [newTag, setNewTag] = useState('')
+  const [tags, setTags] = useState<string[]>([])
 
   useEffect(() => {
     if (status === 'loading') return
@@ -86,49 +77,22 @@ export default function EditDesign() {
       router.push('/admin/login')
       return
     }
+  }, [session, status, router])
 
-    fetchDesign()
-  }, [session, status, router, params.id])
-
-  const fetchDesign = async () => {
-    try {
-      const response = await fetch(`/api/admin/designs/${params.id}`)
-      if (response.ok) {
-        const designData = await response.json()
-        setDesign(designData)
-        setTools(designData.tools || [])
-        setImages(designData.images || [])
-        setTags(designData.tags || [])
-        form.setFieldsValue({
-          title: designData.title,
-          slug: designData.slug,
-          description: designData.description,
-          content: designData.content,
-          featured: designData.featured,
-          category: designData.category,
-          coverImage: designData.coverImage || '',
-          clientName: designData.clientName || '',
-          projectUrl: designData.projectUrl || '',
-          figmaUrl: designData.figmaUrl || '',
-          behanceUrl: designData.behanceUrl || '',
-          dribbbleUrl: designData.dribbbleUrl || ''
-        })
-      } else {
-        message.error('Design not found')
-        router.push('/admin/designs')
-      }
-    } catch (error) {
-      console.error('Failed to fetch design:', error)
-      message.error('Failed to fetch design')
-      router.push('/admin/designs')
-    } finally {
-      setLoading(false)
-    }
+  // Auto-generate slug from title
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const title = e.target.value
+    const slug = title
+      .toLowerCase()
+      .replace(/[^a-z0-9]+/g, '-')
+      .replace(/(^-|-$)/g, '')
+    
+    form.setFieldsValue({ title, slug })
   }
 
   const onFinish = async (values: any) => {
     try {
-      setSaving(true)
+      setIsLoading(true)
       
       const designData = {
         ...values,
@@ -143,8 +107,8 @@ export default function EditDesign() {
         dribbbleUrl: values.dribbbleUrl || null,
       }
       
-      const response = await fetch(`/api/admin/designs/${params.id}`, {
-        method: 'PATCH',
+      const response = await fetch('/api/admin/designs', {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -152,16 +116,16 @@ export default function EditDesign() {
       })
 
       if (response.ok) {
-        message.success('Design updated successfully!')
+        message.success('Design created successfully!')
         router.push('/admin/designs')
       } else {
-        message.error('Failed to update design')
+        message.error('Failed to create design')
       }
     } catch (error) {
-      console.error('Failed to save design:', error)
-      message.error('Failed to update design')
+      console.error('Error creating design:', error)
+      message.error('Failed to create design')
     } finally {
-      setSaving(false)
+      setIsLoading(false)
     }
   }
 
@@ -198,31 +162,8 @@ export default function EditDesign() {
     setTags(tags.filter(tag => tag !== tagToRemove))
   }
 
-  if (status === 'loading' || loading) {
-    return (
-      <AntdProvider>
-        <AdminLayout>
-          <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '50vh' }}>
-            <Spin size="large" />
-          </div>
-        </AdminLayout>
-      </AntdProvider>
-    )
-  }
-
-  if (!design) {
-    return (
-      <AntdProvider>
-        <AdminLayout>
-          <div style={{ textAlign: 'center', padding: '50px' }}>
-            <Title level={3}>Design not found</Title>
-            <Link href="/admin/designs">
-              <Button type="primary">Back to Designs</Button>
-            </Link>
-          </div>
-        </AdminLayout>
-      </AntdProvider>
-    )
+  if (status === 'loading' || !session) {
+    return null
   }
 
   return (
@@ -233,28 +174,35 @@ export default function EditDesign() {
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
             <div>
               <Title level={2} style={{ margin: 0 }}>
-                Edit Design
+                Create New Design
               </Title>
-              <Text type="secondary">Modify your design details</Text>
+              <Text type="secondary">Add a new design to your portfolio</Text>
             </div>
-            <Space>
-              <Link href={`/designs/${design.slug}`} target="_blank">
-                <Button icon={<EyeOutlined />}>
-                  Preview
-                </Button>
-              </Link>
-              <Link href="/admin/designs">
-                <Button icon={<ArrowLeftOutlined />}>
-                  Back to Designs
-                </Button>
-              </Link>
-            </Space>
+            <Link href="/admin/designs">
+              <Button icon={<ArrowLeftOutlined />}>
+                Back to Designs
+              </Button>
+            </Link>
           </div>
 
           <Form
             form={form}
             layout="vertical"
             onFinish={onFinish}
+            initialValues={{
+              title: '',
+              slug: '',
+              description: '',
+              content: '',
+              featured: false,
+              category: 'WEB_DESIGN',
+              coverImage: '',
+              clientName: '',
+              projectUrl: '',
+              figmaUrl: '',
+              behanceUrl: '',
+              dribbbleUrl: '',
+            }}
           >
             <Row gutter={24}>
               {/* Main Content */}
@@ -265,13 +213,18 @@ export default function EditDesign() {
                     name="title"
                     rules={[{ required: true, message: 'Please enter a title' }]}
                   >
-                    <Input placeholder="Enter design title..." size="large" />
+                    <Input
+                      placeholder="Enter design title..."
+                      onChange={handleTitleChange}
+                      size="large"
+                    />
                   </Form.Item>
 
                   <Form.Item
                     label="Slug"
                     name="slug"
                     rules={[{ required: true, message: 'Please enter a slug' }]}
+                    help="URL-friendly version of the title (auto-generated)"
                   >
                     <Input placeholder="design-url-slug" />
                   </Form.Item>
@@ -333,12 +286,12 @@ export default function EditDesign() {
                       <Button
                         type="primary"
                         htmlType="submit"
-                        loading={saving}
+                        loading={isLoading}
                         icon={<SaveOutlined />}
                         size="large"
                         block
                       >
-                        {saving ? 'Saving...' : 'Save Changes'}
+                        {isLoading ? 'Creating...' : 'Create Design'}
                       </Button>
                     </Form.Item>
                   </Card>
@@ -481,25 +434,6 @@ export default function EditDesign() {
                         </Tag>
                       ))}
                     </div>
-                  </Card>
-
-                  <Card title="Design Information">
-                    <Descriptions column={1} size="small">
-                      <Descriptions.Item label="Status">
-                        <Tag color={design.featured ? 'blue' : 'default'}>
-                          {design.featured ? 'Featured' : 'Regular'}
-                        </Tag>
-                      </Descriptions.Item>
-                      <Descriptions.Item label="Category">
-                        {design.category.replace('_', ' ')}
-                      </Descriptions.Item>
-                      <Descriptions.Item label="Created">
-                        {new Date(design.createdAt).toLocaleDateString()}
-                      </Descriptions.Item>
-                      <Descriptions.Item label="Updated">
-                        {new Date(design.updatedAt).toLocaleDateString()}
-                      </Descriptions.Item>
-                    </Descriptions>
                   </Card>
                 </Space>
               </Col>

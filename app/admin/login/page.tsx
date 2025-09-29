@@ -3,9 +3,11 @@
 import { signIn, getSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Chrome, Shield, User } from 'lucide-react'
+import { Button, Card, Typography, Alert, Space, Spin } from 'antd'
+import { GoogleOutlined, SafetyOutlined, UserOutlined } from '@ant-design/icons'
+import AntdProvider from '@/components/admin/AntdProvider'
+
+const { Title, Text } = Typography
 
 export default function AdminLogin() {
   const [isLoading, setIsLoading] = useState(false)
@@ -44,70 +46,84 @@ export default function AdminLogin() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-muted flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        <Card className="border-border/50 shadow-2xl">
-          <CardHeader className="text-center space-y-4">
-            <div className="mx-auto w-16 h-16 bg-theme-primary/10 rounded-full flex items-center justify-center">
-              <Shield className="w-8 h-8 text-theme-primary" />
-            </div>
-            <div>
-              <CardTitle className="text-2xl font-bold">Admin Dashboard</CardTitle>
-              <CardDescription className="text-muted-foreground">
-                Sign in to manage your portfolio content
-              </CardDescription>
-            </div>
-          </CardHeader>
-          
-          <CardContent className="space-y-6">
-            {error && (
-              <div className="p-3 rounded-lg bg-destructive/10 border border-destructive/20 text-destructive text-sm">
-                {error}
+    <AntdProvider>
+      <div style={{ 
+        minHeight: '100vh', 
+        background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '24px'
+      }}>
+        <div style={{ width: '100%', maxWidth: '400px' }}>
+          <Card
+            style={{ 
+              boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+              borderRadius: '12px',
+              border: 'none'
+            }}
+          >
+            <div style={{ textAlign: 'center', marginBottom: 32 }}>
+              <div style={{
+                width: 64,
+                height: 64,
+                backgroundColor: '#e6f7ff',
+                borderRadius: '50%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                margin: '0 auto 16px'
+              }}>
+                <SafetyOutlined style={{ fontSize: 32, color: '#1890ff' }} />
               </div>
-            )}
+              <Title level={2} style={{ margin: '0 0 8px 0' }}>Admin Dashboard</Title>
+              <Text type="secondary">Sign in to manage your portfolio content</Text>
+            </div>
             
-            <div className="space-y-4">
+            <Space direction="vertical" size="large" style={{ width: '100%' }}>
+              {error && (
+                <Alert
+                  message={error}
+                  type="error"
+                  showIcon
+                  style={{ marginBottom: 16 }}
+                />
+              )}
+              
               <Button
+                type="primary"
+                size="large"
+                block
+                icon={isLoading ? <Spin size="small" /> : <GoogleOutlined />}
                 onClick={handleGoogleSignIn}
-                disabled={isLoading}
-                className="w-full h-12 bg-theme-primary hover:bg-theme-secondary text-white transition-colors"
-                size="lg"
+                loading={isLoading}
+                style={{ height: 48 }}
               >
-                {isLoading ? (
-                  <div className="flex items-center space-x-2">
-                    <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                    <span>Signing in...</span>
-                  </div>
-                ) : (
-                  <div className="flex items-center space-x-2">
-                    <Chrome className="w-5 h-5" />
-                    <span>Continue with Google</span>
-                  </div>
-                )}
+                {isLoading ? 'Signing in...' : 'Continue with Google'}
               </Button>
-            </div>
-            
-            <div className="text-center space-y-2">
-              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
-                <User className="w-4 h-4" />
-                <span>Authorized access only</span>
+              
+              <div style={{ textAlign: 'center' }}>
+                <Space>
+                  <UserOutlined style={{ color: '#8c8c8c' }} />
+                  <Text type="secondary" style={{ fontSize: 12 }}>Authorized access only</Text>
+                </Space>
               </div>
-            </div>
-          </CardContent>
-        </Card>
-        
-        <div className="mt-8 text-center">
-          <p className="text-sm text-muted-foreground">
-            Need help? Contact{' '}
-            <a 
-              href="mailto:hany.rabah@gmail.com" 
-              className="text-theme-primary hover:text-theme-secondary transition-colors"
-            >
-              hany.rabah@gmail.com
-            </a>
-          </p>
+            </Space>
+          </Card>
+          
+          <div style={{ marginTop: 32, textAlign: 'center' }}>
+            <Text type="secondary" style={{ fontSize: 12 }}>
+              Need help? Contact{' '}
+              <a 
+                href="mailto:hany.rabah@gmail.com" 
+                style={{ color: '#1890ff' }}
+              >
+                hany.rabah@gmail.com
+              </a>
+            </Text>
+          </div>
         </div>
       </div>
-    </div>
+    </AntdProvider>
   )
 }

@@ -13,6 +13,8 @@
     "db:seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
+    "@ant-design/icons": "^6.0.2",
+    "@ant-design/nextjs-registry": "^1.1.0",
     "@hookform/resolvers": "^3.10.0",
     "@prisma/client": "^6.13.0",
     "@radix-ui/react-accordion": "^1.2.11",
@@ -44,9 +46,11 @@
     "@vercel/analytics": "^1.5.0",
     "@vercel/blob": "^0.15.1",
     "@vercel/speed-insights": "^1.2.0",
+    "antd": "^5.27.4",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "cmdk": "^1.1.1",
+    "dayjs": "^1.11.18",
     "embla-carousel-react": "^8.6.0",
     "framer-motion": "^10.16.16",
     "gtag": "^1.0.1",
