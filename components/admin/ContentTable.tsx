@@ -5,7 +5,6 @@ import { Table, Tag, Space, Button, Modal, message, Tooltip } from 'antd'
 import { 
   EditOutlined, 
   DeleteOutlined, 
-  EyeOutlined,
   CheckOutlined,
   CloseOutlined,
   StarOutlined,
@@ -153,16 +152,19 @@ export default function ContentTable({ data, type, loading, onRefresh }: Content
         title: 'Technologies',
         dataIndex: 'technologies',
         key: 'technologies',
-        render: (text: string[], record: any) => (
-          <Space wrap>
-            {text?.slice(0, 3).map((tech: string) => (
-              <Tag key={tech}>{tech}</Tag>
-            ))}
-            {text?.length > 3 && (
-              <Tag>+{text.length - 3} more</Tag>
-            )}
-          </Space>
-        ),
+        render: (text: any, record: any) => {
+          const technologies = Array.isArray(text) ? text : (record.technologies || [])
+          return (
+            <Space wrap>
+              {technologies?.slice(0, 3).map((tech: string) => (
+                <Tag key={tech}>{tech}</Tag>
+              ))}
+              {technologies?.length > 3 && (
+                <Tag>+{technologies.length - 3} more</Tag>
+              )}
+            </Space>
+          )
+        },
       })
     }
 
