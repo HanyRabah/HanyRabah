@@ -53,8 +53,9 @@ export function ThemeScript() {
 
       function applyTheme(colorTheme, mode) {
         const root = document.documentElement;
-        const theme = colorThemes[colorTheme];
+        if (!root) return;
         
+        const theme = colorThemes[colorTheme];
         if (!theme) return;
 
         // Apply CSS custom properties
@@ -117,8 +118,14 @@ export function ThemeScript() {
       const colorTheme = (savedColorTheme && colorThemes[savedColorTheme]) ? savedColorTheme : randomizeTheme();
       const mode = savedMode || 'dark';
       
-      // Apply theme immediately
-      applyTheme(colorTheme, mode);
+      // Apply theme when DOM is ready
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', function() {
+          applyTheme(colorTheme, mode);
+        });
+      } else {
+        applyTheme(colorTheme, mode);
+      }
     })();
   `;
 
