@@ -1,6 +1,6 @@
 export function CriticalCSS() {
   return (
-    <style dangerouslySetInnerHTML={{
+    <style suppressHydrationWarning dangerouslySetInnerHTML={{
       __html: `
       /* Critical CSS - Above the fold styles */
       * {
