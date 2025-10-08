@@ -12,12 +12,16 @@ export async function POST(request: Request) {
 
     const { searchParams } = new URL(request.url)
     const filename = searchParams.get('filename')
+    const folder = searchParams.get('folder') || 'general' // posts, articles, projects, covers, content
 
     if (!filename) {
       return NextResponse.json({ error: 'Filename is required' }, { status: 400 })
     }
 
-    const blob = await put(filename, request.body!, {
+    // Organize images into folders: folder/filename
+    const blobPath = `${folder}/${filename}`
+
+    const blob = await put(blobPath, request.body!, {
       access: 'public',
     })
 

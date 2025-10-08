@@ -11,9 +11,10 @@ interface ImageUploadProps {
   onChange?: (url: string) => void
   label?: string
   accept?: string
+  folder?: string // Folder to organize uploads: 'covers', 'content', 'seo', etc.
 }
 
-export function ImageUpload({ value, onChange, label = 'Upload Image', accept = 'image/*' }: ImageUploadProps) {
+export function ImageUpload({ value, onChange, label = 'Upload Image', accept = 'image/*', folder = 'general' }: ImageUploadProps) {
   const [uploading, setUploading] = useState(false)
   const [imageUrl, setImageUrl] = useState<string>(value || '')
 
@@ -25,8 +26,8 @@ export function ImageUpload({ value, onChange, label = 'Upload Image', accept = 
       const timestamp = Date.now()
       const filename = `${timestamp}-${file.name}`
       
-      // Upload to Vercel Blob
-      const response = await fetch(`/api/upload?filename=${encodeURIComponent(filename)}`, {
+      // Upload to Vercel Blob with folder organization
+      const response = await fetch(`/api/upload?filename=${encodeURIComponent(filename)}&folder=${encodeURIComponent(folder)}`, {
         method: 'POST',
         body: file,
       })

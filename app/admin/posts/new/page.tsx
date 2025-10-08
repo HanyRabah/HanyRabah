@@ -303,6 +303,7 @@ export default function NewPost() {
                       value={coverImage}
                       onChange={setCoverImage}
                       label="Upload Cover Image"
+                      folder="posts/covers"
                     />
                   </Card>
 
@@ -401,6 +402,7 @@ export default function NewPost() {
                                 value={seoImage}
                                 onChange={setSeoImage}
                                 label="Upload SEO Image"
+                                folder="posts/seo"
                               />
                               <Text type="secondary" style={{ fontSize: '12px', display: 'block', marginTop: '8px' }}>
                                 Recommended size: 1200x630px

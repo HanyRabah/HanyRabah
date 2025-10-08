@@ -27,8 +27,8 @@ export const imageHandler = function(this: any) {
       const timestamp = Date.now()
       const filename = `${timestamp}-${file.name}`
       
-      // Upload to Vercel Blob
-      const response = await fetch(`/api/upload?filename=${encodeURIComponent(filename)}`, {
+      // Upload to Vercel Blob (posts/content folder for in-editor images)
+      const response = await fetch(`/api/upload?filename=${encodeURIComponent(filename)}&folder=posts/content`, {
         method: 'POST',
         body: file,
       })
