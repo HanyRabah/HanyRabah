@@ -15,7 +15,9 @@ import {
   Col, 
   Space,
   message,
-  Spin
+  Spin,
+  DatePicker,
+  Collapse
 } from 'antd'
 import {
   ArrowLeftOutlined,
@@ -28,6 +30,9 @@ import AdminLayout from '@/components/admin/AdminLayout'
 import AntdProvider from '@/components/admin/AntdProvider'
 import dynamic from 'next/dynamic'
 import 'react-quill/dist/quill.snow.css'
+import { ImageUpload } from '@/components/admin/ImageUpload'
+import { quillModules, quillFormats } from '@/components/admin/QuillImageUploader'
+import dayjs from 'dayjs'
 
 const { Title, Text } = Typography
 
@@ -45,6 +50,11 @@ interface PostFormData {
   coverImage: string
   published: boolean
   tags: string[]
+  publishedAt: string | null
+  seoTitle: string
+  seoDescription: string
+  seoKeywords: string[]
+  seoImage: string
 }
 
 export default function NewPost() {
@@ -54,7 +64,11 @@ export default function NewPost() {
   const [isLoading, setIsLoading] = useState(false)
   const [newTag, setNewTag] = useState('')
   const [tags, setTags] = useState<string[]>([])
+  const [seoKeywords, setSeoKeywords] = useState<string[]>([])
+  const [newSeoKeyword, setNewSeoKeyword] = useState('')
   const [content, setContent] = useState('')
+  const [coverImage, setCoverImage] = useState('')
+  const [seoImage, setSeoImage] = useState('')
   const [formData, setFormData] = useState<PostFormData>({
     title: '',
     slug: '',
@@ -63,6 +77,11 @@ export default function NewPost() {
     coverImage: '',
     published: false,
     tags: [],
+    publishedAt: null,
+    seoTitle: '',
+    seoDescription: '',
+    seoKeywords: [],
+    seoImage: '',
   })
 
   useEffect(() => {
@@ -93,8 +112,11 @@ export default function NewPost() {
       const postData = {
         ...values,
         tags: tags,
-        coverImage: values.coverImage || null,
+        seoKeywords: seoKeywords,
+        coverImage: coverImage || null,
+        seoImage: seoImage || null,
         excerpt: values.excerpt || null,
+        publishedAt: values.publishedAt ? values.publishedAt.toISOString() : null,
       }
       
       const response = await fetch('/api/admin/posts', {
@@ -130,30 +152,16 @@ export default function NewPost() {
     setTags(tags.filter(tag => tag !== tagToRemove))
   }
 
-  // Quill editor modules configuration
-  const modules = {
-    toolbar: [
-      [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
-      ['bold', 'italic', 'underline', 'strike'],
-      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
-      [{ 'indent': '-1'}, { 'indent': '+1' }],
-      ['blockquote', 'code-block'],
-      ['link', 'image', 'video'],
-      [{ 'color': [] }, { 'background': [] }],
-      [{ 'align': [] }],
-      ['clean']
-    ],
+  const addSeoKeyword = () => {
+    if (newSeoKeyword.trim() && !seoKeywords.includes(newSeoKeyword.trim())) {
+      setSeoKeywords([...seoKeywords, newSeoKeyword.trim()])
+      setNewSeoKeyword('')
+    }
   }
 
-  const formats = [
-    'header',
-    'bold', 'italic', 'underline', 'strike',
-    'list', 'bullet', 'indent',
-    'blockquote', 'code-block',
-    'link', 'image', 'video',
-    'color', 'background',
-    'align'
-  ]
+  const removeSeoKeyword = (keywordToRemove: string) => {
+    setSeoKeywords(seoKeywords.filter(keyword => keyword !== keywordToRemove))
+  }
 
   if (status === 'loading' || !session) {
     return null
@@ -241,8 +249,8 @@ export default function NewPost() {
                           setContent(value)
                           form.setFieldsValue({ content: value })
                         }}
-                        modules={modules}
-                        formats={formats}
+                        modules={quillModules}
+                        formats={quillFormats}
                         style={{ height: '350px', marginBottom: '50px' }}
                         placeholder="Write your post content here..."
                       />
@@ -264,6 +272,18 @@ export default function NewPost() {
                       <Switch />
                     </Form.Item>
 
+                    <Form.Item
+                      label="Publish Date"
+                      name="publishedAt"
+                      help="Set a custom publish date (optional)"
+                    >
+                      <DatePicker 
+                        showTime 
+                        style={{ width: '100%' }}
+                        format="YYYY-MM-DD HH:mm"
+                      />
+                    </Form.Item>
+
                     <Form.Item>
                       <Button
                         type="primary"
@@ -279,12 +299,11 @@ export default function NewPost() {
                   </Card>
 
                   <Card title="Cover Image">
-                    <Form.Item
-                      name="coverImage"
-                      help="URL of the cover image for this post"
-                    >
-                      <Input placeholder="https://example.com/image.jpg" />
-                    </Form.Item>
+                    <ImageUpload
+                      value={coverImage}
+                      onChange={setCoverImage}
+                      label="Upload Cover Image"
+                    />
                   </Card>
 
                   <Card title="Tags">
@@ -315,6 +334,83 @@ export default function NewPost() {
                       ))}
                     </div>
                   </Card>
+
+                  <Collapse 
+                    items={[
+                      {
+                        key: 'seo',
+                        label: 'SEO Settings',
+                        children: (
+                          <Space direction="vertical" size="middle" style={{ width: '100%' }}>
+                            <Form.Item
+                              label="SEO Title"
+                              name="seoTitle"
+                              help="Custom title for search engines (leave empty to use post title)"
+                            >
+                              <Input placeholder="Custom SEO title..." />
+                            </Form.Item>
+
+                            <Form.Item
+                              label="SEO Description"
+                              name="seoDescription"
+                              help="Meta description for search engines"
+                            >
+                              <Input.TextArea
+                                placeholder="Brief description for search results..."
+                                rows={3}
+                              />
+                            </Form.Item>
+
+                            <div>
+                              <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500 }}>
+                                SEO Keywords
+                              </label>
+                              <Space.Compact style={{ width: '100%', marginBottom: 16 }}>
+                                <Input
+                                  placeholder="Add a keyword..."
+                                  value={newSeoKeyword}
+                                  onChange={(e) => setNewSeoKeyword(e.target.value)}
+                                  onPressEnter={addSeoKeyword}
+                                />
+                                <Button
+                                  type="primary"
+                                  onClick={addSeoKeyword}
+                                  icon={<PlusOutlined />}
+                                />
+                              </Space.Compact>
+
+                              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+                                {seoKeywords.map((keyword) => (
+                                  <Tag
+                                    key={keyword}
+                                    closable
+                                    onClose={() => removeSeoKeyword(keyword)}
+                                    closeIcon={<CloseOutlined />}
+                                  >
+                                    {keyword}
+                                  </Tag>
+                                ))}
+                              </div>
+                            </div>
+
+                            <div>
+                              <label style={{ display: 'block', marginBottom: '8px', fontWeight: 500 }}>
+                                SEO Image (Open Graph)
+                              </label>
+                              <ImageUpload
+                                value={seoImage}
+                                onChange={setSeoImage}
+                                label="Upload SEO Image"
+                              />
+                              <Text type="secondary" style={{ fontSize: '12px', display: 'block', marginTop: '8px' }}>
+                                Recommended size: 1200x630px
+                              </Text>
+                            </div>
+                          </Space>
+                        ),
+                      },
+                    ]}
+                  />
                 </Space>
               </Col>
             </Row>
