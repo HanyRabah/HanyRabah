@@ -18,8 +18,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: 'Filename is required' }, { status: 400 })
     }
 
-    // Organize images into folders: folder/filename
-    const blobPath = `${folder}/${filename}`
+    // Organize images into folders: hanyrabah/folder/filename
+    const blobPath = `hanyrabah/${folder}/${filename}`
 
     const blob = await put(blobPath, request.body!, {
       access: 'public',
