@@ -45,10 +45,37 @@ export async function PATCH(
     }
 
     const body = await request.json()
+    const { 
+      title, 
+      slug, 
+      content, 
+      excerpt, 
+      tags, 
+      coverImage, 
+      published,
+      publishedAt,
+      seoTitle,
+      seoDescription,
+      seoKeywords,
+      seoImage
+    } = body
     
     const post = await prisma.post.update({
       where: { id: params.id },
-      data: body,
+      data: {
+        title,
+        slug,
+        content,
+        excerpt,
+        tags: tags || [],
+        coverImage,
+        published,
+        publishedAt: publishedAt ? new Date(publishedAt) : null,
+        seoTitle: seoTitle || null,
+        seoDescription: seoDescription || null,
+        seoKeywords: seoKeywords || [],
+        seoImage: seoImage || null,
+      },
     })
 
     return NextResponse.json(post)
