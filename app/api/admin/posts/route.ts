@@ -47,7 +47,20 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { title, slug, content, excerpt, tags, coverImage, published } = body
+    const { 
+      title, 
+      slug, 
+      content, 
+      excerpt, 
+      tags, 
+      coverImage, 
+      published,
+      publishedAt,
+      seoTitle,
+      seoDescription,
+      seoKeywords,
+      seoImage
+    } = body
 
     // Create new post
     const post = await prisma.post.create({
@@ -59,6 +72,11 @@ export async function POST(request: NextRequest) {
         tags: tags || [],
         coverImage,
         published: published || false,
+        publishedAt: publishedAt ? new Date(publishedAt) : null,
+        seoTitle: seoTitle || null,
+        seoDescription: seoDescription || null,
+        seoKeywords: seoKeywords || [],
+        seoImage: seoImage || null,
       },
     })
 

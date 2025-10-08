@@ -21,6 +21,12 @@ model Post {
   updatedAt   DateTime @updatedAt
   publishedAt DateTime?
   
+  // SEO fields
+  seoTitle       String?
+  seoDescription String?
+  seoKeywords    String[]  @default([])
+  seoImage       String?
+  
   @@map("posts")
 }
 
@@ -40,6 +46,13 @@ model Project {
   status      ProjectStatus @default(COMPLETED)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+  publishedAt DateTime?
+  
+  // SEO fields
+  seoTitle       String?
+  seoDescription String?
+  seoKeywords    String[]  @default([])
+  seoImage       String?
   
   @@map("projects")
 }
@@ -88,6 +101,12 @@ model Article {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   publishedAt DateTime?
+  
+  // SEO fields
+  seoTitle       String?
+  seoDescription String?
+  seoKeywords    String[]  @default([])
+  seoImage       String?
   
   @@map("articles")
 }
