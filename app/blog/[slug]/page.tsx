@@ -35,26 +35,30 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     }
   }
 
-  // Generate cover image if none exists
-  const coverImageUrl = post.coverImage || generatePostImage(post.title, post.tags)
+  // Use SEO fields or fall back to defaults
+  const seoTitle = post.seoTitle || post.title
+  const seoDescription = post.seoDescription || post.excerpt || 
+    post.content.replace(/<[^>]*>/g, '').substring(0, 155) + '...'
+  const seoKeywords = post.seoKeywords && post.seoKeywords.length > 0 
+    ? post.seoKeywords 
+    : post.tags
+  
+  // Use SEO image, cover image, or generate fallback
+  const ogImage = post.seoImage || post.coverImage || generatePostImage(post.title, post.tags)
   
   // Calculate reading time
   const wordCount = post.content.replace(/<[^>]*>/g, '').split(/\s+/).length
   const readingTime = Math.ceil(wordCount / 200)
-  
-  // Create rich description
-  const description = post.excerpt || 
-    post.content.replace(/<[^>]*>/g, '').substring(0, 155) + '...'
   
   // Format publish date
   const publishDate = post.publishedAt || post.createdAt
   const formattedDate = publishDate.toISOString()
 
   return {
-    title: `${post.title} - Hany Rabah Blog`,
-    description,
+    title: `${seoTitle} - Hany Rabah Blog`,
+    description: seoDescription,
     keywords: [
-      ...post.tags,
+      ...seoKeywords,
       'Hany Rabah',
       'Technical Blog',
       'Web Development',
@@ -67,8 +71,8 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     creator: 'Hany Rabah',
     publisher: 'Hany Rabah',
     openGraph: {
-      title: post.title,
-      description,
+      title: seoTitle,
+      description: seoDescription,
       type: 'article',
       locale: 'en_US',
       url: `https://hanyrabah.com/blog/${post.slug}`,
@@ -79,19 +83,19 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
       tags: post.tags,
       images: [
         {
-          url: coverImageUrl,
+          url: ogImage,
           width: 1200,
           height: 630,
-          alt: post.title,
+          alt: seoTitle,
           type: 'image/jpeg',
         },
       ],
     },
     twitter: {
       card: 'summary_large_image',
-      title: post.title,
-      description,
-      images: [coverImageUrl],
+      title: seoTitle,
+      description: seoDescription,
+      images: [ogImage],
       creator: '@hanyrabah',
     },
     alternates: {
