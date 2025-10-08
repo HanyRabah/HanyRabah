@@ -2,12 +2,8 @@ import NextAuth from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 import type { NextAuthOptions } from 'next-auth'
 
-// Debug: Check if environment variables are loaded
-console.log('GOOGLE_CLIENT_ID exists:', !!process.env.GOOGLE_CLIENT_ID)
-console.log('GOOGLE_CLIENT_SECRET exists:', !!process.env.GOOGLE_CLIENT_SECRET)
-
 const authOptions: NextAuthOptions = {
-  debug: process.env.NODE_ENV === 'development',
+  debug: false, // Disable debug to reduce console noise
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,

@@ -6,3 +6,5 @@ node_modules
 .DS_Store
 .next
 ADMIN_SETUP.md
+docs
+docs/* 

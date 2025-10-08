@@ -70,17 +70,6 @@ export default async function ProjectsPage() {
       project.coverImage && 
       project.coverImage.trim() !== ''
     )
-    
-    // Log projects without images for reference
-    const projectsWithoutImages = allProjects.filter(project => 
-      !project.coverImage || project.coverImage.trim() === ''
-    )
-    
-    if (projectsWithoutImages.length > 0) {
-      console.log('Projects without images (hidden from display):', 
-        projectsWithoutImages.map(p => ({ id: p.id, title: p.title }))
-      )
-    }
   } catch (error) {
     console.warn('Database not available, showing empty projects page')
   }
