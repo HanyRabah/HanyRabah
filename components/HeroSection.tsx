@@ -21,7 +21,7 @@ export function HeroSection() {
   };
 
   const downloadResume = () => {
-    const resumeUrl = "/Hany_Elsaydawy_Aug_2025.pdf";
+    const resumeUrl = "/Hany_Elsaydawy_full-stack_engineer.pdf";
     window.open(resumeUrl, "_blank");
   };
 
