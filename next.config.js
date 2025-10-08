@@ -5,15 +5,7 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: 'vercel.blob.store',
-      },
-      {
-        protocol: 'https',
-        hostname: '*.replit.dev',
-      },
-      {
-        protocol: 'https',
-        hostname: '*.repl.co',
-      },
+      }
     ],
   },
   env: {
