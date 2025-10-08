@@ -42,11 +42,11 @@ export async function ProjectsSection() {
         <div className="grid md:grid-cols-2 gap-8">
           {projects.map((project) => (
             <Card key={project.id} className="group overflow-hidden border-border hover:border-theme-primary/50 transition-all duration-300 hover:shadow-xl hover:shadow-theme-primary/10">
-              <div className="relative overflow-hidden">
+              <div className="relative overflow-hidden h-48">
                 <ImageWithFallback
                   src={project.coverImage || ''}
                   alt={project.title}
-                  className="w-full h-48 object-cover transition-transform duration-300 group-hover:scale-105"
+                  className="transition-transform duration-300 group-hover:scale-105"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </div>
