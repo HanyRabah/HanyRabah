@@ -159,7 +159,7 @@ export default async function BlogPage() {
                       <div className="relative bg-background border border-border/50 rounded-2xl overflow-hidden hover:border-theme-primary/30 transition-all duration-300 hover:shadow-2xl hover:shadow-theme-primary/10">
                         <div className="flex flex-col lg:flex-row">
                           {posts[0].coverImage && (
-                            <div className="lg:w-2/5 relative overflow-hidden">
+                            <div className="lg:w-2/5 relative overflow-hidden h-64 lg:h-auto">
                               <div className="absolute top-4 left-4 z-10">
                                 <span className="inline-flex items-center px-3 py-1 rounded-full bg-theme-primary text-white text-sm font-medium">
                                   <span className="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></span>
@@ -169,9 +169,7 @@ export default async function BlogPage() {
                               <ImageWithFallback
                                 src={posts[0].coverImage}
                                 alt={posts[0].title}
-                                width={600}
-                                height={400}
-                                className="w-full h-64 lg:h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                                className="group-hover:scale-105 transition-transform duration-500"
                               />
                             </div>
                           )}
@@ -229,13 +227,11 @@ export default async function BlogPage() {
                           className="group bg-background border border-border/50 rounded-xl overflow-hidden hover:border-theme-primary/30 transition-all duration-300 hover:shadow-xl hover:shadow-theme-primary/5"
                         >
                           {post.coverImage && (
-                            <div className="relative overflow-hidden">
+                            <div className="relative overflow-hidden h-48">
                               <ImageWithFallback
                                 src={post.coverImage}
                                 alt={post.title}
-                                width={400}
-                                height={250}
-                                className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
+                                className="group-hover:scale-105 transition-transform duration-500"
                               />
                               <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                             </div>

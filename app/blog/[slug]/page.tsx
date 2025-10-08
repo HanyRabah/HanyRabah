@@ -267,9 +267,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             <ImageWithFallback
               src={coverImageUrl}
               alt={post.title}
-              width={1200}
-              height={630}
-              className="object-cover"
             />
           </div>
         </header>
