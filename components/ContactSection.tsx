@@ -213,7 +213,7 @@ export function ContactSection() {
                   className="border-theme-primary text-theme-primary hover:bg-theme-primary hover:text-black"
                   asChild
                 >
-                  <a href="https://linkedin.com/in/hany-rabah" target="_blank" rel="noopener noreferrer">
+                  <a href="https://www.linkedin.com/in/hanyrabah/" target="_blank" rel="noopener noreferrer">
                     <Linkedin className="w-4 h-4 mr-2" />
                     LinkedIn
                   </a>
