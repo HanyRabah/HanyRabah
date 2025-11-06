@@ -87,7 +87,7 @@ export default function Home() {
     company: 'GoDiligent',
     companyUrl: 'https://www.godiligent.ai/',
     sameAs: [
-      'https://linkedin.com/in/hany-rabah',
+      'https://www.linkedin.com/in/hanyrabah/',
       'https://github.com/hanyrabah',
       'https://instagram.com/hanyrabah'
     ],
