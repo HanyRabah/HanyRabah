@@ -43,7 +43,7 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
           <div className="space-y-1 text-sm mb-4">
             <div className="flex items-center gap-2 text-muted-foreground">
               <Mail className="w-3 h-3 text-primary" />
-              <span><a href="mailto:hany.rabah@gmail.com">contact@hanyrabah.com</a></span>
+              <span><a href="mailto:contact@hanyrabah.com">contact@hanyrabah.com</a></span>
             </div>
             <div className="flex items-center gap-2 text-muted-foreground">
               <Phone className="w-3 h-3 text-primary" />

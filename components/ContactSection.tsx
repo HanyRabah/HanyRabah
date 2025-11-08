@@ -5,8 +5,7 @@ import { Input } from './ui/input';
 import { Textarea } from './ui/textarea';
 import { Card, CardContent } from './ui/card';
 import { Mail, Linkedin, Github, MapPin, Instagram } from 'lucide-react';
-import { useState, useRef } from 'react';
-import ReCAPTCHA from 'react-google-recaptcha';
+import { useState } from 'react';
 
 export function ContactSection() {
   const [formData, setFormData] = useState({
@@ -17,7 +16,6 @@ export function ContactSection() {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const recaptchaRef = useRef<ReCAPTCHA>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -25,34 +23,20 @@ export function ContactSection() {
     setSubmitStatus('idle');
 
     try {
-      // Get reCAPTCHA token if configured
-      let recaptchaToken = null;
-      if (process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY) {
-        recaptchaToken = recaptchaRef.current?.getValue();
-        
-        if (!recaptchaToken) {
-          alert('Please complete the reCAPTCHA verification');
-          setIsSubmitting(false);
-          return;
-        }
-      }
-
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          ...formData,
-          recaptchaToken
-        }),
+        body: JSON.stringify(formData),
       });
 
       if (response.ok) {
         setSubmitStatus('success');
         setFormData({ name: '', email: '', message: '' });
-        recaptchaRef.current?.reset();
       } else {
+        const data = await response.json();
+        console.error('Error:', data.error);
         setSubmitStatus('error');
       }
     } catch (error) {
@@ -133,15 +117,6 @@ export function ContactSection() {
                     className="bg-background border-border focus:border-theme-primary resize-none"
                   />
                 </div>
-                
-                {/* reCAPTCHA */}
-                {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && (
-                  <ReCAPTCHA
-                    ref={recaptchaRef}
-                    sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}
-                    theme="dark"
-                  />
-                )}
                 
                 <Button
                   type="submit"

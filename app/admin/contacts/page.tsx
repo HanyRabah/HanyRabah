@@ -1,6 +1,7 @@
 'use client'
 
 import { useSession } from 'next-auth/react'
+import { isAdmin } from '@/lib/auth'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import {
@@ -49,7 +50,7 @@ export default function ContactsPage() {
   useEffect(() => {
     if (status === 'loading') return
     
-    if (!session || session.user?.email !== 'hany.rabah@gmail.com') {
+    if (!session || !isAdmin(session.user?.email)) {
       router.push('/admin/login')
       return
     }
