@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import './globals.css'
+import './globals.scss'
 import { GoogleAnalytics } from '@/components/GoogleAnalytics'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/next"
@@ -8,6 +8,7 @@ import { ThemeProvider } from '@/contexts/ThemeContext'
 import { SessionProvider } from '@/components/providers/SessionProvider'
 import { ThemeScript } from '@/components/ThemeScript'
 import { CriticalCSS } from '@/components/CriticalCSS'
+import { BotIdClient } from 'botid/client'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -94,6 +95,13 @@ export const metadata: Metadata = {
   category: 'technology',
 }
 
+const protectedRoutes = [
+  {
+    path: '/api/contact',
+    method: 'POST',
+  },
+];
+
 export default function RootLayout({
   children,
 }: {
@@ -104,6 +112,7 @@ export default function RootLayout({
       <head>
         <CriticalCSS />
         <ThemeScript />
+        <BotIdClient protect={protectedRoutes} />
         {/* Resource hints for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />

@@ -1,12 +1,13 @@
 import { put } from '@vercel/blob'
 import { NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
+import { isAdmin } from '@/lib/auth'
 
 export async function POST(request: Request) {
   try {
     // Check authentication
     const session = await getServerSession()
-    if (!session || session.user?.email !== 'hany.rabah@gmail.com') {
+    if (!session || !isAdmin(session.user?.email)) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 

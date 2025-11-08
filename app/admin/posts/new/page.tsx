@@ -28,19 +28,11 @@ import {
 import Link from 'next/link'
 import AdminLayout from '@/components/admin/AdminLayout'
 import AntdProvider from '@/components/admin/AntdProvider'
-import dynamic from 'next/dynamic'
-import 'react-quill/dist/quill.snow.css'
 import { ImageUpload } from '@/components/admin/ImageUpload'
-import { quillModules, quillFormats } from '@/components/admin/QuillImageUploader'
+import { NotionEditor } from '@/components/admin/NotionEditor'
 import dayjs from 'dayjs'
 
 const { Title, Text } = Typography
-
-// Dynamically import ReactQuill to avoid SSR issues
-const ReactQuill = dynamic(() => import('react-quill'), { 
-  ssr: false,
-  loading: () => <p>Loading editor...</p>
-})
 
 interface PostFormData {
   title: string
@@ -239,22 +231,16 @@ export default function NewPost() {
                     label="Content"
                     name="content"
                     rules={[{ required: true, message: 'Please enter content' }]}
-                    help="Use the rich text editor to format your content"
+                    help="Use the Notion-style editor to format your content"
                   >
-                    <div style={{ minHeight: '400px' }}>
-                      <ReactQuill
-                        theme="snow"
-                        value={content}
-                        onChange={(value) => {
-                          setContent(value)
-                          form.setFieldsValue({ content: value })
-                        }}
-                        modules={quillModules}
-                        formats={quillFormats}
-                        style={{ height: '350px', marginBottom: '50px' }}
-                        placeholder="Write your post content here..."
-                      />
-                    </div>
+                    <NotionEditor
+                      value={content}
+                      onChange={(value) => {
+                        setContent(value)
+                        form.setFieldsValue({ content: value })
+                      }}
+                      placeholder="Start writing your post... Type '/' for commands"
+                    />
                   </Form.Item>
                 </Card>
               </Col>

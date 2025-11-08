@@ -118,7 +118,7 @@ export default function AdminLogin() {
                 href="mailto:hany.rabah@gmail.com" 
                 style={{ color: '#1890ff' }}
               >
-                hany.rabah@gmail.com
+                contact@hanyrabah.com
               </a>
             </Text>
           </div>

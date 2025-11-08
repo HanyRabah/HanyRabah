@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
+import { isAdmin } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
 
 export async function GET(
@@ -10,7 +11,7 @@ export async function GET(
     // Check authentication
     const session = await getServerSession()
     
-    if (!session || session.user?.email !== 'hany.rabah@gmail.com') {
+    if (!session || !isAdmin(session.user?.email)) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
@@ -40,7 +41,7 @@ export async function PATCH(
     // Check authentication
     const session = await getServerSession()
     
-    if (!session || session.user?.email !== 'hany.rabah@gmail.com') {
+    if (!session || !isAdmin(session.user?.email)) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
@@ -69,7 +70,7 @@ export async function DELETE(
     // Check authentication
     const session = await getServerSession()
     
-    if (!session || session.user?.email !== 'hany.rabah@gmail.com') {
+    if (!session || !isAdmin(session.user?.email)) {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     }
 
