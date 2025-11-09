@@ -14,6 +14,7 @@
   display: flex;
   align-items: center;
   gap: 0.25rem;
+  flex-wrap: wrap;
 
   &-group {
     display: flex;
@@ -38,12 +39,9 @@
     min-height: var(--tt-toolbar-height);
     background: var(--tt-toolbar-bg-color);
     border-bottom: 1px solid var(--tt-toolbar-border-color);
-    padding: 0 0.5rem;
-    overflow-x: auto;
-    overscroll-behavior-x: contain;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
+    padding: 0.5rem;
+    overflow-x: visible;
+    flex-wrap: wrap;
 
     &::-webkit-scrollbar {
       display: none;

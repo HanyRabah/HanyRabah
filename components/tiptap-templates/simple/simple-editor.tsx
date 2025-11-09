@@ -13,6 +13,7 @@ import { Highlight } from "@tiptap/extension-highlight"
 import { Subscript } from "@tiptap/extension-subscript"
 import { Superscript } from "@tiptap/extension-superscript"
 import { Selection } from "@tiptap/extensions"
+import { Markdown } from "tiptap-markdown"
 
 // --- UI Primitives ---
 import { Button } from "@/components/tiptap-ui-primitive/button"
@@ -74,6 +75,17 @@ import { handleImageUpload, MAX_FILE_SIZE } from "@/lib/tiptap-utils"
 import "@/components/tiptap-templates/simple/simple-editor.scss"
 
 import content from "@/components/tiptap-templates/simple/data/content.json"
+
+export interface SimpleEditorProps {
+  /** Initial content or controlled value */
+  value?: string
+  /** Callback when content changes (for controlled mode) */
+  onChange?: (value: string) => void
+  /** Placeholder text */
+  placeholder?: string
+  /** Custom image upload handler */
+  onImageUpload?: (file: File) => Promise<string>
+}
 
 const MainToolbarContent = ({
   onHighlighterClick,
@@ -183,7 +195,8 @@ const MobileToolbarContent = ({
   </>
 )
 
-export function SimpleEditor() {
+export function SimpleEditor(props?: SimpleEditorProps) {
+  const { value, onChange, placeholder, onImageUpload } = props || {}
   const isMobile = useIsMobile()
   const { height } = useWindowSize()
   const [mobileView, setMobileView] = useState<"main" | "highlighter" | "link">(
@@ -221,15 +234,22 @@ export function SimpleEditor() {
       Superscript,
       Subscript,
       Selection,
+      Markdown.configure({
+        html: true,
+        transformPastedText: true,
+        transformCopiedText: true,
+        breaks: true,
+      }),
       ImageUploadNode.configure({
         accept: "image/*",
         maxSize: MAX_FILE_SIZE,
         limit: 3,
-        upload: handleImageUpload,
+        upload: onImageUpload || handleImageUpload,
         onError: (error) => console.error("Upload failed:", error),
       }),
     ],
-    content,
+    content: value || content,
+    onUpdate: onChange ? ({ editor }) => onChange(editor.getHTML()) : undefined,
   })
 
   const rect = useCursorVisibility({
@@ -242,6 +262,13 @@ export function SimpleEditor() {
       setMobileView("main")
     }
   }, [isMobile, mobileView])
+
+  // Sync external value changes (for controlled mode)
+  useEffect(() => {
+    if (editor && value !== undefined && value !== editor.getHTML()) {
+      editor.commands.setContent(value)
+    }
+  }, [value, editor])
 
   return (
     <div className="simple-editor-wrapper">

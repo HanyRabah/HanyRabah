@@ -293,8 +293,9 @@ export function useColorHighlight(config: UseColorHighlightConfig) {
 
       return true
     } else {
+      // @ts-ignore - toggleNodeBackgroundColor may not exist in all editor configurations
       const chain = editor.chain().focus()
-      // @ts-ignore - toggleNodeBackgroundColor may not exist in all editor configurations  
+      // @ts-ignore
       const success = chain.toggleNodeBackgroundColor?.(highlightColor)?.run() ?? false
 
       if (success) {

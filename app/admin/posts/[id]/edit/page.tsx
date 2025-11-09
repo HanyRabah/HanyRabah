@@ -24,7 +24,9 @@ import {
   ArrowLeftOutlined,
   SaveOutlined,
   PlusOutlined,
-  CloseOutlined
+  CloseOutlined,
+  EyeOutlined,
+  HistoryOutlined
 } from '@ant-design/icons'
 import Link from 'next/link'
 import AdminLayout from '@/components/admin/AdminLayout'
@@ -211,11 +213,25 @@ export default function EditPost() {
               </Title>
               <Text type="secondary">Modify your blog post content</Text>
             </div>
-            <Link href="/admin/posts">
-              <Button icon={<ArrowLeftOutlined />}>
-                Back to Posts
+            <Space>
+              <Button 
+                icon={<EyeOutlined />}
+                onClick={() => window.open(`/admin/posts/${params.id}/preview`, '_blank')}
+              >
+                Preview
               </Button>
-            </Link>
+              <Button 
+                icon={<HistoryOutlined />}
+                onClick={() => message.info('History feature coming soon!')}
+              >
+                History
+              </Button>
+              <Link href="/admin/posts">
+                <Button icon={<ArrowLeftOutlined />}>
+                  Back to Posts
+                </Button>
+              </Link>
+            </Space>
           </div>
 
           <Form
@@ -258,7 +274,6 @@ export default function EditPost() {
                     label="Content"
                     name="content"
                     rules={[{ required: true, message: 'Please enter content' }]}
-                    help="Use the Notion-style editor to format your content"
                   >
                     <NotionEditor
                       value={content}

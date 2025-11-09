@@ -29,11 +29,16 @@ export function ThemeToggle() {
     document.documentElement.classList.toggle("dark", isDarkMode)
   }, [isDarkMode])
 
-  const toggleDarkMode = () => setIsDarkMode((isDark) => !isDark)
+  const toggleDarkMode = (e: React.MouseEvent) => {
+    e.preventDefault()
+    e.stopPropagation()
+    setIsDarkMode((isDark) => !isDark)
+  }
 
   return (
     <Button
       onClick={toggleDarkMode}
+      type="button"
       aria-label={`Switch to ${isDarkMode ? "light" : "dark"} mode`}
       data-style="ghost"
     >
