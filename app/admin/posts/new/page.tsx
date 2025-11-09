@@ -231,7 +231,6 @@ export default function NewPost() {
                     label="Content"
                     name="content"
                     rules={[{ required: true, message: 'Please enter content' }]}
-                    help="Use the Notion-style editor to format your content"
                   >
                     <NotionEditor
                       value={content}
