@@ -6,7 +6,6 @@ import { Spin, Typography, Button } from 'antd'
 import { ArrowLeftOutlined } from '@ant-design/icons'
 import Link from 'next/link'
 import Image from 'next/image'
-import '@/app/blog/[slug]/blog-post.css'
 
 const { Title, Text } = Typography
 
@@ -179,14 +178,105 @@ export default function PreviewPost() {
 
         {/* Content */}
         <div 
-          className="blog-content prose prose-lg max-w-none"
           dangerouslySetInnerHTML={{ __html: post.content }}
           style={{
             fontSize: '1.0625rem',
             lineHeight: '1.75',
             color: '#333'
           }}
+          className="preview-content"
         />
+        
+        <style jsx>{`
+          .preview-content :global(h1) {
+            font-size: 2.25rem;
+            font-weight: 700;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+          }
+          .preview-content :global(h2) {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-top: 1.75rem;
+            margin-bottom: 0.875rem;
+            line-height: 1.3;
+          }
+          .preview-content :global(h3) {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
+          }
+          .preview-content :global(h4) {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-top: 1.25rem;
+            margin-bottom: 0.625rem;
+            line-height: 1.5;
+          }
+          .preview-content :global(p) {
+            margin-bottom: 1.25rem;
+          }
+          .preview-content :global(ul),
+          .preview-content :global(ol) {
+            margin-bottom: 1.25rem;
+            padding-left: 1.5rem;
+          }
+          .preview-content :global(li) {
+            margin-bottom: 0.5rem;
+          }
+          .preview-content :global(blockquote) {
+            border-left: 4px solid #e8e8e8;
+            padding-left: 1rem;
+            margin: 1.5rem 0;
+            font-style: italic;
+            color: #666;
+          }
+          .preview-content :global(code) {
+            background: #f5f5f5;
+            padding: 0.125rem 0.375rem;
+            border-radius: 3px;
+            font-size: 0.875em;
+            font-family: 'Monaco', 'Courier New', monospace;
+          }
+          .preview-content :global(pre) {
+            background: #f5f5f5;
+            padding: 1rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 1.5rem 0;
+          }
+          .preview-content :global(pre code) {
+            background: none;
+            padding: 0;
+          }
+          .preview-content :global(img) {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+          }
+          .preview-content :global(a) {
+            color: #1890ff;
+            text-decoration: none;
+          }
+          .preview-content :global(a:hover) {
+            text-decoration: underline;
+          }
+          .preview-content :global(strong) {
+            font-weight: 600;
+          }
+          .preview-content :global(em) {
+            font-style: italic;
+          }
+          .preview-content :global(hr) {
+            border: none;
+            border-top: 1px solid #e8e8e8;
+            margin: 2rem 0;
+          }
+        `}</style>
 
         {/* Tags */}
         {post.tags && post.tags.length > 0 && (
