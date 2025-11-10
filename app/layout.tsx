@@ -1,14 +1,23 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import dynamic from 'next/dynamic'
 import './globals.scss'
-import { GoogleAnalytics } from '@/components/GoogleAnalytics'
-import { SpeedInsights } from "@vercel/speed-insights/next"
-import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from '@/contexts/ThemeContext'
 import { SessionProvider } from '@/components/providers/SessionProvider'
 import { ThemeScript } from '@/components/ThemeScript'
 import { CriticalCSS } from '@/components/CriticalCSS'
 import { BotIdClient } from 'botid/client'
+
+// Dynamic import analytics scripts to avoid blocking initial page load
+const GoogleAnalytics = dynamic(() => import('@/components/GoogleAnalytics').then(mod => ({ default: mod.GoogleAnalytics })), {
+  ssr: false,
+})
+const SpeedInsights = dynamic(() => import('@vercel/speed-insights/next').then(mod => ({ default: mod.SpeedInsights })), {
+  ssr: false,
+})
+const Analytics = dynamic(() => import('@vercel/analytics/next').then(mod => ({ default: mod.Analytics })), {
+  ssr: false,
+})
 
 const inter = Inter({ 
   subsets: ['latin'],

@@ -11,7 +11,8 @@ interface ProjectPageProps {
   }
 }
 
-export const dynamic = 'force-dynamic'
+// Enable ISR with 1-hour revalidation for individual projects
+export const revalidate = 3600; // Revalidate every 1 hour
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
   const project = await prisma.project.findUnique({

@@ -4,8 +4,8 @@ import { StructuredData } from '@/components/StructuredData'
 import MainLayout from '@/components/layout/MainLayout'
 import { ProjectCard } from '@/components/ProjectCard'
 
-// Disable static generation until database is set up
-export const dynamic = 'force-dynamic'
+// Enable ISR with 1-hour revalidation for projects list
+export const revalidate = 3600; // Revalidate every 1 hour
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://hanyrabah.com'),
