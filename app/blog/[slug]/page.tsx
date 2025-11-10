@@ -10,8 +10,8 @@ import { RelatedPosts } from '@/components/RelatedPosts'
 import { StructuredData } from '@/components/StructuredData'
 import MainLayout from '@/components/layout/MainLayout'
 
-// Disable static generation until database is set up
-export const dynamic = 'force-dynamic'
+// Enable ISR with 1-hour revalidation for individual blog posts
+export const revalidate = 3600; // Revalidate every 1 hour
 
 interface BlogPostPageProps {
   params: {

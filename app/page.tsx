@@ -8,8 +8,8 @@ import { Metadata } from 'next'
 import { StructuredData } from '@/components/StructuredData'
 import MainLayout from '@/components/layout/MainLayout'
 
-// Disable static generation until database is set up
-export const dynamic = 'force-dynamic';
+// Enable ISR with 1-hour revalidation for optimal global performance
+export const revalidate = 3600; // Revalidate every 1 hour
 
 // SEO
 export const metadata: Metadata = {

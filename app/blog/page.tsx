@@ -3,11 +3,12 @@ import { prisma } from '@/lib/prisma'
 import { formatDate } from '@/lib/utils'
 import Link from 'next/link'
 import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
+import Image from 'next/image'
 import { StructuredData } from '@/components/StructuredData'
 import MainLayout from '@/components/layout/MainLayout'
 
-// Disable static generation until database is set up
-export const dynamic = 'force-dynamic'
+// Enable ISR with 30-minute revalidation for blog list
+export const revalidate = 1800; // Revalidate every 30 minutes
 
 export const metadata: Metadata = {
   title: 'Blog - Hany Rabah | Technical Insights & Web Development Tutorials',
@@ -166,10 +167,14 @@ export default async function BlogPage() {
                                   Featured
                                 </span>
                               </div>
-                              <ImageWithFallback
+                              <Image
                                 src={posts[0].coverImage}
                                 alt={posts[0].title}
-                                className="group-hover:scale-105 transition-transform duration-500"
+                                fill
+                                priority
+                                quality={80}
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
+                                className="object-cover group-hover:scale-105 transition-transform duration-500"
                               />
                             </div>
                           )}
