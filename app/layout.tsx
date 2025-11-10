@@ -119,6 +119,15 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
+        {/* Consent Manager - Load as high as possible */}
+        <script 
+          type="text/javascript" 
+          data-cmp-ab="1" 
+          src="https://cdn.consentmanager.net/delivery/autoblocking/8d4eaf9812ce5.js" 
+          data-cmp-host="a.delivery.consentmanager.net" 
+          data-cmp-cdn="cdn.consentmanager.net" 
+          data-cmp-codesrc="16"
+        />
         <CriticalCSS />
         <ThemeScript />
         <BotIdClient protect={protectedRoutes} />
@@ -127,6 +136,8 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://vercel.live" />
         <link rel="dns-prefetch" href="https://vitals.vercel-analytics.com" />
+        <link rel="dns-prefetch" href="https://cdn.consentmanager.net" />
+        <link rel="dns-prefetch" href="https://a.delivery.consentmanager.net" />
       </head>
       <body className={inter.className}>
         <SessionProvider>
