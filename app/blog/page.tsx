@@ -5,7 +5,9 @@ import Link from 'next/link'
 import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
 import Image from 'next/image'
 import { StructuredData } from '@/components/StructuredData'
-import MainLayout from '@/components/layout/MainLayout'
+import { ContactSection } from '@/components/ContactSection'
+import { PageHeader } from '@/components/PageHeader'
+import { PenSquare } from 'lucide-react'
 
 // Enable ISR with 30-minute revalidation for blog list
 export const revalidate = 1800; // Revalidate every 30 minutes
@@ -97,49 +99,54 @@ export default async function BlogPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <StructuredData type="Blog" data={blogData} />
-      <MainLayout>
-        <main>
-          {/* Enhanced Header */}
-          <section className="relative py-32 px-6 overflow-hidden mt-16">
-            {/* Background Pattern */}
-            <div className="absolute inset-0 bg-gradient-to-br from-theme-primary/5 via-background to-theme-secondary/5"></div>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,theme(colors.theme-primary/10),transparent_50%),radial-gradient(circle_at_70%_80%,theme(colors.theme-secondary/10),transparent_50%)]"></div>
+      <main>
+        {/* Header */}
+        <div className="px-6 pt-20">
+          <div className="max-w-4xl mx-auto">
+            <PageHeader
+              title="Technical Blog"
+              subtitle="Latest Insights & Tutorials"
+              description="Deep dives into modern web development, architectural patterns, and engineering best practices. 15+ years of industry experience distilled into actionable insights."
+              icon={PenSquare}
+              gradient={false}
+              splitColor={true}
+            />
             
-            <div className="relative max-w-5xl mx-auto text-center">
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-theme-primary/10 text-theme-primary text-sm font-medium mb-8 bg-white">
-                <span className="w-2 h-2 bg-theme-primary rounded-full mr-2 animate-pulse"></span>
-                Latest Insights & Tutorials
+            {/* Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-br from-theme-primary/10 to-theme-primary/5 rounded-xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                <div className="relative bg-card border border-border rounded-xl p-6 hover:border-theme-primary/50 transition-all duration-300">
+                  <div className="text-4xl font-bold bg-gradient-to-r from-theme-primary to-theme-accent bg-clip-text text-transparent mb-2">
+                    {posts.length > 0 ? posts.length : 15}+
+                  </div>
+                  <div className="text-sm font-medium text-muted-foreground">Articles Published</div>
+                </div>
               </div>
-              
-              <h1 className="text-5xl md:text-7xl font-bold mb-8 text-foreground leading-tight">
-                Technical
-                <span className="bg-gradient-to-r from-theme-primary to-theme-secondary bg-clip-text text-transparent"> Blog</span>
-              </h1>
-              
-              <p className="text-xl md:text-2xl text-white max-w-3xl mx-auto leading-relaxed mb-12">
-                Deep dives into modern web development, architectural patterns, and engineering best practices. 
-                <span className="text-theme-primary font-medium">15+ years</span> of industry experience distilled into actionable insights.
-              </p>
-              
-              <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-white">
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-theme-primary rounded-full mr-2"></div>
-                  React & Next.js
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-br from-theme-primary/10 to-theme-primary/5 rounded-xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                <div className="relative bg-card border border-border rounded-xl p-6 hover:border-theme-primary/50 transition-all duration-300">
+                  <div className="text-4xl font-bold bg-gradient-to-r from-theme-primary to-theme-accent bg-clip-text text-transparent mb-2">
+                    10+
+                  </div>
+                  <div className="text-sm font-medium text-muted-foreground">Topics Covered</div>
                 </div>
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-theme-secondary rounded-full mr-2"></div>
-                  TypeScript & Node.js
-                </div>
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-theme-primary rounded-full mr-2"></div>
-                  AWS & Architecture
+              </div>
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-br from-theme-primary/10 to-theme-primary/5 rounded-xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                <div className="relative bg-card border border-border rounded-xl p-6 hover:border-theme-primary/50 transition-all duration-300">
+                  <div className="text-4xl font-bold bg-gradient-to-r from-theme-primary to-theme-accent bg-clip-text text-transparent mb-2">
+                    15+
+                  </div>
+                  <div className="text-sm font-medium text-muted-foreground">Years Experience</div>
                 </div>
               </div>
             </div>
-          </section>
+          </div>
+        </div>
 
-          {/* Enhanced Blog Grid */}
-          <section className="py-20 px-6">
+        {/* Enhanced Blog Grid */}
+        <section className="py-20 px-6">
             <div className="max-w-7xl mx-auto">
               {posts.length === 0 ? (
                 <div className="text-center py-24">
@@ -290,8 +297,7 @@ export default async function BlogPage() {
               )}
             </div>
           </section>
-        </main>
-      </MainLayout>
+      </main>
     </div>
   )
 }

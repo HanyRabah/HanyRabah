@@ -1,12 +1,10 @@
 import Link from 'next/link'
 import { Button } from '@/components/ui/button'
 import { Home, ArrowLeft, Search, Mail } from 'lucide-react'
-import MainLayout from '@/components/layout/MainLayout'
 
 export default function NotFound() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <MainLayout withoutContact={true}>
         <main className="flex items-center justify-center min-h-[calc(100vh-200px)] px-6 py-32">
           <div className="max-w-2xl mx-auto text-center">
             {/* 404 Animation/Visual */}
@@ -128,7 +126,6 @@ export default function NotFound() {
             </div>
           </div>
         </main>
-      </MainLayout>
     </div>
   )
 }

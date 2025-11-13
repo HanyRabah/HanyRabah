@@ -8,20 +8,20 @@ import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { RelatedPosts } from '@/components/RelatedPosts'
 import { StructuredData } from '@/components/StructuredData'
-import MainLayout from '@/components/layout/MainLayout'
 
 // Enable ISR with 1-hour revalidation for individual blog posts
 export const revalidate = 3600; // Revalidate every 1 hour
 
 interface BlogPostPageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
 export async function generateMetadata({ params }: BlogPostPageProps): Promise<Metadata> {
+  const { slug } = await params
   const post = await prisma.post.findUnique({
-    where: { slug: params.slug, published: true },
+    where: { slug, published: true },
   })
 
   if (!post) {
@@ -160,14 +160,15 @@ function generatePostImage(title: string, tags: string[]): string {
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const { slug } = await params
   const [post, relatedPosts] = await Promise.all([
     prisma.post.findUnique({
-      where: { slug: params.slug, published: true },
+      where: { slug, published: true },
     }),
     prisma.post.findMany({
       where: { 
         published: true,
-        slug: { not: params.slug }
+        slug: { not: slug }
       },
       select: {
         id: true,
@@ -215,8 +216,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <StructuredData type="Article" data={structuredData} />
-      <MainLayout>
-        <main className="mt-24">
+        <main className="pt-24">
           <article className="container mx-auto px-4 py-12 max-w-4xl">
         {/* Header */}
         <header className="mb-12">
@@ -283,7 +283,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         <RelatedPosts posts={relatedPosts} currentPostId={post.id} />
           </article>
         </main>
-      </MainLayout>
     </div>
   )
 }

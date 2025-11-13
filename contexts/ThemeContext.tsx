@@ -79,12 +79,6 @@ export const colorThemes = {
   }
 }
 
-const randomizeTheme = () => {
-  const themes = Object.keys(colorThemes)
-  const randomTheme = themes[Math.floor(Math.random() * themes.length)]
-  return randomTheme as ColorTheme
-}
-
 const getInitialTheme = (): ColorTheme => {
   if (typeof window !== 'undefined') {
     const savedColorTheme = localStorage.getItem('color-theme') as ColorTheme
@@ -92,7 +86,7 @@ const getInitialTheme = (): ColorTheme => {
       return savedColorTheme
     }
   }
-  return randomizeTheme()
+  return 'teal'
 }
 
 const getInitialMode = (): Mode => {
@@ -109,7 +103,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [colorTheme, setColorTheme] = useState<ColorTheme>(getInitialTheme())
   const [mode, setMode] = useState<Mode>(getInitialMode())
   const [isInitialized, setIsInitialized] = useState(false)
-  const [isThemeReady, setIsThemeReady] = useState(true) // Default to true to avoid blocking
+  const [isThemeReady, setIsThemeReady] = useState(false)
 
   useEffect(() => {
     // This effect runs only on client-side to ensure proper hydration
@@ -125,6 +119,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     }
     
     setIsInitialized(true)
+    setIsThemeReady(true)
   }, [])
 
   useEffect(() => {

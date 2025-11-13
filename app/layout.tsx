@@ -1,23 +1,14 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import dynamic from 'next/dynamic'
 import './globals.scss'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 import { SessionProvider } from '@/components/providers/SessionProvider'
 import { ThemeScript } from '@/components/ThemeScript'
 import { CriticalCSS } from '@/components/CriticalCSS'
+import { ConditionalShell } from '@/components/ConditionalShell'
+import { ClientAnalytics } from '@/components/ClientAnalytics'
+import { ConsentManager } from '@/components/ConsentManager'
 import { BotIdClient } from 'botid/client'
-
-// Dynamic import analytics scripts to avoid blocking initial page load
-const GoogleAnalytics = dynamic(() => import('@/components/GoogleAnalytics').then(mod => ({ default: mod.GoogleAnalytics })), {
-  ssr: false,
-})
-const SpeedInsights = dynamic(() => import('@vercel/speed-insights/next').then(mod => ({ default: mod.SpeedInsights })), {
-  ssr: false,
-})
-const Analytics = dynamic(() => import('@vercel/analytics/next').then(mod => ({ default: mod.Analytics })), {
-  ssr: false,
-})
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -117,20 +108,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
-        {/* Consent Manager - Load as high as possible */}
-        <script 
-          type="text/javascript" 
-          data-cmp-ab="1" 
-          src="https://cdn.consentmanager.net/delivery/autoblocking/8d4eaf9812ce5.js" 
-          data-cmp-host="a.delivery.consentmanager.net" 
-          data-cmp-cdn="cdn.consentmanager.net" 
-          data-cmp-codesrc="16"
-        />
         <CriticalCSS />
         <ThemeScript />
-        <BotIdClient protect={protectedRoutes} />
         {/* Resource hints for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -139,13 +120,15 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://cdn.consentmanager.net" />
         <link rel="dns-prefetch" href="https://a.delivery.consentmanager.net" />
       </head>
-      <body className={inter.className}>
+      <body className={inter.className} suppressHydrationWarning>
+        <ConsentManager />
+        <BotIdClient protect={protectedRoutes} />
         <SessionProvider>
           <ThemeProvider>
-            {children}
-            <GoogleAnalytics />
-            <SpeedInsights />
-            <Analytics />
+            <ConditionalShell>
+              {children}
+            </ConditionalShell>
+            <ClientAnalytics />
           </ThemeProvider>
         </SessionProvider>
       </body>

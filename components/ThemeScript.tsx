@@ -36,12 +36,6 @@ export function ThemeScript() {
         }
       };
 
-      function randomizeTheme() {
-        const themes = Object.keys(colorThemes);
-        const randomTheme = themes[Math.floor(Math.random() * themes.length)];
-        return randomTheme;
-      }
-
       function hexToRgb(hex) {
         const result = /^#?([a-f\\d]{2})([a-f\\d]{2})([a-f\\d]{2})$/i.exec(hex);
         return result ? {
@@ -115,7 +109,7 @@ export function ThemeScript() {
         // localStorage might not be available
       }
       
-      const colorTheme = (savedColorTheme && colorThemes[savedColorTheme]) ? savedColorTheme : randomizeTheme();
+      const colorTheme = (savedColorTheme && colorThemes[savedColorTheme]) ? savedColorTheme : 'teal';
       const mode = savedMode || 'dark';
       
       // Apply theme when DOM is ready

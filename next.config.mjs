@@ -1,7 +1,11 @@
-const { withBotId } = require('botid/next/config');
+import { withBotId } from 'botid/next/config'
+import { dirname, join } from 'path'
+import { fileURLToPath } from 'url'
 
-/** @type {import('next').NextConfig} */
+const __dirname = dirname(fileURLToPath(import.meta.url))
+
 const nextConfig = {
+  outputFileTracingRoot: join(__dirname, '..'),
   images: {
     remotePatterns: [
       {
@@ -11,6 +15,10 @@ const nextConfig = {
       {
         protocol: 'https',
         hostname: '*.public.blob.vercel-storage.com',
+      },
+      {
+        protocol: 'https',
+        hostname: '**',
       }
     ],
   },
@@ -47,5 +55,4 @@ const nextConfig = {
     ]
   },
 }
-
-module.exports = withBotId(nextConfig)
+export default withBotId(nextConfig)

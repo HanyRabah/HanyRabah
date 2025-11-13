@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Table, Tag, Space, Button, Modal, message, Tooltip } from 'antd'
+import type { ColumnsType } from 'antd/es/table'
 import { 
   EditOutlined, 
   DeleteOutlined, 
@@ -77,7 +78,7 @@ export default function ContentTable({ data, type, loading, onRefresh }: Content
   }
 
   const getColumns = () => {
-    const baseColumns = [
+    const baseColumns: ColumnsType<any> = [
       {
         title: 'Title',
         dataIndex: 'title',
@@ -107,14 +108,23 @@ export default function ContentTable({ data, type, loading, onRefresh }: Content
         key: 'status',
         width: 150,
         render: (record: any) => {
-          const isPublished = record.published !== undefined ? record.published : true
-          const isFeatured = record.featured || false
+          const hasPublished = typeof record.published === 'boolean'
+          const isPublished = hasPublished ? record.published : true
+          const isFeatured = !!record.featured
+          const isAffiliate = !!record.isAffiliate
           return (
             <Space direction="vertical" size={4}>
-              <Tag color={isPublished ? 'green' : 'orange'}>
-                {isPublished ? 'Published' : 'Draft'}
-              </Tag>
+              {hasPublished && (
+                <Tag color={isPublished ? 'green' : 'orange'}>
+                  {isPublished ? 'Published' : 'Draft'}
+                </Tag>
+              )}
               {isFeatured && <Tag color="blue">Featured</Tag>}
+              {typeof record.isAffiliate === 'boolean' && (
+                <Tag color={isAffiliate ? 'purple' : 'default'}>
+                  {isAffiliate ? 'Affiliate' : 'Non-affiliate'}
+                </Tag>
+              )}
             </Space>
           )
         },
@@ -122,6 +132,32 @@ export default function ContentTable({ data, type, loading, onRefresh }: Content
     ]
 
     // Add type-specific columns
+    if (type === 'resources') {
+      baseColumns.splice(1, 0, {
+        title: 'Type',
+        dataIndex: 'type',
+        key: 'type',
+        render: (value: string) => (
+          <Tag color="geekblue">{value?.split('_').join(' ')}</Tag>
+        ),
+      })
+
+      baseColumns.splice(3, 0, {
+        title: 'Category',
+        dataIndex: 'category',
+        key: 'category',
+        render: (category: string) => category ? <Tag>{category}</Tag> : <span>-</span>,
+      })
+
+      baseColumns.splice(4, 0, {
+        title: 'Display Order',
+        dataIndex: 'displayOrder',
+        key: 'displayOrder',
+        width: 120,
+        render: (order: number) => <span>{order ?? 0}</span>,
+      })
+    }
+
     if (type === 'articles') {
       baseColumns.splice(2, 0, {
         title: 'Details',
@@ -198,7 +234,7 @@ export default function ContentTable({ data, type, loading, onRefresh }: Content
             </Link>
           </Tooltip>
           
-          {record.published !== undefined && (
+          {typeof record.published === 'boolean' && (
             <Tooltip title={record.published ? 'Unpublish' : 'Publish'}>
               <Button
                 size="small"
@@ -208,13 +244,15 @@ export default function ContentTable({ data, type, loading, onRefresh }: Content
             </Tooltip>
           )}
           
-          <Tooltip title={record.featured ? 'Remove from Featured' : 'Mark as Featured'}>
-            <Button
-              size="small"
-              icon={record.featured ? <StarFilled /> : <StarOutlined />}
-              onClick={() => handleToggleStatus(record.id, record.featured, 'featured')}
-            />
-          </Tooltip>
+          {typeof record.featured === 'boolean' && type !== 'resources' && (
+            <Tooltip title={record.featured ? 'Remove from Featured' : 'Mark as Featured'}>
+              <Button
+                size="small"
+                icon={record.featured ? <StarFilled /> : <StarOutlined />} 
+                onClick={() => handleToggleStatus(record.id, record.featured, 'featured')}
+              />
+            </Tooltip>
+          )}
           
           <Tooltip title="Delete">
             <Button
