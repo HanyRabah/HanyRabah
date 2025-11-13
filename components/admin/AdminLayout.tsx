@@ -29,7 +29,8 @@ import {
   MenuUnfoldOutlined,
   SketchOutlined,
   ContactsOutlined,
-  BulbOutlined
+  BulbOutlined,
+  AppstoreOutlined
 } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
 
@@ -82,6 +83,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           key: '/admin/designs',
           icon: <PictureOutlined />,
           label: 'Design Portfolio',
+        },
+        {
+          key: '/admin/resources',
+          icon: <AppstoreOutlined />,
+          label: 'Resources',
         },
       ],
     },

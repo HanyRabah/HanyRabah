@@ -134,6 +134,32 @@ model Design {
   @@map("designs")
 }
 
+model Resource {
+  id           String        @id @default(cuid())
+  title        String
+  description  String?
+  type         ResourceType
+  url          String
+  category     String?
+  image        String?
+  isAffiliate  Boolean       @default(false)
+  displayOrder Int           @default(0)
+  published    Boolean       @default(true)
+  clickCount   Int           @default(0)
+  tags         String[]      @default([])
+  gumroadUrl   String?       // For selling wallpapers on Gumroad
+  price        String?       // Price for paid items (e.g., "$5")
+  audioUrl     String?       // Audiobook URL (Audible, Spotify, etc.)
+  audioDuration String?      // e.g., "8 hours 30 minutes"
+  narrator     String?       // Audiobook narrator name
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+
+  @@map("resources")
+  @@index([type, displayOrder])
+  @@index([published])
+}
+
 model Analytics {
   id        String   @id @default(cuid())
   page      String
@@ -171,4 +197,14 @@ enum DesignCategory {
   BRANDING
   ILLUSTRATION
   DESIGN_SYSTEM
+}
+
+enum ResourceType {
+  READING_LIST
+  TECH_ESSENTIALS  // Renamed from AESTHETIC_GOODS
+  WALLPAPERS       // Renamed from BOUTIQUE
+  TALENT
+  INVESTMENT
+  NEWSLETTER
+  PODCAST
 }

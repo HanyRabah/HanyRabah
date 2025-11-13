@@ -1,6 +1,7 @@
 import { Card, CardContent } from './ui/card';
 import { Code, Layers, Zap, BarChart3, Wrench, Goal, TestTubeIcon, VectorSquare,ZapIcon,  BriefcaseBusinessIcon, Bot, LucideIcon  } from 'lucide-react';
 import { prisma } from '@/lib/prisma';
+import { PageHeader } from './PageHeader';
 
 const Icons: Record<string, LucideIcon> = {
   Code,
@@ -39,18 +40,17 @@ export async function ServicesSection() {
     <section id="services" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-theme-primary">
-            What I Offer
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            From concept to deployment, I provide comprehensive development services 
-            that help businesses build robust digital solutions.
-          </p>
+          <PageHeader
+            title="What I Offer"
+            description="From concept to deployment, I provide comprehensive development services that help businesses build robust digital solutions."
+            splitColor={true}
+            gradient={false}
+          />
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
           {services.map((service, index) => {
-            const IconComponent = Icons[service.icon as keyof typeof Icons];
+            const IconComponent = service.icon ? Icons[service.icon as keyof typeof Icons] || Code : Code;
 
             return (
               <Card key={index} className="group border-border hover:border-theme-primary/50 transition-all duration-300 hover:shadow-lg hover:shadow-theme-primary/10">

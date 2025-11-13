@@ -1,9 +1,10 @@
-
 "use client";
 import { Button } from "./ui/button";
 import { Badge } from "./ui/badge";
-import { Download } from "lucide-react";
+import { Download, ExternalLink, Calendar, ArrowRight, User } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
+import { PageHeader } from "./PageHeader";
 
 export function AboutSection() {
   const techSkills = [
@@ -45,6 +46,94 @@ export function AboutSection() {
     "German (Conversational)",
   ];
 
+  const timeline = [
+    {
+      date: "May 2025",
+      title: "Full-Stack Engineer",
+      company: "Paylane GmbH",
+      location: "Germany",
+      companyUrl: "https://www.godiligent.ai/",
+      logo: "/company-logos/godiligentai_logo.jpeg",
+      description: "Architecting and maintaining core full-stack systems serving fintech users. Improved load times by 42% through optimized API calls and front-end rendering. Designed and automated CI/CD pipelines via AWS and Docker, achieving zero-downtime deployments.",
+      current: true,
+    },
+    {
+      date: "Sep 2024 - May 2025",
+      title: "Full-Stack Technical Lead",
+      company: "Mark Haykalah",
+      location: "Saudi Arabia (Remote)",
+      companyUrl: "https://haykalah.com/",
+      logo: "/company-logos/mark_haykalah_logo.jpeg",
+      description: "Directed a distributed team delivering AI-driven digital solutions for industrial transformation. Reduced project delivery timelines by 40% via modular component libraries and agile pipelines. Drove the technical foundation for DigitalNext, a scalable e-commerce and branding platform.",
+    },
+    {
+      date: "Mar 2021 - Sep 2024",
+      title: "Sr. Frontend Engineer / Team Lead",
+      company: "OLX Group",
+      location: "Germany",
+      companyUrl: "https://www.olxgroup.com/",
+      logo: "/company-logos/olx_group_logo.jpeg",
+      description: "Led the Service and Fixly teams to modernize the architecture using React 18, TypeScript, and GraphQL. Achieved 18% increase in conversion rate and 22% lower bounce rate through user journey redesigns. Mentored engineers in performance tuning, testing, and codebase scalability.",
+    },
+    {
+      date: "Jun 2018 - Jun 2020",
+      title: "Sr. Frontend Engineer",
+      company: "dubizzle.com",
+      location: "Dubai",
+      companyUrl: "https://www.dubizzle.com/",
+      logo: "/company-logos/dubizzle_com_logo.jpeg",
+      description: "Collaborated with product managers, designers, and software engineers to deliver robust, scalable design vision for user-facing products. Orchestrated a new approach of assessing project requirements that increased production releases by 20%. Revived graphic standards and UX language guidelines ensuring brand consistency.",
+    },
+    {
+      date: "Jun 2015 - Jun 2018",
+      title: "Frontend Engineer - UI/UX Designer",
+      company: "OLX",
+      location: "Dubai",
+      companyUrl: "https://www.olx.com/",
+      logo: "/company-logos/olx_group_logo.jpeg",
+      description: "Supported the Global team to localize OLX Egypt and Emerging markets. Implemented a new design for the Emerging Market website (MENA Region). Applied new techniques to support website RTL and introduced SASS instead of legacy CSS code. Created component-based UI, replacing legacy UI.",
+    },
+    {
+      date: "Jan 2014 - Jun 2015",
+      title: "Frontend Engineer - UI/UX Designer",
+      company: "dubizzle.com",
+      location: "Egypt",
+      companyUrl: "https://www.dubizzle.com/",
+      logo: "/company-logos/dubizzle_com_logo.jpeg",
+      description: "Created A/B tests and supported user testing for new features. Researched and implemented dubizzle framework UI and documentation guidelines. Supported marketing campaigns and social media by creating designs and created a WordPress blog.",
+    },
+    {
+      date: "Jan 2011 - May 2013",
+      title: "Interactive Designer",
+      company: "Benchmark Advertising",
+      location: "Egypt",
+      description: "Designed and implemented interactive layouts for E-detailing apps and websites on different devices for pharmaceutical companies like Novartis, Pfizer. Applied best practices for Agile, Kanban, User Stories, Wireframe, and Acceptance criteria.",
+    },
+    {
+      date: "Sep 2010 - Dec 2013",
+      title: "Co-Founder",
+      company: "The Seven Layers",
+      location: "Egypt",
+      description: "Had a key role in management and planning discussions. Helped and guided the sales team for client acquisition while documenting all product knowledge. Mentored team members by sharing knowledge and insights on new technologies, ideas, and workflows.",
+    },
+    {
+      date: "Jul 2007 - Sep 2010",
+      title: "UI Designer / Digital Team Lead",
+      company: "Crinel",
+      location: "Egypt",
+      companyUrl: "https://crinel.com/",
+      logo: "/company-logos/crinel_logo.jpeg",
+      description: "Responsible for the design/development team on the Web/Mobile platform. Worked with stakeholders & project managers to evaluate & plan different projects. Mentored team members and advocated for best practices, standards, and performance best practices across projects.",
+    },
+    {
+      date: "Jun 2006 - Jul 2007",
+      title: "UI Designer",
+      company: "Into-development",
+      location: "Egypt",
+      description: "Designed website layouts and implemented HTML/CSS/Javascript. Created Flash animation and wrote code with Action Script. Shot 360 photos for hotels and implemented them for 360 VR preview.",
+    },
+  ];
+
   const downloadResume = () => {
     const resumeUrl = "/Hany_Elsaydawy_full-stack_engineer.pdf";
     window.open(resumeUrl, "_blank");
@@ -68,13 +157,16 @@ export function AboutSection() {
 
           {/* Bio and Content */}
           <div className="space-y-16">
-            <div>
-              <h2 className="text-center text-3xl md:text-4xl font-bold mb-6 text-theme-primary">
-                About Me
-              </h2>
-              <div className="space-y-8 text-muted-foreground">
+            {/* Page Header */}
+            <PageHeader
+              title="About Me"
+              icon={User}
+              gradient={false}
+              splitColor={true}
+            >
+              <div className="space-y-6 text-lg text-muted-foreground leading-relaxed text-center">
                 <p>
-                  I’m a Senior Fullstack Engineer and Technical Lead based in
+                  I'm a Senior Fullstack Engineer and Technical Lead based in
                   Berlin, with over 15 years of experience building scalable,
                   high-performance web applications and leading engineering
                   teams.
@@ -87,46 +179,125 @@ export function AboutSection() {
                   fintech, classifieds, and e-commerce.
                 </p>
                 <p>
-                  Currently, I work at a fast-growing fintech startup{" "}
-                  <a
-                    href="https://www.godiligent.ai/"
-                    className="text-theme-primary hover:underline"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    GoDiligent
-                  </a>
-                  , An AI-driven platform built to analyze complex customer data
-                  and streamline due diligence for banks and fintech firms. I
-                  contributed to the integration of AI agents into compliance
-                  pipelines, developed interfaces to visualize risk insights,
-                  and ensured the system provides full auditability for
-                  enterprise-ready deployments.
-                </p>
-                <p>
-                  I believe in mentoring, continuous learning, and building
-                  bridges between design, product, and engineering. My unique
-                  combination of technical expertise and design sensibility allows
-                  me to create solutions that are both technically sound and
-                  visually compelling. Check out my{" "}
-                  <Link href="/design" className="text-theme-primary hover:underline">
-                    design portfolio
-                  </Link>{" "}
-                  to see this approach in action.
-                </p>
-                <p>
                   When I'm not coding, you'll find me traveling, behind the lens
                   doing photography, deep into a good book, or enjoying a
-                  strategic game of chess. You can explore my latest{" "}
-                  <Link href="/projects" className="text-theme-primary hover:underline">
-                    technical projects
-                  </Link>{" "}
-                  or read my{" "}
-                  <Link href="/blog" className="text-theme-primary hover:underline">
-                    technical insights
-                  </Link>{" "}
-                  on modern web development.
+                  strategic game of chess.
                 </p>
+              </div>
+            </PageHeader>
+
+            {/* Timeline Section */}
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold mb-8">
+                My Career Path
+              </h2>
+              <div className="space-y-8">
+                {timeline.map((item, index) => (
+                  <div
+                    key={index}
+                    className="group relative pl-8 pb-8 border-l-2 border-border last:pb-0 hover:border-theme-primary transition-colors"
+                  >
+                    {/* Timeline dot */}
+                    <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-background border-2 border-border group-hover:border-theme-primary group-hover:bg-theme-primary transition-all" />
+                    
+                    {/* Current indicator */}
+                    {item.current && (
+                      <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-theme-primary border-2 border-theme-primary animate-pulse" />
+                    )}
+
+                    {/* Content */}
+                    <div className="space-y-3">
+                      <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                        <Calendar className="h-3 w-3" />
+                        <time>{item.date}</time>
+                        {item.current && (
+                          <Badge variant="primary" className="text-xs">
+                            Current
+                          </Badge>
+                        )}
+                      </div>
+                    
+                      
+                      <div className="flex items-center gap-3 flex-wrap">
+                        {item.logo && (
+                          <div className="flex-shrink-0 w-10 h-10 rounded-lg overflow-hidden bg-white border border-border shadow-sm">
+                            <Image
+                              src={item.logo}
+                              alt={`${item.company} logo`}
+                              width={40}
+                              height={40}
+                              className="w-full h-full object-contain p-1"
+                              onError={(e) => {
+                                e.currentTarget.style.display = 'none';
+                              }}
+                            />
+                          </div>
+                        )}
+                        <div className="flex flex-col">
+                          <h3 className="text-xl font-semibold text-foreground group-hover:text-theme-primary transition-colors">
+                            {item.title}
+                          </h3>
+                          <div className="flex items-center gap-2 flex-wrap">
+                            {item.companyUrl ? (
+                              <a
+                                href={item.companyUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="inline-flex items-center gap-1 text-theme-primary hover:underline font-medium"
+                              >
+                                {item.company}
+                                <ExternalLink className="h-3 w-3" />
+                              </a>
+                            ) : (
+                              <div className="flex items-center gap-1 text-foreground font-medium">
+                                {item.company}
+                              </div>
+                            )}
+                            {item.location && (
+                              <span className="text-sm text-muted-foreground">
+                                • {item.location}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <p className="text-muted-foreground leading-relaxed">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* More About Me Section */}
+            <div>
+              <h2 className="text-2xl md:text-3xl font-bold mb-6">
+                More About Me
+              </h2>
+              <div className="space-y-4">
+                <Link
+                  href="/projects"
+                  className="group flex items-center gap-2 text-lg text-muted-foreground hover:text-theme-primary transition-colors"
+                >
+                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  Check out my technical projects
+                </Link>
+                <Link
+                  href="/design"
+                  className="group flex items-center gap-2 text-lg text-muted-foreground hover:text-theme-primary transition-colors"
+                >
+                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  View my design portfolio
+                </Link>
+                <Link
+                  href="/blog"
+                  className="group flex items-center gap-2 text-lg text-muted-foreground hover:text-theme-primary transition-colors"
+                >
+                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  Read my technical insights
+                </Link>
               </div>
             </div>
 

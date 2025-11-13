@@ -1,12 +1,13 @@
 import { HeroSection } from '@/components/HeroSection'
-import { AboutSection } from '@/components/AboutSection'
-import { ProjectsSection } from '@/components/ProjectsSection'
-import { ServicesSection } from '@/components/ServicesSection'
+// import { AboutSection } from '@/components/AboutSection'
+// import { ProjectsSection } from '@/components/ProjectsSection'
+// import { ServicesSection } from '@/components/ServicesSection'
 import { BlogSection } from '@/components/BlogSection'
-import SocialLinks from '@/components/socialLinks'
+import { ContactSection } from '@/components/ContactSection'
+import { TimeBasedGreeting } from '@/components/TimeBasedGreeting'
+import { InfoBlocks } from '@/components/InfoBlocks'
 import { Metadata } from 'next'
 import { StructuredData } from '@/components/StructuredData'
-import MainLayout from '@/components/layout/MainLayout'
 
 // Enable ISR with 1-hour revalidation for optimal global performance
 export const revalidate = 3600; // Revalidate every 1 hour
@@ -120,15 +121,18 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground">
       <StructuredData type="Person" data={personData} />
       <StructuredData type="WebSite" data={websiteData} />
-      <MainLayout>
-        <main>
-          <HeroSection />
-          <AboutSection />
-          {/* <ProjectsSection /> */}
-          <ServicesSection />
-          <BlogSection />
-        </main>
-      </MainLayout>
+      <main className="space-y-24 pb-24">
+        <HeroSection />
+        
+        {/* Enhanced Homepage Content */}
+        <section className="container mx-auto px-6">
+          <TimeBasedGreeting />
+          <InfoBlocks />
+        </section>
+        
+        <BlogSection />
+      </main>
+      <ContactSection />
     </div>
   );
 }
