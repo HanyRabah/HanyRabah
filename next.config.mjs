@@ -1,11 +1,6 @@
 import { withBotId } from 'botid/next/config'
-import { dirname, join } from 'path'
-import { fileURLToPath } from 'url'
-
-const __dirname = dirname(fileURLToPath(import.meta.url))
 
 const nextConfig = {
-  outputFileTracingRoot: join(__dirname, '..'),
   images: {
     remotePatterns: [
       {
