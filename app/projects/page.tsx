@@ -211,7 +211,7 @@ export default async function ProjectsPage() {
                           Get In Touch
                         </a>
                         <a
-                          href="/Hany_Elsaydawy_full-stack_engineer.pdf"
+                          href="/Hany_Elsaydawy_Resume.pdf"
                           target="_blank"
                           className="inline-flex items-center px-6 py-3 border border-theme-primary text-theme-primary hover:bg-theme-primary hover:text-white font-semibold rounded-xl transition-colors duration-300"
                         >

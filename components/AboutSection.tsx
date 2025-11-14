@@ -46,7 +46,7 @@ export function AboutSection() {
   ];
 
   const downloadResume = () => {
-    const resumeUrl = "/Hany_Elsaydawy_full-stack_engineer.pdf";
+    const resumeUrl = "/Hany_Elsaydawy_Resume.pdf";
     window.open(resumeUrl, "_blank");
   };
 
