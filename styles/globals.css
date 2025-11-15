@@ -41,15 +41,15 @@
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
 
-    /* Dynamic theme colors - default to teal */
-    --theme-primary: #14b8a6;
-    --theme-primary-rgb: 20, 184, 166;
-    --theme-secondary: #0d9488;
-    --theme-secondary-rgb: 13, 148, 136;
-    --theme-muted: #115e59;
-    --theme-muted-rgb: 17, 94, 89;
-    --theme-accent: #10b981;
-    --theme-accent-rgb: 16, 185, 129;
+    /* Dynamic theme colors - default to blue */
+    --theme-primary: #3b82f6;
+    --theme-primary-rgb: 59, 130, 246;
+    --theme-secondary: #2563eb;
+    --theme-secondary-rgb: 37, 99, 235;
+    --theme-muted: #1e40af;
+    --theme-muted-rgb: 30, 64, 175;
+    --theme-accent: #1b55b9;
+    --theme-accent-rgb: 27, 85, 185;
   }
 
   .dark {

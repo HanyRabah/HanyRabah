@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useEffect, useState } from 'react'
 
-export type ColorTheme = 'teal' | 'purple' | 'blue' | 'green'
+export type ColorTheme = 'blue'
 export type Mode =  'dark' | 'light'
 
 interface ThemeContextType {
@@ -17,30 +17,6 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
 
 export const colorThemes = {
-  teal: {
-    name: 'Teal',
-    primary: '#14b8a6',
-    secondary: '#0d9488',
-    tertiary: '#DDFFE7',
-    forth: '#167D7F',
-    muted: '#115e59',
-    accent: '#10b981',
-    previewStyle: {
-      background: 'linear-gradient(to right, #14b8a6, #0d9488)'
-    }
-  },
-  purple: {
-    name: 'Purple',
-    primary: '#8b5cf6',
-    secondary: '#7c3aed',
-    tertiary: '#8155BA',
-    forth: '#BEAFC2',
-    muted: '#6b21a8',
-    accent: '#a855f7',
-    previewStyle: {
-      background: 'linear-gradient(to right, #8b5cf6, #7c3aed)'
-    }
-  },
   blue: {
     name: 'Blue',
     primary: '#3b82f6',
@@ -52,41 +28,7 @@ export const colorThemes = {
     previewStyle: {
       background: 'linear-gradient(to right, #3b82f6, #2563eb)'
     }
-  },
-  // orange: {
-  //   name: 'Orange',
-  //   primary: '#f97316',
-  //   secondary: '#ea580c',
-  //   tertiary: '#DF362D',
-  //   forth: '#FF8300',
-  //   muted: '#c2410c',
-  //   accent: '#fb923c',
-  //   previewStyle: {
-  //     background: 'linear-gradient(to right, #f97316, #ea580c)'
-  //   }
-  // },
-  green: {
-    name: 'Green',
-    primary: '#22c55e',
-    secondary: '#16a34a',
-    tertiary: '#21B6A8',
-    forth: '#A3EBB1',
-    muted: '#15803d',
-    accent: '#4ade80',
-    previewStyle: {
-      background: 'linear-gradient(to right, #22c55e, #16a34a)'
-    }
   }
-}
-
-const getInitialTheme = (): ColorTheme => {
-  if (typeof window !== 'undefined') {
-    const savedColorTheme = localStorage.getItem('color-theme') as ColorTheme
-    if (savedColorTheme && colorThemes[savedColorTheme]) {
-      return savedColorTheme
-    }
-  }
-  return 'teal'
 }
 
 const getInitialMode = (): Mode => {
@@ -100,19 +42,14 @@ const getInitialMode = (): Mode => {
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [colorTheme, setColorTheme] = useState<ColorTheme>(getInitialTheme())
+  const [colorTheme] = useState<ColorTheme>('blue') // Always blue
   const [mode, setMode] = useState<Mode>(getInitialMode())
   const [isInitialized, setIsInitialized] = useState(false)
   const [isThemeReady, setIsThemeReady] = useState(false)
 
   useEffect(() => {
     // This effect runs only on client-side to ensure proper hydration
-    const savedColorTheme = localStorage.getItem('color-theme') as ColorTheme
     const savedMode = localStorage.getItem('mode') as Mode
-    
-    if (savedColorTheme && colorThemes[savedColorTheme]) {
-      setColorTheme(savedColorTheme)
-    }
     
     if (savedMode) {
       setMode(savedMode)
@@ -174,13 +111,17 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     
     // Save to localStorage only after initialization to prevent unnecessary saves
     if (isInitialized) {
-      localStorage.setItem('color-theme', colorTheme)
       localStorage.setItem('mode', mode)
     }
   }, [colorTheme, mode, isInitialized])
 
   const toggleMode = () => {
     setMode(mode === 'light' ? 'dark' : 'light')
+  }
+
+  // Dummy setColorTheme for interface compatibility (does nothing since theme is fixed)
+  const setColorTheme = () => {
+    // Theme is always blue, this function exists only for interface compatibility
   }
 
   const value = {
