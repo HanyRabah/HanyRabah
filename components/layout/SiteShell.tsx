@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useMemo } from "react";
+import { useMemo, useState, useEffect } from "react";
 import {
   Home,
   Briefcase,
@@ -22,6 +22,8 @@ import {
   Linkedin,
   Github,
   Instagram,
+  Menu,
+  X,
 } from "lucide-react";
 import Image from "next/image";
 //import { ThemeSwitcher } from "@/components/ThemeSwitcher";
@@ -66,10 +68,12 @@ function NavigationSection({
   title,
   items,
   activePath,
+  onItemClick,
 }: {
   title: string;
   items: { label: string; href: string; icon: React.ComponentType<{ className?: string }> }[];
   activePath: string;
+  onItemClick?: () => void;
 }) {
   return (
     <div>
@@ -83,6 +87,7 @@ function NavigationSection({
             <Link
               key={item.label}
               href={item.href}
+              onClick={onItemClick}
               className={classNames(
                 "group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
                 "hover:bg-muted hover:text-foreground",
@@ -106,6 +111,7 @@ interface SiteShellProps {
 
 export function SiteShell({ children }: SiteShellProps) {
   const pathname = usePathname();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const activePath = useMemo(() => {
     if (!pathname) {
@@ -132,35 +138,72 @@ export function SiteShell({ children }: SiteShellProps) {
     return pathname;
   }, [pathname]);
 
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false);
+  }, [pathname]);
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, [isMobileMenuOpen]);
+
+  const closeMobileMenu = () => setIsMobileMenuOpen(false);
+
   return (
     <div className="flex min-h-screen w-full bg-background text-foreground">
-      {/* Desktop Sidebar */}
-      <aside className="sticky top-0 flex h-screen w-[280px] flex-col border-r border-border/40 bg-background/80 p-6 backdrop-blur">
+      {/* Mobile Header */}
+      <div className="md:!hidden fixed top-0 left-0 right-0 z-50 flex items-center justify-between border-b border-border/40 bg-background/95 backdrop-blur px-4 py-3">
+        <Link href="/" onClick={closeMobileMenu}>
+          <Image src="/logo.webp" alt="Logo" width={80} height={56} />
+        </Link>
+        <button
+          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          className="flex h-10 w-10 items-center justify-center rounded-lg text-foreground transition-colors hover:bg-muted"
+          aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+        >
+          {isMobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </button>
+      </div>
+
+      {/* Mobile Menu Overlay */}
+      {isMobileMenuOpen && (
+        <div
+          className="md:!hidden fixed inset-0 z-40 bg-black/50 backdrop-blur-sm"
+          onClick={closeMobileMenu}
+          aria-hidden="true"
+        />
+      )}
+
+      {/* Mobile Sidebar */}
+      <aside
+        className={classNames(
+          "fixed top-0 left-0 bottom-0 z-50 w-[280px] transition-transform duration-300 ease-in-out md:!hidden",
+          "flex flex-col border-r border-border/40 bg-background p-6 overflow-y-auto",
+          isMobileMenuOpen ? "translate-x-0" : "-translate-x-full"
+        )}
+      >
         <div className="flex flex-1 flex-col">
-          <Link href="/" className="group mb-4 flex items-center justify-center gap-3">
-            {/* <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-theme-primary/15 text-theme-primary">
-              <Sparkles className="h-5 w-5 transition-transform group-hover:rotate-6" />
-            </div> */}
-            {/* <div> */}
-              {/* <p className="text-sm font-semibold">Hany Rabah</p>
-              <p className="text-xs text-muted-foreground">Technical Lead & Fullstack Engineer</p> */}
-              <Image src="/logo.webp" alt="Logo" width={100} height={70} />
-            {/* </div> */}
+          <Link href="/" onClick={closeMobileMenu} className="group mb-8 flex items-center justify-center gap-3">
+            <Image src="/logo.webp" alt="Logo" width={100} height={70} />
           </Link>
 
           <div className="flex flex-1 flex-col gap-10">
             <div className="space-y-8">
-              <NavigationSection title="Navigate" items={NAV_ITEMS} activePath={activePath} />
-              <NavigationSection title="Resources" items={RESOURCE_ITEMS} activePath={activePath} />
-              <NavigationSection title="Legal" items={LEGAL_ITEMS} activePath={activePath} />
+              <NavigationSection title="Navigate" items={NAV_ITEMS} activePath={activePath} onItemClick={closeMobileMenu} />
+              <NavigationSection title="Resources" items={RESOURCE_ITEMS} activePath={activePath} onItemClick={closeMobileMenu} />
+              <NavigationSection title="Legal" items={LEGAL_ITEMS} activePath={activePath} onItemClick={closeMobileMenu} />
             </div>
 
-            <div className="mt-auto space-y-3">
+            <div className="mt-auto space-y-3 pb-6">
               <p className="text-xs uppercase tracking-widest text-muted-foreground">Connect</p>
-              {/* <div className="flex items-center gap-2 rounded-lg border border-border/50 bg-muted/20 px-3 py-2">
-                <ThemeSwitcher />
-                <span className="text-xs text-muted-foreground">Toggle theme</span>
-              </div> */}
               <div className="flex gap-2">
                 {SOCIAL_ITEMS.map((item) => {
                   const Icon = item.icon;
@@ -177,21 +220,58 @@ export function SiteShell({ children }: SiteShellProps) {
                   );
                 })}
               </div>
-              {/* <p className="text-xs leading-relaxed text-muted-foreground">
-                Some links are affiliate links, which means I may earn a small commission at no extra cost to you.
-              </p> */}
-              <div className="text-xs mt-24 pt-8 border-t border-border text-center">
-          <p className="text-muted-foreground">
-            © {new Date().getFullYear()}. All rights reserved.
-          </p>
+              <div className="text-xs pt-4 border-t border-border text-center">
+                <p className="text-muted-foreground">
+                  © {new Date().getFullYear()}. All rights reserved.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
+      </aside>
+
+      {/* Desktop Sidebar */}
+      <aside className="max-md:hidden lg:flex sticky top-0 h-screen w-[280px] flex-col border-r border-border/40 bg-background/80 backdrop-blur p-6">
+        <Link href="/" className="group mb-4 flex items-center justify-center gap-3">
+          <Image src="/logo.webp" alt="Logo" width={100} height={70} />
+        </Link>
+
+        <div className="flex flex-1 flex-col gap-10">
+          <div className="space-y-8">
+            <NavigationSection title="Navigate" items={NAV_ITEMS} activePath={activePath} />
+            <NavigationSection title="Resources" items={RESOURCE_ITEMS} activePath={activePath} />
+            <NavigationSection title="Legal" items={LEGAL_ITEMS} activePath={activePath} />
+          </div>
+
+          <div className="mt-auto space-y-3">
+            <p className="text-xs uppercase tracking-widest text-muted-foreground">Connect</p>
+            <div className="flex gap-2">
+              {SOCIAL_ITEMS.map((item) => {
+                const Icon = item.icon;
+                return (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="flex h-9 w-9 items-center justify-center rounded-full border border-border/40 text-muted-foreground transition-colors hover:border-theme-primary hover:text-theme-primary"
+                  >
+                    <Icon className="h-4 w-4" />
+                  </Link>
+                );
+              })}
+            </div>
+            <div className="text-xs mt-24 pt-8 border-t border-border text-center">
+              <p className="text-muted-foreground">
+                © {new Date().getFullYear()}. All rights reserved.
+              </p>
             </div>
           </div>
         </div>
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto">
+      <main className="flex-1 overflow-y-auto md:mt-0 mt-[60px]">
         <div className="">
           {children}
         </div>
