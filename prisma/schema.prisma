@@ -34,6 +34,7 @@ model Project {
   slug           String        @unique
   description    String
   content        String?
+  published      Boolean       @default(false)
   featured       Boolean       @default(false)
   coverImage     String?
   images         String[]
@@ -112,6 +113,7 @@ model Design {
   slug        String         @unique
   description String
   content     String?
+  published   Boolean        @default(false)
   featured    Boolean        @default(false)
   coverImage  String?
   images      String[]
@@ -134,7 +136,7 @@ model Resource {
   title         String
   description   String?
   type          ResourceType
-  url           String       // Primary URL (read URL for books, or main URL)
+  url           String
   category      String?
   image         String?
   isAffiliate   Boolean      @default(false)
@@ -144,20 +146,14 @@ model Resource {
   tags          String[]     @default([])
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
-  
-  // Book/Audiobook specific fields
-  rating        Float?       // Rating out of 5 (e.g., 4.5)
-  audioUrl      String?      // Audio/Listen URL for books with audiobook version
-  audioDuration String?      // Duration for audiobooks (e.g., "10h 7m")
-  narrator      String?      // Narrator for audiobooks
-  author        String?      // Author name for books
-  
-  // Marketplace specific fields
   gumroadUrl    String?
   price         String?
-  
-  // Useful Links specific fields
-  linkType      String?      // Type of link (e.g., "Tool", "Platform", "Community")
+  audioDuration String?
+  audioUrl      String?
+  narrator      String?
+  author        String?
+  linkType      String?
+  rating        Float?
 
   @@index([type, displayOrder])
   @@index([published])
@@ -217,15 +213,14 @@ enum DesignCategory {
 }
 
 enum ResourceType {
-  BOOKS            // Merged READING_LIST and AUDIOBOOK - can have both read and audio URLs
-  TECH_ESSENTIALS
-  USEFUL_LINKS     // New type for helpful websites, tools, platforms
-  WALLPAPERS
-  NEWSLETTER
-  PODCAST
-  // Legacy types (kept for backward compatibility during migration)
   READING_LIST
-  AUDIOBOOK
+  TECH_ESSENTIALS
+  WALLPAPERS
   TALENT
   INVESTMENT
+  NEWSLETTER
+  PODCAST
+  AUDIOBOOK
+  BOOKS
+  USEFUL_LINKS
 }

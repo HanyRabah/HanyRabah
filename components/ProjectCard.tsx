@@ -8,13 +8,13 @@ interface Project {
   id: string
   title: string
   description: string
-  coverImage: string
+  coverImage: string | null
   technologies: string[]
   slug: string
-  liveUrl?: string
-  githubUrl?: string
+  liveUrl?: string | null
+  githubUrl?: string | null
   featured?: boolean
-  category?: string
+  category?: string | null
 }
 
 interface ProjectCardProps {
