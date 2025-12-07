@@ -31,7 +31,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    const { name, email, subject, message } = body
+    const { name, email, subject, message, reason } = body
 
     // Basic validation
     if (!name || !email || !message) {
@@ -41,22 +41,36 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    // Create subject from reason if not provided
+    const emailSubject = subject || (reason ? `Contact: ${reason.replace(/_/g, ' ')}` : 'New Contact Form Submission')
+
     // Save to database
     const prismaClient = await getPrisma()
     const contact = await prismaClient.contact.create({
       data: {
         name,
         email,
-        subject,
+        subject: emailSubject,
         message,
+        reason: reason || null, // Save as enum value
       },
     })
 
     // Send email notification to contact@hanyrabah.com
-    const emailResult = await sendContactEmail({ name, email, subject, message })
+    const emailResult = await sendContactEmail({ 
+      name, 
+      email, 
+      subject: emailSubject, 
+      message: reason ? `Contact Reason: ${reason}\n\n${message}` : message 
+    })
     
     // Send auto-reply to the user
-    const autoReplyResult = await sendAutoReply({ name, email, subject, message })
+    const autoReplyResult = await sendAutoReply({ 
+      name, 
+      email, 
+      subject: emailSubject, 
+      message 
+    })
 
     // Log email results (optional)
     if (!emailResult.success) {

@@ -82,7 +82,7 @@ export function InfoBlocks() {
     },
     {
       id: "growth",
-      title: "15+ Years Growing",
+      title: "20+ Years Growing",
       content: "From junior developer to technical lead, constantly evolving with technology and leading teams to success.",
       icon: TrendingUp,
       link: "/about",

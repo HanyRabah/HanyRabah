@@ -9,13 +9,9 @@ import {
   PenSquare,
   Sparkles,
   BookMarked,
-  ShoppingBag,
-  Palette,
-  Star,
-  Users,
-  Newspaper,
-  Podcast,
-  Mail,
+  Layers,
+  // Star,
+  // Users,
   LayoutGrid,
   Shield,
   FileText,
@@ -26,26 +22,20 @@ import {
   X,
 } from "lucide-react";
 import Image from "next/image";
+import { ContactButton } from "@/components/ContactButton";
 //import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 
 const NAV_ITEMS = [
   { label: "Home", href: "/", icon: Home },
   { label: "About", href: "/about", icon: Sparkles },
-  { label: "Projects", href: "/projects", icon: Briefcase },
-  { label: "Design", href: "/design", icon: Palette },
+  { label: "Work", href: "/work", icon: Briefcase },
   { label: "Services", href: "/services", icon: LayoutGrid },
   { label: "Blog / Writing", href: "/blog", icon: PenSquare },
-  { label: "Contact", href: "/contact", icon: Mail },
 ];
 
 const RESOURCE_ITEMS = [
-  { label: "Reading List", href: "/reading-list", icon: BookMarked },
-  { label: "Tech Essentials", href: "/tech-essentials", icon: Sparkles },
-  { label: "Wallpapers", href: "/wallpapers", icon: ShoppingBag },
-  { label: "Talent", href: "/talent", icon: Users },
-  { label: "Investments", href: "/investments", icon: Star },
-  { label: "Newsletters", href: "/newsletters", icon: Newspaper },
-  { label: "Podcasts", href: "/podcasts", icon: Podcast },
+  { label: "Content Hub", href: "/resources/content", icon: BookMarked },
+  { label: "Resources", href: "/resources/marketplace", icon: Layers },
 ];
 
 const LEGAL_ITEMS = [
@@ -56,7 +46,6 @@ const LEGAL_ITEMS = [
 const SOCIAL_ITEMS = [
   { label: "LinkedIn", href: "https://www.linkedin.com/in/hanyrabah/", icon: Linkedin },
   { label: "GitHub", href: "https://github.com/HanyRabah", icon: Github },
-  { label: "Email", href: "mailto:contact@hanyrabah.com", icon: Mail },
   { label: "Instagram", href: "https://www.instagram.com/hany.rabah/", icon: Instagram },
 ];
 
@@ -77,7 +66,7 @@ function NavigationSection({
 }) {
   return (
     <div>
-      <p className="text-xs uppercase tracking-widest text-muted-foreground mb-3">{title}</p>
+      <p className="text-xs uppercase tracking-widest text-muted-foreground mb-1">{title}</p>
       <nav className="flex flex-col gap-1">
         {items.map((item) => {
           const Icon = item.icon;
@@ -192,17 +181,24 @@ export function SiteShell({ children }: SiteShellProps) {
       >
         <div className="flex flex-1 flex-col">
           <Link href="/" onClick={closeMobileMenu} className="group mb-8 flex items-center justify-center gap-3">
-            <Image src="/logo.webp" alt="Logo" width={100} height={70} />
+            <Image src="/logo.webp" alt="Logo" width={80} height={50} />
           </Link>
 
-          <div className="flex flex-1 flex-col gap-10">
-            <div className="space-y-8">
+          <div className="flex flex-1 flex-col gap-">
+            <div className="space-y-4">
               <NavigationSection title="Navigate" items={NAV_ITEMS} activePath={activePath} onItemClick={closeMobileMenu} />
               <NavigationSection title="Resources" items={RESOURCE_ITEMS} activePath={activePath} onItemClick={closeMobileMenu} />
-              <NavigationSection title="Legal" items={LEGAL_ITEMS} activePath={activePath} onItemClick={closeMobileMenu} />
+              {/* <NavigationSection title="Legal" items={LEGAL_ITEMS} activePath={activePath} onItemClick={closeMobileMenu} /> */}
             </div>
 
-            <div className="mt-auto space-y-3 pb-6">
+            <div className="mt-auto space-y-4 pb-6">
+              {/* Contact Button */}
+              <ContactButton 
+                variant="default"
+                size="lg"
+                className="w-full"
+              />
+              
               <p className="text-xs uppercase tracking-widest text-muted-foreground">Connect</p>
               <div className="flex gap-2">
                 {SOCIAL_ITEMS.map((item) => {
@@ -233,17 +229,24 @@ export function SiteShell({ children }: SiteShellProps) {
       {/* Desktop Sidebar */}
       <aside className="max-md:hidden lg:flex sticky top-0 h-screen w-[280px] flex-col border-r border-border/40 bg-background/80 backdrop-blur p-6">
         <Link href="/" className="group mb-4 flex items-center justify-center gap-3">
-          <Image src="/logo.webp" alt="Logo" width={100} height={70} />
+          <Image src="/logo.webp" alt="Logo" width={80} height={50} />
         </Link>
 
         <div className="flex flex-1 flex-col gap-10">
-          <div className="space-y-8">
+          <div className="space-y-4">
             <NavigationSection title="Navigate" items={NAV_ITEMS} activePath={activePath} />
             <NavigationSection title="Resources" items={RESOURCE_ITEMS} activePath={activePath} />
-            <NavigationSection title="Legal" items={LEGAL_ITEMS} activePath={activePath} />
+            {/* <NavigationSection title="Legal" items={LEGAL_ITEMS} activePath={activePath} /> */}
           </div>
 
-          <div className="mt-auto space-y-3">
+          <div className="mt-auto space-y-4">
+            {/* Contact Button */}
+            <ContactButton 
+              variant="default"
+              size="lg"
+              className="w-full"
+            />
+            
             <p className="text-xs uppercase tracking-widest text-muted-foreground">Connect</p>
             <div className="flex gap-2">
               {SOCIAL_ITEMS.map((item) => {
@@ -261,9 +264,20 @@ export function SiteShell({ children }: SiteShellProps) {
                 );
               })}
             </div>
-            <div className="text-xs mt-24 pt-8 border-t border-border text-center">
+            <div className="text-xs mt-24 pt-8 border-t border-border text-center align-middle">
               <p className="text-muted-foreground">
                 © {new Date().getFullYear()}. All rights reserved.
+              </p>
+              <p className="text-muted-foreground mt-2 flex gap-2">
+                {LEGAL_ITEMS.map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className="text-muted-foreground hover:text-foreground transition-colors"
+                  >
+                    {item.label}
+                  </Link>
+                ))}
               </p>
             </div>
           </div>

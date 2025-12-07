@@ -1,23 +1,10 @@
 "use client";
 
-//import { MouseFollowAnimation } from "./MouseFollowAnimation";
-import { Button } from "./ui/button";
-import { Phone, Download } from "lucide-react";
+import { ContactButton } from "./ContactButton";
+import { ThemedButton } from "./ui/themed-button";
+import { Download } from "lucide-react";
 
 export function HeroSection() {
-  // const scrollToProjects = () => {
-  //   const element = document.getElementById('projects');
-  //   if (element) {
-  //     element.scrollIntoView({ behavior: 'smooth' });
-  //   }
-  // };
-
-  const scrollToContact = () => {
-    const element = document.getElementById("contact");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
 
   const downloadResume = () => {
     const resumeUrl = "/Hany_Elsaydawy_full-stack_engineer.pdf";
@@ -27,7 +14,7 @@ export function HeroSection() {
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center justify-center relative overflow-hidden"
+      className="min-h-[calc(75vh)] flex items-center justify-center relative overflow-hidden"
     >
       {/* Animated gradient background */}
       <div className="absolute inset-0 opacity-30">
@@ -47,8 +34,7 @@ export function HeroSection() {
             👋 Hi, I'm Hany El Saydawy{" "}
           </h2>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 pb-2 bg-gradient-to-r from-theme-accent via-theme-primary to-theme-accent bg-clip-text text-transparent">
-            Technical Lead &<br />
-            Fullstack Engineer
+            A Fullstack Engineer
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
             I craft accessible, high-performance digital products
@@ -65,61 +51,20 @@ export function HeroSection() {
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-          <Button
-            onClick={scrollToContact}
+          <ContactButton 
             variant="outline"
             size="lg"
-            className="border hover:text-white transition-colors"
-            style={
-              {
-                borderColor: "var(--theme-primary)",
-                color: "var(--theme-primary)",
-                "--hover-bg": "var(--theme-primary)",
-              } as React.CSSProperties & { "--hover-bg": string }
-            }
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = "var(--theme-primary)";
-              e.currentTarget.style.color = "white";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = "transparent";
-            }}
-          >
-            <Phone className="mr-2 h-4 w-4" />
-            Contact Me
-          </Button>
+          />
 
-          <Button
+          <ThemedButton
             onClick={downloadResume}
             variant="secondary"
             size="lg"
-            className="hover:bg-theme-primary hover:text-white transition-colors"
           >
             <Download className="mr-2 h-4 w-4" />
             Download Resume
-          </Button>
+          </ThemedButton>
 
-          {/* <Link href="/projects">
-            <Button
-              variant="secondary"
-              size="lg"
-              className="hover:bg-theme-primary hover:text-white transition-colors"
-            >
-              <FolderOpen className="mr-2 h-4 w-4" />
-              View Projects
-            </Button>
-          </Link> */}
-
-          {/* <Link href="/design">
-            <Button
-              variant="secondary"
-              size="lg"
-              className="hover:bg-theme-primary hover:text-white transition-colors"
-            >
-              <Palette className="mr-2 h-4 w-4" />
-              Design Portfolio
-            </Button>
-          </Link> */}
         </div>
       </div>
     </section>

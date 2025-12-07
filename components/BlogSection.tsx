@@ -1,6 +1,7 @@
 import { Card, CardContent } from './ui/card';
-import { Button } from './ui/button';
+import { ThemedButton } from './ui/themed-button';
 import { ArrowRight, Calendar } from 'lucide-react';
+import Link from 'next/link';
 import { prisma } from '@/lib/prisma';
 
 const getBlogPosts = async () => {
@@ -58,17 +59,10 @@ export async function BlogSection() {
                   <span className="text-xs text-muted-foreground">
                     {/* {post.readTime} */} 10 min
                   </span>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-theme-primary hover:text-theme-secondary hover:bg-theme-primary/10 p-0 h-auto group/btn"
-                    asChild
-                  >
-                    <a href={`/blog/${post.slug}`}>
-                      Read More
-                      <ArrowRight className="w-3 h-3 ml-1 group-hover/btn:translate-x-1 transition-transform" />
-                    </a>
-                  </Button>
+                  <Link href={`/blog/${post.slug}`} className="text-theme-primary hover:text-theme-secondary text-sm font-medium inline-flex items-center group/btn">
+                    Read More
+                    <ArrowRight className="w-3 h-3 ml-1 group-hover/btn:translate-x-1 transition-transform" />
+                  </Link>
                 </div>
               </CardContent>
             </Card>
@@ -76,14 +70,11 @@ export async function BlogSection() {
         </div>
 
         <div className="text-center mt-12">
-          <Button
-            variant="outline"
-            className="border border-theme-primary bg-transparent text-theme-primary hover:bg-theme-primary hover:text-white"
-          >
-            <a href="/blog" className="flex items-center gap-2">
+          <Link href="/blog">
+            <ThemedButton variant="outline" size="lg">
               View All Articles
-            </a>
-          </Button>
+            </ThemedButton>
+          </Link>
         </div>
       </div>
     </section>

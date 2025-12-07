@@ -18,7 +18,6 @@ import {
   DashboardOutlined,
   FileTextOutlined,
   ProjectOutlined,
-  PictureOutlined,
   BookOutlined,
   UserOutlined,
   MailOutlined,
@@ -27,9 +26,7 @@ import {
   LogoutOutlined,
   MenuFoldOutlined,
   MenuUnfoldOutlined,
-  SketchOutlined,
   ContactsOutlined,
-  BulbOutlined,
   AppstoreOutlined
 } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
@@ -75,14 +72,9 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           label: 'Technical Articles',
         },
         {
-          key: '/admin/projects',
+          key: '/admin/work',
           icon: <ProjectOutlined />,
-          label: 'Projects',
-        },
-        {
-          key: '/admin/designs',
-          icon: <PictureOutlined />,
-          label: 'Design Portfolio',
+          label: 'Work (Projects & Designs)',
         },
         {
           key: '/admin/resources',

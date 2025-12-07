@@ -10,8 +10,8 @@ interface ProjectPageProps {
   }>
 }
 
-// Enable ISR with 1-hour revalidation for individual projects
-export const revalidate = 3600; // Revalidate every 1 hour
+// Force dynamic rendering to avoid database connection during build
+export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
   const { slug } = await params
@@ -62,21 +62,6 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   }
 }
 
-export async function generateStaticParams() {
-  try {
-    const projects = await prisma.project.findMany({
-      select: { slug: true },
-    })
-
-    return projects.map((project) => ({
-      slug: project.slug,
-    }))
-  } catch (error) {
-    // Return empty array if database is not set up yet
-    console.warn('Database not available during build, skipping static generation for projects')
-    return []
-  }
-}
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   const { slug } = await params

@@ -9,8 +9,8 @@ import { Badge } from '@/components/ui/badge'
 import { RelatedPosts } from '@/components/RelatedPosts'
 import { StructuredData } from '@/components/StructuredData'
 
-// Enable ISR with 1-hour revalidation for individual blog posts
-export const revalidate = 3600; // Revalidate every 1 hour
+// Force dynamic rendering to avoid database connection during build
+export const dynamic = 'force-dynamic'
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -120,22 +120,6 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
   }
 }
 
-export async function generateStaticParams() {
-  try {
-    const posts = await prisma.post.findMany({
-      where: { published: true },
-      select: { slug: true },
-    })
-
-    return posts.map((post) => ({
-      slug: post.slug,
-    }))
-  } catch (error) {
-    // Return empty array if database is not set up yet
-    console.warn('Database not available during build, skipping static generation for blog posts')
-    return []
-  }
-}
 
 // Function to generate a placeholder image URL for posts without cover images
 function generatePostImage(title: string, tags: string[]): string {

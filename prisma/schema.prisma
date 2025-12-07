@@ -8,52 +8,48 @@ datasource db {
 }
 
 model Post {
-  id          String   @id @default(cuid())
-  title       String
-  slug        String   @unique
-  excerpt     String?
-  content     String
-  published   Boolean  @default(false)
-  featured    Boolean  @default(false)
-  coverImage  String?
-  tags        String[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  publishedAt DateTime?
-  
-  // SEO fields
+  id             String    @id @default(cuid())
+  title          String
+  slug           String    @unique
+  excerpt        String?
+  content        String
+  published      Boolean   @default(false)
+  featured       Boolean   @default(false)
+  coverImage     String?
+  tags           String[]
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  publishedAt    DateTime?
   seoTitle       String?
   seoDescription String?
   seoKeywords    String[]  @default([])
   seoImage       String?
-  
+
   @@map("posts")
 }
 
 model Project {
-  id          String   @id @default(cuid())
-  title       String
-  slug        String   @unique
-  description String
-  content     String?
-  featured    Boolean  @default(false)
-  coverImage  String?
-  images      String[]
-  technologies String[]
-  liveUrl     String?
-  githubUrl   String?
-  category    String?
-  status      ProjectStatus @default(COMPLETED)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  publishedAt DateTime?
-  
-  // SEO fields
+  id             String        @id @default(cuid())
+  title          String
+  slug           String        @unique
+  description    String
+  content        String?
+  featured       Boolean       @default(false)
+  coverImage     String?
+  images         String[]
+  technologies   String[]
+  liveUrl        String?
+  githubUrl      String?
+  category       String?
+  status         ProjectStatus @default(COMPLETED)
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+  publishedAt    DateTime?
   seoTitle       String?
   seoDescription String?
-  seoKeywords    String[]  @default([])
+  seoKeywords    String[]      @default([])
   seoImage       String?
-  
+
   @@map("projects")
 }
 
@@ -68,104 +64,113 @@ model Service {
   active      Boolean  @default(true)
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
-  
+
   @@map("services")
 }
 
 model Contact {
-  id        String      @id @default(cuid())
+  id        String         @id @default(cuid())
   name      String
   email     String
   subject   String?
   message   String
-  status    ContactStatus @default(UNREAD)
-  createdAt DateTime    @default(now())
-  updatedAt DateTime    @updatedAt
-  
+  status    ContactStatus  @default(UNREAD)
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  reason    ContactReason?
+
   @@map("contacts")
 }
 
 model Article {
-  id          String   @id @default(cuid())
-  title       String
-  slug        String   @unique
-  excerpt     String?
-  content     String
-  published   Boolean  @default(false)
-  featured    Boolean  @default(false)
-  coverImage  String?
-  tags        String[]
-  category    String?
-  difficulty  ArticleDifficulty @default(BEGINNER)
-  readTime    Int?     // in minutes
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  publishedAt DateTime?
-  
-  // SEO fields
+  id             String            @id @default(cuid())
+  title          String
+  slug           String            @unique
+  excerpt        String?
+  content        String
+  published      Boolean           @default(false)
+  featured       Boolean           @default(false)
+  coverImage     String?
+  tags           String[]
+  category       String?
+  difficulty     ArticleDifficulty @default(BEGINNER)
+  readTime       Int?
+  createdAt      DateTime          @default(now())
+  updatedAt      DateTime          @updatedAt
+  publishedAt    DateTime?
   seoTitle       String?
   seoDescription String?
-  seoKeywords    String[]  @default([])
+  seoKeywords    String[]          @default([])
   seoImage       String?
-  
+
   @@map("articles")
 }
 
 model Design {
-  id          String   @id @default(cuid())
+  id          String         @id @default(cuid())
   title       String
-  slug        String   @unique
+  slug        String         @unique
   description String
   content     String?
-  featured    Boolean  @default(false)
+  featured    Boolean        @default(false)
   coverImage  String?
   images      String[]
   tags        String[]
   category    DesignCategory @default(WEB_DESIGN)
-  tools       String[] // Figma, Sketch, Adobe XD, etc.
+  tools       String[]
   clientName  String?
   projectUrl  String?
   figmaUrl    String?
   behanceUrl  String?
   dribbbleUrl String?
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
   @@map("designs")
 }
 
 model Resource {
-  id           String        @id @default(cuid())
-  title        String
-  description  String?
-  type         ResourceType
-  url          String
-  category     String?
-  image        String?
-  isAffiliate  Boolean       @default(false)
-  displayOrder Int           @default(0)
-  published    Boolean       @default(true)
-  clickCount   Int           @default(0)
-  tags         String[]      @default([])
-  gumroadUrl   String?       // For selling wallpapers on Gumroad
-  price        String?       // Price for paid items (e.g., "$5")
-  audioUrl     String?       // Audiobook URL (Audible, Spotify, etc.)
-  audioDuration String?      // e.g., "8 hours 30 minutes"
-  narrator     String?       // Audiobook narrator name
-  createdAt    DateTime      @default(now())
-  updatedAt    DateTime      @updatedAt
+  id            String       @id @default(cuid())
+  title         String
+  description   String?
+  type          ResourceType
+  url           String       // Primary URL (read URL for books, or main URL)
+  category      String?
+  image         String?
+  isAffiliate   Boolean      @default(false)
+  displayOrder  Int          @default(0)
+  published     Boolean      @default(true)
+  clickCount    Int          @default(0)
+  tags          String[]     @default([])
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  
+  // Book/Audiobook specific fields
+  rating        Float?       // Rating out of 5 (e.g., 4.5)
+  audioUrl      String?      // Audio/Listen URL for books with audiobook version
+  audioDuration String?      // Duration for audiobooks (e.g., "10h 7m")
+  narrator      String?      // Narrator for audiobooks
+  author        String?      // Author name for books
+  
+  // Marketplace specific fields
+  gumroadUrl    String?
+  price         String?
+  
+  // Useful Links specific fields
+  linkType      String?      // Type of link (e.g., "Tool", "Platform", "Community")
 
-  @@map("resources")
   @@index([type, displayOrder])
   @@index([published])
+  @@index([rating])
+  @@map("resources")
 }
 
 model Analytics {
-  id        String   @id @default(cuid())
-  page      String
-  visits    Int      @default(1)
-  date      DateTime @default(now())
-  
+  id     String   @id @default(cuid())
+  page   String
+  visits Int      @default(1)
+  date   DateTime @default(now())
+
   @@unique([page, date])
   @@map("analytics")
 }
@@ -184,6 +189,18 @@ enum ContactStatus {
   ARCHIVED
 }
 
+enum ContactReason {
+  PROJECT
+  WORK
+  CONSULTING
+  READING_LIST
+  TECH_ESSENTIALS
+  WALLPAPERS
+  PODCAST
+  COLLABORATION
+  OTHER
+}
+
 enum ArticleDifficulty {
   BEGINNER
   INTERMEDIATE
@@ -200,11 +217,15 @@ enum DesignCategory {
 }
 
 enum ResourceType {
-  READING_LIST
-  TECH_ESSENTIALS  // Renamed from AESTHETIC_GOODS
-  WALLPAPERS       // Renamed from BOUTIQUE
-  TALENT
-  INVESTMENT
+  BOOKS            // Merged READING_LIST and AUDIOBOOK - can have both read and audio URLs
+  TECH_ESSENTIALS
+  USEFUL_LINKS     // New type for helpful websites, tools, platforms
+  WALLPAPERS
   NEWSLETTER
   PODCAST
+  // Legacy types (kept for backward compatibility during migration)
+  READING_LIST
+  AUDIOBOOK
+  TALENT
+  INVESTMENT
 }

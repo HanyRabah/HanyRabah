@@ -73,7 +73,7 @@ import { Palette, Figma, Layers } from "lucide-react";
 ```tsx
 <PageHeader
   subtitle="👋 Hi, I'm Hany El Saydawy"
-  title="Technical Lead & Fullstack Engineer"
+  title="Senior Fullstack Engineer"
   description="I craft accessible, high-performance digital products turning complex problems into elegant, scalable solutions."
   gradient={true}
 />

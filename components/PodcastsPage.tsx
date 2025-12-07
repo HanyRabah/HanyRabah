@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ExternalLink, Play, Podcast } from "lucide-react";
+import { Play, Podcast } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
 import { PageHeader } from "./PageHeader";
+import { ContactButton } from '@/components/ContactButton';
 
 interface Resource {
   id: string;
@@ -242,13 +242,13 @@ export function PodcastsPage() {
             <p className="text-muted-foreground mb-6">
               Have a podcast recommendation? I'd love to hear about it and potentially add it to the list!
             </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-theme-primary text-white rounded-lg hover:bg-theme-primary/90 transition-colors"
+            <ContactButton 
+              defaultReason="PODCAST"
+              variant="default"
+              size="lg"
             >
-              Suggest a Podcast
-              <ExternalLink className="h-4 w-4" />
-            </Link>
+              Suggest a Topic
+            </ContactButton>
           </div>
         </div>
       </div>

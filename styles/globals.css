@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    font-size: 16px; /* 1rem = 16px */
+  }
+
   :root {
     /* Light mode base colors */
     --background: 0 0% 100%;
@@ -187,4 +191,65 @@
 
 .theme-border-primary {
   border-color: var(--theme-primary);
+}
+
+/* Custom animations for contact modal */
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutToRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Contact Modal Animations - using Radix data-state */
+.contact-modal-content {
+  /* Override default dialog centering */
+  left: auto !important;
+  right: 0 !important;
+  top: 0 !important;
+}
+
+.contact-modal-content[data-state="open"] {
+  animation: slideInFromRight 300ms ease-out !important;
+}
+
+.contact-modal-content[data-state="closed"] {
+  animation: slideOutToRight 300ms ease-in !important;
+}
+
+.contact-modal-overlay[data-state="open"] {
+  animation: fadeIn 300ms ease-out;
+}
+
+.contact-modal-overlay[data-state="closed"] {
+  animation: fadeOut 300ms ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }

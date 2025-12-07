@@ -196,7 +196,7 @@ async function testSendAutoReply(data) {
               <div class="signature">
                 <p>Best regards,<br>
                 <strong>Hany Rabah</strong><br>
-                Senior Fullstack Engineer & Technical Lead</p>
+                Senior Fullstack Engineer</p>
               </div>
             </div>
           </div>

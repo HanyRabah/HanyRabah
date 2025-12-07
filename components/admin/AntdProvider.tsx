@@ -10,6 +10,9 @@ interface AntdProviderProps {
 export default function AntdProvider({ children }: AntdProviderProps) {
   return (
     <ConfigProvider
+      warning={{
+        strict: false,
+      }}
       theme={{
         algorithm: theme.defaultAlgorithm,
         token: {

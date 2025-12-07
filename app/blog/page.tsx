@@ -5,7 +5,6 @@ import Link from 'next/link'
 import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
 import Image from 'next/image'
 import { StructuredData } from '@/components/StructuredData'
-import { ContactSection } from '@/components/ContactSection'
 import { PageHeader } from '@/components/PageHeader'
 import { PenSquare } from 'lucide-react'
 
@@ -14,7 +13,7 @@ export const revalidate = 1800; // Revalidate every 30 minutes
 
 export const metadata: Metadata = {
   title: 'Blog - Hany Rabah | Technical Insights & Web Development Tutorials',
-  description: 'Technical blog by Hany Rabah, Senior Fullstack Engineer. Deep dives into React, Next.js, TypeScript, Node.js, AWS, and modern web development practices. Learn from 15+ years of industry experience.',
+  description: 'Technical blog by Hany Rabah, Senior Fullstack Engineer. Deep dives into React, Next.js, TypeScript, Node.js, AWS, and modern web development practices. Learn from 20+ years of industry experience.',
   keywords: [
     'Hany Rabah Blog',
     'Technical Blog',
@@ -37,7 +36,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Technical Blog - Hany Rabah',
-    description: 'Technical insights, tutorials, and best practices from a Senior Fullstack Engineer with 15+ years of experience in React, Next.js, Node.js, and AWS.',
+    description: 'Technical insights, tutorials, and best practices from a Senior Fullstack Engineer with 20+ years of experience in React, Next.js, Node.js, and AWS.',
     type: 'website',
     locale: 'en_US',
     url: 'https://hanyrabah.com/blog',
@@ -83,7 +82,7 @@ export default async function BlogPage() {
   // Structured data for SEO
   const blogData = {
     name: 'Hany Rabah Technical Blog',
-    description: 'Technical insights, tutorials, and best practices from a Senior Fullstack Engineer with 15+ years of experience.',
+    description: 'Technical insights, tutorials, and best practices from a Senior Fullstack Engineer with 20+ years of experience.',
     url: 'https://hanyrabah.com/blog',
     author: {
       name: 'Hany Rabah',
@@ -101,47 +100,16 @@ export default async function BlogPage() {
       <StructuredData type="Blog" data={blogData} />
       <main>
         {/* Header */}
-        <div className="px-6 pt-20">
+        <div className="px-6">
           <div className="max-w-4xl mx-auto">
             <PageHeader
               title="Technical Blog"
               subtitle="Latest Insights & Tutorials"
-              description="Deep dives into modern web development, architectural patterns, and engineering best practices. 15+ years of industry experience distilled into actionable insights."
+              description="Deep dives into modern web development, architectural patterns, and engineering best practices. 20+ years of industry experience distilled into actionable insights."
               icon={PenSquare}
               gradient={false}
               splitColor={true}
             />
-            
-            {/* Stats */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-              <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-br from-theme-primary/10 to-theme-primary/5 rounded-xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
-                <div className="relative bg-card border border-border rounded-xl p-6 hover:border-theme-primary/50 transition-all duration-300">
-                  <div className="text-4xl font-bold bg-gradient-to-r from-theme-primary to-theme-accent bg-clip-text text-transparent mb-2">
-                    {posts.length > 0 ? posts.length : 15}+
-                  </div>
-                  <div className="text-sm font-medium text-muted-foreground">Articles Published</div>
-                </div>
-              </div>
-              <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-br from-theme-primary/10 to-theme-primary/5 rounded-xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
-                <div className="relative bg-card border border-border rounded-xl p-6 hover:border-theme-primary/50 transition-all duration-300">
-                  <div className="text-4xl font-bold bg-gradient-to-r from-theme-primary to-theme-accent bg-clip-text text-transparent mb-2">
-                    10+
-                  </div>
-                  <div className="text-sm font-medium text-muted-foreground">Topics Covered</div>
-                </div>
-              </div>
-              <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-br from-theme-primary/10 to-theme-primary/5 rounded-xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
-                <div className="relative bg-card border border-border rounded-xl p-6 hover:border-theme-primary/50 transition-all duration-300">
-                  <div className="text-4xl font-bold bg-gradient-to-r from-theme-primary to-theme-accent bg-clip-text text-transparent mb-2">
-                    15+
-                  </div>
-                  <div className="text-sm font-medium text-muted-foreground">Years Experience</div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
 
@@ -181,7 +149,7 @@ export default async function BlogPage() {
                                 priority
                                 quality={80}
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                className="object-contain group-hover:scale-105 transition-transform duration-500"
                               />
                             </div>
                           )}
