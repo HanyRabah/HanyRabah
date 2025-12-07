@@ -185,18 +185,19 @@ export default function ContentTable({ data, type, loading, onRefresh }: Content
 
     if (type === 'projects' || type === 'designs') {
       baseColumns.splice(2, 0, {
-        title: 'Technologies',
-        dataIndex: 'technologies',
+        title: type === 'designs' ? 'Tools' : 'Technologies',
+        dataIndex: type === 'designs' ? 'tools' : 'technologies',
         key: 'technologies',
         render: (text: any, record: any) => {
-          const technologies = Array.isArray(text) ? text : (record.technologies || [])
+          // For designs use 'tools', for projects use 'technologies'
+          const items = Array.isArray(text) ? text : (record.tools || record.technologies || [])
           return (
             <Space wrap>
-              {technologies?.slice(0, 3).map((tech: string) => (
-                <Tag key={tech}>{tech}</Tag>
+              {items?.slice(0, 3).map((item: string) => (
+                <Tag key={item}>{item}</Tag>
               ))}
-              {technologies?.length > 3 && (
-                <Tag>+{technologies.length - 3} more</Tag>
+              {items?.length > 3 && (
+                <Tag>+{items.length - 3} more</Tag>
               )}
             </Space>
           )

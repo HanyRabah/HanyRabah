@@ -20,6 +20,7 @@ export async function GET(request: NextRequest) {
         title: true,
         slug: true,
         description: true,
+        published: true,
         featured: true,
         coverImage: true,
         images: true,
@@ -71,6 +72,7 @@ export async function POST(request: NextRequest) {
       figmaUrl,
       behanceUrl,
       dribbbleUrl,
+      published,
       featured 
     } = body
 
@@ -91,6 +93,7 @@ export async function POST(request: NextRequest) {
         figmaUrl,
         behanceUrl,
         dribbbleUrl,
+        published: published || false,
         featured: featured || false,
       },
     })
