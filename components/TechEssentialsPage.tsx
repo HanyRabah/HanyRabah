@@ -1,9 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Cpu, ExternalLink, LampDesk, SeparatorVertical, Sparkles } from "lucide-react";
+import { Sparkles, Cpu, LampDesk, SeparatorVertical } from 'lucide-react'
+import { ContactButton } from '@/components/ContactButton';
 import Image from "next/image";
-import Link from "next/link";
 import { PageHeader } from "./PageHeader";
 
 interface Resource {
@@ -181,13 +181,13 @@ export function TechEssentialsPage() {
             <p className="text-muted-foreground mb-6">
               Know of a great tech product that should be included? I'd love to hear about it!
             </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-theme-primary text-white rounded-lg hover:bg-theme-primary/90 transition-colors"
+            <ContactButton 
+              defaultReason="TECH_ESSENTIALS"
+              variant="default"
+              size="lg"
             >
               Suggest a Product
-              <ExternalLink className="h-4 w-4" />
-            </Link>
+            </ContactButton>
           </div>
         </div>
       </div>

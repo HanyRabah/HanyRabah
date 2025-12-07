@@ -14,7 +14,7 @@ export function ImageWithFallback(
     setDidError(true);
   };
 
-  const { src, alt, style, className, ...rest } = props;
+  const { src, alt, style, className } = props;
 
   if (!src) {
     return (
@@ -48,7 +48,7 @@ export function ImageWithFallback(
       src={src || ""}
       alt={alt || "Image"}
       fill
-      className={`object-cover ${className ?? ""}`}
+      className={`object-contain ${className ?? ""}`}
       style={style}
       onError={handleError}
       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"

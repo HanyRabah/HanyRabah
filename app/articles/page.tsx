@@ -4,7 +4,6 @@ import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { CalendarDays } from 'lucide-react'
 import { prisma } from '@/lib/prisma'
-import { ContactSection } from '@/components/ContactSection'
 
 export const dynamic = 'force-dynamic'
 
@@ -184,7 +183,6 @@ export default async function ArticlesPage() {
           </div>
         </section>
       </main>
-      <ContactSection />
     </div>
   )
 }

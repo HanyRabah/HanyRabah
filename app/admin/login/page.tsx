@@ -111,17 +111,6 @@ export default function AdminLogin() {
             </Space>
           </Card>
           
-          <div style={{ marginTop: 32, textAlign: 'center' }}>
-            <Text type="secondary" style={{ fontSize: 12 }}>
-              Need help? Contact{' '}
-              <a 
-                href="mailto:hany.rabah@gmail.com" 
-                style={{ color: '#1890ff' }}
-              >
-                contact@hanyrabah.com
-              </a>
-            </Text>
-          </div>
         </div>
       </div>
     </AntdProvider>

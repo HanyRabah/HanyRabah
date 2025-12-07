@@ -2,10 +2,12 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.scss'
 import { ThemeProvider } from '@/contexts/ThemeContext'
+import { ContactDrawerProvider } from '@/contexts/ContactDrawerContext'
 import { SessionProvider } from '@/components/providers/SessionProvider'
 import { ThemeScript } from '@/components/ThemeScript'
 import { CriticalCSS } from '@/components/CriticalCSS'
 import { ConditionalShell } from '@/components/ConditionalShell'
+import { ContactDrawerWrapper } from '@/components/ContactDrawerWrapper'
 import { ClientAnalytics } from '@/components/ClientAnalytics'
 import { ConsentManager } from '@/components/ConsentManager'
 import { BotIdClient } from 'botid/client'
@@ -19,10 +21,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL('https://hanyrabah.com'),
   title: {
-    default: 'Hany Rabah - Senior Fullstack Engineer & Technical Lead',
+    default: 'Hany Rabah - Senior Fullstack Engineer',
     template: '%s | Hany Rabah'
   },
-  description: 'Senior Fullstack Engineer and Technical Lead based in Berlin, crafting accessible, high-performance digital products. Expertise in React, Next.js, Node.js, and AWS.',
+  description: 'Senior Fullstack Engineer based in Berlin, crafting accessible, high-performance digital products. Expertise in React, Next.js, Node.js, and AWS.',
   keywords: [
     'Hany Rabah',
     'Senior Fullstack Engineer',
@@ -39,9 +41,9 @@ export const metadata: Metadata = {
     'Web Development',
     'Software Engineer',
     'Frontend Developer',
+    'Frontend Engineer',
     'Backend Developer',
     'Portfolio',
-    'GoDiligent'
   ],
   authors: [{ name: 'Hany Rabah', url: 'https://hanyrabah.com' }],
   creator: 'Hany Rabah',
@@ -55,23 +57,23 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://hanyrabah.com',
-    title: 'Hany Rabah - Senior Fullstack Engineer & Technical Lead',
-    description: 'Senior Fullstack Engineer and Technical Lead based in Berlin, crafting accessible, high-performance digital products. Expertise in React, Next.js, Node.js, and AWS.',
+    title: 'Hany Rabah - Senior Fullstack Engineer',
+    description: 'Senior Fullstack Engineer based in Berlin, crafting accessible, high-performance digital products. Expertise in React, Next.js, Node.js, and AWS.',
     siteName: 'Hany Rabah Portfolio',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Hany Rabah - Senior Fullstack Engineer & Technical Lead',
+        alt: 'Hany Rabah - Senior Fullstack Engineer',
         type: 'image/png',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Hany Rabah - Senior Fullstack Engineer & Technical Lead',
-    description: 'Senior Fullstack Engineer and Technical Lead based in Berlin, crafting accessible, high-performance digital products.',
+    title: 'Hany Rabah - Senior Fullstack Engineer',
+    description: 'Senior Fullstack Engineer based in Berlin, crafting accessible, high-performance digital products.',
     images: ['/og-image.png'],
     creator: '@hanyrabah',
     site: '@hanyrabah',
@@ -125,10 +127,13 @@ export default function RootLayout({
         <BotIdClient protect={protectedRoutes} />
         <SessionProvider>
           <ThemeProvider>
-            <ConditionalShell>
-              {children}
-            </ConditionalShell>
-            <ClientAnalytics />
+            <ContactDrawerProvider>
+              <ConditionalShell>
+                {children}
+              </ConditionalShell>
+              <ContactDrawerWrapper />
+              <ClientAnalytics />
+            </ContactDrawerProvider>
           </ThemeProvider>
         </SessionProvider>
       </body>

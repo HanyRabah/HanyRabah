@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { 
-  ExternalLink, 
   Star, 
   BookMarked, 
   Sparkles, 
@@ -15,7 +14,7 @@ import {
   Clock
 } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { ContactButton } from '@/components/ContactButton';
 import { PageHeader } from "./PageHeader";
 
 interface Resource {
@@ -254,13 +253,13 @@ export function ResourcePage({ type, title, description, iconName }: ResourcePag
             <p className="text-muted-foreground mb-6">
               Know of a great resource that should be included? I'd love to hear about it!
             </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-theme-primary text-white rounded-lg hover:bg-theme-primary/90 transition-colors"
+            <ContactButton 
+              defaultReason="READING_LIST"
+              variant="default"
+              size="lg"
             >
               Suggest a Resource
-              <ExternalLink className="h-4 w-4" />
-            </Link>
+            </ContactButton>
           </div>
         </div>
       </div>

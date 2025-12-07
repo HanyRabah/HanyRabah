@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { Download, ExternalLink, Monitor, Smartphone, SeparatorVertical } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { ContactButton } from '@/components/ContactButton';
 import { PageHeader } from "./PageHeader";
 
 interface Resource {
@@ -228,13 +228,13 @@ export function WallpapersPage() {
             <p className="text-muted-foreground mb-6">
               I create new wallpapers regularly. Follow me to get notified when new ones are available!
             </p>
-            <Link
-              href="/contact"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-theme-primary text-white rounded-lg hover:bg-theme-primary/90 transition-colors"
+            <ContactButton 
+              defaultReason="WALLPAPERS"
+              variant="default"
+              size="lg"
             >
-              Get in Touch
-              <ExternalLink className="h-4 w-4" />
-            </Link>
+              Request a Wallpaper
+            </ContactButton>
           </div>
         </div>
       </div>

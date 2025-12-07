@@ -5,7 +5,7 @@
 </div>
 
 <p align="center">
-  <strong>🚀 Senior Fullstack Engineer & Technical Lead</strong><br>
+  <strong>🚀 Senior Fullstack Engineer</strong><br>
   🌍 Based in Berlin | Open to Remote Opportunities Globally<br>
   💼 Currently: <strong>Full Stack Engineer at Paylane GmbH</strong>
 </p>
@@ -120,7 +120,7 @@ devops_skills:
 - Leading frontend architecture and API integrations
 - Implementing security best practices in financial applications
 
-**🔹 Remote FullStack Technical Lead** @ **Haykalah** *(Sep 2024 - May 2025)*
+**🔹 Remote FullStack** @ **Haykalah** *(Sep 2024 - May 2025)*
 - Led technical direction for AI-driven digital transformation projects
 - Mentored cross-functional teams and established development best practices
 - Architected scalable solutions for enterprise clients
