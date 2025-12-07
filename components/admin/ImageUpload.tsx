@@ -16,7 +16,8 @@ interface ImageUploadProps {
 
 export function ImageUpload({ value, onChange, label = 'Upload Image', accept = 'image/*', folder = 'general' }: ImageUploadProps) {
   const [uploading, setUploading] = useState(false)
-  const [imageUrl, setImageUrl] = useState<string>(value || '')
+  // Use value directly instead of internal state to stay in sync with parent
+  const imageUrl = value || ''
 
   const handleUpload = async (file: File) => {
     try {
@@ -37,7 +38,6 @@ export function ImageUpload({ value, onChange, label = 'Upload Image', accept = 
       }
 
       const blob = await response.json()
-      setImageUrl(blob.url)
       onChange?.(blob.url)
       message.success('Image uploaded successfully!')
     } catch (error) {
@@ -65,7 +65,6 @@ export function ImageUpload({ value, onChange, label = 'Upload Image', accept = 
   }
 
   const handleRemove = () => {
-    setImageUrl('')
     onChange?.('')
     message.success('Image removed')
   }

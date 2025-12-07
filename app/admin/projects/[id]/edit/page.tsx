@@ -29,6 +29,7 @@ interface Project {
   slug: string
   description: string
   content: string
+  published: boolean
   featured: boolean
   coverImage: string | null
   images: string[]

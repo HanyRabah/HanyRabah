@@ -32,6 +32,7 @@ interface Project {
   slug: string
   description: string
   content: string
+  published: boolean
   featured: boolean
   coverImage: string | null
   images: string[]
@@ -63,6 +64,7 @@ export function ProjectEditForm({ project, onSave }: ProjectEditFormProps) {
       title: project.title,
       slug: project.slug,
       description: project.description,
+      published: project.published,
       featured: project.featured,
       liveUrl: project.liveUrl || '',
       githubUrl: project.githubUrl || ''
@@ -171,6 +173,15 @@ export function ProjectEditForm({ project, onSave }: ProjectEditFormProps) {
         <Col xs={24} lg={8}>
           <Space direction="vertical" size="large" style={{ width: '100%' }}>
             <Card title="Project Settings">
+              <Form.Item
+                label="Published"
+                name="published"
+                valuePropName="checked"
+                help="Only published projects appear on the website"
+              >
+                <Switch />
+              </Form.Item>
+
               <Form.Item
                 label="Featured"
                 name="featured"
@@ -305,6 +316,11 @@ export function ProjectEditForm({ project, onSave }: ProjectEditFormProps) {
 
             <Card title="Project Information">
               <Descriptions column={1} size="small">
+                <Descriptions.Item label="Visibility">
+                  <Tag color={project.published ? 'green' : 'orange'}>
+                    {project.published ? 'Published' : 'Draft'}
+                  </Tag>
+                </Descriptions.Item>
                 <Descriptions.Item label="Status">
                   <Tag color={project.featured ? 'blue' : 'default'}>
                     {project.featured ? 'Featured' : 'Regular'}

@@ -9,10 +9,13 @@ export async function GET(request: Request) {
   try {
     const work: any[] = []
 
-    // Fetch projects (development work)
+    // Fetch projects (development work) - only published
     if (!type || type === 'development') {
       const projects = await prisma.project.findMany({
-        where: featured === 'true' ? { featured: true } : undefined,
+        where: { 
+          published: true,
+          ...(featured === 'true' ? { featured: true } : {})
+        },
         orderBy: { createdAt: 'desc' }
       })
       work.push(...projects.map(p => ({ 
@@ -22,10 +25,13 @@ export async function GET(request: Request) {
       })))
     }
 
-    // Fetch designs
+    // Fetch designs - only published
     if (!type || type === 'design') {
       const designs = await prisma.design.findMany({
-        where: featured === 'true' ? { featured: true } : undefined,
+        where: { 
+          published: true,
+          ...(featured === 'true' ? { featured: true } : {})
+        },
         orderBy: { createdAt: 'desc' }
       })
       work.push(...designs.map(d => ({ 

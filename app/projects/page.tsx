@@ -63,16 +63,12 @@ export default async function ProjectsPage() {
   let projects: any[] = []
   
   try {
-    const allProjects = await prisma.project.findMany({
+    // Only fetch published projects
+    projects = await prisma.project.findMany({
+      where: { published: true },
       orderBy: { createdAt: 'desc' },
     })
-    
-    // Filter projects with images for display
-    projects = allProjects.filter(project => 
-      project.coverImage && 
-      project.coverImage.trim() !== ''
-    )
-} catch (error) {
+  } catch (error) {
     console.warn('Database not available, showing empty projects page')
   }
 
