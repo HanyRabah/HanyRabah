@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    font-size: 16px; /* 1rem = 16px */
+  }
+
   :root {
     /* Light mode base colors */
     --background: 0 0% 100%;
@@ -41,15 +45,15 @@
     --sidebar-border: oklch(0.922 0 0);
     --sidebar-ring: oklch(0.708 0 0);
 
-    /* Dynamic theme colors - default to teal */
-    --theme-primary: #14b8a6;
-    --theme-primary-rgb: 20, 184, 166;
-    --theme-secondary: #0d9488;
-    --theme-secondary-rgb: 13, 148, 136;
-    --theme-muted: #115e59;
-    --theme-muted-rgb: 17, 94, 89;
-    --theme-accent: #10b981;
-    --theme-accent-rgb: 16, 185, 129;
+    /* Dynamic theme colors - default to blue */
+    --theme-primary: #3b82f6;
+    --theme-primary-rgb: 59, 130, 246;
+    --theme-secondary: #2563eb;
+    --theme-secondary-rgb: 37, 99, 235;
+    --theme-muted: #1e40af;
+    --theme-muted-rgb: 30, 64, 175;
+    --theme-accent: #1b55b9;
+    --theme-accent-rgb: 27, 85, 185;
   }
 
   .dark {
@@ -187,4 +191,65 @@
 
 .theme-border-primary {
   border-color: var(--theme-primary);
+}
+
+/* Custom animations for contact modal */
+@keyframes slideInFromRight {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOutToRight {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Contact Modal Animations - using Radix data-state */
+.contact-modal-content {
+  /* Override default dialog centering */
+  left: auto !important;
+  right: 0 !important;
+  top: 0 !important;
+}
+
+.contact-modal-content[data-state="open"] {
+  animation: slideInFromRight 300ms ease-out !important;
+}
+
+.contact-modal-content[data-state="closed"] {
+  animation: slideOutToRight 300ms ease-in !important;
+}
+
+.contact-modal-overlay[data-state="open"] {
+  animation: fadeIn 300ms ease-out;
+}
+
+.contact-modal-overlay[data-state="closed"] {
+  animation: fadeOut 300ms ease-in;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
 }

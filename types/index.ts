@@ -54,3 +54,29 @@ export interface Contact {
   createdAt: Date
   updatedAt: Date
 }
+
+export type ResourceType =
+  | 'READING_LIST'
+  | 'AESTHETIC_GOODS'
+  | 'BOUTIQUE'
+  | 'TALENT'
+  | 'INVESTMENT'
+  | 'NEWSLETTER'
+  | 'PODCAST'
+
+export interface Resource {
+  id: string
+  title: string
+  description?: string
+  type: ResourceType
+  url: string
+  category?: string
+  image?: string
+  isAffiliate: boolean
+  displayOrder: number
+  published: boolean
+  clickCount: number
+  tags: string[]
+  createdAt: Date
+  updatedAt: Date
+}

@@ -14,27 +14,27 @@ import {
   Space,
   Tabs,
   Table,
-  Tag,
-  Avatar
+  Tag
 } from 'antd'
 import {
   FileTextOutlined,
   ProjectOutlined,
   PictureOutlined,
-  BookOutlined,
   PlusOutlined,
   EyeOutlined,
   EditOutlined,
-  DeleteOutlined,
   MailOutlined,
-  BarChartOutlined
+  BarChartOutlined,
+  LinkOutlined,
+  GithubOutlined,
+  DatabaseOutlined,
+  CloudOutlined
 } from '@ant-design/icons'
 import Link from 'next/link'
 import AdminLayout from '@/components/admin/AdminLayout'
 import AntdProvider from '@/components/admin/AntdProvider'
 
 const { Title, Text } = Typography
-const { TabPane } = Tabs
 
 // Recent Content Table Component
 interface RecentContentTableProps {
@@ -231,7 +231,7 @@ export default function AdminDashboard() {
 
           {/* Quick Actions */}
           <Row gutter={[16, 16]} style={{ marginBottom: 32 }}>
-            <Col span={24}>
+            <Col xs={24} lg={12}>
               <Card title="Quick Actions" size="small">
                 <Space wrap>
                   <Link href="/admin/posts/new">
@@ -262,33 +262,121 @@ export default function AdminDashboard() {
                 </Space>
               </Card>
             </Col>
+
+            {/* Useful Links */}
+            <Col xs={24} lg={12}>
+              <Card title="Useful Links" size="small">
+                <Space direction="vertical" style={{ width: '100%' }}>
+                  <a 
+                    href="https://github.com/HanyRabah/HanyRabah" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    <Button 
+                      block 
+                      icon={<GithubOutlined />}
+                      style={{ textAlign: 'left' }}
+                    >
+                      GitHub Repository
+                    </Button>
+                  </a>
+                  <a 
+                    href="https://vercel.com/dashboard" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    <Button 
+                      block 
+                      icon={<CloudOutlined />}
+                      style={{ textAlign: 'left' }}
+                    >
+                      Vercel Dashboard
+                    </Button>
+                  </a>
+                  <a 
+                    href={process.env.NEXT_PUBLIC_DATABASE_URL ? 'https://supabase.com/dashboard' : '#'} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    <Button 
+                      block 
+                      icon={<DatabaseOutlined />}
+                      style={{ textAlign: 'left' }}
+                    >
+                      Database Dashboard
+                    </Button>
+                  </a>
+                  <a 
+                    href="https://analytics.google.com" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    <Button 
+                      block 
+                      icon={<BarChartOutlined />}
+                      style={{ textAlign: 'left' }}
+                    >
+                      Google Analytics
+                    </Button>
+                  </a>
+                  <a 
+                    href="/" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                  >
+                    <Button 
+                      block 
+                      icon={<LinkOutlined />}
+                      style={{ textAlign: 'left' }}
+                    >
+                      View Live Site
+                    </Button>
+                  </a>
+                </Space>
+              </Card>
+            </Col>
           </Row>
 
           {/* Recent Content Tabs */}
           <Card title="Recent Content" size="small">
-            <Tabs defaultActiveKey="posts">
-              <TabPane tab="Recent Posts" key="posts">
-                <RecentContentTable 
-                  data={recentContent.posts} 
-                  type="posts" 
-                  loading={loading}
-                />
-              </TabPane>
-              <TabPane tab="Recent Projects" key="projects">
-                <RecentContentTable 
-                  data={recentContent.projects} 
-                  type="projects" 
-                  loading={loading}
-                />
-              </TabPane>
-              <TabPane tab="Recent Designs" key="designs">
-                <RecentContentTable 
-                  data={recentContent.designs} 
-                  type="designs" 
-                  loading={loading}
-                />
-              </TabPane>
-            </Tabs>
+            <Tabs 
+              defaultActiveKey="posts"
+              items={[
+                {
+                  key: 'posts',
+                  label: 'Recent Posts',
+                  children: (
+                    <RecentContentTable 
+                      data={recentContent.posts} 
+                      type="posts" 
+                      loading={loading}
+                    />
+                  ),
+                },
+                {
+                  key: 'projects',
+                  label: 'Recent Projects',
+                  children: (
+                    <RecentContentTable 
+                      data={recentContent.projects} 
+                      type="projects" 
+                      loading={loading}
+                    />
+                  ),
+                },
+                {
+                  key: 'designs',
+                  label: 'Recent Designs',
+                  children: (
+                    <RecentContentTable 
+                      data={recentContent.designs} 
+                      type="designs" 
+                      loading={loading}
+                    />
+                  ),
+                },
+              ]}
+            />
           </Card>
         </div>
       </AdminLayout>

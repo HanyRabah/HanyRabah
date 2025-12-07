@@ -1,23 +1,16 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
-import dynamic from 'next/dynamic'
 import './globals.scss'
 import { ThemeProvider } from '@/contexts/ThemeContext'
+import { ContactDrawerProvider } from '@/contexts/ContactDrawerContext'
 import { SessionProvider } from '@/components/providers/SessionProvider'
 import { ThemeScript } from '@/components/ThemeScript'
 import { CriticalCSS } from '@/components/CriticalCSS'
+import { ConditionalShell } from '@/components/ConditionalShell'
+import { ContactDrawerWrapper } from '@/components/ContactDrawerWrapper'
+import { ClientAnalytics } from '@/components/ClientAnalytics'
+import { ConsentManager } from '@/components/ConsentManager'
 import { BotIdClient } from 'botid/client'
-
-// Dynamic import analytics scripts to avoid blocking initial page load
-const GoogleAnalytics = dynamic(() => import('@/components/GoogleAnalytics').then(mod => ({ default: mod.GoogleAnalytics })), {
-  ssr: false,
-})
-const SpeedInsights = dynamic(() => import('@vercel/speed-insights/next').then(mod => ({ default: mod.SpeedInsights })), {
-  ssr: false,
-})
-const Analytics = dynamic(() => import('@vercel/analytics/next').then(mod => ({ default: mod.Analytics })), {
-  ssr: false,
-})
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -28,10 +21,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   metadataBase: new URL('https://hanyrabah.com'),
   title: {
-    default: 'Hany Rabah - Senior Fullstack Engineer & Technical Lead',
+    default: 'Hany Rabah - Senior Fullstack Engineer',
     template: '%s | Hany Rabah'
   },
-  description: 'Senior Fullstack Engineer and Technical Lead based in Berlin, crafting accessible, high-performance digital products. Expertise in React, Next.js, Node.js, and AWS.',
+  description: 'Senior Fullstack Engineer based in Berlin, crafting accessible, high-performance digital products. Expertise in React, Next.js, Node.js, and AWS.',
   keywords: [
     'Hany Rabah',
     'Senior Fullstack Engineer',
@@ -48,9 +41,9 @@ export const metadata: Metadata = {
     'Web Development',
     'Software Engineer',
     'Frontend Developer',
+    'Frontend Engineer',
     'Backend Developer',
     'Portfolio',
-    'GoDiligent'
   ],
   authors: [{ name: 'Hany Rabah', url: 'https://hanyrabah.com' }],
   creator: 'Hany Rabah',
@@ -64,23 +57,23 @@ export const metadata: Metadata = {
     type: 'website',
     locale: 'en_US',
     url: 'https://hanyrabah.com',
-    title: 'Hany Rabah - Senior Fullstack Engineer & Technical Lead',
-    description: 'Senior Fullstack Engineer and Technical Lead based in Berlin, crafting accessible, high-performance digital products. Expertise in React, Next.js, Node.js, and AWS.',
+    title: 'Hany Rabah - Senior Fullstack Engineer',
+    description: 'Senior Fullstack Engineer based in Berlin, crafting accessible, high-performance digital products. Expertise in React, Next.js, Node.js, and AWS.',
     siteName: 'Hany Rabah Portfolio',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'Hany Rabah - Senior Fullstack Engineer & Technical Lead',
+        alt: 'Hany Rabah - Senior Fullstack Engineer',
         type: 'image/png',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Hany Rabah - Senior Fullstack Engineer & Technical Lead',
-    description: 'Senior Fullstack Engineer and Technical Lead based in Berlin, crafting accessible, high-performance digital products.',
+    title: 'Hany Rabah - Senior Fullstack Engineer',
+    description: 'Senior Fullstack Engineer based in Berlin, crafting accessible, high-performance digital products.',
     images: ['/og-image.png'],
     creator: '@hanyrabah',
     site: '@hanyrabah',
@@ -117,20 +110,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
       <head>
-        {/* Consent Manager - Load as high as possible */}
-        <script 
-          type="text/javascript" 
-          data-cmp-ab="1" 
-          src="https://cdn.consentmanager.net/delivery/autoblocking/8d4eaf9812ce5.js" 
-          data-cmp-host="a.delivery.consentmanager.net" 
-          data-cmp-cdn="cdn.consentmanager.net" 
-          data-cmp-codesrc="16"
-        />
         <CriticalCSS />
         <ThemeScript />
-        <BotIdClient protect={protectedRoutes} />
         {/* Resource hints for performance */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
@@ -139,13 +122,18 @@ export default function RootLayout({
         <link rel="dns-prefetch" href="https://cdn.consentmanager.net" />
         <link rel="dns-prefetch" href="https://a.delivery.consentmanager.net" />
       </head>
-      <body className={inter.className}>
+      <body className={inter.className} suppressHydrationWarning>
+        <ConsentManager />
+        <BotIdClient protect={protectedRoutes} />
         <SessionProvider>
           <ThemeProvider>
-            {children}
-            <GoogleAnalytics />
-            <SpeedInsights />
-            <Analytics />
+            <ContactDrawerProvider>
+              <ConditionalShell>
+                {children}
+              </ConditionalShell>
+              <ContactDrawerWrapper />
+              <ClientAnalytics />
+            </ContactDrawerProvider>
           </ThemeProvider>
         </SessionProvider>
       </body>

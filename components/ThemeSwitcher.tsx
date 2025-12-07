@@ -14,8 +14,12 @@ import {
 import { Moon, Sun, Palette, Check } from 'lucide-react'
 
 export function ThemeSwitcher() {
-  const { colorTheme, mode, setColorTheme, toggleMode } = useTheme()
+  const { colorTheme, mode, setColorTheme, toggleMode, isThemeReady } = useTheme()
   const [isOpen, setIsOpen] = useState(false)
+
+  if (!isThemeReady) {
+    return <div className="h-9 w-9" aria-hidden />
+  }
 
   return (
     <div className="flex items-center gap-2">

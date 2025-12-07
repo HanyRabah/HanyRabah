@@ -1,0 +1,633 @@
+🔍 Fetching data from source database...
+
+📦 Found 14 services
+[
+  {
+    "id": "cmdtz1dlj0005rz2pv8r6toul",
+    "title": "AI Integration & Prompt Engineering",
+    "description": "Leverage AI to streamline workflows, analyze data, or build intelligent user experiences.",
+    "icon": "Bot",
+    "features": [
+      "LLM Integration",
+      "Prompt Design",
+      "Tooling Setup",
+      "Workflow Automation"
+    ],
+    "price": "100",
+    "popular": false,
+    "active": true,
+    "createdAt": "2025-08-02T08:09:10.406Z",
+    "updatedAt": "2025-08-02T08:07:37.982Z"
+  },
+  {
+    "id": "cmdtbni6i0004rz2p2x1b2tg6",
+    "title": "Freelance Consulting & Team Mentoring",
+    "description": "Need temporary engineering leadership or code reviews? I offer fractional consulting to help startups scale their tech teams, onboard junior developers, and avoid common pitfalls.",
+    "icon": "BriefcaseBusinessIcon",
+    "features": [
+      "Code Reviews",
+      "Hiring Support",
+      "Fractional CTO",
+      "Workflow Strategy"
+    ],
+    "price": "1000",
+    "popular": false,
+    "active": true,
+    "createdAt": "2025-08-01T21:14:31.995Z",
+    "updatedAt": "2025-08-02T08:06:17.690Z"
+  },
+  {
+    "id": "cmdtbni6i0003rz2pw2m6y7zs",
+    "title": "Performance Optimization",
+    "description": "Comprehensive analysis of your applications performance, identifying bottlenecks and implementing optimizations for better user experience.",
+    "icon": "ZapIcon",
+    "features": [
+      "Performance Analysis",
+      "Workflow Automation",
+      "Workflow Strategy",
+      "Workflow Automation"
+    ],
+    "price": "1000",
+    "popular": false,
+    "active": false,
+    "createdAt": "2025-08-01T21:14:31.995Z",
+    "updatedAt": "2025-08-02T08:10:29.711Z"
+  },
+  {
+    "id": "cmdtbni6h0001rz2p7c849ptg",
+    "title": "Frontend Engineering & UI Systems",
+    "description": "I create elegant, accessible frontends that users love. Whether it's integrating with Figma, building reusable component libraries, or improving page speed, I ensure frontend code is clean, fast, and user-centered.",
+    "icon": "VectorSquare",
+    "features": [
+      "React",
+      "Next.js",
+      "Typescript"
+    ],
+    "price": "1000",
+    "popular": false,
+    "active": true,
+    "createdAt": "2025-08-01T21:14:31.995Z",
+    "updatedAt": "2025-08-01T21:17:04.735Z"
+  },
+  {
+    "id": "cmdtbni6h0000rz2pxkc4h162",
+    "title": "Technical Leadership & Architecture",
+    "description": "Need guidance on project architecture, scalability, or developer workflows? I bring years of leadership experience to help teams make smart, future-proof tech decisions, establish CI/CD pipelines, and adopt best practices.",
+    "icon": "Goal",
+    "features": [
+      "Dev Mentorship",
+      "CI/CD Workflows",
+      "Code Audits",
+      "Architecture Design"
+    ],
+    "price": "1000",
+    "popular": true,
+    "active": true,
+    "createdAt": "2025-08-01T21:14:31.995Z",
+    "updatedAt": "2025-08-02T08:06:17.690Z"
+  },
+  {
+    "id": "cmdtbni6h0002rz2pkpqst4wm",
+    "title": "Testing & Automation",
+    "description": "From end-to-end testing with Playwright to unit testing with Jest, I build reliable testing pipelines that improve confidence in your deployments and reduce bugs in production.",
+    "icon": "TestTubeIcon",
+    "features": [
+      "E2E Testing",
+      "Unit Testing",
+      "CI Integration",
+      "Coverage Reporting"
+    ],
+    "price": "1000",
+    "popular": false,
+    "active": true,
+    "createdAt": "2025-08-01T21:14:31.995Z",
+    "updatedAt": "2025-08-02T08:06:17.690Z"
+  },
+  {
+    "id": "cmdt0obz40003rz1fc77focec",
+    "title": "Performance Auditing",
+    "description": "Comprehensive analysis of your applications performance, identifying bottlenecks and implementing optimizations for better user experience.",
+    "icon": "Code",
+    "features": [
+      "Performance Analysis",
+      "Core Web Vitals",
+      "Optimization Strategy",
+      "Monitoring Setup"
+    ],
+    "price": "Monitoring Setup",
+    "popular": false,
+    "active": true,
+    "createdAt": "2025-08-01T16:07:14.833Z",
+    "updatedAt": "2025-08-02T08:10:29.711Z"
+  },
+  {
+    "id": "cmdt0obz40002rz1fo8149pe5",
+    "title": "UX-to-Code Systems",
+    "description": "Bridging the gap between design and development with component libraries, design systems, and seamless design-to-code workflows.",
+    "icon": "Code",
+    "features": [
+      "Design Systems",
+      "Component Libraries",
+      "Figma to Code",
+      "Style Guides"
+    ],
+    "price": "1000",
+    "popular": false,
+    "active": true,
+    "createdAt": "2025-08-01T16:07:14.833Z",
+    "updatedAt": "2025-08-02T08:10:50.080Z"
+  },
+  {
+    "id": "cmdt0morr0001rz1fbvg3ut9m",
+    "title": "Fullstack Web Development",
+    "description": "I design and build complete web applications using modern frameworks like React, Next.js, and Node.js. From MVPs to production-grade platforms, I deliver performant, maintainable solutions tailored to your business needs.",
+    "icon": "Wrench",
+    "features": [
+      "API Development",
+      "Database Design",
+      "Cloud Architecture",
+      "DevOps Integration"
+    ],
+    "price": "Monitoring Setup",
+    "popular": false,
+    "active": true,
+    "createdAt": "2025-08-01T16:05:58.120Z",
+    "updatedAt": "2025-08-01T21:14:31.995Z"
+  },
+  {
+    "id": "cmdt0m0re0000rz1f1nd3v6bk",
+    "title": "Frontend Engineering",
+    "description": "Modern, responsive web applications built with React, TypeScript, and cutting-edge frameworks. Focus on performance, accessibility, and exceptional user experience.",
+    "icon": "Code",
+    "features": [
+      "React & Next.js",
+      "TypeScript",
+      "Responsive Design",
+      "Performance Optimization"
+    ],
+    "price": "1000",
+    "popular": false,
+    "active": false,
+    "createdAt": "2025-08-01T16:05:27.002Z",
+    "updatedAt": "2025-08-01T21:14:31.995Z"
+  },
+  {
+    "id": "cmdt0h3xz0003rzvipe2jb4y3",
+    "title": "Consulting & Strategy",
+    "description": "Technical consulting and digital strategy to help businesses make informed technology decisions.",
+    "icon": "Users",
+    "features": [
+      "Technology Assessment",
+      "Architecture Planning",
+      "Team Training",
+      "Project Management"
+    ],
+    "price": "150",
+    "popular": false,
+    "active": false,
+    "createdAt": "2025-08-01T16:01:37.716Z",
+    "updatedAt": "2025-08-01T21:14:31.995Z"
+  },
+  {
+    "id": "cmdt0h3uc0000rzvi1wtbw4pc",
+    "title": "UI/UX Design",
+    "description": "User-centered design solutions that combine beautiful aesthetics with intuitive functionality.",
+    "icon": "Palette",
+    "features": [
+      "User Research",
+      "Wireframing & Prototyping",
+      "Design Systems",
+      "Usability Testing"
+    ],
+    "price": "1500",
+    "popular": false,
+    "active": false,
+    "createdAt": "2025-08-01T16:01:37.716Z",
+    "updatedAt": "2025-08-01T21:14:31.995Z"
+  },
+  {
+    "id": "cmdt0h3xt0001rzvie6b7njq8",
+    "title": "Mobile App Development",
+    "description": "Native and cross-platform mobile applications for iOS and Android using React Native and Flutter.",
+    "icon": "Smartphone",
+    "features": [
+      "Cross-platform Development",
+      "Native Performance",
+      "App Store Deployment",
+      "Push Notifications"
+    ],
+    "price": "3500",
+    "popular": false,
+    "active": false,
+    "createdAt": "2025-08-01T16:01:37.716Z",
+    "updatedAt": "2025-08-01T21:14:31.995Z"
+  },
+  {
+    "id": "cmdt0h3xx0002rzvi1fil2ck1",
+    "title": "Web Development",
+    "description": "Full-stack web applications using modern technologies like React, Next.js, Node.js, and TypeScript.",
+    "icon": "Code",
+    "features": [
+      "Responsive Design",
+      "Performance Optimization",
+      "SEO Implementation",
+      "API Integration"
+    ],
+    "price": "2500",
+    "popular": false,
+    "active": false,
+    "createdAt": "2025-08-01T16:01:37.716Z",
+    "updatedAt": "2025-08-01T21:14:31.995Z"
+  }
+]
+
+📝 Found 10 blog posts
+[
+  {
+    "id": "cmhkkunvp0000l704u74otso4",
+    "title": "Modernizing a Next.js Enterprise Application: Our Frontend Transformation Journey",
+    "slug": "modernizing-a-next-js-enterprise-application-our-frontend-transformation-journey",
+    "excerpt": "Over the past few months, we undertook a comprehensive transformation of our Next.js-based enterprise application frontend. What started as a simple \"let's organize our components\" conversation evolved into a multi-phase modernization effort that touched every aspect of our codebase.",
+    "content": "<p><strong>Introduction</strong></p><p>Over the past few months, we undertook a comprehensive transformation of our Next.js-based enterprise application frontend. What started as a simple \"let's organize our components\" conversation evolved into a multi-phase modernization effort that touched every aspect of our codebase.</p><p>This post shares our journey, the challenges we faced, the decisions we made, and the lessons we learned. Whether you're managing a growing codebase or planning a similar transformation, we hope our experience provides valuable insights.</p><p><strong>TL;DR:</strong> We restructured 150+ components, upgraded to React 19, implemented comprehensive i18n, reduced security vulnerabilities by 25%, and created extensive developer documentation—all while maintaining zero downtime.</p><p><br><strong>Where We Started</strong></p><p>Our application had grown organically over 2+ years:</p><p>- <strong>150+ React components</strong> scattered across the codebas<br>- <strong>Mixed naming conventions</strong> (some `index.tsx`, some named files)<br>- <strong>No clear separation**</strong> between reusable and feature-specific components<br>- <strong>Inconsistent patterns</strong> making onboarding difficult<br>- <strong>Technical debt</strong> accumulating in dependencies<br>- <strong>Hardcoded strings</strong> throughout the UI (no i18n)</p><p><strong>The Wake-Up Call</strong></p><p>Three incidents forced us to act:</p><p>1. <strong>New developer confusion</strong>: A new team member spent 30 minutes trying to find the \"copy button\" component</p><p>2. <strong>Duplicate components</strong>: We discovered 3 different implementations of similar functionality</p><p>3. <strong>Merge conflicts</strong>: Component reorganization attempts kept conflicting with active development</p><p>We needed a systematic approach, not ad-hoc fixes.</p><p><strong>Phase 1: Component Architecture Restructuring</strong></p><p><strong>The Strategy: Two-Tier Organization</strong></p><p>We adopted a <strong>common vs. features</strong> split:</p><p>components/</p><p>├── common/ # Reusable across features (37 components)<br>├── buttons/<br>├── forms/<br>├── display/<br>├── feedback/<br>├── navigation/<br>├── layout/<br>├── maps/<br>├── data/<br>├── media/<br>            └── seo/<br>            └── features/ # Feature-specific (84 components)<br>├── cdd/ # Customer Due Diligence<br>├── risk/ # Risk Management<br>├── settings/<br>├── name-screening/<br>├── alerts/<br>├── billing/<br>├── chat/<br>            └── tools/<br><br><strong>Key Decisions</strong></p><p><strong>1. Named Files vs. Index Files</strong></p><p><strong>Decision:</strong> Use named files (e.g., `copy-button.tsx`), reserve `index.ts` for barrel exports only.</p><p><strong>Rationale:</strong></p><p>- Better IDE navigation (tabs show actual component names)<br>- Easier to search in file trees<br>- Clearer in import statements<br>- Industry best practice</p><p><strong>Before:</strong></p><p>components/<br>show-more/<br>index.tsx ❌ What component is this?</p><p><strong>After:</strong></p><p>components/common/display/<br>show-more.tsx ✅ Clear component name</p><p><strong>2. Flat vs. Nested in Features</strong></p><p><strong>Decision:</strong> Nest by subdomain for large features (like CDD with 60+ components).</p><p><strong>CDD Structure:</strong></p><p>features/cdd/</p><p>├── forms/ # Form components</p><p>├── table/ # Table and list views</p><p>├── details/ # Detail page components</p><p>├── company/ # Company information</p><p>├── documents/ # Document management</p><p>├── checks/ # Compliance checks</p><p>├── registry/ # Registry data</p><p>└── reports/ # Reporting</p><p>```</p><p><br></p><p><strong>**Rationale:**</strong></p><p>- CDD is our largest feature (60+ files)</p><p>- Logical grouping improves navigation</p><p>- Easier to understand relationships</p><p>- Scales better as features grow</p><p><br></p><p><strong>#### 3. Import Path Strategy</strong></p><p><br></p><p><strong>**Decision:**</strong> Use path aliases (`@/`) consistently, create barrel exports for common components.</p><p><br></p><p><strong>**Before (inconsistent):**</strong></p><p>```typescript</p><p>import { CopyButton } from '../../../components/copy-button';</p><p>import { CopyButton } from 'src/components/copy-button';</p><p>import { CopyButton } from '@/components/copy-button';</p><p>```</p><p><br></p><p><strong>**After (consistent):**</strong></p><p>```typescript</p><p>// Direct import</p><p>import { CopyButton } from '@/components/common/buttons/copy-button';</p><p><br></p><p>// Or barrel export</p><p>import { CopyButton } from '@/components/common';</p><p>```</p><p><br></p><p><strong>### Implementation Approach</strong></p><p><br></p><p>We created a <strong>**phased migration plan**</strong> with automated tooling:</p><p><br></p><p><strong>**Phase 1: Common Components (Week 1)**</strong></p><p>- Created directory structure</p><p>- Moved 37 root-level components to categorized folders</p><p>- Updated all imports automatically</p><p><br></p><p><strong>**Phase 2: Feature Components (Week 2)**</strong></p><p>- Reorganized CDD components (60+ files)</p><p>- Merged scattered feature folders</p><p>- Created logical subdomains</p><p><br></p><p><strong>**Phase 3: Standardization (Week 3)**</strong></p><p>- Converted all `index.tsx` to named files</p><p>- Created barrel exports</p><p>- Final import updates</p><p><br></p><p><strong>**Phase 4: Cleanup (Week 4)**</strong></p><p>- Removed empty directories</p><p>- Updated type definitions</p><p>- Comprehensive testing</p><p><br></p><p><strong>### Automation Was Key</strong></p><p><br></p><p>We built a migration script that:</p><p>- Analyzed import patterns across the codebase</p><p>- Generated find-replace mappings</p><p>- Updated imports automatically</p><p>- Provided dry-run mode for safety</p><p><br></p><p>```bash</p><p># Preview changes</p><p>node scripts/migrate-imports.js --dry-run --phase=1</p><p><br></p><p># Apply changes</p><p>node scripts/migrate-imports.js --phase=1</p><p>```</p><p><br></p><p><strong>### Results</strong></p><p><br></p><p>✅ <strong>**37 common components**</strong> organized into 10 categories</p><p>✅ <strong>**84 feature components**</strong> logically grouped by domain</p><p>✅ <strong>**100% named files**</strong> (except barrel exports)</p><p>✅ <strong>**Zero breaking changes**</strong> (all imports updated)</p><p>✅ <strong>**30% faster**</strong> component discovery (developer survey)</p><p><br></p><p>---</p><p><br></p><p><strong>## Phase 2: React 19 Upgrade</strong></p><p><br></p><p><strong>### Why Upgrade?</strong></p><p><br></p><p>React 19 brought significant improvements:</p><p>- <strong>**Better performance**</strong> with automatic memoization</p><p>- <strong>**Improved TypeScript support**</strong></p><p>- <strong>**New hooks**</strong> (`use`, `useOptimistic`, etc.)</p><p>- <strong>**Better error handling**</strong></p><p>- <strong>**Compiler optimizations**</strong></p><p><br></p><p>But major version upgrades are risky in production applications.</p><p><br></p><p><strong>### Risk Assessment</strong></p><p><br></p><p>We identified potential breaking changes:</p><p><br></p><p>1. <strong>**Deprecated APIs**</strong>: `propTypes`, `defaultProps`, string refs</p><p>2. <strong>**TypeScript changes**</strong>: `RefObject&lt;T&gt;` → `RefObject&lt;T | null&gt;`</p><p>3. <strong>**Peer dependencies**</strong>: MUI, Emotion, other libraries</p><p>4. <strong>**Build process**</strong>: Next.js compatibility</p><p><br></p><p><strong>### Our Approach: Gradual &amp; Safe</strong></p><p><br></p><p><strong>**Step 1: Audit the Codebase**</strong></p><p>```bash</p><p># Check for deprecated patterns</p><p>grep -r \"propTypes\" src/</p><p>grep -r \"defaultProps\" src/</p><p>grep -r \"createRef\" src/</p><p><br></p><p># Result: ✅ None found!</p><p>```</p><p><br></p><p><strong>**Step 2: Update TypeScript Types**</strong></p><p><br></p><p>We ran TypeScript codemods to update ref types:</p><p>```typescript</p><p>// Before</p><p>const ref = useRef&lt;HTMLDivElement&gt;();</p><p><br></p><p>// After (React 19)</p><p>const ref = useRef&lt;HTMLDivElement | null&gt;(null);</p><p>```</p><p><br></p><p><strong>**17 files**</strong> updated automatically.</p><p><br></p><p><strong>**Step 3: Handle Peer Dependencies**</strong></p><p><br></p><p>MUI v5 doesn't officially support React 19 yet, but works fine with peer dependency overrides:</p><p><br></p><p>```json</p><p>{</p><p>\"overrides\": {</p><p>\"react\": \"^19.0.0\",</p><p>\"react-dom\": \"^19.0.0\"</p><p>}</p><p>}</p><p>```</p><p><br></p><p><strong>**Step 4: Phased Package Updates**</strong></p><p><br></p><p>We grouped updates by risk level:</p><p><br></p><p><strong>**Phase 1: Safe Updates (20 packages)**</strong></p><p>- Type definitions</p><p>- AWS SDK packages</p><p>- Utility libraries</p><p>- Development tools</p><p><br></p><p><strong>**Phase 2: Moderate Risk (Later)**</strong></p><p>- Emotion (CSS-in-JS)</p><p>- TypeScript compiler</p><p>- Form libraries</p><p><br></p><p><strong>**Phase 3: High Risk (Separate sprints)**</strong></p><p>- Material-UI v7</p><p>- Next.js 16 (when released)</p><p>- Date-fns v4</p><p><br></p><p><strong>### Testing Strategy</strong></p><p><br></p><p><strong>**Automated Tests:**</strong></p><p>- ✅ 744 unit tests passing</p><p>- ✅ TypeScript compilation successful</p><p>- ✅ Build process verified</p><p><br></p><p><strong>**Manual Testing Checklist:**</strong></p><p>- Authentication flows</p><p>- Form submissions</p><p>- File uploads</p><p>- Data grids</p><p>- Date pickers</p><p>- Responsive layouts</p><p>- Browser compatibility</p><p><br></p><p><strong>### Results</strong></p><p><br></p><p>✅ <strong>**React 18.3.1 → 19.2.0**</strong> upgraded successfully</p><p>✅ <strong>**20 packages**</strong> updated in Phase 1</p><p>✅ <strong>**Zero code changes**</strong> required (thanks to codemods)</p><p>✅ <strong>**All tests passing**</strong> (744/744)</p><p>✅ <strong>**Build time maintained**</strong> (~30 seconds)</p><p>✅ <strong>**Bundle size maintained**</strong> (~256 kB shared)</p><p><br></p><p><strong>**Timeline:**</strong> Completed in <strong>**1 day**</strong> (vs. estimated 3-5 days)</p><p><br></p><p>---</p><p><br></p><p><strong>## Phase 3: Internationalization at Scale</strong></p><p><br></p><p><strong>### The Challenge</strong></p><p><br></p><p>Our application was growing internationally, but all strings were hardcoded in English:</p><p><br></p><p>```typescript</p><p>// Before ❌</p><p>&lt;Button&gt;Save Changes&lt;/Button&gt;</p><p>&lt;Alert&gt;An error occurred&lt;/Alert&gt;</p><p>&lt;Typography&gt;Welcome to GoDiligent&lt;/Typography&gt;</p><p>```</p><p><br></p><p>We needed to support <strong>**4 languages**</strong>: English, Italian, Japanese, and French.</p><p><br></p><p><strong>### Architecture Decisions</strong></p><p><br></p><p><strong>#### 1. Library Choice: react-i18next</strong></p><p><br></p><p><strong>**Why react-i18next?**</strong></p><p>- Industry standard for React</p><p>- Excellent TypeScript support</p><p>- Namespace organization</p><p>- Lazy loading support</p><p>- Browser language detection</p><p>- 40k+ stars on GitHub</p><p><br></p><p><strong>#### 2. Namespace Organization</strong></p><p><br></p><p>We organized translations into <strong>**9 namespaces**</strong> by domain:</p><p><br></p><p>```</p><p>locales/</p><p>├── en/</p><p>│ ├── common.json # Shared UI elements</p><p>│ ├── navigation.json # Menu items</p><p>│ ├── settings.json # Settings pages</p><p>│ ├── cdd.json # CDD features</p><p>│ ├── monitoring.json # Monitoring</p><p>│ ├── nameScreening.json # Name screening</p><p>│ ├── tools.json # Tools</p><p>│ ├── company.json # Company data</p><p>│ └── auth.json # Authentication</p><p>├── it/ # Same structure</p><p>├── ja/ # Same structure</p><p>└── fr/ # Same structure</p><p>```</p><p><br></p><p><strong>**Benefits:**</strong></p><p>- Smaller bundle sizes (load only needed namespaces)</p><p>- Clear ownership (feature teams own their translations)</p><p>- Easier to maintain</p><p>- Better for code splitting</p><p><br></p><p><strong>#### 3. Translation Key Structure</strong></p><p><br></p><p>We adopted a hierarchical structure:</p><p><br></p><p>```json</p><p>{</p><p>\"app\": {</p><p>\"name\": \"GoDiligent\",</p><p>\"tagline\": \"Compliance Made Simple\"</p><p>},</p><p>\"actions\": {</p><p>\"save\": \"Save\",</p><p>\"cancel\": \"Cancel\",</p><p>\"delete\": \"Delete\",</p><p>\"edit\": \"Edit\"</p><p>},</p><p>\"errors\": {</p><p>\"generic\": \"An error occurred\",</p><p>\"notFound\": \"Not found\"</p><p>}</p><p>}</p><p>```</p><p><br></p><p><strong>**Usage:**</strong></p><p>```typescript</p><p>t('common:app.name') // \"GoDiligent\"</p><p>t('common:actions.save') // \"Save\"</p><p>t('common:errors.generic') // \"An error occurred\"</p><p>```</p><p><br></p><p><strong>### Implementation Process</strong></p><p><br></p><p><strong>**Step 1: Identify Hardcoded Strings**</strong></p><p><br></p><p>We built a script to find all hardcoded strings:</p><p>```bash</p><p>npm run i18n:check</p><p>```</p><p><br></p><p><strong>**Result:**</strong> 1,061 hardcoded strings across 113 files 😱</p><p><br></p><p><strong>**Step 2: Systematic Migration**</strong></p><p><br></p><p>We prioritized by file size and impact:</p><p><br></p><p>1. <strong>**Quick wins**</strong> (1-5 issues per file): 18 files</p><p>2. <strong>**Medium files**</strong> (6-20 issues): 40 files</p><p>3. <strong>**Large files**</strong> (20+ issues): 55 files</p><p><br></p><p><strong>**Pattern:**</strong></p><p>```typescript</p><p>// 1. Add useTranslation hook</p><p>const { t } = useTranslation(['common', 'cdd']);</p><p><br></p><p>// 2. Replace hardcoded strings</p><p>- &lt;Button&gt;Save Changes&lt;/Button&gt;</p><p>+ &lt;Button&gt;{t('common:actions.save')}&lt;/Button&gt;</p><p><br></p><p>// 3. Add translations to JSON files</p><p>// locales/en/common.json</p><p>{</p><p>\"actions\": {</p><p>\"save\": \"Save Changes\"</p><p>}</p><p>}</p><p>```</p><p><br></p><p><strong>**Step 3: Translation Synchronization**</strong></p><p><br></p><p>We created a script to sync translations across all 4 languages:</p><p>```bash</p><p>npm run i18n:sync</p><p>```</p><p><br></p><p>This ensured all languages had the same keys (with English fallbacks for untranslated strings).</p><p><br></p><p><strong>**Step 4: Pre-commit Hooks**</strong></p><p><br></p><p>We added automated checks to prevent new hardcoded strings:</p><p><br></p><p>```json</p><p>{</p><p>\"husky\": {</p><p>\"hooks\": {</p><p>\"pre-commit\": \"npm run i18n:check\"</p><p>}</p><p>}</p><p>}</p><p>```</p><p><br></p><p><strong>### Advanced Features</strong></p><p><br></p><p><strong>#### Interpolation</strong></p><p>```json</p><p>{</p><p>\"welcome\": \"Welcome, {{name}}!\",</p><p>\"itemCount\": \"You have {{count}} items\"</p><p>}</p><p>```</p><p><br></p><p>```typescript</p><p>t('welcome', { name: 'John' }) // \"Welcome, John!\"</p><p>t('itemCount', { count: 5 }) // \"You have 5 items\"</p><p>```</p><p><br></p><p><strong>#### Pluralization</strong></p><p>```json</p><p>{</p><p>\"items_one\": \"{{count}} item\",</p><p>\"items_other\": \"{{count}} items\"</p><p>}</p><p>```</p><p><br></p><p>```typescript</p><p>t('items', { count: 1 }) // \"1 item\"</p><p>t('items', { count: 5 }) // \"5 items\"</p><p>```</p><p><br></p><p><strong>#### Context-Aware Translations</strong></p><p>```json</p><p>{</p><p>\"status_pending\": \"Pending\",</p><p>\"status_approved\": \"Approved\",</p><p>\"status_rejected\": \"Rejected\"</p><p>}</p><p>```</p><p><br></p><p><strong>### Results</strong></p><p><br></p><p>✅ <strong>**1,061 hardcoded strings**</strong> eliminated</p><p>✅ <strong>**113 files**</strong> migrated to i18n</p><p>✅ <strong>**290+ translation keys**</strong> created</p><p>✅ <strong>**4 languages**</strong> fully supported</p><p>✅ <strong>**Zero runtime errors**</strong> (TypeScript safety)</p><p>✅ <strong>**Pre-commit hooks**</strong> prevent regression</p><p><br></p><p><strong>**Timeline:**</strong> Completed in <strong>**3 weeks**</strong> (vs. estimated 6 weeks)</p><p><br></p><p>---</p><p><br></p><p><strong>## Phase 4: Developer Experience &amp; Documentation</strong></p><p><br></p><p><strong>### The Documentation Gap</strong></p><p><br></p><p>After all these changes, we realized: <strong>**great code without documentation is still confusing.**</strong></p><p><br></p><p>We needed to make our improvements discoverable and maintainable.</p><p><br></p><p><strong>### What We Created</strong></p><p><br></p><p><strong>#### 1. Component Structure Guide</strong></p><p><br></p><p><strong>**File:**</strong> `frontend/docs/component-structure-guide.md`</p><p><br></p><p><strong>**Contents:**</strong></p><p>- Complete directory structure</p><p>- Component categorization</p><p>- Import patterns</p><p>- Naming conventions</p><p>- Examples for each category</p><p><br></p><p><strong>**Impact:**</strong> New developers can find components in <strong>**&lt; 2 minutes**</strong> (vs. 30+ minutes before)</p><p><br></p><p><strong>#### 2. Developer Guide</strong></p><p><br></p><p><strong>**File:**</strong> `frontend/docs/developer-guide.md`</p><p><br></p><p><strong>**Contents:**</strong></p><p>- Tech stack overview</p><p>- Getting started guide</p><p>- Page creation templates</p><p>- Component creation patterns</p><p>- State management guidelines</p><p>- API integration patterns</p><p>- Styling guidelines</p><p>- Testing best practices</p><p><br></p><p><strong>**Includes ready-to-use templates:**</strong></p><p>```typescript</p><p>// SSR Page Template</p><p>import { withAuthSSR } from '@/libs/ssr/auth';</p><p>import { SSRApiClient } from '@/libs/ssr/api-client';</p><p><br></p><p>export const getServerSideProps = withAuthSSR(</p><p>async (context, session) =&gt; {</p><p>const apiClient = new SSRApiClient(context, session);</p><p>// Fetch data...</p><p>}</p><p>);</p><p>```</p><p><br></p><p><strong>#### 3. i18n Guide</strong></p><p><br></p><p><strong>**File:**</strong> `frontend/docs/i18n-guide.md`</p><p><br></p><p><strong>**Contents:**</strong></p><p>- Architecture overview</p><p>- Namespace organization</p><p>- Usage examples</p><p>- Translation workflow</p><p>- Pre-commit hooks</p><p>- Best practices</p><p>- Troubleshooting</p><p><br></p><p><strong>**Includes:**</strong></p><p>- Step-by-step migration guide</p><p>- Common patterns</p><p>- Advanced features</p><p>- Testing strategies</p><p><br></p><p><strong>#### 4. Technical Debt Tracker</strong></p><p><br></p><p><strong>**File:**</strong> `frontend/docs/technical-debt.md`</p><p><br></p><p><strong>**Contents:**</strong></p><p>- Package update roadmap</p><p>- Code refactoring tasks</p><p>- Architecture improvements</p><p>- Performance optimizations</p><p>- Testing coverage goals</p><p>- Migration tasks</p><p><br></p><p><strong>**Organized by priority:**</strong></p><p>- 🔴 Critical (security, breaking changes)</p><p>- 🟡 High (important improvements)</p><p>- 🟢 Medium (nice to have)</p><p>- 🔵 Low (future considerations)</p><p><br></p><p><strong>**Includes timelines and effort estimates**</strong> for planning sprints.</p><p><br></p><p><strong>#### 5. Additional Guides</strong></p><p><br></p><p>- <strong>**ESLint Guide**</strong>: Linting rules and configuration</p><p>- <strong>**TypeScript Guide**</strong>: Type safety patterns</p><p>- <strong>**Pre-commit Hooks Guide**</strong>: Automated quality checks</p><p>- <strong>**Naming Convention Guide**</strong>: Consistent naming across codebase</p><p>- <strong>**IDE Setup Guide**</strong>: Optimal development environment</p><p><br></p><p><strong>### Automation &amp; Tooling</strong></p><p><br></p><p><strong>#### Migration Scripts</strong></p><p><br></p><p>```bash</p><p># Component import migration</p><p>node scripts/migrate-imports.js --phase=1</p><p><br></p><p># i18n string detection</p><p>npm run i18n:check</p><p><br></p><p># Translation synchronization</p><p>npm run i18n:sync</p><p>```</p><p><br></p><p><strong>#### Pre-commit Hooks</strong></p><p><br></p><p>```bash</p><p># Runs automatically on git commit</p><p>- ESLint checks</p><p>- TypeScript compilation</p><p>- i18n validation</p><p>- Prettier formatting</p><p>- Test suite (affected files)</p><p>```</p><p><br></p><p><strong>#### Quick Start Guide</strong></p><p><br></p><p><strong>**File:**</strong> `work-docs/QUICK_START.md`</p><p><br></p><p>New developers can be productive in <strong>**&lt; 1 hour**</strong>:</p><p>1. Clone repo</p><p>2. Install dependencies</p><p>3. Set up environment</p><p>4. Read Quick Start</p><p>5. Start coding</p><p><br></p><p><strong>### Results</strong></p><p><br></p><p>✅ <strong>**9 comprehensive guides**</strong> created</p><p>✅ <strong>**Onboarding time reduced**</strong> from 2 days to 4 hours</p><p>✅ <strong>**Developer satisfaction**</strong> increased (team survey)</p><p>✅ <strong>**Fewer questions**</strong> in team chat (50% reduction)</p><p>✅ <strong>**Consistent patterns**</strong> across new code</p><p>✅ <strong>**Self-service documentation**</strong> reduces bottlenecks</p><p><br></p><p>---</p><p><br></p><p><strong>## Phase 5: Security &amp; Dependency Cleanup</strong></p><p><br></p><p><strong>### The Security Audit</strong></p><p><br></p><p>We ran `npm audit` and found:</p><p>- <strong>**8 vulnerabilities**</strong> (1 HIGH, 3 MODERATE, 4 LOW)</p><p>- <strong>**53 unused dependencies**</strong></p><p>- <strong>**Outdated packages**</strong> with known issues</p><p><br></p><p><strong>### Our Approach</strong></p><p><br></p><p><strong>#### 1. Remove Unused Dependencies</strong></p><p><br></p><p>We audited every dependency:</p><p><br></p><p>```bash</p><p># Find unused dependencies</p><p>npx depcheck</p><p><br></p><p># Result: 53 unused packages!</p><p>```</p><p><br></p><p><strong>**Removed packages:**</strong></p><p>- `langchain` (0.201) - Path traversal vulnerability, not used</p><p>- `xlsx` (0.18.5) - Prototype pollution &amp; ReDoS, not used</p><p>- 51 other unused packages</p><p><br></p><p><strong>**Impact:**</strong></p><p>- Smaller `node_modules` (2.1 GB → 1.8 GB)</p><p>- Faster installs</p><p>- Reduced attack surface</p><p><br></p><p><strong>#### 2. Update Safe Dependencies</strong></p><p><br></p><p>We categorized updates by risk:</p><p><br></p><p><strong>**Safe Updates (20 packages):**</strong></p><p>- Type definitions (@types/*)</p><p>- AWS SDK packages</p><p>- Utility libraries (axios, etc.)</p><p>- Development tools</p><p><br></p><p><strong>**Result:**</strong> ✅ All updated without issues</p><p><br></p><p><strong>#### 3. Address Vulnerabilities</strong></p><p><br></p><p><strong>**Remaining vulnerabilities:**</strong></p><p><br></p><p>1. <strong>**jsondiffpatch (MODERATE)**</strong> - via ai SDK</p><p>- XSS in HtmlFormatter</p><p>- <strong>**Risk:**</strong> LOW (we don't use HTML formatter)</p><p>- <strong>**Fix:**</strong> Upgrade ai SDK 4.3 → 5.0 (planned)</p><p><br></p><p>2. <strong>**cookie (LOW)**</strong> - via AWS Amplify</p><p>- Out of bounds characters</p><p>- <strong>**Risk:**</strong> LOW (AWS Amplify validates)</p><p>- <strong>**Fix:**</strong> Wait for AWS Amplify v6</p><p><br></p><p><strong>**Decision:**</strong> Accept low-risk vulnerabilities with mitigations, plan upgrades for next sprint.</p><p><br></p><p><strong>#### 4. Dependency Strategy Going Forward</strong></p><p><br></p><p><strong>**Principles:**</strong></p><p>1. <strong>**Regular audits**</strong> (monthly)</p><p>2. <strong>**Immediate updates**</strong> for security issues</p><p>3. <strong>**Grouped updates**</strong> by risk level</p><p>4. <strong>**Test thoroughly**</strong> before merging</p><p>5. <strong>**Document decisions**</strong> in technical-debt.md</p><p><br></p><p><strong>### Results</strong></p><p><br></p><p>✅ <strong>**Vulnerabilities reduced**</strong> from 8 → 6 (25% reduction)</p><p>✅ <strong>**HIGH severity eliminated**</strong> (1 → 0)</p><p>✅ <strong>**53 unused packages**</strong> removed</p><p>✅ <strong>**Security score improved**</strong> from 6/10 → 8.5/10</p><p>✅ <strong>**Cleaner dependency tree**</strong></p><p>✅ <strong>**Faster CI/CD**</strong> (smaller installs)</p><p><br></p><p>---</p><p><br></p><p><strong>## Results &amp; Impact</strong></p><p><br></p><p><strong>### Quantitative Improvements</strong></p><p><br></p><p><strong>**Code Organization:**</strong></p><p>- ✅ 150+ components reorganized</p><p>- ✅ 100% consistent naming</p><p>- ✅ 37 common components categorized</p><p>- ✅ 84 feature components grouped by domain</p><p><br></p><p><strong>**Internationalization:**</strong></p><p>- ✅ 1,061 hardcoded strings eliminated</p><p>- ✅ 290+ translation keys created</p><p>- ✅ 4 languages supported</p><p>- ✅ 113 files migrated</p><p><br></p><p><strong>**Security &amp; Dependencies:**</strong></p><p>- ✅ 25% reduction in vulnerabilities</p><p>- ✅ 100% elimination of HIGH severity issues</p><p>- ✅ 53 unused packages removed</p><p>- ✅ 20 packages safely updated</p><p><br></p><p><strong>**Developer Experience:**</strong></p><p>- ✅ 9 comprehensive guides created</p><p>- ✅ Onboarding time: 2 days → 4 hours (80% reduction)</p><p>- ✅ Component discovery: 30 min → 2 min (93% faster)</p><p>- ✅ Team questions: 50% reduction</p><p><br></p><p><strong>**Technical Achievements:**</strong></p><p>- ✅ React 18 → 19 upgrade (zero downtime)</p><p>- ✅ 744 tests passing</p><p>- ✅ Zero breaking changes</p><p>- ✅ Build time maintained (~30s)</p><p>- ✅ Bundle size maintained (~256 kB)</p><p><br></p><p><strong>### Qualitative Improvements</strong></p><p><br></p><p><strong>**Developer Feedback:**</strong></p><p><br></p><p>&gt; \"I can actually find things now. The component structure makes so much sense.\" - Frontend Developer</p><p><br></p><p>&gt; \"The i18n guide saved me hours. I was able to add translations without asking anyone.\" - New Team Member</p><p><br></p><p>&gt; \"Pre-commit hooks catch issues before code review. Saves everyone time.\" - Tech Lead</p><p><br></p><p><strong>**Team Benefits:**</strong></p><p>- 🎯 <strong>**Clearer ownership**</strong> (feature teams own their components)</p><p>- 🚀 <strong>**Faster development**</strong> (less time searching, more time coding)</p><p>- 📚 <strong>**Self-service learning**</strong> (documentation reduces bottlenecks)</p><p>- 🔒 <strong>**Better security posture**</strong> (proactive vulnerability management)</p><p>- 🌍 <strong>**Global reach**</strong> (multi-language support)</p><p><br></p><p><strong>### Business Impact</strong></p><p><br></p><p><strong>**Time Savings:**</strong></p><p>- <strong>**Development velocity:**</strong> 20% increase (estimated)</p><p>- <strong>**Onboarding:**</strong> 12 hours saved per new developer</p><p>- <strong>**Code reviews:**</strong> 30% faster (clearer patterns)</p><p><br></p><p><strong>**Risk Reduction:**</strong></p><p>- <strong>**Security vulnerabilities:**</strong> 25% reduction</p><p>- <strong>**Technical debt:**</strong> Documented and prioritized</p><p>- <strong>**Breaking changes:**</strong> Zero during entire transformation</p><p><br></p><p><strong>**Scalability:**</strong></p><p>- <strong>**Component architecture**</strong> scales to 500+ components</p><p>- <strong>**i18n system**</strong> ready for additional languages</p><p>- <strong>**Documentation**</strong> supports team growth</p><p><br></p><p>---</p><p><br></p><p><strong>## Lessons Learned</strong></p><p><br></p><p><strong>### What Worked Well</strong></p><p><br></p><p><strong>#### 1. Phased Approach</strong></p><p><br></p><p><strong>**Lesson:**</strong> Break large transformations into manageable phases.</p><p><br></p><p>We didn't try to do everything at once. Each phase had:</p><p>- Clear scope</p><p>- Defined success criteria</p><p>- Independent testing</p><p>- Rollback plan</p><p><br></p><p><strong>**Result:**</strong> Lower risk, easier to manage, team could continue development.</p><p><br></p><p><strong>#### 2. Automation First</strong></p><p><br></p><p><strong>**Lesson:**</strong> Invest in automation before manual work.</p><p><br></p><p>Our migration scripts saved <strong>**100+ hours**</strong> of manual work:</p><p>- Import path updates</p><p>- Translation synchronization</p><p>- Dependency audits</p><p><br></p><p><strong>**Result:**</strong> Faster execution, fewer errors, reproducible process.</p><p><br></p><p><strong>#### 3. Documentation as Code</strong></p><p><br></p><p><strong>**Lesson:**</strong> Write documentation during implementation, not after.</p><p><br></p><p>We documented decisions as we made them:</p><p>- Why we chose certain patterns</p><p>- Trade-offs considered</p><p>- Examples from actual code</p><p><br></p><p><strong>**Result:**</strong> Documentation stayed accurate and useful.</p><p><br></p><p><strong>#### 4. Pre-commit Hooks</strong></p><p><br></p><p><strong>**Lesson:**</strong> Prevent problems rather than fix them.</p><p><br></p><p>Automated checks catch issues before code review:</p><p>- Linting errors</p><p>- Type errors</p><p>- Missing translations</p><p>- Formatting issues</p><p><br></p><p><strong>**Result:**</strong> Higher code quality, faster reviews, fewer bugs.</p><p><br></p><p><strong>#### 5. Risk-Based Prioritization</strong></p><p><br></p><p><strong>**Lesson:**</strong> Not all updates are equal.</p><p><br></p><p>We categorized changes by risk:</p><p>- Safe updates → do immediately</p><p>- Moderate risk → test thoroughly</p><p>- High risk → separate sprint</p><p><br></p><p><strong>**Result:**</strong> Continuous progress without major incidents.</p><p><br></p><p><strong>### What We'd Do Differently</strong></p><p><br></p><p><strong>#### 1. Start i18n Earlier</strong></p><p><br></p><p><strong>**Lesson:**</strong> i18n is easier to implement from the start.</p><p><br></p><p>Retrofitting 1,061 strings was tedious. If we had:</p><p>- Used i18n from day one</p><p>- Enforced with pre-commit hooks</p><p>- Provided templates</p><p><br></p><p><strong>**Impact:**</strong> Would have saved 2-3 weeks of work.</p><p><br></p><p><strong>#### 2. Component Generator Script</strong></p><p><br></p><p><strong>**Lesson:**</strong> Consistency requires tooling.</p><p><br></p><p>We should have created a component generator:</p><p>```bash</p><p>npm run generate:component -- --name MyComponent --type common/buttons</p><p>```</p><p><br></p><p>This would ensure:</p><p>- Correct file structure</p><p>- Proper naming</p><p>- Test file creation</p><p>- Type definitions</p><p><br></p><p><strong>**Impact:**</strong> Would prevent inconsistencies from creeping back in.</p><p><br></p><p><strong>#### 3. More E2E Tests</strong></p><p><br></p><p><strong>**Lesson:**</strong> Unit tests aren't enough for major changes.</p><p><br></p><p>We relied heavily on unit tests (744 passing), but:</p><p>- Some integration issues slipped through</p><p>- Manual testing was time-consuming</p><p>- Confidence could have been higher</p><p><br></p><p><strong>**Impact:**</strong> E2E tests would have caught issues earlier.</p><p><br></p><p><strong>#### 4. Gradual Documentation</strong></p><p><br></p><p><strong>**Lesson:**</strong> Don't wait until the end to document.</p><p><br></p><p>We wrote most documentation after completing changes. Better approach:</p><p>- Document as you go</p><p>- Use ADRs (Architecture Decision Records)</p><p>- Keep a running changelog</p><p><br></p><p><strong>**Impact:**</strong> Would have captured more context and reasoning.</p><p><br></p><p><strong>#### 5. Team Communication</strong></p><p><br></p><p><strong>**Lesson:**</strong> Over-communicate during major changes.</p><p><br></p><p>We should have:</p><p>- Daily standup updates</p><p>- Weekly demos</p><p>- Slack announcements</p><p>- Migration guides for active branches</p><p><br></p><p><strong>**Impact:**</strong> Would have reduced confusion and merge conflicts.</p><p><br></p><p><strong>### Key Takeaways</strong></p><p><br></p><p>1. <strong>**Start with structure**</strong> - Good organization enables everything else</p><p>2. <strong>**Automate repetitive tasks**</strong> - Invest in tooling early</p><p>3. <strong>**Document decisions**</strong> - Future you will thank present you</p><p>4. <strong>**Test thoroughly**</strong> - Automated tests give confidence</p><p>5. <strong>**Prioritize by risk**</strong> - Not everything needs to happen at once</p><p>6. <strong>**Communicate clearly**</strong> - Keep the team informed</p><p>7. <strong>**Measure impact**</strong> - Track metrics to prove value</p><p>8. <strong>**Plan for maintenance**</strong> - Transformations need ongoing care</p><p><br></p><p>---</p><p><br></p><p><strong>## What's Next</strong></p><p><br></p><p><strong>### Short Term (Q1 2026)</strong></p><p><br></p><p><strong>**Phase 2 Package Updates:**</strong></p><p>- Emotion v11.11 → v11.14</p><p>- TypeScript 5.5 → 5.9</p><p>- Formik &amp; Yup updates</p><p>- Sharp (image processing)</p><p><br></p><p><strong>**Testing Improvements:**</strong></p><p>- Set up E2E testing (Playwright)</p><p>- Increase unit test coverage to 80%</p><p>- Add visual regression tests</p><p><br></p><p><strong>**Performance Optimization:**</strong></p><p>- Bundle size analysis</p><p>- Code splitting improvements</p><p>- Image optimization</p><p>- Caching strategy</p><p><br></p><p><strong>### Medium Term (Q2 2026)</strong></p><p><br></p><p><strong>**High-Risk Upgrades:**</strong></p><p>- Material-UI v5 → v7</p><p>- AI SDK v4 → v5</p><p>- Date-fns v2 → v4</p><p>- AWS Amplify v5 → v6</p><p><br></p><p><strong>**Architecture Improvements:**</strong></p><p>- Unified API client</p><p>- Error boundary implementation</p><p>- State management consolidation</p><p>- Feature flags system</p><p><br></p><p><strong>**Developer Experience:**</strong></p><p>- Component generator script</p><p>- Storybook setup</p><p>- API documentation</p><p>- Deployment guide</p><p><br></p><p><strong>### Long Term (Q3-Q4 2026)</strong></p><p><br></p><p><strong>**Next.js 16 Migration:**</strong></p><p>- Wait for stable release</p><p>- Review breaking changes</p><p>- Plan migration strategy</p><p>- Execute upgrade</p><p><br></p><p><strong>**App Router Migration (Future):**</strong></p><p>- Evaluate benefits</p><p>- Plan phased migration</p><p>- React Server Components</p><p>- Improved data fetching</p><p><br></p><p><strong>**Monitoring &amp; Observability:**</strong></p><p>- Integrate Sentry</p><p>- Performance monitoring</p><p>- User analytics</p><p>- Error tracking</p><p><br></p><p>---</p><p><br></p><p><strong>## Conclusion</strong></p><p><br></p><p>Transforming a large codebase is daunting, but with the right approach, it's absolutely achievable. Our journey taught us that:</p><p><br></p><p>1. <strong>**Structure enables scale**</strong> - Good organization pays dividends</p><p>2. <strong>**Automation is essential**</strong> - Manual work doesn't scale</p><p>3. <strong>**Documentation matters**</strong> - Code without context is hard to maintain</p><p>4. <strong>**Security is ongoing**</strong> - Regular audits prevent surprises</p><p>5. <strong>**Developer experience drives productivity**</strong> - Happy developers write better code</p><p><br></p><p>The most important lesson? <strong>**Start today.**</strong> Don't wait for the perfect moment. Pick one area, make a plan, and begin. Small, consistent improvements compound over time.</p><p><br></p><p>We hope our experience helps you on your own transformation journey. If you have questions or want to discuss any aspect in more detail, feel free to reach out!</p><p><br></p><p>---</p><p><br></p><p><strong>## Resources</strong></p><p><br></p><p><strong>### Our Documentation</strong></p><p><br></p><p>- [Component Structure Guide](../frontend/docs/component-structure-guide.md)</p><p>- [Developer Guide](../frontend/docs/developer-guide.md)</p><p>- [i18n Guide](../frontend/docs/i18n-guide.md)</p><p>- [Technical Debt Tracker](../frontend/docs/technical-debt.md)</p><p>- [Restructuring Plan](./RESTRUCTURING_PLAN.md)</p><p><br></p><p><strong>### External Resources</strong></p><p><br></p><p>- [Next.js Documentation](https://nextjs.org/docs)</p><p>- [React 19 Upgrade Guide](https://react.dev/blog/2024/04/25/react-19-upgrade-guide)</p><p>- [react-i18next Documentation](https://react.i18next.com/)</p><p>- [Material-UI Migration Guide](https://mui.com/material-ui/migration/)</p><p>- [TypeScript Handbook](https://www.typescriptlang.org/docs/handbook/)</p><p><br></p><p><strong>### Tools We Used</strong></p><p><br></p><p>- <strong>**Turbopack**</strong> - Fast development builds</p><p>- <strong>**Vitest**</strong> - Unit testing</p><p>- <strong>**ESLint**</strong> - Code linting</p><p>- <strong>**Prettier**</strong> - Code formatting</p><p>- <strong>**Husky**</strong> - Git hooks</p><p>- <strong>**depcheck**</strong> - Unused dependency detection</p><p><br></p><p>---</p><p><br></p><p><strong>**About the Author**</strong></p><p><br></p><p>This transformation was a team effort involving frontend developers, DevOps engineers, and product managers. Special thanks to everyone who contributed to making our codebase better.</p><p><br></p><p><strong>**Published:**</strong> November 2025</p><p><strong>**Last Updated:**</strong> November 2025</p><p><strong>**Version:**</strong> 1.0</p><p><br></p><p>---</p><p><br></p><p><strong>**Questions? Comments? Feedback?**</strong></p><p><br></p><p>We'd love to hear from you! Share your own transformation stories or ask questions about our approach.</p><p><br></p><p>---</p><p><br></p><p><em>*This blog post is part of our engineering blog series. Stay tuned for more posts about our technical journey.*</em></p>",
+    "published": false,
+    "featured": false,
+    "coverImage": null,
+    "tags": [],
+    "createdAt": "2025-11-04T13:00:56.199Z",
+    "updatedAt": "2025-11-09T00:32:24.980Z",
+    "publishedAt": null,
+    "seoTitle": null,
+    "seoDescription": null,
+    "seoKeywords": [],
+    "seoImage": null
+  },
+  {
+    "id": "cmglxhsiw0000jv04owmxf8r9",
+    "title": "What’s New in Node.js 24: Key Features, Upgrades & What You Must Know",
+    "slug": "what-s-new-in-node-js-24-key-features-upgrades-what-you-must-know",
+    "excerpt": "Node.js 24 has landed, and it’s more than just an incremental bump. This release brings deep changes, next-gen APIs, and performance upgrades that reshape what it means to build backend applications in 2025.",
+    "content": "<h3><strong>Engine Upgrade &amp; JavaScript Features (V8 → 13.6)</strong></h3><p>Node 24 upgrades its engine to version 13.6 of V8, unlocking modern JavaScript features and performance enhancements.</p><ul><li><strong>RegExp.escape()</strong> - safe escaping for dynamic regex patterns</li><li><strong>Float16Array </strong>- efficient 16-bit float arrays for ML and graphics</li><li><strong>await</strong> - deterministic resource cleanup</li><li><strong>Error.isError()</strong> - reliable detection of Error objects</li><li><strong>WebAssembly Memory64</strong> - 64-bit memory addressing for WASM</li></ul><p><br></p><p>These additions reduce the need for polyfills, making your code cleaner and more future-proof.</p><h3><br></h3><h3><strong>Performance &amp; Runtime Improvements</strong></h3><ul><li><strong>Undici → v7.0.0</strong> — improved HTTP client with better pooling, HTTP/2, and retries</li><li><strong>AsyncLocalStorage revamp</strong> — faster context propagation via AsyncContextFrame</li></ul><h3><br></h3><h3><strong>Security &amp; Permission Model Stabilization</strong></h3><p>The permission system is now stable (no longer experimental):</p><ul><li>Use --permission instead of --experimental-permission</li><li>Granular flags like --allow-fs-read, --allow-env, --allow-net</li><li>Safer child_process calls — arguments must be arrays, not strings</li></ul><h3><br></h3><h3><strong>Developer Experience &amp; New APIs</strong></h3><ul><li><strong>Built-in TypeScript</strong> — run .ts files with erasable type annotations</li><li><strong>Global URLPattern API</strong> — cleaner route matching (no import needed)</li><li><strong>Native WebSocket support</strong> — aligns server and browser APIs</li><li><strong>Built-in Test Runner (stable)</strong> — auto-waits for subtests</li><li><strong>--watch &amp; --env-file flags</strong> — auto-reload and dotenv built-in</li></ul><h3><br></h3><h3><strong>Deprecations &amp; Removals to Watch</strong></h3><ul><li>REPL and Zlib classes must use new</li><li>String args for child_process removed</li><li>HTTP/2 priority signaling dropped</li><li>Re-check native add-on compatibility with V8 13.6</li></ul><h3><br></h3><h3><strong><span class=\"ql-cursor\">﻿</span>How to Migrate Safely</strong></h3><ol><li>Run your app with --trace-deprecation to spot warnings</li><li>Update dependencies (native modules first)</li><li>Test AsyncLocalStorage contexts</li><li>Enable permission flags in staging</li><li>Adopt new APIs gradually</li><li>Monitor memory and performance after deployment</li></ol><h3><br></h3><h3><strong>Why Node.js 24 Matters</strong></h3><p>Upgrading is more than a version bump:</p><ul><li>Fewer polyfills and dependencies</li><li>Backend + frontend API alignment</li><li>Faster and safer runtime</li><li>Better developer ergonomics</li><li>Modern JavaScript out of the box</li></ul><p>For teams building APIs, SaaS, or real-time systems, Node 24 means less boilerplate and a future-ready stack.</p>",
+    "published": true,
+    "featured": false,
+    "coverImage": "https://pumibmvte3vlefpe.public.blob.vercel-storage.com/hanyrabah/posts/covers/1760166099150-23f7f219-0b8a-49ff-bd4d-2789ddc8c0f5-SOAYUqTcTNDVhachVVMQdkYsJWJX8K.png",
+    "tags": [],
+    "createdAt": "2025-10-11T07:02:54.630Z",
+    "updatedAt": "2025-10-11T07:07:25.138Z",
+    "publishedAt": "2025-10-10T22:00:00.000Z",
+    "seoTitle": null,
+    "seoDescription": null,
+    "seoKeywords": [
+      "nodejs 24",
+      "node 24 features",
+      "node future",
+      "permission model",
+      "built-in TypeScript"
+    ],
+    "seoImage": "https://pumibmvte3vlefpe.public.blob.vercel-storage.com/hanyrabah/posts/seo/1760166136678-23f7f219-0b8a-49ff-bd4d-2789ddc8c0f5-2wAUYxl85PuiECnHqDXgPeSgswjWf7.png"
+  },
+  {
+    "id": "cmghotn2m0000l504h0qodk6t",
+    "title": "What Does It Mean to Be a Full-Stack Developer?",
+    "slug": "what-it-really-means-to-be-a-full-stack-developer",
+    "excerpt": "When people imagine a “Full-Stack Developer,” they often picture someone who can code both the front end and back end of a project. That’s true but the reality runs much deeper.\nBeing full-stack means thinking holistically about software. It’s about seamlessly connecting every layer of development, from initial concept to deployed product, and always focusing on delivering end-to-end value.",
+    "content": "<h2><strong>What Does It Mean to Be a Full-Stack Developer?</strong></h2><p>When people imagine a “Full-Stack Developer,” they often picture someone who can code both the front end and back end of a project. That’s true but the reality runs much deeper.</p><p>Being full-stack means thinking holistically about software. It’s about seamlessly connecting every layer of development, from initial concept to deployed product, and always focusing on delivering end-to-end value.</p><p><br></p><h2><strong>Front End and User Experience: Crafting Emotion and Function</strong></h2><p>A full-stack developer goes beyond simply “building screens.” They recognize how design shapes user behavior, transforming static designs into interactive, intuitive experiences.</p><p>Blending UI/UX awareness with technical skill, full-stack engineers translate design systems into responsive, pixel-perfect user interfaces. Modern frameworks like React, Next.js, and Vue help turn these designs into lively, accessible, and engaging applications.</p><blockquote>“The best front end isn’t just fast — it feels right.”</blockquote><p><br></p><h2><strong>Application Logic: Bridging Vision and Functionality</strong></h2><p>At the heart of any product lies the application layer — the critical logic connecting user actions with outcomes.</p><p>Full-stack developers write maintainable, modular code that powers application features and business logic. They structure their components for easy re-use and design clear flows between client and server, ensuring features are reliable, scalable, and straightforward to extend.</p><p><br></p><h2><strong>Back End and Architecture: Powering the Invisible</strong></h2><p>Every polished interface relies on robust systems behind the scenes—APIs, databases, authentication, and cloud infrastructure.</p><p>Whether building with Node.js, Python, PostgreSQL, or MongoDB, true full-stack professionals architect solutions focused on performance, scalability, and security. They understand the rationale behind each architectural choice, knowing when to choose microservices, how to plan for future growth, and how to build resilient systems that can handle sudden spikes in demand.</p><h2><br></h2><h2><strong>Testing, Deployment and Cloud: Code in Motion</strong></h2><p>A full-stack mindset extends far beyond the “it works on my machine” mentality.</p><p>Effective testing ensures reliability. Modern CI/CD pipelines accelerate delivery. Leveraging cloud platforms like AWS, Vercel, or Azure enables global scalability. Today’s full-stack developer prioritizes observability, uptime, and a culture of continuous improvement, always bridging the gap from code to customer experience.</p><h2><br></h2><h2><strong>Continuous Learning: The True Superpower</strong></h2><p>Technology evolves at breakneck speed.</p><p>What sets great developers apart is adaptability — a passion for learning new frameworks, tools, and patterns, while never losing sight of core principles. Being full-stack isn’t about knowing everything, but knowing how to learn and confidently pivot when needed.</p><blockquote>Pro tip: Start by mastering one area (front end or back end), then broaden your skills over time. Versatility grows from deep roots.</blockquote><h2><br></h2><h2><strong>The Real Mindset: End-to-End Ownership</strong></h2><p>True full-stack developers are problem-solvers, not just task completers. They see the big picture — from design to deployment — and understand how every decision impacts users, teams, and business outcomes.</p><p>It’s not about the tools. It’s about delivering seamless, meaningful solutions that solve real problems.</p><h2><br></h2><h2><strong>Final Thought</strong></h2><p>So, is a great full-stack developer defined by breadth or depth? The best strike a balance — deep enough for mastery, broad enough to connect all the dots. In the end, it’s not about the stack; it’s about delivering value.</p>",
+    "published": true,
+    "featured": false,
+    "coverImage": "https://pumibmvte3vlefpe.public.blob.vercel-storage.com/hanyrabah/posts/covers/1759913422224-1759415506349-eAR3tj9UHRUviM00nGQylCQLp428hp.jpeg",
+    "tags": [
+      "Full-Stack Development",
+      "Web Development",
+      "Frontend Development",
+      "Backend Development",
+      "Software Engineering",
+      "UI/UX Design",
+      "DevOps",
+      "Cloud Computing",
+      "career-growth"
+    ],
+    "createdAt": "2025-10-08T07:49:06.096Z",
+    "updatedAt": "2025-10-08T09:15:35.480Z",
+    "publishedAt": "2025-10-07T22:00:00.000Z",
+    "seoTitle": "What Does It Mean to Be a Full-Stack Developer?",
+    "seoDescription": "Being a full-stack developer is more than coding both front-end and back-end. Discover the mindset, layers, and skills that make true full-stack engineers stand out.",
+    "seoKeywords": [
+      "full-stack developer",
+      "frontend",
+      "backend",
+      "software architecture",
+      "web development",
+      "UI UX",
+      "DevOps",
+      "cloud",
+      "CI/CD",
+      "AWS",
+      "Next.js",
+      "Node.js"
+    ],
+    "seoImage": null
+  },
+  {
+    "id": "cmdt0h40l000arzvizdrmur3o",
+    "title": "Mastering React Server Components: A Complete Guide",
+    "slug": "mastering-react-server-components",
+    "excerpt": "Deep dive into React Server Components, understanding when and how to use them effectively in your applications.",
+    "content": "<h2>Understanding Server Components</h2><p>React Server Components represent a paradigm shift in how we think about React applications, enabling us to render components on the server while maintaining interactivity where needed.</p><h3>What Are Server Components?</h3><p>Server Components are React components that run on the server and send their rendered output to the client. They have several key characteristics:</p><ul><li>They run on the server during request time</li><li>They can access server-side resources directly</li><li>They don't include JavaScript in the client bundle</li><li>They can't use browser-only APIs or event handlers</li></ul><h3>Benefits of Server Components</h3><h4>1. Reduced Bundle Size</h4><p>Server Components don't send JavaScript to the client, reducing the overall bundle size and improving load times.</p><h4>2. Direct Database Access</h4><p>You can query databases directly in Server Components without exposing sensitive data or creating API endpoints.</p><pre><code>// Server Component\nasync function UserProfile({ userId }) {\n  const user = await db.user.findUnique({\n    where: { id: userId }\n  });\n  \n  return (\n    &lt;div&gt;\n      &lt;h1&gt;{user.name}&lt;/h1&gt;\n      &lt;p&gt;{user.email}&lt;/p&gt;\n    &lt;/div&gt;\n  );\n}</code></pre><h4>3. Better SEO</h4><p>Since Server Components render on the server, their content is immediately available for search engines.</p><h3>When to Use Server Components</h3><h4>Perfect for:</h4><ul><li>Data fetching and display</li><li>Static content rendering</li><li>Layout components</li><li>SEO-critical content</li></ul><h4>Not suitable for:</h4><ul><li>Interactive elements (onClick, onChange)</li><li>Browser APIs (localStorage, window)</li><li>State management (useState, useEffect)</li><li>Custom hooks</li></ul><h3>Composition Patterns</h3><h4>Server + Client Component Pattern</h4><p>Combine Server Components for data fetching with Client Components for interactivity:</p><pre><code>// Server Component\nasync function ProductPage({ productId }) {\n  const product = await fetchProduct(productId);\n  \n  return (\n    &lt;div&gt;\n      &lt;ProductInfo product={product} /&gt;\n      &lt;AddToCartButton productId={productId} /&gt;\n    &lt;/div&gt;\n  );\n}\n\n// Client Component\n'use client';\nfunction AddToCartButton({ productId }) {\n  const handleClick = () =&gt; {\n    // Interactive logic here\n  };\n  \n  return &lt;button onClick={handleClick}&gt;Add to Cart&lt;/button&gt;;\n}</code></pre><h3>Best Practices</h3><ol><li><strong>Keep Server Components Pure:</strong> Avoid side effects and mutations</li><li><strong>Minimize Client Components:</strong> Use them only when interactivity is needed</li><li><strong>Optimize Data Fetching:</strong> Fetch data as close to where it's used as possible</li><li><strong>Handle Loading States:</strong> Use Suspense boundaries for better UX</li></ol><h3>Common Pitfalls</h3><ul><li>Trying to pass functions as props to Server Components</li><li>Using browser APIs in Server Components</li><li>Not understanding the serialization boundary</li><li>Over-using Client Components</li></ul><h3>Conclusion</h3><p>React Server Components offer a powerful way to build performant, SEO-friendly applications. By understanding their capabilities and limitations, you can create better user experiences while reducing client-side complexity.</p>",
+    "published": true,
+    "featured": false,
+    "coverImage": "/posts/mastering-react-server-components.jpg",
+    "tags": [
+      "React",
+      "Server Components",
+      "Performance",
+      "Next.js"
+    ],
+    "createdAt": "2025-03-01T16:01:37.941Z",
+    "updatedAt": "2025-03-01T16:01:37.941Z",
+    "publishedAt": "2025-03-01T16:01:37.941Z",
+    "seoTitle": null,
+    "seoDescription": null,
+    "seoKeywords": [],
+    "seoImage": null
+  },
+  {
+    "id": "cmdt0sesh0004rz1femi06hzy",
+    "title": "Building Scalable React Applications: Lessons from Production",
+    "slug": "building-scalable-react-applications",
+    "excerpt": "Insights on architecting React applications that can handle millions of users. From state management to performance optimization, here's what I learned building enterprise-scale applications.",
+    "content": "<p>As web applications scale, small inefficiencies in architecture or component structure can snowball into major performance bottlenecks. In this post, I’ll share lessons learned from building and maintaining React-based platforms used by millions.</p>  <h3>1. Start with a Component Architecture</h3> <p>Early in development, invest in a scalable design system. Tools like Storybook help enforce atomic design principles. Create reusable components with strong prop typings and encapsulate styles using CSS-in-JS or utility-first CSS like Tailwind.</p>  <pre><code>function Button({ label }: { label: string }) {   return &lt;button className=\"btn-primary\"&gt;{label}&lt;/button&gt;; }</code></pre>  <h3>2. Optimize State Management</h3> <p>Avoid unnecessary global state. Use <code>useContext</code> and <code>useReducer</code> for localized logic, and adopt libraries like Zustand or Jotai for scoped stores. For larger apps, combine RTK with Redux Toolkit Query.</p>  <pre><code>const useStore = create((set) => ({   user: null,   setUser: (user) => set({ user }), }));</code></pre>  <h3>3. Code Splitting and Lazy Loading</h3> <p>Use <code>React.lazy</code>, dynamic imports in Next.js, and prioritize critical rendering paths. Lazy-load non-blocking UI.</p>  <pre><code>const LazyModal = React.lazy(() => import('./Modal'));</code></pre>  <h3>4. Performance Monitoring</h3> <p>Track Web Vitals like FID, CLS, and LCP using Lighthouse, Sentry, and React Profiler. Profile re-renders with DevTools.</p>  <h3>5. Testing for Confidence</h3> <p>Use Playwright or Cypress for E2E, and Jest with React Testing Library for components. Enforce coverage in CI/CD.</p>  <p><strong>Conclusion:</strong> Invest in systems, not just code. Consistency and structure matter most at scale.</p>",
+    "published": true,
+    "featured": false,
+    "coverImage": "/posts/React-js-projects-for-beginners-with-source-code.webp",
+    "tags": [
+      "React"
+    ],
+    "createdAt": "2024-11-05T16:10:25.107Z",
+    "updatedAt": "2024-11-05T16:10:25.107Z",
+    "publishedAt": "2024-11-05T16:10:25.107Z",
+    "seoTitle": null,
+    "seoDescription": null,
+    "seoKeywords": [],
+    "seoImage": null
+  },
+  {
+    "id": "cmdt0sesh0005rz1f8jfpvuia",
+    "title": "The Art of Technical Leadership: From Code to Culture",
+    "slug": "the-art-of-technical-leadership",
+    "excerpt": "Transitioning from senior developer to technical lead requires more than just coding skills. Learn how to balance technical decision-making with team mentorship and strategic thinking.",
+    "content": "<h2>TypeScript's Evolution</h2><p>TypeScript continues to evolve rapidly, with exciting features planned for 2024 that will further improve developer experience and code safety.</p><h3>Upcoming Features</h3><h4>1. Improved Type Inference</h4><p>TypeScript 5.4 and beyond will feature enhanced type inference capabilities, making it easier to work with complex generic types.</p><h4>2. Better Error Messages</h4><p>The team is working on more intuitive error messages that help developers understand and fix type errors faster.</p><h4>3. Performance Improvements</h4><p>Significant performance optimizations are coming to the TypeScript compiler, reducing build times for large projects.</p><h3>New Language Features</h3><h4>Decorators Standardization</h4><p>The long-awaited decorators feature is being standardized and will provide a clean way to add metadata and modify classes.</p><pre><code>@component class MyComponent {   @property   name: string = '';      @method   render() {     return `Hello, ${this.name}!`;   } }</code></pre><h4>Pattern Matching</h4><p>Discussions are ongoing about adding pattern matching capabilities to TypeScript, which would enable more expressive conditional logic.</p><h3>Ecosystem Growth</h3><p>The TypeScript ecosystem continues to grow with better tooling, more type definitions, and improved integration with popular frameworks.</p><h3>Best Practices for 2024</h3><ul><li>Embrace strict mode configurations</li><li>Use utility types for better code reusability</li><li>Implement proper error handling with Result types</li><li>Leverage template literal types for API design</li></ul><h3>Conclusion</h3><p>TypeScript's future looks bright with continued improvements in performance, developer experience, and language features. Stay tuned for these exciting developments!</p>",
+    "published": true,
+    "featured": false,
+    "coverImage": "/posts/the-art-of-technical-leadership.jpg",
+    "tags": [
+      "Leadership"
+    ],
+    "createdAt": "2024-10-13T16:10:25.107Z",
+    "updatedAt": "2024-10-13T16:10:25.107Z",
+    "publishedAt": "2024-10-01T16:10:25.107Z",
+    "seoTitle": null,
+    "seoDescription": null,
+    "seoKeywords": [],
+    "seoImage": null
+  },
+  {
+    "id": "cmdt0sesi0006rz1fwxjung62",
+    "title": "TypeScript Best Practices for Large Codebases",
+    "slug": "typeScript-best-practices-for-large-codebases",
+    "excerpt": "A comprehensive guide to maintaining type safety and developer productivity in large TypeScript projects. Tips, patterns, and tools that have proven effective in production environments.",
+    "content": "<h2>TypeScript's Evolution</h2><p>TypeScript continues to evolve rapidly, with exciting features planned for 2024 that will further improve developer experience and code safety.</p><h3>Upcoming Features</h3><h4>1. Improved Type Inference</h4><p>TypeScript 5.4 and beyond will feature enhanced type inference capabilities, making it easier to work with complex generic types.</p><h4>2. Better Error Messages</h4><p>The team is working on more intuitive error messages that help developers understand and fix type errors faster.</p><h4>3. Performance Improvements</h4><p>Significant performance optimizations are coming to the TypeScript compiler, reducing build times for large projects.</p><h3>New Language Features</h3><h4>Decorators Standardization</h4><p>The long-awaited decorators feature is being standardized and will provide a clean way to add metadata and modify classes.</p><pre><code>@component class MyComponent {   @property   name: string = '';      @method   render() {     return `Hello, ${this.name}!`;   } }</code></pre><h4>Pattern Matching</h4><p>Discussions are ongoing about adding pattern matching capabilities to TypeScript, which would enable more expressive conditional logic.</p><h3>Ecosystem Growth</h3><p>The TypeScript ecosystem continues to grow with better tooling, more type definitions, and improved integration with popular frameworks.</p><h3>Best Practices for 2024</h3><ul class=\"tight\" data-tight=\"true\"><li><p>Embrace strict mode configurations</p></li><li><p>Use utility types for better code reusability</p></li><li><p>Implement proper error handling with Result types</p></li><li><p>Leverage template literal types for API design</p></li></ul><h3>Conclusion</h3><p>TypeScript's future looks bright with continued improvements in performance, developer experience, and language features. Stay tuned for these exciting developments!</p>",
+    "published": true,
+    "featured": false,
+    "coverImage": "/posts/typeScript-best-practices-for-large-codebases.jpeg",
+    "tags": [
+      "Typescript"
+    ],
+    "createdAt": "2024-08-11T16:10:25.107Z",
+    "updatedAt": "2025-11-09T00:24:17.263Z",
+    "publishedAt": "2024-08-11T16:10:25.107Z",
+    "seoTitle": null,
+    "seoDescription": null,
+    "seoKeywords": [],
+    "seoImage": null
+  },
+  {
+    "id": "cmdt0h40l000brzvisw8yn3a4",
+    "title": "Building a Design System with Tailwind CSS and Radix UI",
+    "slug": "building-design-system-tailwind-radix",
+    "excerpt": "Learn how to create a scalable, maintainable design system using Tailwind CSS and Radix UI primitives.",
+    "content": "<h2>The Foundation of Great UX</h2><p>A well-designed system is the backbone of any successful application. By combining Tailwind CSS's utility-first approach with Radix UI's accessible primitives, we can create a robust design system that scales.</p><h3>Why This Combination Works</h3><h4>Tailwind CSS Benefits:</h4><ul><li>Utility-first approach for rapid development</li><li>Consistent spacing and color scales</li><li>Responsive design built-in</li><li>Small production bundle sizes</li></ul><h4>Radix UI Benefits:</h4><ul><li>Accessible by default</li><li>Unstyled, composable primitives</li><li>Keyboard navigation support</li><li>Focus management</li></ul><h3>Setting Up Your Design System</h3><h4>1. Configure Tailwind CSS</h4><p>Start by customizing your Tailwind configuration with your design tokens:</p><pre><code>// tailwind.config.js\nmodule.exports = {\n  theme: {\n    extend: {\n      colors: {\n        primary: {\n          50: '#eff6ff',\n          500: '#3b82f6',\n          900: '#1e3a8a',\n        },\n        gray: {\n          50: '#f9fafb',\n          500: '#6b7280',\n          900: '#111827',\n        }\n      },\n      fontFamily: {\n        sans: ['Inter', 'sans-serif'],\n      },\n      spacing: {\n        '18': '4.5rem',\n        '88': '22rem',\n      }\n    }\n  }\n}</code></pre><h4>2. Create Base Components</h4><p>Build your foundational components using Radix primitives:</p><pre><code>// Button Component\nimport * as React from 'react'\nimport { Slot } from '@radix-ui/react-slot'\nimport { cn } from '@/lib/utils'\n\nconst buttonVariants = {\n  variant: {\n    default: 'bg-primary-500 text-white hover:bg-primary-600',\n    outline: 'border border-gray-300 bg-white hover:bg-gray-50',\n    ghost: 'hover:bg-gray-100',\n  },\n  size: {\n    sm: 'h-8 px-3 text-sm',\n    md: 'h-10 px-4',\n    lg: 'h-12 px-6 text-lg',\n  }\n}\n\nexport function Button({ \n  className, \n  variant = 'default', \n  size = 'md',\n  asChild = false,\n  ...props \n}) {\n  const Comp = asChild ? Slot : 'button'\n  \n  return (\n    &lt;Comp\n      className={cn(\n        'inline-flex items-center justify-center rounded-md font-medium transition-colors',\n        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-500',\n        'disabled:pointer-events-none disabled:opacity-50',\n        buttonVariants.variant[variant],\n        buttonVariants.size[size],\n        className\n      )}\n      {...props}\n    /&gt;\n  )\n}</code></pre><h3>Component Architecture</h3><h4>Layer Structure:</h4><ol><li><strong>Primitives:</strong> Radix UI components</li><li><strong>Base Components:</strong> Styled primitives with variants</li><li><strong>Composite Components:</strong> Complex UI patterns</li><li><strong>Page Components:</strong> Feature-specific components</li></ol><h3>Conclusion</h3><p>By combining Tailwind CSS and Radix UI, you can create a design system that is both powerful and maintainable. This approach ensures consistency, accessibility, and scalability across your entire application.</p>",
+    "published": true,
+    "featured": false,
+    "coverImage": "/posts/building-design-system-tailwind-radix.webp",
+    "tags": [
+      "Design System",
+      "Tailwind CSS",
+      "Radix UI",
+      "Frontend"
+    ],
+    "createdAt": "2024-08-01T16:12:25.107Z",
+    "updatedAt": "2024-08-01T16:12:25.107Z",
+    "publishedAt": "2025-08-01T16:12:25.107Z",
+    "seoTitle": null,
+    "seoDescription": null,
+    "seoKeywords": [],
+    "seoImage": null
+  },
+  {
+    "id": "cmdt0h40l0008rzviwck7ejm4",
+    "title": "The Future of TypeScript: What's Coming in 2024",
+    "slug": "future-of-typescript-2024",
+    "excerpt": "Explore the upcoming TypeScript features and improvements that will shape the development landscape in 2024 and beyond.",
+    "content": "<h2>TypeScript's Evolution</h2><p>TypeScript continues to evolve rapidly, with exciting features planned for 2024 that will further improve developer experience and code safety.</p><h3>Upcoming Features</h3><h4>1. Improved Type Inference</h4><p>TypeScript 5.4 and beyond will feature enhanced type inference capabilities, making it easier to work with complex generic types.</p><h4>2. Better Error Messages</h4><p>The team is working on more intuitive error messages that help developers understand and fix type errors faster.</p><h4>3. Performance Improvements</h4><p>Significant performance optimizations are coming to the TypeScript compiler, reducing build times for large projects.</p><h3>New Language Features</h3><h4>Decorators Standardization</h4><p>The long-awaited decorators feature is being standardized and will provide a clean way to add metadata and modify classes.</p><pre><code>@component\nclass MyComponent {\n  @property\n  name: string = '';\n  \n  @method\n  render() {\n    return `Hello, ${this.name}!`;\n  }\n}</code></pre><h4>Pattern Matching</h4><p>Discussions are ongoing about adding pattern matching capabilities to TypeScript, which would enable more expressive conditional logic.</p><h3>Ecosystem Growth</h3><p>The TypeScript ecosystem continues to grow with better tooling, more type definitions, and improved integration with popular frameworks.</p><h3>Best Practices for 2024</h3><ul><li>Embrace strict mode configurations</li><li>Use utility types for better code reusability</li><li>Implement proper error handling with Result types</li><li>Leverage template literal types for API design</li></ul><h3>Conclusion</h3><p>TypeScript's future looks bright with continued improvements in performance, developer experience, and language features. Stay tuned for these exciting developments!</p>",
+    "published": true,
+    "featured": false,
+    "coverImage": "/posts/future-of-typescript-2024.png",
+    "tags": [
+      "TypeScript",
+      "Programming",
+      "Developer Tools"
+    ],
+    "createdAt": "2024-04-01T16:01:37.941Z",
+    "updatedAt": "2025-10-08T08:14:13.570Z",
+    "publishedAt": "2024-04-01T16:01:37.941Z",
+    "seoTitle": null,
+    "seoDescription": null,
+    "seoKeywords": [],
+    "seoImage": null
+  },
+  {
+    "id": "cmdt0h40l0009rzvi5whfp8f1",
+    "title": "Building Scalable Web Applications with Next.js 14",
+    "slug": "building-scalable-web-applications-nextjs-14",
+    "excerpt": "Learn how to leverage Next.js 14's new features to build performant, scalable web applications that can handle millions of users.",
+    "content": "<p>As web applications scale, small inefficiencies in architecture or component structure can snowball into major performance bottlenecks. In this post, I’ll share lessons learned from building and maintaining React-based platforms used by millions.</p>  <h3>1. Start with a Component Architecture</h3> <p>Early in development, invest in a scalable design system. Tools like Storybook help enforce atomic design principles. Create reusable components with strong prop typings and encapsulate styles using CSS-in-JS or utility-first CSS like Tailwind.</p>  <pre><code>function Button({ label }: { label: string }) {   return &lt;button className=\"btn-primary\"&gt;{label}&lt;/button&gt;; }</code></pre>  <h3>2. Optimize State Management</h3> <p>Avoid unnecessary global state. Use <code>useContext</code> and <code>useReducer</code> for localized logic, and adopt libraries like Zustand or Jotai for scoped stores. For larger apps, combine RTK with Redux Toolkit Query.</p>  <pre><code>const useStore = create((set) => ({   user: null,   setUser: (user) => set({ user }), }));</code></pre>  <h3>3. Code Splitting and Lazy Loading</h3> <p>Use <code>React.lazy</code>, dynamic imports in Next.js, and prioritize critical rendering paths. Lazy-load non-blocking UI.</p>  <pre><code>const LazyModal = React.lazy(() => import('./Modal'));</code></pre>  <h3>4. Performance Monitoring</h3> <p>Track Web Vitals like FID, CLS, and LCP using Lighthouse, Sentry, and React Profiler. Profile re-renders with DevTools.</p>  <h3>5. Testing for Confidence</h3> <p>Use Playwright or Cypress for E2E, and Jest with React Testing Library for components. Enforce coverage in CI/CD.</p>  <p><strong>Conclusion:</strong> Invest in systems, not just code. Consistency and structure matter most at scale.</p>",
+    "published": true,
+    "featured": false,
+    "coverImage": "/posts/building-scalable-web-applications-nextjs-14.jpg",
+    "tags": [
+      "Next.js",
+      "React",
+      "Web Development",
+      "Performance"
+    ],
+    "createdAt": "2023-10-21T16:01:37.941Z",
+    "updatedAt": "2025-10-08T08:14:13.570Z",
+    "publishedAt": "2023-10-21T16:01:37.941Z",
+    "seoTitle": null,
+    "seoDescription": null,
+    "seoKeywords": [],
+    "seoImage": null
+  }
+]
+
+🚀 Found 5 projects
+[
+  {
+    "id": "cmdtb828h0000rz12eiez4oc3",
+    "title": "Mark Haykalah",
+    "slug": "mark-haykalah",
+    "description": "A digital transformation platform built for factories and industrial zones in Saudi Arabia, helping them adopt AI, automation, and operational intelligence in line with Vision 2030.  The platform empowers manufacturers with tools for workflow optimization, real-time analytics, and scalable infrastructure.",
+    "content": "<h2>Project Overview</h2><p>Built to empower local manufacturers, the platform optimizes workflows, enables real-time data insights, and supports structured growth aligned with Vision 2030. My role included building a bilingual Next.js frontend, integrating headless CMS, and ensuring enterprise‑grade performance across devices.  </p>",
+    "featured": true,
+    "coverImage": "/projects/mark-haykalah.png",
+    "images": [],
+    "technologies": [
+      "Next.js",
+      "Prisma",
+      "Node.js",
+      "Tailwind CSS",
+      "Headless CMS"
+    ],
+    "liveUrl": "https://mark.haykalah.com/",
+    "githubUrl": null,
+    "category": null,
+    "status": "COMPLETED",
+    "createdAt": "2025-08-01T21:02:31.488Z",
+    "updatedAt": "2025-08-02T07:35:19.899Z",
+    "publishedAt": null,
+    "seoTitle": null,
+    "seoDescription": null,
+    "seoKeywords": [],
+    "seoImage": null
+  },
+  {
+    "id": "cmdt0h3yw0006rzviyki2u6nr",
+    "title": "AI-Powered Analytics Dashboard",
+    "slug": "ai-analytics-dashboard",
+    "description": "An intelligent analytics dashboard that uses machine learning to provide predictive insights and automated reporting.",
+    "content": "<h2>Project Overview</h2><p>An advanced analytics platform that combines traditional business intelligence with AI-powered predictive analytics.</p><h3>Key Features</h3><ul><li>Predictive analytics using ML models</li><li>Automated report generation</li><li>Interactive data visualizations</li><li>Real-time data processing</li><li>Custom dashboard builder</li></ul><h3>Technology Stack</h3><p>Leveraged Python for ML models, React for the frontend, and Apache Kafka for real-time data streaming.</p><h3>Results</h3><p>Reduced manual reporting time by 80% and improved forecast accuracy by 35% for business stakeholders.</p>",
+    "featured": false,
+    "coverImage": "/images/projects/ai-dashboard.jpg",
+    "images": [],
+    "technologies": [
+      "React",
+      "Python",
+      "TensorFlow",
+      "Apache Kafka",
+      "PostgreSQL",
+      "D3.js"
+    ],
+    "liveUrl": "https://ai-dashboard-demo.vercel.app",
+    "githubUrl": "https://github.com/yourusername/ai-dashboard",
+    "category": null,
+    "status": "COMPLETED",
+    "createdAt": "2025-08-01T16:01:37.880Z",
+    "updatedAt": "2025-08-01T16:01:37.880Z",
+    "publishedAt": null,
+    "seoTitle": null,
+    "seoDescription": null,
+    "seoKeywords": [],
+    "seoImage": null
+  },
+  {
+    "id": "cmdt0h3yw0005rzvi7m2c69px",
+    "title": "E-Commerce Platform",
+    "slug": "ecommerce-platform",
+    "description": "A modern e-commerce platform built with Next.js, featuring real-time inventory management, payment processing, and admin dashboard.",
+    "content": "<h2>Project Overview</h2><p>This comprehensive e-commerce platform was built to handle high-traffic retail operations with a focus on performance and user experience.</p><h3>Key Features</h3><ul><li>Real-time inventory management</li><li>Stripe payment integration</li><li>Admin dashboard with analytics</li><li>Mobile-responsive design</li><li>SEO optimization</li></ul><h3>Technical Challenges</h3><p>The main challenge was implementing real-time inventory updates across multiple concurrent users while maintaining data consistency.</p><h3>Results</h3><p>The platform successfully handles 10,000+ daily active users with 99.9% uptime and has processed over $2M in transactions.</p>",
+    "featured": false,
+    "coverImage": "/images/projects/ecommerce-platform.jpg",
+    "images": [],
+    "technologies": [
+      "Next.js",
+      "TypeScript",
+      "Prisma",
+      "PostgreSQL",
+      "Stripe",
+      "Tailwind CSS"
+    ],
+    "liveUrl": "https://ecommerce-demo.vercel.app",
+    "githubUrl": "https://github.com/yourusername/ecommerce-platform",
+    "category": null,
+    "status": "COMPLETED",
+    "createdAt": "2025-08-01T16:01:37.880Z",
+    "updatedAt": "2025-08-01T21:02:31.488Z",
+    "publishedAt": null,
+    "seoTitle": null,
+    "seoDescription": null,
+    "seoKeywords": [],
+    "seoImage": null
+  },
+  {
+    "id": "cmdt0h3yw0007rzvijcflat5a",
+    "title": "Social Media Platform",
+    "slug": "social-media-platform",
+    "description": "A modern social media platform with real-time messaging, content sharing, and community features.",
+    "content": "<h2>Project Overview</h2><p>A full-featured social media platform designed for niche communities, emphasizing privacy and meaningful connections.</p><h3>Key Features</h3><ul><li>Real-time messaging and notifications</li><li>Content sharing with media support</li><li>Community groups and events</li><li>Privacy-focused design</li><li>Mobile-first approach</li></ul><h3>Architecture</h3><p>Built with a microservices architecture using Docker containers and deployed on AWS with auto-scaling capabilities.</p><h3>Scale</h3><p>Successfully supports 50,000+ active users with sub-second response times and 99.95% uptime.</p>",
+    "featured": false,
+    "coverImage": "/images/projects/social-platform.jpg",
+    "images": [],
+    "technologies": [
+      "Vue.js",
+      "Node.js",
+      "GraphQL",
+      "Redis",
+      "AWS",
+      "Docker"
+    ],
+    "liveUrl": "https://social-demo.vercel.app",
+    "githubUrl": "https://github.com/yourusername/social-platform",
+    "category": null,
+    "status": "IN_PROGRESS",
+    "createdAt": "2025-08-01T16:01:37.880Z",
+    "updatedAt": "2025-08-01T21:02:46.253Z",
+    "publishedAt": null,
+    "seoTitle": null,
+    "seoDescription": null,
+    "seoKeywords": [],
+    "seoImage": null
+  },
+  {
+    "id": "cmdt0h3yw0004rzvi3asfp7x7",
+    "title": "Interactive Map",
+    "slug": "interactive-map",
+    "description": "A globe-based web tool where users can explore interactive points on a 3D map to access drone footage, 360° imagery, and rich spatial metadata.  Ideal for real estate, heritage tourism, or GIS storytelling, the app combines live map rendering with dynamic media overlays.",
+    "content": "<h2>Project Overview</h2><p>Built with modern web tech, it’s optimized for fast rendering, rich UX, and seamless media playback across mobile and desktop platforms.</p>",
+    "featured": true,
+    "coverImage": "/projects/dp-map.png",
+    "images": [],
+    "technologies": [
+      "React",
+      "Socket.io",
+      "MongoDB",
+      "Express",
+      "Material-UI",
+      "Three.js"
+    ],
+    "liveUrl": "https://dp-interactive-map-ora.vercel.app/",
+    "githubUrl": "https://github.com/HanyRabah/dp-interactive-map-ora",
+    "category": null,
+    "status": "COMPLETED",
+    "createdAt": "2025-08-01T16:01:37.880Z",
+    "updatedAt": "2025-08-02T07:36:02.331Z",
+    "publishedAt": null,
+    "seoTitle": null,
+    "seoDescription": null,
+    "seoKeywords": [],
+    "seoImage": null
+  }
+]
+
+🎨 Found 0 designs
+[]
+
+✅ Data fetch complete!
