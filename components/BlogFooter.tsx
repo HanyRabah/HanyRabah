@@ -16,8 +16,7 @@ export function BlogFooter() {
               Hany Rabah
             </Link>
             <p className="text-muted-foreground mt-2 max-w-md">
-              Senior Fullstack Engineer and Technical Lead crafting accessible, 
-              high-performance digital products.
+              Senior Fullstack Engineer crafting accessible, high-performance digital products.
             </p>
             <div className="flex space-x-4 mt-4">
               <Button variant="ghost" size="sm" asChild>

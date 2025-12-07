@@ -6,6 +6,7 @@ import { Textarea } from './ui/textarea';
 import { Card, CardContent } from './ui/card';
 import { Mail, Linkedin, Github, MapPin, Instagram } from 'lucide-react';
 import { useState } from 'react';
+import { PageHeader } from './PageHeader';
 
 export function ContactSection() {
   const [formData, setFormData] = useState({
@@ -58,12 +59,12 @@ export function ContactSection() {
     <section id="contact" className="py-24 px-6">
       <div className="max-w-6xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-theme-primary">
-            Let's Work Together
-          </h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
-            Have a project, role, or idea in mind? Reach out and let’s explore how I can help.
-          </p>
+          <PageHeader
+            title="Let's Work Together"
+            description="Have a project, role, or idea in mind? Reach out and let’s explore how I can help."
+            gradient={false}
+            splitColor={true}
+          />
         </div>
 
         <div className="grid lg:grid-cols-2 gap-12">
@@ -220,13 +221,6 @@ export function ContactSection() {
               </div>
             </div>
           </div>
-        </div>
-
-        {/* Footer */}
-        <div className="mt-24 pt-8 border-t border-border text-center">
-          <p className="text-muted-foreground">
-            © {new Date().getFullYear()}. All rights reserved.
-          </p>
         </div>
       </div>
     </section>

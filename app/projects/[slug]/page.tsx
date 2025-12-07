@@ -3,20 +3,20 @@ import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
 import Image from 'next/image'
 import { StructuredData } from '@/components/StructuredData'
-import MainLayout from '@/components/layout/MainLayout'
 
 interface ProjectPageProps {
-  params: {
+  params: Promise<{
     slug: string
-  }
+  }>
 }
 
-// Enable ISR with 1-hour revalidation for individual projects
-export const revalidate = 3600; // Revalidate every 1 hour
+// Force dynamic rendering to avoid database connection during build
+export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({ params }: ProjectPageProps): Promise<Metadata> {
+  const { slug } = await params
   const project = await prisma.project.findUnique({
-    where: { slug: params.slug },
+    where: { slug },
   })
 
   if (!project) {
@@ -62,25 +62,11 @@ export async function generateMetadata({ params }: ProjectPageProps): Promise<Me
   }
 }
 
-export async function generateStaticParams() {
-  try {
-    const projects = await prisma.project.findMany({
-      select: { slug: true },
-    })
-
-    return projects.map((project) => ({
-      slug: project.slug,
-    }))
-  } catch (error) {
-    // Return empty array if database is not set up yet
-    console.warn('Database not available during build, skipping static generation for projects')
-    return []
-  }
-}
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
+  const { slug } = await params
   const project = await prisma.project.findUnique({
-    where: { slug: params.slug },
+    where: { slug },
   })
 
   if (!project) {
@@ -106,8 +92,7 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <StructuredData type="Project" data={projectData} />
-      <MainLayout>
-        <main className="container mx-auto px-4 py-16 mt-24">
+        <main className="container mx-auto px-4 py-16 pt-24">
           <div className="max-w-4xl mx-auto">
         <header className="mb-8">
           <h1 className="text-4xl font-bold mb-4">{project.title}</h1>
@@ -180,7 +165,6 @@ export default async function ProjectPage({ params }: ProjectPageProps) {
         )}
           </div>
         </main>
-      </MainLayout>
     </div>
   )
 }

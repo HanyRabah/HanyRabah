@@ -44,7 +44,6 @@ export function HeroAboutSection() {
             <div>
               <p className="text-theme-primary text-lg mb-2">Hi, I'm Hany</p>
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-foreground via-theme-primary to-green-accent bg-clip-text text-transparent">
-                Technical Lead & <br />
                 Fullstack Engineer
               </h1>
               {/* <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed mb-8">
@@ -52,17 +51,17 @@ export function HeroAboutSection() {
                 Transforming complex problems into elegant solutions.
               </p> */}
                 <p>
-                  I'm a Senior Fullstack Engineer and Technical Lead based in Berlin, 
-                  with over 8 years of experience building scalable web applications 
+                  I'm a Senior Fullstack Engineer based in Berlin, 
+                  with over 20+ years of experience building scalable web applications 
                   and leading development teams. I specialize in React, Node.js, and 
                   cloud architecture, with a passion for creating exceptional user experiences.
                 </p>
-                <p>
+                {/* <p>
                   Currently, I lead a team of developers at a fast-growing fintech startup, 
                   where I've architected systems that handle millions of transactions daily. 
                   I believe in writing clean, maintainable code and fostering a collaborative 
                   team environment.
-                </p>
+                </p> */}
                 <p>
                   When I'm not coding, you'll find me exploring Berlin's tech scene, 
                   contributing to open-source projects, or sharing knowledge through 

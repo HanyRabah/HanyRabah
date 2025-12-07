@@ -2,22 +2,6 @@ export function ThemeScript() {
   const themeScript = `
     (function() {
       const colorThemes = {
-        teal: {
-          primary: '#14b8a6',
-          secondary: '#0d9488',
-          tertiary: '#DDFFE7',
-          forth: '#167D7F',
-          muted: '#115e59',
-          accent: '#10b981'
-        },
-        purple: {
-          primary: '#8b5cf6',
-          secondary: '#7c3aed',
-          tertiary: '#8155BA',
-          forth: '#BEAFC2',
-          muted: '#6b21a8',
-          accent: '#a855f7'
-        },
         blue: {
           primary: '#3b82f6',
           secondary: '#2563eb',
@@ -25,22 +9,8 @@ export function ThemeScript() {
           forth: '#2E8BC0',
           muted: '#1e40af',
           accent: '#60a5fa'
-        },
-        green: {
-          primary: '#22c55e',
-          secondary: '#16a34a',
-          tertiary: '#21B6A8',
-          forth: '#A3EBB1',
-          muted: '#15803d',
-          accent: '#4ade80'
         }
       };
-
-      function randomizeTheme() {
-        const themes = Object.keys(colorThemes);
-        const randomTheme = themes[Math.floor(Math.random() * themes.length)];
-        return randomTheme;
-      }
 
       function hexToRgb(hex) {
         const result = /^#?([a-f\\d]{2})([a-f\\d]{2})([a-f\\d]{2})$/i.exec(hex);
@@ -115,7 +85,7 @@ export function ThemeScript() {
         // localStorage might not be available
       }
       
-      const colorTheme = (savedColorTheme && colorThemes[savedColorTheme]) ? savedColorTheme : randomizeTheme();
+      const colorTheme = (savedColorTheme && colorThemes[savedColorTheme]) ? savedColorTheme : 'blue';
       const mode = savedMode || 'dark';
       
       // Apply theme when DOM is ready

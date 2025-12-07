@@ -11,12 +11,15 @@ const inter = Inter({ subsets: ['latin'] })
 export const metadata: Metadata = {
   metadataBase: new URL('https://hanyrabah.com'),
   title: 'Resume - Hany Rabah | Senior Fullstack Engineer CV & Technical Experience Berlin',
-  description: 'Download Hany Rabah\'s resume. Senior Fullstack Engineer & Technical Lead with 15+ years experience in React, Next.js, Node.js, TypeScript, AWS. Based in Berlin, available for consulting and full-time opportunities.',
+  description: 'Download Hany Rabah\'s resume. Senior Fullstack Engineer & Technical Lead with 20+ years experience in React, Next.js, Node.js, TypeScript, AWS. Based in Berlin, available for consulting and full-time opportunities.',
   keywords: [
     'Hany Rabah Resume',
     'Hany Rabah CV',
     'Senior Fullstack Engineer Resume',
     'Technical Lead CV Berlin',
+    'Technical Lead CV Egypt',
+    'Technical Lead CV Saudi Arabia',
+    'Technical Lead CV United Arab Emirates',
     'React Developer Resume',
     'Next.js Expert CV',
     'Node.js Developer Resume',
@@ -47,7 +50,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://hanyrabah.com/resume',
     title: 'Resume - Hany Rabah | Senior Fullstack Engineer CV Berlin',
-    description: 'Download Hany Rabah\'s resume. Senior Fullstack Engineer & Technical Lead with 15+ years experience in React, Next.js, Node.js, TypeScript, AWS. Based in Berlin.',
+    description: 'Download Hany Rabah\'s resume. Senior Fullstack Engineer & Technical Lead with 20+ years experience in React, Next.js, Node.js, TypeScript, AWS. Based in Berlin.',
     siteName: 'Hany Rabah Portfolio',
     images: [
       {
@@ -62,7 +65,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Resume - Hany Rabah | Senior Fullstack Engineer CV Berlin',
-    description: 'Download Hany Rabah\'s resume. Senior Fullstack Engineer with 15+ years experience. Available for consulting and opportunities.',
+    description: 'Download Hany Rabah\'s resume. Senior Fullstack Engineer with 20+ years experience. Available for consulting and opportunities.',
     images: ['/og-resume.png'],
     creator: '@hanyrabah',
     site: '@hanyrabah',

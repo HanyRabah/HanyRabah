@@ -5,14 +5,15 @@ import Link from 'next/link'
 import { ImageWithFallback } from '@/components/figma/ImageWithFallback';
 import Image from 'next/image'
 import { StructuredData } from '@/components/StructuredData'
-import MainLayout from '@/components/layout/MainLayout'
+import { PageHeader } from '@/components/PageHeader'
+import { PenSquare } from 'lucide-react'
 
 // Enable ISR with 30-minute revalidation for blog list
 export const revalidate = 1800; // Revalidate every 30 minutes
 
 export const metadata: Metadata = {
   title: 'Blog - Hany Rabah | Technical Insights & Web Development Tutorials',
-  description: 'Technical blog by Hany Rabah, Senior Fullstack Engineer. Deep dives into React, Next.js, TypeScript, Node.js, AWS, and modern web development practices. Learn from 15+ years of industry experience.',
+  description: 'Technical blog by Hany Rabah, Senior Fullstack Engineer. Deep dives into React, Next.js, TypeScript, Node.js, AWS, and modern web development practices. Learn from 20+ years of industry experience.',
   keywords: [
     'Hany Rabah Blog',
     'Technical Blog',
@@ -35,7 +36,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Technical Blog - Hany Rabah',
-    description: 'Technical insights, tutorials, and best practices from a Senior Fullstack Engineer with 15+ years of experience in React, Next.js, Node.js, and AWS.',
+    description: 'Technical insights, tutorials, and best practices from a Senior Fullstack Engineer with 20+ years of experience in React, Next.js, Node.js, and AWS.',
     type: 'website',
     locale: 'en_US',
     url: 'https://hanyrabah.com/blog',
@@ -81,7 +82,7 @@ export default async function BlogPage() {
   // Structured data for SEO
   const blogData = {
     name: 'Hany Rabah Technical Blog',
-    description: 'Technical insights, tutorials, and best practices from a Senior Fullstack Engineer with 15+ years of experience.',
+    description: 'Technical insights, tutorials, and best practices from a Senior Fullstack Engineer with 20+ years of experience.',
     url: 'https://hanyrabah.com/blog',
     author: {
       name: 'Hany Rabah',
@@ -97,49 +98,23 @@ export default async function BlogPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <StructuredData type="Blog" data={blogData} />
-      <MainLayout>
-        <main>
-          {/* Enhanced Header */}
-          <section className="relative py-32 px-6 overflow-hidden mt-16">
-            {/* Background Pattern */}
-            <div className="absolute inset-0 bg-gradient-to-br from-theme-primary/5 via-background to-theme-secondary/5"></div>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,theme(colors.theme-primary/10),transparent_50%),radial-gradient(circle_at_70%_80%,theme(colors.theme-secondary/10),transparent_50%)]"></div>
-            
-            <div className="relative max-w-5xl mx-auto text-center">
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-theme-primary/10 text-theme-primary text-sm font-medium mb-8 bg-white">
-                <span className="w-2 h-2 bg-theme-primary rounded-full mr-2 animate-pulse"></span>
-                Latest Insights & Tutorials
-              </div>
-              
-              <h1 className="text-5xl md:text-7xl font-bold mb-8 text-foreground leading-tight">
-                Technical
-                <span className="bg-gradient-to-r from-theme-primary to-theme-secondary bg-clip-text text-transparent"> Blog</span>
-              </h1>
-              
-              <p className="text-xl md:text-2xl text-white max-w-3xl mx-auto leading-relaxed mb-12">
-                Deep dives into modern web development, architectural patterns, and engineering best practices. 
-                <span className="text-theme-primary font-medium">15+ years</span> of industry experience distilled into actionable insights.
-              </p>
-              
-              <div className="flex flex-wrap justify-center gap-4 text-sm text-muted-white">
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-theme-primary rounded-full mr-2"></div>
-                  React & Next.js
-                </div>
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-theme-secondary rounded-full mr-2"></div>
-                  TypeScript & Node.js
-                </div>
-                <div className="flex items-center">
-                  <div className="w-2 h-2 bg-theme-primary rounded-full mr-2"></div>
-                  AWS & Architecture
-                </div>
-              </div>
-            </div>
-          </section>
+      <main>
+        {/* Header */}
+        <div className="px-6">
+          <div className="max-w-4xl mx-auto">
+            <PageHeader
+              title="Technical Blog"
+              subtitle="Latest Insights & Tutorials"
+              description="Deep dives into modern web development, architectural patterns, and engineering best practices. 20+ years of industry experience distilled into actionable insights."
+              icon={PenSquare}
+              gradient={false}
+              splitColor={true}
+            />
+          </div>
+        </div>
 
-          {/* Enhanced Blog Grid */}
-          <section className="py-20 px-6">
+        {/* Enhanced Blog Grid */}
+        <section className="py-20 px-6">
             <div className="max-w-7xl mx-auto">
               {posts.length === 0 ? (
                 <div className="text-center py-24">
@@ -174,7 +149,7 @@ export default async function BlogPage() {
                                 priority
                                 quality={80}
                                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 40vw"
-                                className="object-cover group-hover:scale-105 transition-transform duration-500"
+                                className="object-contain group-hover:scale-105 transition-transform duration-500"
                               />
                             </div>
                           )}
@@ -290,8 +265,7 @@ export default async function BlogPage() {
               )}
             </div>
           </section>
-        </main>
-      </MainLayout>
+      </main>
     </div>
   )
 }

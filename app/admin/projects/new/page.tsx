@@ -14,38 +14,22 @@ import {
   Row, 
   Col, 
   Space,
-  message,
-  Tabs,
-  Modal
+  message
 } from 'antd'
 import {
   ArrowLeftOutlined,
   SaveOutlined,
   PlusOutlined,
-  CloseOutlined,
-  EyeOutlined,
-  CodeOutlined,
-  PictureOutlined
+  CloseOutlined
 } from '@ant-design/icons'
 import Link from 'next/link'
 import AdminLayout from '@/components/admin/AdminLayout'
 import AntdProvider from '@/components/admin/AntdProvider'
+import { ImageUpload } from '@/components/admin/ImageUpload'
+import { NotionEditor } from '@/components/admin/NotionEditor'
 
 const { Title, Text } = Typography
 const { TextArea } = Input
-
-interface ProjectFormData {
-  title: string
-  slug: string
-  description: string
-  content: string
-  featured: boolean
-  thumbnail: string
-  images: string[]
-  technologies: string[]
-  liveUrl: string
-  githubUrl: string
-}
 
 export default function NewProject() {
   const { data: session, status } = useSession()
@@ -54,15 +38,9 @@ export default function NewProject() {
   const [isLoading, setIsLoading] = useState(false)
   const [newTech, setNewTech] = useState('')
   const [technologies, setTechnologies] = useState<string[]>([])
-  const [newImage, setNewImage] = useState('')
   const [images, setImages] = useState<string[]>([])
-  const [contentMode, setContentMode] = useState<'write' | 'preview'>('write')
   const [content, setContent] = useState('')
-  const [imageUrl, setImageUrl] = useState('')
-  const [showImageModal, setShowImageModal] = useState(false)
-  const [showCodeModal, setShowCodeModal] = useState(false)
-  const [codeSnippet, setCodeSnippet] = useState('')
-  const [codeLanguage, setCodeLanguage] = useState('javascript')
+  const [coverImage, setCoverImage] = useState('')
 
   useEffect(() => {
     if (status === 'loading') return
@@ -92,7 +70,7 @@ export default function NewProject() {
         ...values,
         technologies: technologies,
         images: images,
-        thumbnail: values.thumbnail || null,
+        coverImage: coverImage || null,
         liveUrl: values.liveUrl || null,
         githubUrl: values.githubUrl || null,
         content: content,
@@ -131,98 +109,15 @@ export default function NewProject() {
     setTechnologies(technologies.filter(tech => tech !== techToRemove))
   }
 
-  const addImage = () => {
-    if (newImage.trim() && !images.includes(newImage.trim())) {
-      setImages([...images, newImage.trim()])
-      setNewImage('')
+  const addImageUrl = (url: string) => {
+    if (url && !images.includes(url)) {
+      setImages([...images, url])
+      message.success('Image added to gallery')
     }
   }
 
   const removeImage = (imageToRemove: string) => {
     setImages(images.filter(img => img !== imageToRemove))
-  }
-
-  const insertImage = () => {
-    if (imageUrl.trim()) {
-      const imageHtml = `<img src="${imageUrl}" alt="Image" style="max-width: 100%; height: auto; margin: 10px 0;" />`
-      setContent(prev => prev + '\n\n' + imageHtml + '\n\n')
-      form.setFieldsValue({ content: content + '\n\n' + imageHtml + '\n\n' })
-      setImageUrl('')
-      setShowImageModal(false)
-    }
-  }
-
-  const insertCode = () => {
-    if (codeSnippet.trim()) {
-      const codeHtml = `<pre><code class="language-${codeLanguage}">${codeSnippet}</code></pre>`
-      setContent(prev => prev + '\n\n' + codeHtml + '\n\n')
-      form.setFieldsValue({ content: content + '\n\n' + codeHtml + '\n\n' })
-      setCodeSnippet('')
-      setShowCodeModal(false)
-    }
-  }
-
-  const insertHtml = (htmlTag: string) => {
-    const textarea = document.querySelector('textarea[name="content"]') as HTMLTextAreaElement
-    if (textarea) {
-      const start = textarea.selectionStart
-      const end = textarea.selectionEnd
-      const selectedText = textarea.value.substring(start, end)
-      
-      let htmlToInsert = ''
-      switch (htmlTag) {
-        case 'bold':
-          htmlToInsert = `<strong>${selectedText || 'Bold text'}</strong>`
-          break
-        case 'italic':
-          htmlToInsert = `<em>${selectedText || 'Italic text'}</em>`
-          break
-        case 'h1':
-          htmlToInsert = `<h1>${selectedText || 'Heading 1'}</h1>`
-          break
-        case 'h2':
-          htmlToInsert = `<h2>${selectedText || 'Heading 2'}</h2>`
-          break
-        case 'h3':
-          htmlToInsert = `<h3>${selectedText || 'Heading 3'}</h3>`
-          break
-        case 'p':
-          htmlToInsert = `<p>${selectedText || 'Paragraph text'}</p>`
-          break
-        case 'ul':
-          htmlToInsert = `<ul>\n  <li>${selectedText || 'List item'}</li>\n</ul>`
-          break
-        case 'ol':
-          htmlToInsert = `<ol>\n  <li>${selectedText || 'List item'}</li>\n</ol>`
-          break
-        case 'blockquote':
-          htmlToInsert = `<blockquote>${selectedText || 'Quote text'}</blockquote>`
-          break
-        case 'link':
-          htmlToInsert = `<a href="#">${selectedText || 'Link text'}</a>`
-          break
-      }
-      
-      const newContent = textarea.value.substring(0, start) + htmlToInsert + textarea.value.substring(end)
-      setContent(newContent)
-      form.setFieldsValue({ content: newContent })
-    }
-  }
-
-  const renderPreview = (htmlContent: string) => {
-    return (
-      <div 
-        className="content-preview"
-        style={{ 
-          minHeight: '400px', 
-          padding: '16px', 
-          border: '1px solid #d9d9d9', 
-          borderRadius: '6px',
-          backgroundColor: '#fafafa'
-        }}
-        dangerouslySetInnerHTML={{ __html: htmlContent }}
-      />
-    )
   }
 
   if (status === 'loading' || !session) {
@@ -302,103 +197,15 @@ export default function NewProject() {
 
                   <Form.Item
                     label="Content"
-                    name="content"
-                    rules={[{ required: true, message: 'Please enter content' }]}
-                    help="Detailed project content (HTML supported)"
+                    help="Detailed project content with rich text formatting"
                   >
-                    <div>
-                      {/* Rich Text Toolbar */}
-                      <div style={{ 
-                        marginBottom: '8px', 
-                        padding: '8px', 
-                        border: '1px solid #d9d9d9', 
-                        borderRadius: '6px 6px 0 0',
-                        backgroundColor: '#fafafa',
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        gap: '4px'
-                      }}>
-                        <Button size="small" onClick={() => insertHtml('bold')} title="Bold">
-                          <strong>B</strong>
-                        </Button>
-                        <Button size="small" onClick={() => insertHtml('italic')} title="Italic">
-                          <em>I</em>
-                        </Button>
-                        <Button size="small" onClick={() => insertHtml('h1')} title="Heading 1">
-                          H1
-                        </Button>
-                        <Button size="small" onClick={() => insertHtml('h2')} title="Heading 2">
-                          H2
-                        </Button>
-                        <Button size="small" onClick={() => insertHtml('h3')} title="Heading 3">
-                          H3
-                        </Button>
-                        <Button size="small" onClick={() => insertHtml('p')} title="Paragraph">
-                          P
-                        </Button>
-                        <Button size="small" onClick={() => insertHtml('ul')} title="Bullet List">
-                          • List
-                        </Button>
-                        <Button size="small" onClick={() => insertHtml('ol')} title="Numbered List">
-                          1. List
-                        </Button>
-                        <Button size="small" onClick={() => insertHtml('blockquote')} title="Quote">
-                          Quote
-                        </Button>
-                        <Button size="small" onClick={() => insertHtml('link')} title="Link">
-                          Link
-                        </Button>
-                        <Button 
-                          size="small" 
-                          icon={<PictureOutlined />} 
-                          onClick={() => setShowImageModal(true)}
-                          title="Insert Image"
-                        >
-                          Image
-                        </Button>
-                        <Button 
-                          size="small" 
-                          icon={<CodeOutlined />} 
-                          onClick={() => setShowCodeModal(true)}
-                          title="Insert Code"
-                        >
-                          Code
-                        </Button>
-                      </div>
-
-                      {/* Content Tabs */}
-                      <Tabs
-                        activeKey={contentMode}
-                        onChange={(key) => setContentMode(key as 'write' | 'preview')}
-                        items={[
-                          {
-                            key: 'write',
-                            label: 'Write',
-                            children: (
-                              <TextArea
-                                placeholder="Write your project content here... (HTML supported)\n\nDescribe your project, the challenges you faced, technologies used, and what you learned."
-                                rows={15}
-                                value={content}
-                                onChange={(e) => {
-                                  setContent(e.target.value)
-                                  form.setFieldsValue({ content: e.target.value })
-                                }}
-                                style={{ borderRadius: '0 0 6px 6px' }}
-                              />
-                            )
-                          },
-                          {
-                            key: 'preview',
-                            label: (
-                              <span>
-                                <EyeOutlined /> Preview
-                              </span>
-                            ),
-                            children: renderPreview(content)
-                          }
-                        ]}
-                      />
-                    </div>
+                    <NotionEditor
+                      value={content}
+                      onChange={(value) => {
+                        setContent(value)
+                      }}
+                      placeholder="Start writing your project details... Type '/' for commands"
+                    />
                   </Form.Item>
                 </Card>
               </Col>
@@ -431,42 +238,64 @@ export default function NewProject() {
                   </Card>
 
                   <Card title="Media">
-                    <Form.Item
-                      label="Thumbnail URL"
-                      name="thumbnail"
-                      help="Main project image"
-                    >
-                      <Input placeholder="https://example.com/image.jpg" />
-                    </Form.Item>
+                    <div style={{ marginBottom: 24 }}>
+                      <Text strong style={{ display: 'block', marginBottom: 8 }}>Cover Image</Text>
+                      <Text type="secondary" style={{ fontSize: '12px', display: 'block', marginBottom: 8 }}>
+                        Main project image
+                      </Text>
+                      <ImageUpload
+                        value={coverImage}
+                        onChange={setCoverImage}
+                        label="Upload Cover Image"
+                        folder="projects/covers"
+                      />
+                    </div>
 
-                    <div style={{ marginBottom: 16 }}>
-                      <Text strong>Additional Images</Text>
-                      <Space.Compact style={{ width: '100%', marginTop: 8 }}>
-                        <Input
-                          placeholder="Image URL..."
-                          value={newImage}
-                          onChange={(e) => setNewImage(e.target.value)}
-                          onPressEnter={addImage}
-                        />
-                        <Button
-                          type="primary"
-                          onClick={addImage}
-                          icon={<PlusOutlined />}
-                        />
-                      </Space.Compact>
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 8 }}>
-                        {images.map((image) => (
-                          <Tag
-                            key={image}
-                            closable
-                            onClose={() => removeImage(image)}
-                            closeIcon={<CloseOutlined />}
-                            style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis' }}
-                          >
-                            {image.length > 30 ? `${image.substring(0, 30)}...` : image}
-                          </Tag>
-                        ))}
-                      </div>
+                    <div>
+                      <Text strong style={{ display: 'block', marginBottom: 8 }}>Additional Images</Text>
+                      <Text type="secondary" style={{ fontSize: '12px', display: 'block', marginBottom: 8 }}>
+                        Upload images for project gallery
+                      </Text>
+                      <ImageUpload
+                        value=""
+                        onChange={addImageUrl}
+                        label="Upload Image"
+                        folder="projects/gallery"
+                      />
+                      {images.length > 0 && (
+                        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 12 }}>
+                          {images.map((image, index) => (
+                            <div key={`${image}-${index}`} style={{ position: 'relative' }}>
+                              <img
+                                src={image}
+                                alt={`Gallery image ${index + 1}`}
+                                style={{ 
+                                  width: 80, 
+                                  height: 80, 
+                                  objectFit: 'cover', 
+                                  borderRadius: 4,
+                                  border: '1px solid #d9d9d9'
+                                }}
+                                onError={(e) => {
+                                  const target = e.target as HTMLImageElement
+                                  target.style.display = 'none'
+                                  const parent = target.parentElement
+                                  if (parent) {
+                                    parent.innerHTML = `<div style="width: 80px; height: 80px; background: #f5f5f5; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #999; text-align: center; padding: 4px;">Image<br/>Error</div>`
+                                  }
+                                }}
+                              />
+                              <Button
+                                size="small"
+                                danger
+                                icon={<CloseOutlined />}
+                                onClick={() => removeImage(image)}
+                                style={{ position: 'absolute', top: -8, right: -8 }}
+                              />
+                            </div>
+                          ))}
+                        </div>
+                      )}
                     </div>
                   </Card>
 
@@ -520,74 +349,6 @@ export default function NewProject() {
               </Col>
             </Row>
           </Form>
-
-          {/* Image Modal */}
-          <Modal
-            title="Insert Image"
-            open={showImageModal}
-            onOk={insertImage}
-            onCancel={() => {
-              setShowImageModal(false)
-              setImageUrl('')
-            }}
-            okText="Insert"
-          >
-            <Form layout="vertical">
-              <Form.Item label="Image URL">
-                <Input
-                  placeholder="https://example.com/image.jpg"
-                  value={imageUrl}
-                  onChange={(e) => setImageUrl(e.target.value)}
-                />
-              </Form.Item>
-              <Form.Item help="Paste the URL of your image. The image will be inserted at the current cursor position.">
-                {imageUrl && (
-                  <div style={{ marginTop: '10px' }}>
-                    <img 
-                      src={imageUrl} 
-                      alt="Preview" 
-                      style={{ maxWidth: '100%', maxHeight: '200px', objectFit: 'contain' }}
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).style.display = 'none'
-                      }}
-                    />
-                  </div>
-                )}
-              </Form.Item>
-            </Form>
-          </Modal>
-
-          {/* Code Modal */}
-          <Modal
-            title="Insert Code Block"
-            open={showCodeModal}
-            onOk={insertCode}
-            onCancel={() => {
-              setShowCodeModal(false)
-              setCodeSnippet('')
-            }}
-            okText="Insert"
-            width={600}
-          >
-            <Form layout="vertical">
-              <Form.Item label="Programming Language">
-                <Input
-                  placeholder="javascript, python, html, css, etc."
-                  value={codeLanguage}
-                  onChange={(e) => setCodeLanguage(e.target.value)}
-                />
-              </Form.Item>
-              <Form.Item label="Code">
-                <TextArea
-                  placeholder="Enter your code here..."
-                  value={codeSnippet}
-                  onChange={(e) => setCodeSnippet(e.target.value)}
-                  rows={8}
-                  style={{ fontFamily: 'monospace' }}
-                />
-              </Form.Item>
-            </Form>
-          </Modal>
         </div>
       </AdminLayout>
     </AntdProvider>

@@ -1,0 +1,621 @@
+import { PrismaClient, ResourceType } from '@prisma/client';
+
+const prisma = new PrismaClient();
+
+const comprehensiveResources = [
+  // ============================================
+  // READING LIST - Technical Books & Resources
+  // ============================================
+  {
+    title: "Designing Data-Intensive Applications",
+    description: "The definitive guide to building reliable, scalable, and maintainable systems. Essential for any fullstack engineer.",
+    type: ResourceType.READING_LIST,
+    url: "https://www.amazon.com/Designing-Data-Intensive-Applications-Reliable-Maintainable/dp/1449373321",
+    category: "System Design",
+    image: "https://m.media-amazon.com/images/I/51ZSpMl1-2L._SY445_SX342_.jpg",
+    isAffiliate: true,
+    tags: ["System Design", "Databases", "Architecture", "Scalability"],
+    published: true,
+    displayOrder: 1,
+  },
+  {
+    title: "Clean Code",
+    description: "A Handbook of Agile Software Craftsmanship by Robert C. Martin. The bible of writing maintainable code.",
+    type: ResourceType.READING_LIST,
+    url: "https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882",
+    category: "Best Practices",
+    image: "https://m.media-amazon.com/images/I/51E2055ZGUL._SY445_SX342_.jpg",
+    isAffiliate: true,
+    tags: ["Clean Code", "Best Practices", "Software Engineering"],
+    published: true,
+    displayOrder: 2,
+  },
+  {
+    title: "The Pragmatic Programmer",
+    description: "Your Journey to Mastery. Timeless wisdom for software developers at any stage of their career.",
+    type: ResourceType.READING_LIST,
+    url: "https://www.amazon.com/Pragmatic-Programmer-journey-mastery-Anniversary/dp/0135957052",
+    category: "Career Development",
+    image: "https://m.media-amazon.com/images/I/51cUVaBWZzL._SY445_SX342_.jpg",
+    isAffiliate: true,
+    tags: ["Career", "Best Practices", "Programming"],
+    published: true,
+    displayOrder: 3,
+  },
+  {
+    title: "System Design Interview",
+    description: "An insider's guide by Alex Xu. Master system design interviews with real-world examples.",
+    type: ResourceType.READING_LIST,
+    url: "https://www.amazon.com/System-Design-Interview-insiders-Second/dp/B08CMF2CQF",
+    category: "System Design",
+    image: "https://m.media-amazon.com/images/I/41-QR7YmqCL._SY445_SX342_.jpg",
+    isAffiliate: true,
+    tags: ["System Design", "Interviews", "Architecture"],
+    published: true,
+    displayOrder: 4,
+  },
+  {
+    title: "Refactoring",
+    description: "Improving the Design of Existing Code by Martin Fowler. Learn how to improve code without changing behavior.",
+    type: ResourceType.READING_LIST,
+    url: "https://www.amazon.com/Refactoring-Improving-Existing-Addison-Wesley-Signature/dp/0134757599",
+    category: "Best Practices",
+    image: "https://m.media-amazon.com/images/I/51ttgxwzArL._SY445_SX342_.jpg",
+    isAffiliate: true,
+    tags: ["Refactoring", "Clean Code", "Design Patterns"],
+    published: true,
+    displayOrder: 5,
+  },
+  {
+    title: "Don't Make Me Think",
+    description: "A Common Sense Approach to Web Usability by Steve Krug. Essential UX/UI principles for developers.",
+    type: ResourceType.READING_LIST,
+    url: "https://www.amazon.com/Dont-Make-Think-Revisited-Usability/dp/0321965515",
+    category: "UX/UI Design",
+    image: "https://m.media-amazon.com/images/I/51pnouuPO5L._SY445_SX342_.jpg",
+    isAffiliate: true,
+    tags: ["UX", "UI", "Design", "Usability"],
+    published: true,
+    displayOrder: 6,
+  },
+  {
+    title: "Learning React",
+    description: "Modern Patterns for Developing React Apps by Alex Banks & Eve Porcello. Comprehensive React guide.",
+    type: ResourceType.READING_LIST,
+    url: "https://www.amazon.com/Learning-React-Modern-Patterns-Developing/dp/1492051721",
+    category: "Frontend",
+    image: "https://m.media-amazon.com/images/I/51Ga5GuElyL._SY445_SX342_.jpg",
+    isAffiliate: true,
+    tags: ["React", "Frontend", "JavaScript"],
+    published: true,
+    displayOrder: 7,
+  },
+  {
+    title: "Node.js Design Patterns",
+    description: "Design and implement production-grade Node.js applications using proven patterns and techniques.",
+    type: ResourceType.READING_LIST,
+    url: "https://www.amazon.com/Node-js-Design-Patterns-production-grade-applications/dp/1839214112",
+    category: "Backend",
+    image: "https://m.media-amazon.com/images/I/51jWp-LgqeL._SY445_SX342_.jpg",
+    isAffiliate: true,
+    tags: ["Node.js", "Backend", "Design Patterns"],
+    published: true,
+    displayOrder: 8,
+  },
+
+  // ============================================
+  // TECH ESSENTIALS - Hardware & Software
+  // ============================================
+  {
+    title: "Logitech MX Master 3S",
+    description: "Premium wireless mouse with ultra-fast scrolling, 8K DPI sensor, and ergonomic design. Perfect for long coding sessions.",
+    type: ResourceType.TECH_ESSENTIALS,
+    url: "https://www.amazon.com/Logitech-MX-Master-3S-Graphite/dp/B09HM94VDS",
+    category: "Peripherals",
+    image: "https://m.media-amazon.com/images/I/61ni3t1ryQL._AC_SL1500_.jpg",
+    isAffiliate: true,
+    tags: ["Mouse", "Productivity", "Wireless", "Ergonomic"],
+    published: true,
+    displayOrder: 1,
+  },
+  {
+    title: "Herman Miller Aeron Chair",
+    description: "The gold standard of ergonomic office chairs. Essential for developers who spend 8+ hours coding daily.",
+    type: ResourceType.TECH_ESSENTIALS,
+    url: "https://www.hermanmiller.com/products/seating/office-chairs/aeron-chairs/",
+    category: "Furniture",
+    image: "https://www.hermanmiller.com/content/dam/hmicom/page_assets/products/aeron_chairs/aeron_remastered/aeron_remastered_overview.jpg",
+    isAffiliate: false,
+    tags: ["Chair", "Ergonomic", "Office", "Health"],
+    published: true,
+    displayOrder: 2,
+  },
+  {
+    title: "LG UltraWide 34\" Monitor",
+    description: "34-inch curved ultrawide monitor with 3440x1440 resolution. Perfect for multitasking and code reviews.",
+    type: ResourceType.TECH_ESSENTIALS,
+    url: "https://www.amazon.com/LG-34WN80C-B-UltraWide-Connectivity-Adjustable/dp/B07YGZ7C1K",
+    category: "Display",
+    image: "https://m.media-amazon.com/images/I/81vG7K6XFWL._AC_SL1500_.jpg",
+    isAffiliate: true,
+    tags: ["Monitor", "Ultrawide", "Display", "Productivity"],
+    published: true,
+    displayOrder: 3,
+  },
+  {
+    title: "Keychron K8 Pro Mechanical Keyboard",
+    description: "Wireless mechanical keyboard with hot-swappable switches, RGB backlight, and Mac/Windows compatibility.",
+    type: ResourceType.TECH_ESSENTIALS,
+    url: "https://www.keychron.com/products/keychron-k8-pro-qmk-via-wireless-mechanical-keyboard",
+    category: "Peripherals",
+    image: "https://cdn.shopify.com/s/files/1/0059/0630/1017/products/Keychron-K8-Pro-wireless-mechanical-keyboard-for-Mac-Windows-iOS-Gateron-hot-swappable-switch-red-with-RGB-backlight-US-ANSI-layout.jpg",
+    isAffiliate: false,
+    tags: ["Keyboard", "Mechanical", "Wireless", "RGB"],
+    published: true,
+    displayOrder: 4,
+  },
+  {
+    title: "VS Code",
+    description: "Free, powerful code editor with excellent extensions, Git integration, and debugging tools. The industry standard.",
+    type: ResourceType.TECH_ESSENTIALS,
+    url: "https://code.visualstudio.com/",
+    category: "Software",
+    image: "https://code.visualstudio.com/assets/images/code-stable.png",
+    isAffiliate: false,
+    tags: ["IDE", "Code Editor", "Free", "Microsoft"],
+    published: true,
+    displayOrder: 5,
+  },
+  {
+    title: "Raycast",
+    description: "Blazingly fast, extendable launcher for macOS. Replaces Spotlight with superpowers for developers.",
+    type: ResourceType.TECH_ESSENTIALS,
+    url: "https://www.raycast.com/",
+    category: "Software",
+    image: "https://www.raycast.com/og-image.png",
+    isAffiliate: false,
+    tags: ["Productivity", "macOS", "Launcher", "Free"],
+    published: true,
+    displayOrder: 6,
+  },
+  {
+    title: "Notion",
+    description: "All-in-one workspace for notes, docs, wikis, and project management. Perfect for technical documentation.",
+    type: ResourceType.TECH_ESSENTIALS,
+    url: "https://www.notion.so/",
+    category: "Software",
+    image: "https://www.notion.so/cdn-cgi/image/format=auto,width=1920/front-static/shared/icons/notion-app-icon-3d.png",
+    isAffiliate: false,
+    tags: ["Productivity", "Notes", "Documentation", "Collaboration"],
+    published: true,
+    displayOrder: 7,
+  },
+  {
+    title: "Figma",
+    description: "Collaborative interface design tool. Essential for developers working with designers or creating mockups.",
+    type: ResourceType.TECH_ESSENTIALS,
+    url: "https://www.figma.com/",
+    category: "Software",
+    image: "https://cdn.sanity.io/images/599r6htc/localized/46a76c802176eb17b04e12108de7e7e0f3736dc6-1024x1024.png",
+    isAffiliate: false,
+    tags: ["Design", "UI/UX", "Collaboration", "Prototyping"],
+    published: true,
+    displayOrder: 8,
+  },
+
+  // ============================================
+  // TALENT - Industry Leaders & Influencers
+  // ============================================
+  {
+    title: "Kent C. Dodds",
+    description: "Full stack JavaScript expert, educator, and creator of Testing Library. Epic React course author.",
+    type: ResourceType.TALENT,
+    url: "https://kentcdodds.com/",
+    category: "React Expert",
+    image: "https://kentcdodds.com/images/kent-c-dodds.jpg",
+    isAffiliate: false,
+    tags: ["React", "Testing", "Education", "JavaScript"],
+    published: true,
+    displayOrder: 1,
+  },
+  {
+    title: "Theo Browne",
+    description: "CEO of Ping Labs, creator of create-t3-app. Expert in Next.js, TypeScript, and modern web development.",
+    type: ResourceType.TALENT,
+    url: "https://t3.gg/",
+    category: "Full Stack",
+    image: "https://pbs.twimg.com/profile_images/1605662343596687360/1jCEiYPz_400x400.jpg",
+    isAffiliate: false,
+    tags: ["Next.js", "TypeScript", "T3 Stack", "Full Stack"],
+    published: true,
+    displayOrder: 2,
+  },
+  {
+    title: "Lee Robinson",
+    description: "VP of Developer Experience at Vercel. Next.js expert and creator of popular web development content.",
+    type: ResourceType.TALENT,
+    url: "https://leerob.io/",
+    category: "Next.js Expert",
+    image: "https://leerob.io/avatar.jpg",
+    isAffiliate: false,
+    tags: ["Next.js", "Vercel", "React", "Web Development"],
+    published: true,
+    displayOrder: 3,
+  },
+  {
+    title: "Josh W. Comeau",
+    description: "Software engineer and educator. Creator of CSS for JavaScript Developers and The Joy of React courses.",
+    type: ResourceType.TALENT,
+    url: "https://www.joshwcomeau.com/",
+    category: "Frontend Expert",
+    image: "https://www.joshwcomeau.com/images/og-image.png",
+    isAffiliate: false,
+    tags: ["CSS", "React", "Frontend", "Education"],
+    published: true,
+    displayOrder: 4,
+  },
+  {
+    title: "Dan Abramov",
+    description: "Co-creator of Redux and Create React App. Core team member at React. Influential thought leader.",
+    type: ResourceType.TALENT,
+    url: "https://overreacted.io/",
+    category: "React Core",
+    image: "https://overreacted.io/static/profile-pic-c715447ce38098828758e525a1128b87.jpg",
+    isAffiliate: false,
+    tags: ["React", "Redux", "JavaScript", "Meta"],
+    published: true,
+    displayOrder: 5,
+  },
+  {
+    title: "Guillermo Rauch",
+    description: "CEO of Vercel, creator of Next.js and Socket.io. Visionary in web development and deployment.",
+    type: ResourceType.TALENT,
+    url: "https://rauchg.com/",
+    category: "Entrepreneur",
+    image: "https://rauchg.com/og.png",
+    isAffiliate: false,
+    tags: ["Next.js", "Vercel", "Entrepreneurship", "Web Development"],
+    published: true,
+    displayOrder: 6,
+  },
+  {
+    title: "Addy Osmani",
+    description: "Engineering Manager at Google Chrome. Expert in web performance, JavaScript patterns, and tooling.",
+    type: ResourceType.TALENT,
+    url: "https://addyosmani.com/",
+    category: "Performance Expert",
+    image: "https://addyosmani.com/assets/img/addy.jpg",
+    isAffiliate: false,
+    tags: ["Performance", "JavaScript", "Chrome", "Google"],
+    published: true,
+    displayOrder: 7,
+  },
+  {
+    title: "Sarah Drasner",
+    description: "VP of Developer Experience at Google. CSS animations expert, Vue.js core team member.",
+    type: ResourceType.TALENT,
+    url: "https://sarahdrasnerdesign.com/",
+    category: "Frontend Expert",
+    image: "https://sarahdrasnerdesign.com/img/sarah.jpg",
+    isAffiliate: false,
+    tags: ["Vue.js", "CSS", "Animation", "Google"],
+    published: true,
+    displayOrder: 8,
+  },
+
+  // ============================================
+  // INVESTMENTS - Crypto & Investment Resources
+  // ============================================
+  {
+    title: "CoinMarketCap",
+    description: "The world's most-referenced price-tracking website for crypto assets. Essential for tracking your portfolio.",
+    type: ResourceType.INVESTMENT,
+    url: "https://coinmarketcap.com/",
+    category: "Crypto Tracking",
+    image: "https://s2.coinmarketcap.com/static/cloud/img/coinmarketcap_1.svg",
+    isAffiliate: false,
+    tags: ["Crypto", "Tracking", "Portfolio", "Market Data"],
+    published: true,
+    displayOrder: 1,
+  },
+  {
+    title: "CoinGecko",
+    description: "Comprehensive cryptocurrency data aggregator with portfolio tracking, market analysis, and price alerts.",
+    type: ResourceType.INVESTMENT,
+    url: "https://www.coingecko.com/",
+    category: "Crypto Tracking",
+    image: "https://static.coingecko.com/s/coingecko-logo-8903d34ce19ca4be1c81f0db30e924154750d208683fad7ae6f2ce06c76d0a56.png",
+    isAffiliate: false,
+    tags: ["Crypto", "Market Analysis", "Portfolio", "DeFi"],
+    published: true,
+    displayOrder: 2,
+  },
+  {
+    title: "Ethereum.org",
+    description: "Official Ethereum resource hub. Learn about Ethereum, smart contracts, DeFi, and Web3 development.",
+    type: ResourceType.INVESTMENT,
+    url: "https://ethereum.org/",
+    category: "Blockchain",
+    image: "https://ethereum.org/static/eth-home-icon.png",
+    isAffiliate: false,
+    tags: ["Ethereum", "Blockchain", "Web3", "Smart Contracts"],
+    published: true,
+    displayOrder: 3,
+  },
+  {
+    title: "The Investor's Podcast Network",
+    description: "Educational content on value investing, Bitcoin, and financial markets. Learn from Warren Buffett principles.",
+    type: ResourceType.INVESTMENT,
+    url: "https://www.theinvestorspodcast.com/",
+    category: "Investment Education",
+    image: "https://www.theinvestorspodcast.com/wp-content/uploads/2021/03/TIP-Logo.png",
+    isAffiliate: false,
+    tags: ["Investing", "Education", "Bitcoin", "Value Investing"],
+    published: true,
+    displayOrder: 4,
+  },
+  {
+    title: "Messari",
+    description: "Crypto research and data platform. In-depth analysis, reports, and insights on blockchain projects.",
+    type: ResourceType.INVESTMENT,
+    url: "https://messari.io/",
+    category: "Research",
+    image: "https://messari.io/images/messari-logo.png",
+    isAffiliate: false,
+    tags: ["Crypto", "Research", "Analysis", "Data"],
+    published: true,
+    displayOrder: 5,
+  },
+
+  // ============================================
+  // NEWSLETTERS - Tech & Development
+  // ============================================
+  {
+    title: "JavaScript Weekly",
+    description: "A free, once-weekly email roundup of JavaScript news and articles. 200k+ subscribers.",
+    type: ResourceType.NEWSLETTER,
+    url: "https://javascriptweekly.com/",
+    category: "JavaScript",
+    image: "https://javascriptweekly.com/images/jsw.png",
+    isAffiliate: false,
+    tags: ["JavaScript", "Weekly", "Free", "News"],
+    published: true,
+    displayOrder: 1,
+  },
+  {
+    title: "React Status",
+    description: "A weekly roundup of the latest React and React Native links and tutorials. Curated by the Cooperpress team.",
+    type: ResourceType.NEWSLETTER,
+    url: "https://react.statuscode.com/",
+    category: "React",
+    image: "https://react.statuscode.com/images/react-status.png",
+    isAffiliate: false,
+    tags: ["React", "Weekly", "Free", "Frontend"],
+    published: true,
+    displayOrder: 2,
+  },
+  {
+    title: "Node Weekly",
+    description: "A free, once-weekly email roundup of Node.js news and articles. Essential for backend developers.",
+    type: ResourceType.NEWSLETTER,
+    url: "https://nodeweekly.com/",
+    category: "Node.js",
+    image: "https://nodeweekly.com/images/node.png",
+    isAffiliate: false,
+    tags: ["Node.js", "Backend", "Weekly", "Free"],
+    published: true,
+    displayOrder: 3,
+  },
+  {
+    title: "TypeScript Weekly",
+    description: "The best TypeScript links every week, right in your inbox. Stay updated with the TypeScript ecosystem.",
+    type: ResourceType.NEWSLETTER,
+    url: "https://typescript-weekly.com/",
+    category: "TypeScript",
+    image: "https://typescript-weekly.com/images/ts-weekly.png",
+    isAffiliate: false,
+    tags: ["TypeScript", "Weekly", "Free", "Types"],
+    published: true,
+    displayOrder: 4,
+  },
+  {
+    title: "Frontend Focus",
+    description: "A once-weekly roundup of the best front-end news, articles and tutorials. HTML, CSS, WebGL, and more.",
+    type: ResourceType.NEWSLETTER,
+    url: "https://frontendfoc.us/",
+    category: "Frontend",
+    image: "https://frontendfoc.us/images/frontend-focus.png",
+    isAffiliate: false,
+    tags: ["Frontend", "CSS", "HTML", "Weekly"],
+    published: true,
+    displayOrder: 5,
+  },
+  {
+    title: "Bytes",
+    description: "Your weekly dose of JavaScript news. Staying informed on the JavaScript ecosystem has never been so entertaining.",
+    type: ResourceType.NEWSLETTER,
+    url: "https://bytes.dev/",
+    category: "JavaScript",
+    image: "https://bytes.dev/images/bytes-logo.png",
+    isAffiliate: false,
+    tags: ["JavaScript", "Weekly", "Entertainment", "News"],
+    published: true,
+    displayOrder: 6,
+  },
+  {
+    title: "TLDR Newsletter",
+    description: "Daily newsletter with links and TLDRs of the most interesting stories in tech, science, and coding.",
+    type: ResourceType.NEWSLETTER,
+    url: "https://tldr.tech/",
+    category: "Tech News",
+    image: "https://tldr.tech/logo.png",
+    isAffiliate: false,
+    tags: ["Tech", "Daily", "News", "Coding"],
+    published: true,
+    displayOrder: 7,
+  },
+  {
+    title: "Pointer",
+    description: "A reading club for software developers. Curated by experienced engineers, delivered weekly.",
+    type: ResourceType.NEWSLETTER,
+    url: "https://www.pointer.io/",
+    category: "Engineering",
+    image: "https://www.pointer.io/images/pointer-logo.png",
+    isAffiliate: false,
+    tags: ["Engineering", "Weekly", "Curated", "Articles"],
+    published: true,
+    displayOrder: 8,
+  },
+
+  // ============================================
+  // PODCASTS - Tech & Development
+  // ============================================
+  {
+    title: "Syntax - Tasty Web Development Treats",
+    description: "A weekly podcast about web development by Wes Bos and Scott Tolinski. Covering React, CSS, Node.js, and more.",
+    type: ResourceType.PODCAST,
+    url: "https://syntax.fm/",
+    category: "Web Development",
+    image: "https://syntax.fm/static/logo.png",
+    isAffiliate: false,
+    tags: ["JavaScript", "React", "Web Dev", "CSS"],
+    published: true,
+    displayOrder: 1,
+  },
+  {
+    title: "The Changelog",
+    description: "Conversations with the hackers, leaders, and innovators of the software world. Open source focused.",
+    type: ResourceType.PODCAST,
+    url: "https://changelog.com/podcast",
+    category: "Technology",
+    image: "https://cdn.changelog.com/images/podcasts/podcast-original.png",
+    isAffiliate: false,
+    tags: ["Open Source", "Technology", "Interviews", "Engineering"],
+    published: true,
+    displayOrder: 2,
+  },
+  {
+    title: "Full Stack Radio",
+    description: "A podcast for developers interested in building great software products. Hosted by Adam Wathan (Tailwind CSS creator).",
+    type: ResourceType.PODCAST,
+    url: "https://fullstackradio.com/",
+    category: "Full Stack",
+    image: "https://fullstackradio.com/images/full-stack-radio-logo.png",
+    isAffiliate: false,
+    tags: ["Full Stack", "Product", "Engineering", "Tailwind"],
+    published: true,
+    displayOrder: 3,
+  },
+  {
+    title: "Shop Talk Show",
+    description: "A weekly podcast about front-end web design and development. With Chris Coyier and Dave Rupert.",
+    type: ResourceType.PODCAST,
+    url: "https://shoptalkshow.com/",
+    category: "Frontend",
+    image: "https://shoptalkshow.com/images/shoptalkshow-logo.png",
+    isAffiliate: false,
+    tags: ["Frontend", "CSS", "Design", "Web Development"],
+    published: true,
+    displayOrder: 4,
+  },
+  {
+    title: "JS Party",
+    description: "A community celebration of JavaScript and the web. Weekly panel discussions about the JS ecosystem.",
+    type: ResourceType.PODCAST,
+    url: "https://changelog.com/jsparty",
+    category: "JavaScript",
+    image: "https://cdn.changelog.com/images/podcasts/jsparty-original.png",
+    isAffiliate: false,
+    tags: ["JavaScript", "Community", "Web", "Panel"],
+    published: true,
+    displayOrder: 5,
+  },
+  {
+    title: "React Podcast",
+    description: "Conversations about React with your favorite developers. Hosted by Michael Chan (chantastic).",
+    type: ResourceType.PODCAST,
+    url: "https://reactpodcast.com/",
+    category: "React",
+    image: "https://reactpodcast.com/images/react-podcast-logo.png",
+    isAffiliate: false,
+    tags: ["React", "Interviews", "Frontend", "JavaScript"],
+    published: true,
+    displayOrder: 6,
+  },
+  {
+    title: "Software Engineering Daily",
+    description: "Daily interviews about technical software topics. Deep dives into engineering, architecture, and technology.",
+    type: ResourceType.PODCAST,
+    url: "https://softwareengineeringdaily.com/",
+    category: "Engineering",
+    image: "https://softwareengineeringdaily.com/wp-content/uploads/2020/01/sed-logo.png",
+    isAffiliate: false,
+    tags: ["Engineering", "Daily", "Interviews", "Architecture"],
+    published: true,
+    displayOrder: 7,
+  },
+  {
+    title: "Darknet Diaries",
+    description: "True stories from the dark side of the Internet. Hacking, data breaches, and cybersecurity tales.",
+    type: ResourceType.PODCAST,
+    url: "https://darknetdiaries.com/",
+    category: "Security",
+    image: "https://darknetdiaries.com/images/darknet-diaries-logo.png",
+    isAffiliate: false,
+    tags: ["Security", "Hacking", "Cybersecurity", "Stories"],
+    published: true,
+    displayOrder: 8,
+  },
+];
+
+async function main() {
+  console.log('🌱 Starting comprehensive resource seeding...\n');
+
+  // Clear existing resources
+  console.log('🗑️  Clearing existing resources...');
+  await prisma.resource.deleteMany({});
+  console.log('✓ Cleared existing resources\n');
+
+  let successCount = 0;
+  let errorCount = 0;
+
+  for (const resource of comprehensiveResources) {
+    try {
+      await prisma.resource.create({
+        data: resource,
+      });
+      console.log(`✓ Created ${resource.type}: ${resource.title}`);
+      successCount++;
+    } catch (error) {
+      console.error(`✗ Failed to create ${resource.title}:`, error);
+      errorCount++;
+    }
+  }
+
+  console.log('\n' + '='.repeat(50));
+  console.log('📊 Summary:');
+  console.log('='.repeat(50));
+  console.log(`✅ Successfully created: ${successCount} resources`);
+  console.log(`❌ Failed: ${errorCount} resources`);
+  console.log('\n📚 Resources by type:');
+  
+  const counts = await prisma.resource.groupBy({
+    by: ['type'],
+    _count: true,
+  });
+  
+  counts.forEach(({ type, _count }) => {
+    console.log(`   ${type}: ${_count} items`);
+  });
+  
+  console.log('\n✅ Comprehensive seeding completed!');
+}
+
+main()
+  .catch((e) => {
+    console.error('❌ Seeding failed:', e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });

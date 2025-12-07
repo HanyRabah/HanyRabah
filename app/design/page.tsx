@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import MainLayout from '@/components/layout/MainLayout'
 import { DesignHeroSection } from '@/components/design/DesignHeroSection'
 import { DesignShowcase } from '@/components/design/DesignShowcase'
 import { DesignProcess } from '@/components/design/DesignProcess'
@@ -59,13 +58,11 @@ export const metadata: Metadata = {
 export default function DesignPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <MainLayout withoutContact={true}>
-        <main>
-          <DesignHeroSection />
-          <DesignShowcase />
-          <DesignProcess />
-        </main>
-      </MainLayout>
+      <main>
+        <DesignHeroSection />
+        <DesignShowcase />
+        <DesignProcess />
+      </main>
     </div>
   )
 }

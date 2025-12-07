@@ -1,8 +1,10 @@
 import { Metadata } from 'next'
 import { prisma } from '@/lib/prisma'
 import { StructuredData } from '@/components/StructuredData'
-import MainLayout from '@/components/layout/MainLayout'
 import { ProjectCard } from '@/components/ProjectCard'
+import { PageHeader } from '@/components/PageHeader'
+import { Briefcase } from 'lucide-react'
+import { ProjectsCTA } from '@/components/ProjectsCTA'
 
 // Enable ISR with 1-hour revalidation for projects list
 export const revalidate = 3600; // Revalidate every 1 hour
@@ -70,7 +72,7 @@ export default async function ProjectsPage() {
       project.coverImage && 
       project.coverImage.trim() !== ''
     )
-  } catch (error) {
+} catch (error) {
     console.warn('Database not available, showing empty projects page')
   }
 
@@ -88,57 +90,54 @@ export default async function ProjectsPage() {
   return (
     <div className="min-h-screen bg-background text-foreground">
       <StructuredData type="WebSite" data={websiteData} />
-      <MainLayout>
-        <main>
-          {/* Enhanced Header */}
-          <section className="relative py-32 px-6 overflow-hidden mt-16">
-            {/* Background Elements */}
-            <div className="absolute inset-0 bg-gradient-to-br from-theme-primary/5 via-background to-theme-secondary/5"></div>
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,theme(colors.theme-primary/8),transparent_50%),radial-gradient(circle_at_80%_70%,theme(colors.theme-secondary/8),transparent_50%)]"></div>
+      <main>
+        {/* Header */}
+        <div className="px-6">
+          <div className="max-w-4xl mx-auto">
+            <PageHeader
+              title="My Projects"
+              subtitle="Featured Work & Case Studies"
+              description="A curated collection of full-stack applications, AI integrations, and interactive experiences. Each project represents a unique challenge solved with modern technologies and thoughtful engineering."
+              icon={Briefcase}
+              gradient={false}
+              splitColor={true}
+            />
             
-            {/* Floating Elements */}
-            <div className="absolute top-20 left-10 w-20 h-20 bg-theme-primary/10 rounded-full blur-xl animate-pulse"></div>
-            <div className="absolute bottom-20 right-10 w-32 h-32 bg-theme-secondary/10 rounded-full blur-xl animate-pulse delay-1000"></div>
-            
-            <div className="relative max-w-5xl mx-auto text-center">
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-theme-primary/10 text-theme-primary text-sm font-medium mb-8 bg-white">
-                <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-                </svg>
-                Featured Work & Case Studies
+            {/* Stats */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-br from-theme-primary/10 to-theme-primary/5 rounded-xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                <div className="relative bg-card border border-border rounded-xl p-6 hover:border-theme-primary/50 transition-all duration-300">
+                  <div className="text-4xl font-bold bg-gradient-to-r from-theme-primary to-theme-accent bg-clip-text text-transparent mb-2">
+                    250+
+                  </div>
+                  <div className="text-sm font-medium text-muted-foreground">Projects Built</div>
+                </div>
               </div>
-              
-              <h1 className="text-5xl md:text-7xl font-bold mb-8 text-foreground leading-tight">
-                My
-                <span className="bg-gradient-to-r from-theme-primary to-theme-secondary bg-clip-text text-transparent"> Projects</span>
-              </h1>
-              
-              <p className="text-xl md:text-2xl text-muted-white max-w-4xl mx-auto leading-relaxed mb-12">
-                A curated collection of full-stack applications, AI integrations, and interactive experiences. 
-                Each project represents a unique challenge solved with modern technologies and 
-                <span className="text-theme-primary font-medium"> thoughtful engineering</span>.
-              </p>
-              
-              {/* Stats */}
-              <div className="flex flex-wrap justify-center gap-8 text-center">
-                <div className="flex flex-col">
-                  <span className="text-3xl font-bold text-theme-primary">{projects.length}+</span>
-                  <span className="text-sm text-muted-white">Projects Built</span>
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-br from-theme-primary/10 to-theme-primary/5 rounded-xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                <div className="relative bg-card border border-border rounded-xl p-6 hover:border-theme-primary/50 transition-all duration-300">
+                  <div className="text-4xl font-bold bg-gradient-to-r from-theme-primary to-theme-accent bg-clip-text text-transparent mb-2">
+                    20+
+                  </div>
+                  <div className="text-sm font-medium text-muted-foreground">Technologies Used</div>
                 </div>
-                <div className="flex flex-col">
-                  <span className="text-3xl font-bold text-theme-secondary">15+</span>
-                  <span className="text-sm text-muted-white">Technologies Used</span>
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-3xl font-bold text-theme-primary">5+</span>
-                  <span className="text-sm text-muted-white">Years Experience</span>
+              </div>
+              <div className="relative group">
+                <div className="absolute inset-0 bg-gradient-to-br from-theme-primary/10 to-theme-primary/5 rounded-xl blur-xl group-hover:blur-2xl transition-all duration-300"></div>
+                <div className="relative bg-card border border-border rounded-xl p-6 hover:border-theme-primary/50 transition-all duration-300">
+                  <div className="text-4xl font-bold bg-gradient-to-r from-theme-primary to-theme-accent bg-clip-text text-transparent mb-2">
+                    20+
+                  </div>
+                  <div className="text-sm font-medium text-muted-foreground">Years Experience</div>
                 </div>
               </div>
             </div>
-          </section>
+          </div>
+        </div>
 
-          {/* Enhanced Projects Grid */}
-          <section className="py-20 px-6">
+        {/* Enhanced Projects Grid */}
+        <section className="py-20 px-6">
             <div className="max-w-7xl mx-auto">
               {projects.length === 0 ? (
                 <div className="text-center py-24">
@@ -191,44 +190,12 @@ export default async function ProjectsPage() {
                   </div>
                   
                   {/* Call to Action */}
-                  <div className="text-center py-16">
-                    <div className="max-w-3xl mx-auto">
-                      <h3 className="text-2xl md:text-3xl font-bold mb-6 text-foreground">
-                        Interested in Working Together?
-                      </h3>
-                      <p className="text-muted-foreground text-lg mb-8">
-                        I'm always excited to take on new challenges and collaborate on innovative projects. 
-                        Let's discuss how we can bring your ideas to life.
-                      </p>
-                      <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                        <a
-                          href="mailto:contact@hanyrabah.com"
-                          className="inline-flex items-center px-6 py-3 bg-theme-primary hover:bg-theme-secondary text-white font-semibold rounded-xl transition-colors duration-300"
-                        >
-                          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                          </svg>
-                          Get In Touch
-                        </a>
-                        <a
-                          href="/Hany_Elsaydawy_Resume.pdf"
-                          target="_blank"
-                          className="inline-flex items-center px-6 py-3 border border-theme-primary text-theme-primary hover:bg-theme-primary hover:text-white font-semibold rounded-xl transition-colors duration-300"
-                        >
-                          <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                          </svg>
-                          Download Resume
-                        </a>
-                      </div>
-                    </div>
-                  </div>
+                  <ProjectsCTA />
                 </div>
               )}
             </div>
           </section>
-        </main>
-      </MainLayout>
+      </main>
     </div>
   )
 }

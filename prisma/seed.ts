@@ -10,6 +10,7 @@ async function main() {
   await prisma.contact.deleteMany()
   await prisma.post.deleteMany()
   await prisma.project.deleteMany()
+  await prisma.design.deleteMany()
   await prisma.service.deleteMany()
 
   // Seed Services
@@ -297,6 +298,134 @@ export function Button({
   ])
 
   // Seed some sample contact entries
+  // Seed Designs
+  console.log('🎨 Seeding designs...')
+  const designs = await Promise.all([
+    prisma.design.create({
+      data: {
+        title: 'E-Commerce Dashboard Redesign',
+        slug: 'ecommerce-dashboard-redesign',
+        description: 'Complete redesign of an e-commerce admin dashboard focusing on usability and modern aesthetics.',
+        content: `<h2>Project Overview</h2><p>Redesigned a complex e-commerce dashboard to improve user experience and modernize the visual design.</p><h3>Challenge</h3><p>The existing dashboard was cluttered, difficult to navigate, and didn't scale well for different screen sizes.</p><h3>Solution</h3><ul><li>Simplified navigation with clear hierarchy</li><li>Implemented data visualization for key metrics</li><li>Created responsive layouts for all devices</li><li>Designed a cohesive design system</li></ul><h3>Results</h3><p>40% reduction in task completion time and 95% positive user feedback.</p>`,
+        coverImage: '/images/designs/ecommerce-dashboard.jpg',
+        images: [
+          '/images/designs/ecommerce-dashboard-1.jpg',
+          '/images/designs/ecommerce-dashboard-2.jpg',
+          '/images/designs/ecommerce-dashboard-3.jpg',
+          '/images/designs/ecommerce-dashboard-4.jpg'
+        ],
+        tags: ['UI/UX', 'Dashboard', 'E-commerce', 'Web Design'],
+        category: 'WEB_DESIGN',
+        tools: ['Figma', 'Adobe XD', 'Illustrator'],
+        clientName: 'ShopFlow Inc.',
+        figmaUrl: 'https://figma.com/file/example',
+        featured: true
+      }
+    }),
+    prisma.design.create({
+      data: {
+        title: 'Mobile Banking App',
+        slug: 'mobile-banking-app',
+        description: 'Modern mobile banking application with focus on security and ease of use.',
+        content: `<h2>Project Overview</h2><p>Designed a comprehensive mobile banking app that prioritizes security while maintaining an intuitive user experience.</p><h3>Key Features</h3><ul><li>Biometric authentication</li><li>Quick transfer functionality</li><li>Real-time transaction notifications</li><li>Budget tracking and insights</li></ul><h3>Design Approach</h3><p>Used a clean, minimalist design with clear visual hierarchy and easy-to-understand iconography.</p>`,
+        coverImage: '/images/designs/banking-app.jpg',
+        images: [
+          '/images/designs/banking-app-1.jpg',
+          '/images/designs/banking-app-2.jpg',
+          '/images/designs/banking-app-3.jpg'
+        ],
+        tags: ['Mobile', 'Fintech', 'UI/UX', 'iOS', 'Android'],
+        category: 'MOBILE_APP',
+        tools: ['Figma', 'Sketch', 'Principle'],
+        clientName: 'SecureBank',
+        projectUrl: 'https://securebank-app.com',
+        figmaUrl: 'https://figma.com/file/banking-app',
+        featured: true
+      }
+    }),
+    prisma.design.create({
+      data: {
+        title: 'Brand Identity - Tech Startup',
+        slug: 'brand-identity-tech-startup',
+        description: 'Complete brand identity design for an AI-powered tech startup.',
+        content: `<h2>Project Overview</h2><p>Created a comprehensive brand identity for an innovative AI startup, including logo, color palette, typography, and brand guidelines.</p><h3>Deliverables</h3><ul><li>Logo design and variations</li><li>Brand color palette</li><li>Typography system</li><li>Brand guidelines document</li><li>Marketing materials</li></ul>`,
+        coverImage: '/images/designs/brand-identity.jpg',
+        images: [
+          '/images/designs/brand-identity-1.jpg',
+          '/images/designs/brand-identity-2.jpg',
+          '/images/designs/brand-identity-3.jpg',
+          '/images/designs/brand-identity-4.jpg'
+        ],
+        tags: ['Branding', 'Logo Design', 'Identity', 'Startup'],
+        category: 'BRANDING',
+        tools: ['Illustrator', 'Photoshop', 'InDesign'],
+        clientName: 'AI Innovations',
+        behanceUrl: 'https://behance.net/gallery/brand-identity',
+        featured: false
+      }
+    }),
+    prisma.design.create({
+      data: {
+        title: 'Design System - SaaS Platform',
+        slug: 'design-system-saas-platform',
+        description: 'Comprehensive design system for a growing SaaS platform with 50+ components.',
+        content: `<h2>Project Overview</h2><p>Built a scalable design system to ensure consistency across a rapidly growing SaaS platform.</p><h3>Components</h3><ul><li>50+ reusable UI components</li><li>Design tokens for colors, spacing, typography</li><li>Accessibility guidelines</li><li>Component documentation</li></ul><h3>Impact</h3><p>Reduced design-to-development time by 60% and improved UI consistency across the platform.</p>`,
+        coverImage: '/images/designs/design-system.jpg',
+        images: [
+          '/images/designs/design-system-1.jpg',
+          '/images/designs/design-system-2.jpg',
+          '/images/designs/design-system-3.jpg'
+        ],
+        tags: ['Design System', 'UI Components', 'SaaS', 'Documentation'],
+        category: 'DESIGN_SYSTEM',
+        tools: ['Figma', 'Storybook', 'Zeroheight'],
+        clientName: 'CloudBase',
+        figmaUrl: 'https://figma.com/file/design-system',
+        projectUrl: 'https://cloudbase-design.com',
+        featured: false
+      }
+    }),
+    prisma.design.create({
+      data: {
+        title: 'Portfolio Website Redesign',
+        slug: 'portfolio-website-redesign',
+        description: 'Modern portfolio website design for a creative photographer.',
+        content: `<h2>Project Overview</h2><p>Designed a stunning portfolio website that showcases photography work with a focus on visual storytelling.</p><h3>Features</h3><ul><li>Full-screen image galleries</li><li>Smooth scrolling animations</li><li>Mobile-optimized layouts</li><li>Contact form integration</li></ul>`,
+        coverImage: '/images/designs/portfolio-website.jpg',
+        images: [
+          '/images/designs/portfolio-website-1.jpg',
+          '/images/designs/portfolio-website-2.jpg'
+        ],
+        tags: ['Web Design', 'Portfolio', 'Photography', 'Minimalist'],
+        category: 'WEB_DESIGN',
+        tools: ['Figma', 'Adobe XD'],
+        clientName: 'Emma Photography',
+        projectUrl: 'https://emmaphoto.com',
+        dribbbleUrl: 'https://dribbble.com/shots/portfolio-redesign',
+        featured: false
+      }
+    }),
+    prisma.design.create({
+      data: {
+        title: 'Fitness App UI/UX',
+        slug: 'fitness-app-ui-ux',
+        description: 'Engaging fitness tracking app with gamification elements.',
+        content: `<h2>Project Overview</h2><p>Designed a motivating fitness app that uses gamification to keep users engaged with their health goals.</p><h3>Key Features</h3><ul><li>Workout tracking and planning</li><li>Achievement badges and rewards</li><li>Social challenges</li><li>Progress visualization</li></ul>`,
+        coverImage: '/images/designs/fitness-app.jpg',
+        images: [
+          '/images/designs/fitness-app-1.jpg',
+          '/images/designs/fitness-app-2.jpg',
+          '/images/designs/fitness-app-3.jpg'
+        ],
+        tags: ['Mobile App', 'Fitness', 'Gamification', 'Health'],
+        category: 'UI_UX',
+        tools: ['Figma', 'Principle', 'After Effects'],
+        figmaUrl: 'https://figma.com/file/fitness-app',
+        featured: false
+      }
+    })
+  ])
+
   console.log('📧 Seeding contact entries...')
   await Promise.all([
     prisma.contact.create({
@@ -319,10 +448,204 @@ export function Button({
     })
   ])
 
+  // Seed Audiobooks
+  console.log('🎧 Seeding audiobooks...')
+  const audiobooks = await Promise.all([
+    // Tech & Programming
+    prisma.resource.create({
+      data: {
+        title: 'The Pragmatic Programmer',
+        description: 'Your Journey to Mastery. A timeless guide to software craftsmanship with practical advice for programmers at all levels.',
+        type: 'AUDIOBOOK',
+        url: 'https://www.audible.de/pd/The-Pragmatic-Programmer-20th-Anniversary-Edition-2nd-Edition-Hoerbuch/B0833FKJ9R',
+        category: 'Programming',
+        image: 'https://m.media-amazon.com/images/I/51A8l+FxFNL._SL500_.jpg',
+        isAffiliate: true,
+        tags: ['programming', 'software-engineering', 'best-practices', 'career'],
+        narrator: 'Anna Katarina',
+        audioDuration: '10h 7m',
+        clickCount: 0
+      }
+    }),
+    prisma.resource.create({
+      data: {
+        title: 'Clean Code',
+        description: 'A Handbook of Agile Software Craftsmanship by Robert C. Martin. Learn to write code that is clean, maintainable, and professional.',
+        type: 'AUDIOBOOK',
+        url: 'https://www.audible.de/pd/Clean-Code-Hoerbuch/B08X8TB6R2',
+        category: 'Programming',
+        image: 'https://m.media-amazon.com/images/I/41EYLUDaF8L._SL500_.jpg',
+        isAffiliate: true,
+        tags: ['clean-code', 'software-engineering', 'best-practices', 'refactoring'],
+        narrator: 'Bob Welch',
+        audioDuration: '12h 42m',
+        clickCount: 0
+      }
+    }),
+    prisma.resource.create({
+      data: {
+        title: 'The Phoenix Project',
+        description: 'A Novel about IT, DevOps, and Helping Your Business Win. A gripping story that teaches DevOps principles through narrative.',
+        type: 'AUDIOBOOK',
+        url: 'https://www.audible.de/pd/The-Phoenix-Project-Hoerbuch/B00VAZVUD0',
+        category: 'DevOps',
+        image: 'https://m.media-amazon.com/images/I/51Fi5Fq4u5L._SL500_.jpg',
+        isAffiliate: true,
+        tags: ['devops', 'it-management', 'agile', 'business'],
+        narrator: 'Chris Ruen',
+        audioDuration: '14h 45m',
+        clickCount: 0
+      }
+    }),
+
+    // AI & Technology
+    prisma.resource.create({
+      data: {
+        title: 'Life 3.0',
+        description: 'Being Human in the Age of Artificial Intelligence by Max Tegmark. Explores how AI will affect crime, war, justice, jobs, and our very sense of being human.',
+        type: 'AUDIOBOOK',
+        url: 'https://www.audible.de/pd/Life-30-Hoerbuch/B07BNKZVT8',
+        category: 'AI & Future',
+        image: 'https://m.media-amazon.com/images/I/61yLHVsqgYL._SL500_.jpg',
+        isAffiliate: true,
+        tags: ['artificial-intelligence', 'future', 'technology', 'philosophy'],
+        narrator: 'Rob Shapiro',
+        audioDuration: '13h 29m',
+        clickCount: 0
+      }
+    }),
+    prisma.resource.create({
+      data: {
+        title: 'The Alignment Problem',
+        description: 'Machine Learning and Human Values by Brian Christian. A deep dive into AI alignment and ensuring AI systems share our values.',
+        type: 'AUDIOBOOK',
+        url: 'https://www.audible.de/pd/The-Alignment-Problem-Hoerbuch/1536695173',
+        category: 'AI & Future',
+        image: 'https://m.media-amazon.com/images/I/51NTItonR1L._SL500_.jpg',
+        isAffiliate: true,
+        tags: ['ai-safety', 'machine-learning', 'ethics', 'technology'],
+        narrator: 'Brian Christian',
+        audioDuration: '16h 32m',
+        clickCount: 0
+      }
+    }),
+    prisma.resource.create({
+      data: {
+        title: 'AI Superpowers',
+        description: 'China, Silicon Valley, and the New World Order by Kai-Fu Lee. Insights into the AI race between China and the US from a leading AI expert.',
+        type: 'AUDIOBOOK',
+        url: 'https://www.audible.de/pd/AI-Superpowers-Hoerbuch/3954716917',
+        category: 'AI & Future',
+        image: 'https://m.media-amazon.com/images/I/51yn2j0zHpL._SL500_.jpg',
+        isAffiliate: true,
+        tags: ['artificial-intelligence', 'china', 'silicon-valley', 'future'],
+        narrator: 'Mikael Naramore',
+        audioDuration: '9h 28m',
+        clickCount: 0
+      }
+    }),
+
+    // Personal Enhancement & Productivity
+    prisma.resource.create({
+      data: {
+        title: 'Atomic Habits',
+        description: 'An Easy & Proven Way to Build Good Habits & Break Bad Ones by James Clear. The definitive guide to habit formation and behavior change.',
+        type: 'AUDIOBOOK',
+        url: 'https://www.audible.de/pd/Atomic-Habits-Hoerbuch/1524779261?qid=1763369235&sr=1-1&ref_pageloadid=not_applicable&pf_rd_p=e54013e2-074a-460e-861f-7feac676b789&pf_rd_r=JF89FBNJFFY1Q4D5R2BT&plink=6mZ3ZEQiimJ8qj7U&pageLoadId=ZUaqT0ZJ40yL9c3N&creativeId=41e85e98-10b8-40e2-907d-6b663f04a42d&ref=a_search_c3_lProduct_1_1',
+        category: 'Self-Improvement',
+        image: 'https://m.media-amazon.com/images/I/513Y5o-DYtL._SL500_.jpg',
+        isAffiliate: true,
+        tags: ['habits', 'productivity', 'self-improvement', 'psychology'],
+        narrator: 'James Clear',
+        audioDuration: '5h 35m',
+        clickCount: 0
+      }
+    }),
+    prisma.resource.create({
+      data: {
+        title: 'Deep Work',
+        description: 'Rules for Focused Success in a Distracted World by Cal Newport. Master the art of deep concentration in an age of constant distraction.',
+        type: 'AUDIOBOOK',
+        url: 'https://www.audible.de/pd/Deep-Work-Hoerbuch/B01CYLJ49U?eac_link=c97ScBZGE4cb&ref=web_search_eac_asin_1&eac_selected_type=asin&eac_selected=B01CYLJ49U&qid=G5T1JZ6JCL&eac_id=261-5932162-5654739_G5T1JZ6JCL&sr=1-1',
+        category: 'Productivity',
+        image: 'https://m.media-amazon.com/images/I/41O+BX2s+cL._SL500_.jpg',
+        isAffiliate: true,
+        tags: ['productivity', 'focus', 'career', 'self-improvement'],
+        narrator: 'Jeff Bottoms',
+        audioDuration: '7h 44m',
+        clickCount: 0
+      }
+    }),
+    prisma.resource.create({
+      data: {
+        title: 'Thinking, Fast and Slow',
+        description: 'By Daniel Kahneman. A groundbreaking tour of the mind explaining the two systems that drive the way we think and make decisions.',
+        type: 'AUDIOBOOK',
+        url: 'https://www.audible.de/pd/Thinking-Fast-and-Slow-Hoerbuch/B005TKLZSW',
+        category: 'Psychology',
+        image: 'https://m.media-amazon.com/images/I/41JgsMOR9wL._SL500_.jpg',
+        isAffiliate: true,
+        tags: ['psychology', 'decision-making', 'behavioral-economics', 'thinking'],
+        narrator: 'Patrick Egan',
+        audioDuration: '20h 2m',
+        clickCount: 0
+      }
+    }),
+    prisma.resource.create({
+      data: {
+        title: 'The 7 Habits of Highly Effective People',
+        description: 'By Stephen R. Covey. A timeless classic on personal effectiveness and leadership that has transformed millions of lives.',
+        type: 'AUDIOBOOK',
+        url: 'https://www.audible.de/pd/The-7-Habits-of-Highly-Effective-People-Hoerbuch/B004V03KUW',
+        category: 'Leadership',
+        image: 'https://m.media-amazon.com/images/I/51OuvCFwyZL._SL500_.jpg',
+        isAffiliate: true,
+        tags: ['leadership', 'productivity', 'self-improvement', 'business'],
+        narrator: 'Stephen R. Covey',
+        audioDuration: '15h 50m',
+        clickCount: 0
+      }
+    }),
+
+    // Tech Business & Innovation
+    prisma.resource.create({
+      data: {
+        title: 'The Lean Startup',
+        description: 'How Today\'s Entrepreneurs Use Continuous Innovation to Create Radically Successful Businesses by Eric Ries.',
+        type: 'AUDIOBOOK',
+        url: 'https://www.audible.de/pd/The-Lean-Startup-Hoerbuch/B005LY5K9G',
+        category: 'Startups',
+        image: 'https://m.media-amazon.com/images/I/51PAIR77wJL._SL500_.jpg',
+        isAffiliate: true,
+        tags: ['startups', 'entrepreneurship', 'innovation', 'business'],
+        narrator: 'Eric Ries',
+        audioDuration: '8h 38m',
+        clickCount: 0
+      }
+    }),
+    prisma.resource.create({
+      data: {
+        title: 'Zero to One',
+        description: 'Notes on Startups, or How to Build the Future by Peter Thiel. Unconventional wisdom on innovation and building monopolies.',
+        type: 'AUDIOBOOK',
+        url: 'https://www.audible.de/pd/Zero-to-one-Hoerbuch/B00OGB88US',
+        category: 'Startups',
+        image: 'https://m.media-amazon.com/images/I/41tTGigH8tL._SL500_.jpg',
+        isAffiliate: true,
+        tags: ['startups', 'innovation', 'business', 'entrepreneurship'],
+        narrator: 'Blake Masters',
+        audioDuration: '4h 50m',
+        clickCount: 0
+      }
+    })
+  ])
+
   console.log('✅ Database seeded successfully!')
   console.log(`📦 Created ${services.length} services`)
   console.log(`🚀 Created ${projects.length} projects`)
+  console.log(`🎨 Created ${designs.length} designs`)
   console.log(`📝 Created ${posts.length} blog posts`)
+  console.log(`🎧 Created ${audiobooks.length} audiobooks`)
   console.log('📧 Created 2 contact entries')
 }
 

@@ -1,12 +1,12 @@
 import { HeroSection } from '@/components/HeroSection'
-import { AboutSection } from '@/components/AboutSection'
-import { ProjectsSection } from '@/components/ProjectsSection'
-import { ServicesSection } from '@/components/ServicesSection'
+// import { AboutSection } from '@/components/AboutSection'
+// import { ProjectsSection } from '@/components/ProjectsSection'
+// import { ServicesSection } from '@/components/ServicesSection'
 import { BlogSection } from '@/components/BlogSection'
-import SocialLinks from '@/components/socialLinks'
+import { TimeBasedGreeting } from '@/components/TimeBasedGreeting'
+import { InfoBlocks } from '@/components/InfoBlocks'
 import { Metadata } from 'next'
 import { StructuredData } from '@/components/StructuredData'
-import MainLayout from '@/components/layout/MainLayout'
 
 // Enable ISR with 1-hour revalidation for optimal global performance
 export const revalidate = 3600; // Revalidate every 1 hour
@@ -14,7 +14,7 @@ export const revalidate = 3600; // Revalidate every 1 hour
 // SEO
 export const metadata: Metadata = {
   title: 'Hany Rabah - Berlin Fullstack Engineer | React, Next.js & AI Integration Expert',
-  description: 'Senior Fullstack Engineer & Technical Lead in Berlin with 15+ years experience. Expert in React, Next.js, Node.js, TypeScript, AWS, and AI integration. Building scalable fintech solutions at GoDiligent. Available for consulting.',
+  description: 'Senior Fullstack Engineer based in Berlin with 20+ years experience. Expert in React, Next.js, Node.js, TypeScript, AWS, and AI integration. Building scalable fintech solutions at GoDiligent. Available for consulting.',
   keywords: [
     'Hany Rabah',
     'Berlin Fullstack Engineer',
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Hany Rabah - Berlin Fullstack Engineer | React, Next.js & AI Integration Expert',
-    description: 'Senior Fullstack Engineer & Technical Lead in Berlin with 15+ years experience. Expert in React, Next.js, Node.js, TypeScript, AWS, and AI integration. Building scalable fintech solutions.',
+    description: 'Senior Fullstack Engineer based in Berlin with 20+ years experience. Expert in React, Next.js, Node.js, TypeScript, AWS, and AI integration. Building scalable fintech solutions.',
     type: 'profile',
     locale: 'en_US',
     url: 'https://hanyrabah.com',
@@ -60,7 +60,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Hany Rabah - Berlin Fullstack Engineer | React & AI Expert',
-    description: 'Senior Fullstack Engineer in Berlin. 15+ years experience with React, Next.js, Node.js, AWS, and AI integration. Available for consulting.',
+    description: 'Senior Fullstack Engineer in Berlin. 20+ years experience with React, Next.js, Node.js, AWS, and AI integration. Available for consulting.',
     images: ['/og-image.png'],
     creator: '@hanyrabah',
   },
@@ -79,8 +79,8 @@ export default function Home() {
   // Structured data for SEO
   const personData = {
     name: 'Hany Rabah',
-    jobTitle: 'Senior Fullstack Engineer & Technical Lead',
-    description: 'Senior Fullstack Engineer and Technical Lead with 15+ years of experience building scalable, high-performance web applications.',
+    jobTitle: 'Senior Fullstack Engineer',
+    description: 'Senior Fullstack Engineer with 20+ years of experience building scalable, high-performance web applications.',
     url: 'https://hanyrabah.com',
     image: 'https://hanyrabah.com/og-image.png',
     location: 'Berlin',
@@ -120,15 +120,17 @@ export default function Home() {
     <div className="min-h-screen bg-background text-foreground">
       <StructuredData type="Person" data={personData} />
       <StructuredData type="WebSite" data={websiteData} />
-      <MainLayout>
-        <main>
-          <HeroSection />
-          <AboutSection />
-          {/* <ProjectsSection /> */}
-          <ServicesSection />
-          <BlogSection />
-        </main>
-      </MainLayout>
+      <main className="space-y-12">
+        <HeroSection />
+        
+        {/* Enhanced Homepage Content */}
+        <section className="container mx-auto px-6">
+          <TimeBasedGreeting />
+          <InfoBlocks />
+        </section>
+        
+        {/* <BlogSection /> */}
+      </main>
     </div>
   );
 }
