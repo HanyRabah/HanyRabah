@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { ThemedButton } from "@/components/ui/themed-button";
 import { useContactDrawer } from "@/contexts/ContactDrawerContext";
 import { Mail } from "lucide-react";
+import { ClickSpark } from "./react-bits";
 
 interface ContactButtonProps {
   variant?: "default" | "outline" | "ghost" | "link" | "secondary";
@@ -45,14 +46,16 @@ export function ContactButton({
   }
 
   return (
-    <ThemedButton
-      variant={variant}
-      size={size}
-      className={className}
-      onClick={() => openDrawer(defaultReason)}
-    >
-      {showIcon && <Mail className="mr-2 h-4 w-4" />}
-      {children || "Contact Me"}
-    </ThemedButton>
+    <ClickSpark sparkColor="var(--theme-primary)">
+      <ThemedButton
+        variant={variant}
+        size={size}
+        className={className}
+        onClick={() => openDrawer(defaultReason)}
+      >
+        {showIcon && <Mail className="mr-2 h-4 w-4" />}
+        {children || "Contact Me"}
+      </ThemedButton>
+    </ClickSpark>
   );
 }
