@@ -23,7 +23,10 @@ import {
   PlusOutlined,
   EyeOutlined,
   StarOutlined,
-  StarFilled
+  StarFilled,
+  CheckOutlined,
+  CloseOutlined,
+  ReloadOutlined
 } from '@ant-design/icons'
 import Link from 'next/link'
 
@@ -34,6 +37,7 @@ interface WorkItem {
   title: string
   slug: string
   description: string
+  published: boolean
   featured: boolean
   coverImage?: string
   createdAt: string
@@ -93,23 +97,26 @@ export default function AdminWorkPage() {
     }
   }
 
-  const handleToggleFeatured = async (id: string, type: WorkType, currentFeatured: boolean) => {
+  const handleToggleStatus = async (id: string, type: WorkType, field: 'published' | 'featured', currentValue: boolean) => {
     try {
       const endpoint = type === 'development' ? '/api/admin/projects' : '/api/admin/designs'
       const response = await fetch(`${endpoint}/${id}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ featured: !currentFeatured })
+        body: JSON.stringify({ [field]: !currentValue })
       })
 
       if (response.ok) {
-        message.success(`${currentFeatured ? 'Removed from' : 'Added to'} featured`)
+        const label = field === 'published' 
+          ? (currentValue ? 'Unpublished' : 'Published')
+          : (currentValue ? 'Removed from featured' : 'Added to featured')
+        message.success(label)
         fetchWork()
       } else {
-        message.error('Failed to update featured status')
+        message.error(`Failed to update ${field} status`)
       }
     } catch (error) {
-      message.error('Failed to update featured status')
+      message.error(`Failed to update ${field} status`)
     }
   }
 
@@ -158,13 +165,21 @@ export default function AdminWorkPage() {
     },
     {
       title: 'Status',
-      dataIndex: 'status',
       key: 'status',
-      render: (status: string) => (
-        <Tag color={status === 'COMPLETED' ? 'green' : status === 'IN_PROGRESS' ? 'blue' : 'default'}>
-          {status}
-        </Tag>
+      render: (_: any, record: WorkItem) => (
+        <Space>
+          <Tag color={record.published ? 'green' : 'orange'}>
+            {record.published ? 'Published' : 'Draft'}
+          </Tag>
+          {record.featured && <Tag color="blue">Featured</Tag>}
+        </Space>
       )
+    },
+    {
+      title: 'Created',
+      dataIndex: 'createdAt',
+      key: 'createdAt',
+      render: (date: string) => new Date(date).toLocaleDateString()
     },
     {
       title: 'Actions',
@@ -173,8 +188,14 @@ export default function AdminWorkPage() {
         <Space>
           <Button
             type="text"
+            icon={record.published ? <CloseOutlined /> : <CheckOutlined />}
+            onClick={() => handleToggleStatus(record.id, 'development', 'published', record.published)}
+            title={record.published ? 'Unpublish' : 'Publish'}
+          />
+          <Button
+            type="text"
             icon={record.featured ? <StarFilled /> : <StarOutlined />}
-            onClick={() => handleToggleFeatured(record.id, 'development', record.featured)}
+            onClick={() => handleToggleStatus(record.id, 'development', 'featured', record.featured)}
             title={record.featured ? 'Remove from featured' : 'Add to featured'}
           />
           <Link href={`/admin/projects/${record.id}/edit`}>
@@ -230,20 +251,44 @@ export default function AdminWorkPage() {
       )
     },
     {
+      title: 'Status',
+      key: 'status',
+      render: (_: any, record: WorkItem) => (
+        <Space>
+          <Tag color={record.published ? 'green' : 'orange'}>
+            {record.published ? 'Published' : 'Draft'}
+          </Tag>
+          {record.featured && <Tag color="blue">Featured</Tag>}
+        </Space>
+      )
+    },
+    {
+      title: 'Created',
+      dataIndex: 'createdAt',
+      key: 'createdAt',
+      render: (date: string) => new Date(date).toLocaleDateString()
+    },
+    {
       title: 'Actions',
       key: 'actions',
       render: (_: any, record: WorkItem) => (
         <Space>
           <Button
             type="text"
+            icon={record.published ? <CloseOutlined /> : <CheckOutlined />}
+            onClick={() => handleToggleStatus(record.id, 'design', 'published', record.published)}
+            title={record.published ? 'Unpublish' : 'Publish'}
+          />
+          <Button
+            type="text"
             icon={record.featured ? <StarFilled /> : <StarOutlined />}
-            onClick={() => handleToggleFeatured(record.id, 'design', record.featured)}
+            onClick={() => handleToggleStatus(record.id, 'design', 'featured', record.featured)}
             title={record.featured ? 'Remove from featured' : 'Add to featured'}
           />
           <Link href={`/admin/designs/${record.id}/edit`}>
             <Button type="text" icon={<EditOutlined />} />
           </Link>
-          <Link href={`/design/${record.slug}`} target="_blank">
+          <Link href={`/work`} target="_blank">
             <Button type="text" icon={<EyeOutlined />} />
           </Link>
           <Popconfirm
@@ -277,6 +322,13 @@ export default function AdminWorkPage() {
             title="Work Management"
             extra={
               <Space>
+                <Button
+                  icon={<ReloadOutlined />}
+                  onClick={fetchWork}
+                  loading={loading}
+                >
+                  Refresh
+                </Button>
                 <Link href="/admin/projects/new">
                   <Button type="primary" icon={<PlusOutlined />}>
                     New Project

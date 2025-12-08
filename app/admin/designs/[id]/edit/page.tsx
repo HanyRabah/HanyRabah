@@ -29,6 +29,7 @@ import {
 import Link from 'next/link'
 import AdminLayout from '@/components/admin/AdminLayout'
 import AntdProvider from '@/components/admin/AntdProvider'
+import { ImageUpload } from '@/components/admin/ImageUpload'
 
 const { Title, Text } = Typography
 const { TextArea } = Input
@@ -40,6 +41,7 @@ interface Design {
   slug: string
   description: string
   content: string
+  published: boolean
   featured: boolean
   coverImage: string | null
   images: string[]
@@ -75,8 +77,8 @@ export default function EditDesign() {
   const [tools, setTools] = useState<string[]>([])
   const [images, setImages] = useState<string[]>([])
   const [tags, setTags] = useState<string[]>([])
+  const [coverImage, setCoverImage] = useState<string>('')
   const [newTool, setNewTool] = useState('')
-  const [newImage, setNewImage] = useState('')
   const [newTag, setNewTag] = useState('')
 
   useEffect(() => {
@@ -99,11 +101,13 @@ export default function EditDesign() {
         setTools(designData.tools || [])
         setImages(designData.images || [])
         setTags(designData.tags || [])
+        setCoverImage(designData.coverImage || '')
         form.setFieldsValue({
           title: designData.title,
           slug: designData.slug,
           description: designData.description,
           content: designData.content,
+          published: designData.published,
           featured: designData.featured,
           category: designData.category,
           coverImage: designData.coverImage || '',
@@ -115,12 +119,12 @@ export default function EditDesign() {
         })
       } else {
         message.error('Design not found')
-        router.push('/admin/designs')
+        router.push('/admin/work')
       }
     } catch (error) {
       console.error('Failed to fetch design:', error)
       message.error('Failed to fetch design')
-      router.push('/admin/designs')
+      router.push('/admin/work')
     } finally {
       setLoading(false)
     }
@@ -135,7 +139,7 @@ export default function EditDesign() {
         tools: tools,
         images: images,
         tags: tags,
-        coverImage: values.coverImage || null,
+        coverImage: coverImage || null,
         clientName: values.clientName || null,
         projectUrl: values.projectUrl || null,
         figmaUrl: values.figmaUrl || null,
@@ -176,10 +180,9 @@ export default function EditDesign() {
     setTools(tools.filter(tool => tool !== toolToRemove))
   }
 
-  const addImage = () => {
-    if (newImage.trim() && !images.includes(newImage.trim())) {
-      setImages([...images, newImage.trim()])
-      setNewImage('')
+  const handleAddImage = (url: string) => {
+    if (url && !images.includes(url)) {
+      setImages([...images, url])
     }
   }
 
@@ -243,7 +246,7 @@ export default function EditDesign() {
                   Preview
                 </Button>
               </Link>
-              <Link href="/admin/designs">
+              <Link href="/admin/work">
                 <Button icon={<ArrowLeftOutlined />}>
                   Back to Designs
                 </Button>
@@ -321,6 +324,15 @@ export default function EditDesign() {
                 <Space direction="vertical" size="large" style={{ width: '100%' }}>
                   <Card title="Design Settings">
                     <Form.Item
+                      label="Published"
+                      name="published"
+                      valuePropName="checked"
+                      help="Only published designs appear on the website"
+                    >
+                      <Switch />
+                    </Form.Item>
+
+                    <Form.Item
                       label="Featured"
                       name="featured"
                       valuePropName="checked"
@@ -344,40 +356,58 @@ export default function EditDesign() {
                   </Card>
 
                   <Card title="Media">
-                    <Form.Item
-                      label="Cover Image URL"
-                      name="coverImage"
-                      help="Main design image"
-                    >
-                      <Input placeholder="https://example.com/image.jpg" />
-                    </Form.Item>
+                    <div style={{ marginBottom: 16 }}>
+                      <Text strong style={{ display: 'block', marginBottom: 8 }}>Cover Image</Text>
+                      <ImageUpload
+                        value={coverImage}
+                        onChange={(url) => setCoverImage(url)}
+                        label="Upload Cover Image"
+                        folder="designs"
+                      />
+                    </div>
 
                     <div style={{ marginBottom: 16 }}>
-                      <Text strong>Additional Images</Text>
-                      <Space.Compact style={{ width: '100%', marginTop: 8 }}>
-                        <Input
-                          placeholder="Image URL..."
-                          value={newImage}
-                          onChange={(e) => setNewImage(e.target.value)}
-                          onPressEnter={addImage}
-                        />
-                        <Button
-                          type="primary"
-                          onClick={addImage}
-                          icon={<PlusOutlined />}
-                        />
-                      </Space.Compact>
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 8 }}>
+                      <Text strong style={{ display: 'block', marginBottom: 8 }}>Additional Images</Text>
+                      <ImageUpload
+                        value=""
+                        onChange={handleAddImage}
+                        label="Add Image"
+                        folder="designs"
+                      />
+                      <div style={{ marginTop: 12 }}>
                         {images.map((image) => (
-                          <Tag
-                            key={image}
-                            closable
-                            onClose={() => removeImage(image)}
-                            closeIcon={<CloseOutlined />}
-                            style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis' }}
+                          <div 
+                            key={image} 
+                            style={{ 
+                              display: 'flex', 
+                              alignItems: 'center', 
+                              gap: 8, 
+                              marginBottom: 8,
+                              padding: '8px 12px',
+                              background: '#f5f5f5',
+                              borderRadius: 6,
+                              border: '1px solid #e8e8e8'
+                            }}
                           >
-                            {image.length > 30 ? `${image.substring(0, 30)}...` : image}
-                          </Tag>
+                            <span style={{ 
+                              flex: 1, 
+                              overflow: 'hidden', 
+                              textOverflow: 'ellipsis', 
+                              whiteSpace: 'nowrap',
+                              fontSize: 13
+                            }}>
+                              {image.length > 40 ? `${image.substring(0, 40)}...` : image}
+                            </span>
+                            <Button
+                              type="text"
+                              danger
+                              size="small"
+                              icon={<CloseOutlined />}
+                              onClick={() => removeImage(image)}
+                            >
+                              Remove
+                            </Button>
+                          </div>
                         ))}
                       </div>
                     </div>

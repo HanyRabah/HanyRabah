@@ -2,7 +2,7 @@
 import { useState } from "react";
 import { Badge } from "../ui/badge";
 import { Button } from "../ui/button";
-import { ExternalLink, Github, Figma, Eye } from "lucide-react";
+import { ExternalLink, Figma, Eye } from "lucide-react";
 import { ImageGallery } from "./ImageGallery";
 
 interface DesignProject {

@@ -15,6 +15,7 @@ interface Project {
   githubUrl?: string | null
   featured?: boolean
   category?: string | null
+  type?: 'development' | 'design'
 }
 
 interface ProjectCardProps {
@@ -57,7 +58,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
               className="object-cover transition-all duration-700 group-hover:scale-110"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
               onError={() => setImageError(true)}
-              unoptimized
             />
             {/* Overlay on Hover */}
             <div className={`absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}>
@@ -152,10 +152,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
         {/* Action Button */}
         <Link
-          href={`/projects/${project.slug}`}
+          href={project.type === 'design' ? `/design/${project.slug}` : `/projects/${project.slug}`}
           className="inline-flex items-center text-theme-primary hover:text-theme-secondary font-semibold transition-colors duration-300 group/link"
         >
-          View Project Details
+          View {project.type === 'design' ? 'Design' : 'Project'} Details
           <svg className="w-4 h-4 ml-2 group-hover/link:translate-x-1 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
