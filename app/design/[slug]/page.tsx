@@ -4,6 +4,7 @@ import { prisma } from '@/lib/prisma'
 import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft, ExternalLink, Figma, Dribbble } from 'lucide-react'
+import { ImageGallery } from '@/components/design/ImageGallery'
 
 interface DesignPageProps {
   params: Promise<{
@@ -192,18 +193,14 @@ export default async function DesignPage({ params }: DesignPageProps) {
           {design.images.length > 0 && (
             <div className="mt-12">
               <h2 className="text-2xl font-bold mb-6">Design Gallery</h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {design.images.map((image, index) => (
-                  <Image
-                    key={index}
-                    src={image}
-                    alt={`${design.title} screenshot ${index + 1}`}
-                    width={400}
-                    height={300}
-                    className="rounded-lg object-cover w-full"
-                  />
-                ))}
-              </div>
+              <ImageGallery
+                images={design.images.map((image, index) => ({
+                  src: image,
+                  alt: `${design.title} screenshot ${index + 1}`,
+                  caption: `${design.title} - Image ${index + 1}`
+                }))}
+                title={design.title}
+              />
             </div>
           )}
 
