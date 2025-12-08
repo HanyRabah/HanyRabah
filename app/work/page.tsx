@@ -188,8 +188,9 @@ function WorkContent() {
                           key={item.id} 
                           project={{
                             ...item,
-                            technologies: item.technologies || [],
-                            category: item.type === 'development' ? 'Development' : 'Design'
+                            technologies: item.technologies || item.tools || [],
+                            category: item.type === 'development' ? 'Development' : 'Design',
+                            type: item.type
                           }} 
                         />
                       ))}
@@ -214,8 +215,9 @@ function WorkContent() {
                           key={item.id} 
                           project={{
                             ...item,
-                            technologies: item.technologies || [],
-                            category: item.type === 'development' ? 'Development' : 'Design'
+                            technologies: item.technologies || item.tools || [],
+                            category: item.type === 'development' ? 'Development' : 'Design',
+                            type: item.type
                           }} 
                         />
                       ))}

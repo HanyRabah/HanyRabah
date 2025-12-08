@@ -26,6 +26,7 @@ import {
 import Link from 'next/link'
 import AdminLayout from '@/components/admin/AdminLayout'
 import AntdProvider from '@/components/admin/AntdProvider'
+import { ImageUpload } from '@/components/admin/ImageUpload'
 
 const { Title, Text } = Typography
 const { TextArea } = Input
@@ -36,6 +37,7 @@ interface DesignFormData {
   slug: string
   description: string
   content: string
+  published: boolean
   featured: boolean
   category: string
   coverImage: string
@@ -65,7 +67,7 @@ export default function NewDesign() {
   const [isLoading, setIsLoading] = useState(false)
   const [newTool, setNewTool] = useState('')
   const [tools, setTools] = useState<string[]>([])
-  const [newImage, setNewImage] = useState('')
+  const [coverImage, setCoverImage] = useState<string>('')
   const [images, setImages] = useState<string[]>([])
   const [newTag, setNewTag] = useState('')
   const [tags, setTags] = useState<string[]>([])
@@ -99,7 +101,7 @@ export default function NewDesign() {
         tools: tools,
         images: images,
         tags: tags,
-        coverImage: values.coverImage || null,
+        coverImage: coverImage || null,
         clientName: values.clientName || null,
         projectUrl: values.projectUrl || null,
         figmaUrl: values.figmaUrl || null,
@@ -140,10 +142,9 @@ export default function NewDesign() {
     setTools(tools.filter(tool => tool !== toolToRemove))
   }
 
-  const addImage = () => {
-    if (newImage.trim() && !images.includes(newImage.trim())) {
-      setImages([...images, newImage.trim()])
-      setNewImage('')
+  const handleAddImage = (url: string) => {
+    if (url && !images.includes(url)) {
+      setImages([...images, url])
     }
   }
 
@@ -178,7 +179,7 @@ export default function NewDesign() {
               </Title>
               <Text type="secondary">Add a new design to your portfolio</Text>
             </div>
-            <Link href="/admin/designs">
+            <Link href="/admin/work">
               <Button icon={<ArrowLeftOutlined />}>
                 Back to Designs
               </Button>
@@ -194,9 +195,9 @@ export default function NewDesign() {
               slug: '',
               description: '',
               content: '',
+              published: false,
               featured: false,
               category: 'WEB_DESIGN',
-              coverImage: '',
               clientName: '',
               projectUrl: '',
               figmaUrl: '',
@@ -274,6 +275,15 @@ export default function NewDesign() {
                 <Space direction="vertical" size="large" style={{ width: '100%' }}>
                   <Card title="Design Settings">
                     <Form.Item
+                      label="Published"
+                      name="published"
+                      valuePropName="checked"
+                      help="Only published designs appear on the website"
+                    >
+                      <Switch />
+                    </Form.Item>
+
+                    <Form.Item
                       label="Featured"
                       name="featured"
                       valuePropName="checked"
@@ -297,40 +307,58 @@ export default function NewDesign() {
                   </Card>
 
                   <Card title="Media">
-                    <Form.Item
-                      label="Cover Image URL"
-                      name="coverImage"
-                      help="Main design image"
-                    >
-                      <Input placeholder="https://example.com/image.jpg" />
-                    </Form.Item>
+                    <div style={{ marginBottom: 16 }}>
+                      <Text strong style={{ display: 'block', marginBottom: 8 }}>Cover Image</Text>
+                      <ImageUpload
+                        value={coverImage}
+                        onChange={(url) => setCoverImage(url)}
+                        label="Upload Cover Image"
+                        folder="designs"
+                      />
+                    </div>
 
                     <div style={{ marginBottom: 16 }}>
-                      <Text strong>Additional Images</Text>
-                      <Space.Compact style={{ width: '100%', marginTop: 8 }}>
-                        <Input
-                          placeholder="Image URL..."
-                          value={newImage}
-                          onChange={(e) => setNewImage(e.target.value)}
-                          onPressEnter={addImage}
-                        />
-                        <Button
-                          type="primary"
-                          onClick={addImage}
-                          icon={<PlusOutlined />}
-                        />
-                      </Space.Compact>
-                      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 8 }}>
+                      <Text strong style={{ display: 'block', marginBottom: 8 }}>Additional Images</Text>
+                      <ImageUpload
+                        value=""
+                        onChange={handleAddImage}
+                        label="Add Image"
+                        folder="designs"
+                      />
+                      <div style={{ marginTop: 12 }}>
                         {images.map((image) => (
-                          <Tag
-                            key={image}
-                            closable
-                            onClose={() => removeImage(image)}
-                            closeIcon={<CloseOutlined />}
-                            style={{ maxWidth: '200px', overflow: 'hidden', textOverflow: 'ellipsis' }}
+                          <div 
+                            key={image} 
+                            style={{ 
+                              display: 'flex', 
+                              alignItems: 'center', 
+                              gap: 8, 
+                              marginBottom: 8,
+                              padding: '8px 12px',
+                              background: '#f5f5f5',
+                              borderRadius: 6,
+                              border: '1px solid #e8e8e8'
+                            }}
                           >
-                            {image.length > 30 ? `${image.substring(0, 30)}...` : image}
-                          </Tag>
+                            <span style={{ 
+                              flex: 1, 
+                              overflow: 'hidden', 
+                              textOverflow: 'ellipsis', 
+                              whiteSpace: 'nowrap',
+                              fontSize: 13
+                            }}>
+                              {image.length > 40 ? `${image.substring(0, 40)}...` : image}
+                            </span>
+                            <Button
+                              type="text"
+                              danger
+                              size="small"
+                              icon={<CloseOutlined />}
+                              onClick={() => removeImage(image)}
+                            >
+                              Remove
+                            </Button>
+                          </div>
                         ))}
                       </div>
                     </div>

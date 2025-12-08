@@ -3,6 +3,9 @@ import { NextResponse } from 'next/server'
 import { getServerSession } from 'next-auth'
 import { isAdmin } from '@/lib/auth'
 
+// Allow larger file uploads
+export const runtime = 'nodejs'
+
 export async function POST(request: Request) {
   try {
     // Check authentication
