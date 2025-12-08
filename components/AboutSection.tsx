@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { PageHeader } from "./PageHeader";
 import { Accordion, AccordionItem, AccordionTrigger, AccordionContent } from "./ui/accordion";
+import { ScrollReveal, BounceCard } from "./react-bits";
 
 interface TimelineItem {
   date: string;
@@ -285,6 +286,7 @@ export function AboutSection() {
             </PageHeader>
 
             {/* Timeline Section */}
+            <ScrollReveal direction="up" delay={0.2}>
             <div className="px-10">
               <h2 className="text-2xl md:text-3xl font-bold mb-8">
                 My Career Path
@@ -385,10 +387,10 @@ export function AboutSection() {
                 ))}
               </div>
             </div>
-
-      
+            </ScrollReveal>
 
             {/* Skills Grid */}
+            <ScrollReveal direction="up" delay={0.3}>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 py-8">
               <div>
                 <h3 className="text-lg font-semibold mb-3 text-foreground">
@@ -396,12 +398,11 @@ export function AboutSection() {
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {techSkills.map((skill) => (
-                    <Badge
-                      key={skill}
-                      variant="primary"
-                    >
-                      {skill}
-                    </Badge>
+                    <BounceCard key={skill} scale={1.1}>
+                      <Badge variant="primary">
+                        {skill}
+                      </Badge>
+                    </BounceCard>
                   ))}
                 </div>
               </div>
@@ -412,12 +413,11 @@ export function AboutSection() {
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {softSkills.map((skill) => (
-                    <Badge
-                      key={skill}
-                      variant="primary"
-                    >
-                      {skill}
-                    </Badge>
+                    <BounceCard key={skill} scale={1.1}>
+                      <Badge variant="primary">
+                        {skill}
+                      </Badge>
+                    </BounceCard>
                   ))}
                 </div>
               </div>
@@ -428,12 +428,11 @@ export function AboutSection() {
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {designSkills.map((skill) => (
-                    <Badge
-                      key={skill}
-                      variant="primary"
-                    >
-                      {skill}
-                    </Badge>
+                    <BounceCard key={skill} scale={1.1}>
+                      <Badge variant="primary">
+                        {skill}
+                      </Badge>
+                    </BounceCard>
                   ))}
                 </div>
               </div>
@@ -444,18 +443,19 @@ export function AboutSection() {
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {languages.map((language) => (
-                    <Badge
-                      key={language}
-                      variant="primary"
-                    >
-                      {language}
-                    </Badge>
+                    <BounceCard key={language} scale={1.1}>
+                      <Badge variant="primary">
+                        {language}
+                      </Badge>
+                    </BounceCard>
                   ))}
                 </div>
               </div>
             </div>
+            </ScrollReveal>
 
                   {/* More About Me Section */}
+            <ScrollReveal direction="left" delay={0.2}>
             <div className="py-8">
               <h2 className="text-2xl md:text-3xl font-bold mb-6">
                 More About Me
@@ -484,8 +484,9 @@ export function AboutSection() {
                 </Link>
               </div>
             </div>
+            </ScrollReveal>
 
-
+            <ScrollReveal direction="up" delay={0.3}>
             <div className="py-8">
               <Button
                 onClick={downloadResume}
@@ -509,6 +510,7 @@ export function AboutSection() {
                 Download Resume
               </Button>
             </div>
+            </ScrollReveal>
           </div>
         </div>
       </div>

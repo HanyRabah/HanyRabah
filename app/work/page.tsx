@@ -5,6 +5,7 @@ import { useSearchParams, useRouter } from 'next/navigation'
 import { PageHeader } from '@/components/PageHeader'
 import { ProjectCard } from '@/components/ProjectCard'
 import { Briefcase, Code, Palette } from 'lucide-react'
+import { ScrollReveal, FadeIn } from '@/components/react-bits'
 
 type WorkFilter = 'all' | 'development' | 'design'
 
@@ -174,25 +175,28 @@ function WorkContent() {
                 {/* Featured Work */}
                 {featuredWork.length > 0 && (
                   <div>
-                    <div className="text-center mb-12">
-                      <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
-                        Featured Work
-                      </h2>
-                      <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                        Highlighted projects and designs that showcase expertise and innovation.
-                      </p>
-                    </div>
+                    <FadeIn direction="up" delay={0.1}>
+                      <div className="text-center mb-12">
+                        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
+                          Featured Work
+                        </h2>
+                        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                          Highlighted projects and designs that showcase expertise and innovation.
+                        </p>
+                      </div>
+                    </FadeIn>
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                      {featuredWork.map((item) => (
-                        <ProjectCard 
-                          key={item.id} 
-                          project={{
-                            ...item,
-                            technologies: item.technologies || item.tools || [],
-                            category: item.type === 'development' ? 'Development' : 'Design',
-                            type: item.type
-                          }} 
-                        />
+                      {featuredWork.map((item, index) => (
+                        <ScrollReveal key={item.id} direction="up" delay={0.1 * index}>
+                          <ProjectCard 
+                            project={{
+                              ...item,
+                              technologies: item.technologies || item.tools || [],
+                              category: item.type === 'development' ? 'Development' : 'Design',
+                              type: item.type
+                            }} 
+                          />
+                        </ScrollReveal>
                       ))}
                     </div>
                   </div>
@@ -201,25 +205,28 @@ function WorkContent() {
                 {/* All Work */}
                 {regularWork.length > 0 && (
                   <div>
-                    <div className="text-center mb-12">
-                      <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
-                        {featuredWork.length > 0 ? 'More Work' : 'Latest Work'}
-                      </h2>
-                      <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-                        A comprehensive collection of projects and designs built with modern technologies.
-                      </p>
-                    </div>
+                    <FadeIn direction="up" delay={0.1}>
+                      <div className="text-center mb-12">
+                        <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
+                          {featuredWork.length > 0 ? 'More Work' : 'Latest Work'}
+                        </h2>
+                        <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+                          A comprehensive collection of projects and designs built with modern technologies.
+                        </p>
+                      </div>
+                    </FadeIn>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                      {regularWork.map((item) => (
-                        <ProjectCard 
-                          key={item.id} 
-                          project={{
-                            ...item,
-                            technologies: item.technologies || item.tools || [],
-                            category: item.type === 'development' ? 'Development' : 'Design',
-                            type: item.type
-                          }} 
-                        />
+                      {regularWork.map((item, index) => (
+                        <ScrollReveal key={item.id} direction="up" delay={0.05 * (index % 6)}>
+                          <ProjectCard 
+                            project={{
+                              ...item,
+                              technologies: item.technologies || item.tools || [],
+                              category: item.type === 'development' ? 'Development' : 'Design',
+                              type: item.type
+                            }} 
+                          />
+                        </ScrollReveal>
                       ))}
                     </div>
                   </div>
