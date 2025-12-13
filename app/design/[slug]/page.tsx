@@ -1,7 +1,6 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { prisma } from '@/lib/prisma'
-import Image from 'next/image'
 import Link from 'next/link'
 import { ArrowLeft, ExternalLink, Figma, Dribbble } from 'lucide-react'
 import { ImageGallery } from '@/components/design/ImageGallery'
@@ -170,16 +169,6 @@ export default async function DesignPage({ params }: DesignPageProps) {
               )}
             </div>
 
-            {/* Cover Image */}
-            {design.coverImage && (
-              <Image
-                src={design.coverImage}
-                alt={design.title}
-                width={800}
-                height={400}
-                className="rounded-lg object-cover w-full mb-8"
-              />
-            )}
           </header>
 
           {/* Content */}
