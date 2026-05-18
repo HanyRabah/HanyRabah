@@ -61,9 +61,9 @@
     "@tiptap/pm": "^3.10.4",
     "@tiptap/react": "^3.10.4",
     "@tiptap/starter-kit": "^3.10.4",
-    "@vercel/analytics": "^1.5.0",
+    "@vercel/analytics": "^1.1.4",
     "@vercel/blob": "^2.0.0",
-    "@vercel/speed-insights": "^1.2.0",
+    "@vercel/speed-insights": "^1.0.4",
     "antd": "^5.27.4",
     "botid": "^1.5.10",
     "class-variance-authority": "^0.7.0",
@@ -78,7 +78,7 @@
     "lowlight": "^3.3.0",
     "lucide-react": "^0.524.0",
     "next": "^16.0.7",
-    "next-auth": "^4.24.13",
+    "next-auth": "^4.24.14",
     "next-seo": "^6.4.0",
     "next-themes": "^0.4.6",
     "react": "^18",
@@ -102,10 +102,11 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
-    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/eslint-plugin": "^8.59.4",
+    "@typescript-eslint/parser": "^8.59.4",
     "autoprefixer": "^10.0.1",
-    "eslint": "^8.57.1",
-    "eslint-config-next": "14.0.4",
+    "eslint": "^9.26.0",
+    "eslint-config-next": "16.0.7",
     "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",
     "postcss": "^8",
@@ -113,5 +114,10 @@
     "sass": "^1.93.3",
     "tailwindcss": "^3.3.0",
     "typescript": "^5.9.3"
+  },
+  "overrides": {
+    "next": {
+      "postcss": "^8.5.10"
+    }
   }
 }

@@ -37,9 +37,9 @@ export function HeroSection() {
           <FadeIn delay={0.1} direction="up" className="flex-shrink-0">
             <div className="relative">
               <div className="absolute inset-0 bg-gradient-to-br from-theme-primary to-theme-secondary rounded-full blur-xl opacity-30"></div>
-              <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-background shadow-2xl">
+              <div className="relative w-32 h-32 md:w-48 md:h-48 rounded-full overflow-hidden border-4 border-background shadow-2xl">
                 <Image
-                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
+                  src="/headshot.jpg"
                   alt="Hany Rabah - Senior Fullstack Engineer"
                   fill
                   className="object-cover"
