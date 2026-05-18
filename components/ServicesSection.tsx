@@ -17,6 +17,70 @@ const Icons: Record<string, LucideIcon> = {
   BriefcaseBusinessIcon,
   Bot,
 };
+// Static fallback services when database is empty
+const fallbackServices = [
+  {
+    id: 'fallback-1',
+    title: 'Full-Stack Development',
+    description: 'End-to-end application development from database to frontend. Specializing in scalable web applications with React, Next.js, and Node.js.',
+    icon: 'Code',
+    features: ['React & Next.js Applications', 'Node.js & Express APIs', 'Database Design (PostgreSQL, MongoDB)', 'AWS Cloud Infrastructure', 'API Integration & GraphQL'],
+    active: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 'fallback-2',
+    title: 'Technical Architecture',
+    description: 'System design and architecture planning for scalable solutions. From microservices to monoliths, tailored to your business needs.',
+    icon: 'Layers',
+    features: ['System Design & Planning', 'Microservices Architecture', 'Database Schema Design', 'Performance Optimization', 'Technical Documentation'],
+    active: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 'fallback-3',
+    title: 'UI/UX Design Systems',
+    description: 'Design systems and component libraries that scale. From Figma prototypes to production-ready React components with accessibility built-in.',
+    icon: 'VectorSquare',
+    features: ['Figma Design Systems', 'Component Library Development', 'Accessibility (WCAG) Compliance', 'Design Token Implementation', 'Responsive Design Patterns'],
+    active: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 'fallback-4',
+    title: 'AI Integration',
+    description: 'Integrate AI capabilities into your applications. From chatbots to automated workflows, leveraging modern AI APIs and models.',
+    icon: 'Bot',
+    features: ['OpenAI/Anthropic API Integration', 'Custom Chatbot Development', 'AI-Powered Automation', 'Content Generation Systems', 'Smart Search & Recommendations'],
+    active: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 'fallback-5',
+    title: 'Performance Optimization',
+    description: 'Audit and optimize application performance. Improve Core Web Vitals, reduce load times, and enhance user experience.',
+    icon: 'Zap',
+    features: ['Core Web Vitals Optimization', 'Bundle Size Reduction', 'Caching Strategy Implementation', 'Database Query Optimization', 'CDN & Asset Optimization'],
+    active: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 'fallback-6',
+    title: 'Technical Consulting',
+    description: 'Strategic technology guidance for teams and projects. Code reviews, architecture decisions, and best practices implementation.',
+    icon: 'BriefcaseBusinessIcon',
+    features: ['Code Review & Quality Audits', 'Architecture Consultation', 'Team Mentoring & Training', 'Best Practices Implementation', 'Technical Roadmap Planning'],
+    active: true,
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+];
+
 async function getServices() {
   try {
     const services = await prisma.service.findMany({
@@ -27,10 +91,11 @@ async function getServices() {
         createdAt: 'desc',
       },
     });
-    return services;
+    // Return fallback if database is empty
+    return services.length > 0 ? services : fallbackServices;
   } catch (error) {
     console.error('Error fetching services:', error);
-    return [];
+    return fallbackServices;
   }
 }
 

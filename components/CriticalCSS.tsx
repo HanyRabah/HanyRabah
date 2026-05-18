@@ -17,11 +17,6 @@ export function CriticalCSS() {
         line-height: 1.6;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        visibility: hidden;
-      }
-      
-      html[data-theme-loaded] body {
-        visibility: visible;
       }
       
       /* Hero section critical styles */

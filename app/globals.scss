@@ -1,15 +1,6 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities;     
-/* Critical styles - loaded immediately */
-/* Prevent FOUC with minimal approach */
-body {
-  visibility: hidden;
-}
-
-html[data-theme-loaded] body {
-  visibility: visible;
-}
+@tailwind utilities;
 
 /* Optimize font rendering */
 * {

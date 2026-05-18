@@ -14,7 +14,7 @@ export const revalidate = 3600; // Revalidate every 1 hour
 // SEO
 export const metadata: Metadata = {
   title: 'Hany Rabah - Berlin Fullstack Engineer | React, Next.js & AI Integration Expert',
-  description: 'Senior Fullstack Engineer based in Berlin with 20+ years experience. Expert in React, Next.js, Node.js, TypeScript, AWS, and AI integration. Building scalable fintech solutions at GoDiligent. Available for consulting.',
+  description: 'Senior Fullstack Engineer based in Berlin with 20+ years experience. Expert in React, Next.js, Node.js, TypeScript, AWS, and AI integration. Building Paylane at Diligent (YC W24). Available for consulting.',
   keywords: [
     'Hany Rabah',
     'Berlin Fullstack Engineer',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     'Technical Lead Berlin',
     'Node.js Expert',
     'Fintech Engineer',
-    'GoDiligent',
+    'Diligent (YC W24)',
     'JavaScript Consultant',
     'Software Engineer Berlin',
     'Full Stack Developer',
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Hany Rabah - Berlin Fullstack Engineer | React, Next.js & AI Integration Expert',
-    description: 'Senior Fullstack Engineer based in Berlin with 20+ years experience. Expert in React, Next.js, Node.js, TypeScript, AWS, and AI integration. Building scalable fintech solutions.',
+    description: 'Senior Fullstack Engineer based in Berlin with 20+ years experience. Expert in React, Next.js, Node.js, TypeScript, AWS, and AI integration. Building Paylane at Diligent (YC W24).',
     type: 'profile',
     locale: 'en_US',
     url: 'https://hanyrabah.com',
@@ -84,7 +84,7 @@ export default function Home() {
     url: 'https://hanyrabah.com',
     image: 'https://hanyrabah.com/og-image.png',
     location: 'Berlin',
-    company: 'GoDiligent',
+    company: 'Diligent (YC W24)',
     companyUrl: 'https://www.godiligent.ai/',
     sameAs: [
       'https://www.linkedin.com/in/hanyrabah/',

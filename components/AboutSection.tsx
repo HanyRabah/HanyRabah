@@ -64,11 +64,11 @@ export function AboutSection() {
     {
       date: "May 2025 - Oct 2025",
       title: "Sr. Full-Stack Engineer",
-      company: "Paylane GmbH",
+      company: "Diligent (YC W24)",
       location: "Germany",
       companyUrl: "https://www.godiligent.ai/",
       logo: "/company-logos/godiligentai_logo.jpeg",
-      description: "Architecting and maintaining core full-stack systems serving fintech users. Improved load times by 42% through optimized API calls and front-end rendering. Designed and automated CI/CD pipelines via AWS and Docker, achieving zero-downtime deployments.",
+      description: "Building Paylane - architecting and maintaining core full-stack systems serving fintech users. Improved load times by 42% through optimized API calls and front-end rendering. Designed and automated CI/CD pipelines via AWS and Docker, achieving zero-downtime deployments.",
       moreDetails: `<div>Worked on a next-generation compliance automation platform integrating AI to streamline due diligence and risk checks.</div> \n
       <ul>
         <li>Work closely with Product, Design, and Data teams to build features that streamline customer workflows and enhance insight delivery.</li>
@@ -108,11 +108,11 @@ export function AboutSection() {
       location: "Germany",
       companyUrl: "https://www.olxgroup.com/",
       logo: "/company-logos/olx_group_logo.jpeg",
-      description: "Led the Service and Fixly teams to modernize the architecture using React 18, TypeScript, and GraphQL. Achieved 18% increase in conversion rate and 22% lower bounce rate through user journey redesigns. Mentored engineers in performance tuning, testing, and codebase scalability.",
+      description: "Led the Service and Fixly teams to modernize the architecture using React 18, TypeScript, and GraphQL. Achieved 30% Time-to-Interactive improvement and 40% production-issue reduction via TDD. Mentored engineers in performance tuning, testing, and codebase scalability.",
       moreDetails: `
       <ul>
         <li>Led the Service and Fixly teams to modernize the architecture using React 18, TypeScript, and GraphQL.</li>
-        <li>Achieved 18% increase in conversion rate and 22% lower bounce rate through user journey redesigns.</li>
+        <li>Achieved 30% Time-to-Interactive improvement and 40% production-issue reduction via TDD and comprehensive testing.</li>
         <li>Collaborated with backend and design teams to ship features impacting millions of users monthly.</li>
         <li>Mentored 2+ engineers in performance tuning, testing, and scalable architecture design.</li>
         <li>Played a key role in feature adoption and experimentation via A/B testing and user analytics.</li>
