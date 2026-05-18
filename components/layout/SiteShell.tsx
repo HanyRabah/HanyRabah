@@ -10,9 +10,7 @@ import {
   Sparkles,
   BookMarked,
   Layers,
-  // Star,
-  // Users,
-  LayoutGrid,
+  Mail,
   Shield,
   FileText,
   Linkedin,
@@ -29,8 +27,8 @@ const NAV_ITEMS = [
   { label: "Home", href: "/", icon: Home },
   { label: "About", href: "/about", icon: Sparkles },
   { label: "Work", href: "/work", icon: Briefcase },
-  { label: "Services", href: "/services", icon: LayoutGrid },
-  { label: "Blog / Writing", href: "/blog", icon: PenSquare },
+  { label: "Writing", href: "/blog", icon: PenSquare },
+  { label: "Contact", href: "/contact", icon: Mail },
 ];
 
 const RESOURCE_ITEMS = [

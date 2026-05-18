@@ -5,6 +5,7 @@ import { HeroSection } from '@/components/HeroSection'
 import { BlogSection } from '@/components/BlogSection'
 import { TimeBasedGreeting } from '@/components/TimeBasedGreeting'
 import { InfoBlocks } from '@/components/InfoBlocks'
+import { TestimonialsSection } from '@/components/TestimonialsSection'
 import { Metadata } from 'next'
 import { StructuredData } from '@/components/StructuredData'
 
@@ -128,6 +129,9 @@ export default function Home() {
           <TimeBasedGreeting />
           <InfoBlocks />
         </section>
+        
+        {/* Testimonials Section */}
+        <TestimonialsSection />
         
         {/* <BlogSection /> */}
       </main>

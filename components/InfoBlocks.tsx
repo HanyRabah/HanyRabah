@@ -5,9 +5,7 @@ import {
   MapPin, 
   Briefcase, 
   Code, 
-  Coffee, 
-  TrendingUp,
-  BookOpen
+  TrendingUp
 } from "lucide-react";
 import Link from "next/link";
 
@@ -54,8 +52,8 @@ export function InfoBlocks() {
     },
     {
       id: "status",
-      title: "Available for Work",
-      content: "Open to freelance, contract work, and consulting opportunities. Let's build something amazing together.",
+      title: "Open to Opportunities",
+      content: "Currently open to full-time senior engineering roles and technical leadership positions. Let's build something impactful together.",
       icon: Briefcase,
       link: "/contact",
       linkText: "Get in touch",
@@ -63,22 +61,10 @@ export function InfoBlocks() {
     {
       id: "current",
       title: "What I'm Working On",
-      content: "Building scalable fintech solutions at GoDiligent, exploring AI integration, and crafting beautiful user experiences.",
+      content: "Building Paylane at Diligent (YC W24) - scalable payment infrastructure with React, Node.js, and AWS. Led React 19 migration across 250+ files.",
       icon: Code,
-      link: "/projects",
-      linkText: "View projects",
-    },
-    {
-      id: "learning",
-      title: "Currently Learning",
-      content: "Diving deeper into AI/ML integration, advanced system design patterns, and exploring the latest in web performance optimization.",
-      icon: BookOpen,
-    },
-    {
-      id: "coffee",
-      title: "Fueled by Coffee",
-      content: "Berlin has amazing coffee culture. Currently exploring specialty roasters and perfecting my home brewing setup.",
-      icon: Coffee,
+      link: "/work",
+      linkText: "View work",
     },
     {
       id: "growth",
