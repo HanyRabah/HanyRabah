@@ -62,6 +62,93 @@ function WorkContent() {
     }
   }
 
+  // Static fallback projects when database is empty
+  const fallbackWork: WorkItem[] = [
+    {
+      id: 'fallback-1',
+      title: 'Paylane Fintech Platform',
+      slug: 'paylane-fintech',
+      description: 'Modern payment infrastructure platform built with Next.js 14, TypeScript, and AWS. Features real-time transaction processing, multi-currency support, and comprehensive analytics dashboard.',
+      coverImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
+      featured: true,
+      createdAt: '2024-01-15',
+      updatedAt: '2024-01-15',
+      type: 'development',
+      technologies: ['Next.js', 'TypeScript', 'AWS', 'PostgreSQL', 'GraphQL', 'Docker'],
+      liveUrl: 'https://www.godiligent.ai/',
+      category: 'Fintech'
+    },
+    {
+      id: 'fallback-2',
+      title: 'OLX Service Marketplace',
+      slug: 'olx-service-marketplace',
+      description: 'Service marketplace platform connecting service providers with customers. Led the architecture modernization achieving 30% Time-to-Interactive improvement and 40% production-issue reduction.',
+      coverImage: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=800&h=600&fit=crop',
+      featured: true,
+      createdAt: '2023-06-01',
+      updatedAt: '2023-06-01',
+      type: 'development',
+      technologies: ['React 18', 'TypeScript', 'GraphQL', 'Node.js', 'AWS'],
+      liveUrl: 'https://www.olxgroup.com/',
+      category: 'Marketplace'
+    },
+    {
+      id: 'fallback-3',
+      title: 'DigitalNext E-commerce Platform',
+      slug: 'digitalnext-ecommerce',
+      description: 'AI-driven digital solutions platform for industrial transformation. Reduced project delivery timelines by 40% via modular component libraries and agile pipelines.',
+      coverImage: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=800&h=600&fit=crop',
+      featured: false,
+      createdAt: '2024-03-01',
+      updatedAt: '2024-03-01',
+      type: 'development',
+      technologies: ['Next.js', 'AI Integration', 'Node.js', 'MongoDB', 'Docker'],
+      category: 'E-commerce'
+    },
+    {
+      id: 'fallback-4',
+      title: 'Modern SaaS Dashboard UI',
+      slug: 'saas-dashboard-ui',
+      description: 'Comprehensive design system and dashboard interface for enterprise SaaS application. Features dark mode, data visualization components, and accessibility-first design.',
+      coverImage: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop',
+      featured: false,
+      createdAt: '2024-02-15',
+      updatedAt: '2024-02-15',
+      type: 'design',
+      tools: ['Figma', 'Adobe XD', 'Prototyping', 'Design Systems'],
+      category: 'UI/UX Design',
+      figmaUrl: '#'
+    },
+    {
+      id: 'fallback-5',
+      title: 'Mobile Banking App Design',
+      slug: 'mobile-banking-design',
+      description: 'Complete mobile banking application design with focus on security, accessibility, and intuitive user experience. Includes wireframes, prototypes, and design system.',
+      coverImage: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?w=800&h=600&fit=crop',
+      featured: false,
+      createdAt: '2024-01-20',
+      updatedAt: '2024-01-20',
+      type: 'design',
+      tools: ['Figma', 'User Research', 'Wireframing', 'Prototyping'],
+      category: 'Mobile Design',
+      figmaUrl: '#'
+    },
+    {
+      id: 'fallback-6',
+      title: 'Portfolio Website System',
+      slug: 'portfolio-website',
+      description: 'Custom-built portfolio website with Next.js, featuring dynamic theming, blog system, and admin panel. Open source template for developers.',
+      coverImage: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=800&h=600&fit=crop',
+      featured: false,
+      createdAt: '2024-04-01',
+      updatedAt: '2024-04-01',
+      type: 'development',
+      technologies: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'Prisma', 'PostgreSQL'],
+      githubUrl: 'https://github.com/hanyrabah',
+      category: 'Web Development'
+    }
+  ]
+
   const fetchWork = async () => {
     setLoading(true)
     try {
@@ -70,17 +157,23 @@ function WorkContent() {
         throw new Error('Failed to fetch work')
       }
       const data = await response.json()
-      // Ensure all items have required fields
-      const sanitizedData = data.map((item: WorkItem) => ({
-        ...item,
-        technologies: item.technologies || [],
-        tools: item.tools || [],
-        images: item.images || []
-      }))
-      setWork(sanitizedData)
+      // Use fallback if database is empty
+      if (data.length === 0) {
+        setWork(fallbackWork)
+      } else {
+        // Ensure all items have required fields
+        const sanitizedData = data.map((item: WorkItem) => ({
+          ...item,
+          technologies: item.technologies || [],
+          tools: item.tools || [],
+          images: item.images || []
+        }))
+        setWork(sanitizedData)
+      }
     } catch (error) {
       console.error('Error fetching work:', error)
-      setWork([])
+      // Use fallback on error
+      setWork(fallbackWork)
     } finally {
       setLoading(false)
     }
