@@ -62,7 +62,7 @@ export function AboutSection() {
 
   const timeline: TimelineItem[] = [
     {
-      date: "May 2025 - Oct 2025",
+      date: "May 2025 - Present",
       title: "Sr. Full-Stack Engineer",
       company: "Diligent (YC W24)",
       location: "Germany",
@@ -82,10 +82,10 @@ export function AboutSection() {
         <li>Reduced onboarding time by 80% through a comprehensive documentation suite and automated quality gates (ESLint, Husky, TypeScript, i18n)</li>
         <li>Built a migration automation tool, saving 100+ hours and enabling safe large-scale refactoring without breaking changes</li>
       </ul>`,
-      current: false,
+      current: true,
     },
     {
-      date: "Sep 2024 - May 2025",
+      date: "Jan 2025 - Jul 2025",
       title: "Sr. Full-Stack Engineer",
       company: "Mark Haykalah",
       location: "Saudi Arabia (Remote)",
@@ -102,7 +102,7 @@ export function AboutSection() {
       current: false,
     },
     {
-      date: "Mar 2021 - Sep 2024",
+      date: "Mar 2021 - Nov 2024",
       title: "Sr. Frontend Engineer / Team Lead",
       company: "OLX Group",
       location: "Germany",

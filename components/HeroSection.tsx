@@ -4,6 +4,7 @@ import { ContactButton } from "./ContactButton";
 import { ThemedButton } from "./ui/themed-button";
 import { Download } from "lucide-react";
 import { TypingAnimation, FadeIn, AnimatedBackground, FloatingElement } from "./react-bits";
+import Image from "next/image";
 
 export function HeroSection() {
 
@@ -30,60 +31,82 @@ export function HeroSection() {
       <FloatingElement className="absolute top-40 right-20 w-2 h-2 rounded-full bg-theme-secondary/30" duration={5} delay={1} />
       <FloatingElement className="absolute bottom-32 left-1/4 w-4 h-4 rounded-full bg-theme-accent/20" duration={6} delay={2} />
 
-      <div className="relative z-20 max-w-4xl mx-auto px-6 text-center">
-        <div className="mb-10">
-          <FadeIn delay={0.1} direction="down">
-            <h2 className="text-foreground text-xl mb-2">
-              👋 Hi, I'm Hany El Saydawy{" "}
-            </h2>
+      <div className="relative z-20 max-w-5xl mx-auto px-6">
+        <div className="flex flex-col md:flex-row items-center gap-12">
+          {/* Headshot */}
+          <FadeIn delay={0.1} direction="up" className="flex-shrink-0">
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-br from-theme-primary to-theme-secondary rounded-full blur-xl opacity-30"></div>
+              <div className="relative w-48 h-48 md:w-56 md:h-56 rounded-full overflow-hidden border-4 border-background shadow-2xl">
+                <Image
+                  src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face"
+                  alt="Hany Rabah - Senior Fullstack Engineer"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+            </div>
           </FadeIn>
-          
-          <FadeIn delay={0.3} direction="up">
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 pb-2 bg-gradient-to-r from-theme-accent via-theme-primary to-theme-accent bg-clip-text text-transparent">
-              <TypingAnimation 
-                text={["A Fullstack Engineer", "Frontend Developer", "Team Lead", "A UI/UX Designer", "A Problem Solver"]}
-                duration={80}
-                delay={800}
-                loop={true}
-                pauseDuration={3000}
-              />
-            </h1>
-          </FadeIn>
-          
-          <FadeIn delay={0.5} direction="up">
-            <p className="text-lg md:text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-              I craft accessible, high-performance digital products
-              <br />
-              turning complex problems into elegant, scalable solutions.
-              <br />
-              <br />
-              <span className="text-sm font-light">
-                Available for freelance, contract, and consulting work
-              </span>
-              <br />
-              <span className="text-sm font-light">based in Berlin 🇩🇪</span>
-            </p>
-          </FadeIn>
-        </div>
 
-        <FadeIn delay={0.7} direction="up">
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-            <ContactButton 
-              variant="outline"
-              size="lg"
-            />
+          {/* Content */}
+          <div className="text-center md:text-left">
+            <FadeIn delay={0.2} direction="down">
+              <h2 className="text-foreground text-xl mb-2">
+                👋 Hi, I'm Hany Rabah{" "}
+              </h2>
+            </FadeIn>
+            
+            <FadeIn delay={0.3} direction="up">
+              {/* Static H1 for SEO - full text always in DOM */}
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 pb-2">
+                <span className="sr-only">Senior Fullstack Engineer & Team Lead</span>
+                <span aria-hidden="true" className="bg-gradient-to-r from-theme-accent via-theme-primary to-theme-accent bg-clip-text text-transparent">
+                  <TypingAnimation 
+                    text={["Senior Fullstack Engineer", "Technical Team Lead", "Frontend Architect", "Fullstack Developer"]}
+                    duration={80}
+                    delay={500}
+                    loop={true}
+                    pauseDuration={3000}
+                  />
+                </span>
+              </h1>
+            </FadeIn>
+            
+            <FadeIn delay={0.5} direction="up">
+              <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed mb-6">
+                20+ years building scalable fintech and marketplace platforms.
+                Led teams at <strong className="text-foreground">OLX Group</strong> and <strong className="text-foreground">Diligent (YC W24)</strong>.
+                React, Next.js, Node.js, AWS specialist.
+              </p>
+              <p className="text-sm text-muted-foreground mb-8">
+                <span className="inline-flex items-center gap-2">
+                  <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                  Open to full-time senior engineering roles • Based in Berlin 🇩🇪
+                </span>
+              </p>
+            </FadeIn>
 
-            <ThemedButton
-              onClick={downloadResume}
-              variant="secondary"
-              size="lg"
-            >
-              <Download className="mr-2 h-4 w-4" />
-              Download Resume
-            </ThemedButton>
+            <FadeIn delay={0.7} direction="up">
+              <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start items-center">
+                <ContactButton 
+                  variant="outline"
+                  size="lg"
+                  defaultReason="WORK"
+                />
 
+                <ThemedButton
+                  onClick={downloadResume}
+                  variant="secondary"
+                  size="lg"
+                >
+                  <Download className="mr-2 h-4 w-4" />
+                  Download Resume
+                </ThemedButton>
+              </div>
+            </FadeIn>
           </div>
-        </FadeIn>
+        </div>
       </div>
     </section>
   );
