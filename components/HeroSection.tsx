@@ -59,7 +59,7 @@ export function HeroSection() {
             
             <FadeIn delay={0.3} direction="up">
               {/* Static H1 for SEO - full text always in DOM */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 pb-2">
+              <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4 pb-2">
                 <span className="sr-only">Senior Fullstack Engineer & Team Lead</span>
                 <span aria-hidden="true" className="bg-gradient-to-r from-theme-accent via-theme-primary to-theme-accent bg-clip-text text-transparent">
                   <TypingAnimation 

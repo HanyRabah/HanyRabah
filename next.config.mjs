@@ -1,10 +1,6 @@
 import { withBotId } from 'botid/next/config'
 
 const nextConfig = {
-  // Fix turbopack workspace root warning
-  turbopack: {
-    root: '/Users/hany/MyWorkspace/personal/Portfolio',
-  },
   images: {
     remotePatterns: [
       {
