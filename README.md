@@ -3,7 +3,7 @@
 **Senior Frontend / Full-Stack Engineer · Tech Lead**
 Cairo, Egypt · Open to remote roles in EU, Germany, UAE, Saudi Arabia
 
-10+ years shipping production web apps — from single-page dashboards to full
+15+ years shipping production web apps — from single-page dashboards to full
 e-commerce platforms and internal ERPs. I lead teams, own architecture, and
 write the code myself when it matters.
 
@@ -26,15 +26,15 @@ write the code myself when it matters.
 | **[Interactive Map](https://interactive-map-orcin.vercel.app/)** | Multi-layer satellite imagery viewer | Next.js, Esri, Google Maps |
 | **[Carizmo](https://carizmo.app)** | Car-wash booking platform (live) | Next.js, full-stack |
 | **Rana** | E-commerce w/ admin, variants, coupons, tests | Next.js, Prisma, Vitest |
-| **Solana Dashboard** | AI-powered price prediction | Next.js, Prisma, AI |
 | **Stepup Travel ERP** | Multi-tenant travel operations platform | Next.js, Prisma, Playwright, i18n |
-| **Thndr Task** | Real-time stock tracker (fintech interview) | React |
+| **[Mark-bot](https://github.com/HanyRabah/mark-bot)** | WhatsApp NLP chatbot (Rasa + Twilio) | Python, Rasa, Node.js, Docker |
 
 Full list & live demos → **[hanyrabah.com](https://hanyrabah.com)**
 
 ## Currently
 
-Freelancing (part-time) with **Paylane GmbH** on their fintech platform.
+Freelancing (part-time) at **Diligent (YC W24)** on their **Paylane** KYC/AML
+platform for financial institutions.
 Actively **open to a Senior / Lead FE or Full-Stack role** — full-time, remote-first.
 
 ## Stack I reach for
