@@ -44,7 +44,7 @@ Actively **open to a Senior / Lead FE or Full-Stack role** — full-time, remote
 
 ## Beyond code
 
-- **Engineering Lead Handbook** — opinionated notes on leading FE teams *(publishing soon)*
+- **[Engineering Lead Handbook](https://handbook.hanyrabah.com/)** — opinionated notes from 15+ years shipping — leading FE / full-stack teams, code review, API design, releases, coaching
 - Available for **technical interviews, systems design chats, and freelance sprints**
 
 ---
