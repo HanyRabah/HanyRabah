@@ -9,6 +9,7 @@ import {
   PenSquare,
   Sparkles,
   BookMarked,
+  BookOpen,
   Layers,
   Mail,
   Shield,
@@ -32,6 +33,7 @@ const NAV_ITEMS = [
 ];
 
 const RESOURCE_ITEMS = [
+  { label: "Handbook", href: "https://handbook.hanyrabah.com/", icon: BookOpen, external: true },
   { label: "Content Hub", href: "/resources/content", icon: BookMarked },
   { label: "Resources", href: "/resources/marketplace", icon: Layers },
 ];
@@ -58,7 +60,7 @@ function NavigationSection({
   onItemClick,
 }: {
   title: string;
-  items: { label: string; href: string; icon: React.ComponentType<{ className?: string }> }[];
+  items: { label: string; href: string; icon: React.ComponentType<{ className?: string }>; external?: boolean }[];
   activePath: string;
   onItemClick?: () => void;
 }) {
@@ -75,6 +77,8 @@ function NavigationSection({
               key={item.label}
               href={item.href}
               onClick={onItemClick}
+              target={item.external ? "_blank" : undefined}
+              rel={item.external ? "noreferrer" : undefined}
               className={classNames(
                 "group flex items-center gap-3 rounded-lg px-3 py-2 text-sm transition-colors",
                 "hover:bg-muted hover:text-foreground",

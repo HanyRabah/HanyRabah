@@ -67,12 +67,12 @@ export function InfoBlocks() {
       linkText: "View work",
     },
     {
-      id: "growth",
-      title: "15+ Years Growing",
-      content: "From junior developer to technical lead, constantly evolving with technology and leading teams to success.",
+      id: "handbook",
+      title: "Engineering Lead Handbook",
+      content: "Opinionated notes from 15+ years shipping — how I lead frontend and full-stack teams, review code, design APIs, run releases, and coach engineers.",
       icon: TrendingUp,
-      link: "/about",
-      linkText: "My journey",
+      link: "https://handbook.hanyrabah.com/",
+      linkText: "Read the handbook",
     },
   ];
 
@@ -105,6 +105,8 @@ export function InfoBlocks() {
                 {block.link && block.linkText && (
                   <Link
                     href={block.link}
+                    target={block.link.startsWith("http") ? "_blank" : undefined}
+                    rel={block.link.startsWith("http") ? "noreferrer" : undefined}
                     className="inline-flex items-center text-sm text-theme-primary hover:text-theme-primary/80 transition-colors"
                   >
                     {block.linkText} →
