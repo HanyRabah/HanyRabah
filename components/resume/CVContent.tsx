@@ -6,7 +6,7 @@ export function CVContent() {
   const experienceData = [
     {
       company: "Carizmo",
-      location: "Cairo, Egypt",
+      location: "Egypt",
       position: "Founder",
       period: "Feb 2026 – Present",
       responsibilities: [
@@ -18,7 +18,7 @@ export function CVContent() {
     },
     {
       company: "A2gency",
-      location: "Berlin, Germany (Remote)",
+      location: "Germany",
       position: "Co-Founder",
       period: "Jan 2026 – Present",
       responsibilities: [
@@ -29,7 +29,7 @@ export function CVContent() {
     },
     {
       company: "Diligent (YC W24)",
-      location: "Berlin, Germany (Remote)",
+      location: "Germany",
       position: "Senior Full-Stack Engineer",
       period: "May 2025 – Present",
       responsibilities: [
@@ -47,7 +47,7 @@ export function CVContent() {
       company: "Haykalah",
       location: "Saudi Arabia",
       position: "Remote FullStack",
-      period: "Sep 2024 – May 2025",
+      period: "Sep 2024 – Jul 2025",
       responsibilities: [
         "Led the technical direction and implementation of AI-driven solutions and website development initiatives for clients undergoing digital transformation.",
         "Collaborated closely with a cross-functional team of designers, developers, and AI specialists to deliver high-impact digital products aligned with modern UX/UI standards.",
@@ -62,7 +62,7 @@ export function CVContent() {
       company: "OLX",
       location: "Germany",
       position: "Sr. Frontend Engineer / Team Leader",
-      period: "Mar 2021 – Sep 2024",
+      period: "Mar 2021 – Nov 2024",
       responsibilities: [
         "Fixly Team: Led the team to refactor the code base while making sure to add new features",
         "Service Team: Led a team of 2 direct reports in a mission to build the best user experience, creating a panel for service providers and service seekers, managing booking dates and requests using the latest technology stack ( React, Typescript, GraphQl, Node, and Go lang )",
