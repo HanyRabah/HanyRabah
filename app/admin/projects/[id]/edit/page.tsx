@@ -66,12 +66,12 @@ export default function EditProject() {
         setProject(projectData)
       } else {
         message.error('Project not found')
-        router.push('/admin/projects')
+        router.push('/admin/work')
       }
     } catch (error) {
       console.error('Failed to fetch project:', error)
       message.error('Failed to fetch project')
-      router.push('/admin/projects')
+      router.push('/admin/work')
     } finally {
       setLoading(false)
     }
@@ -88,7 +88,7 @@ export default function EditProject() {
 
     if (response.ok) {
       message.success('Project updated successfully!')
-      router.push('/admin/projects')
+      router.push('/admin/work')
     } else {
       throw new Error('Failed to update project')
     }

@@ -86,7 +86,7 @@ export default function NewProject() {
 
       if (response.ok) {
         message.success('Project created successfully!')
-        router.push('/admin/projects')
+        router.push('/admin/work')
       } else {
         message.error('Failed to create project')
       }
