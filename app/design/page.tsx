@@ -4,16 +4,16 @@ import { DesignShowcase } from '@/components/design/DesignShowcase'
 import { DesignProcess } from '@/components/design/DesignProcess'
 
 export const metadata: Metadata = {
-  title: 'Design Portfolio - Hany Rabah | UI/UX Designer & Fullstack Developer Berlin',
-  description: 'Explore my design portfolio showcasing UI/UX projects, design systems, and creative solutions. Unique combination of technical expertise and design sensibility. Figma to code specialist in Berlin.',
+  title: 'Design Portfolio - Hany Rabah | UI/UX Designer & Fullstack Developer Cairo',
+  description: 'Explore my design portfolio showcasing UI/UX projects, design systems, and creative solutions. Unique combination of technical expertise and design sensibility. Figma to code specialist in Cairo.',
   keywords: [
-    'UI/UX Design Portfolio Berlin',
+    'UI/UX Design Portfolio Cairo',
     'Hany Rabah Designer',
     'Design Systems Developer',
     'User Interface Design',
     'User Experience Design',
     'Figma to Code Specialist',
-    'Web Design Berlin',
+    'Web Design Cairo',
     'Mobile App Design',
     'Design Process',
     'Visual Design',
@@ -46,7 +46,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Design Portfolio - Hany Rabah | UI/UX Designer & Developer',
-    description: 'Design portfolio showcasing UI/UX projects, design systems, and creative solutions. Technical designer in Berlin.',
+    description: 'Design portfolio showcasing UI/UX projects, design systems, and creative solutions. Technical designer in Cairo.',
     images: ['/og-design.png'],
     creator: '@hanyrabah',
   },

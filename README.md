@@ -1,39 +1,52 @@
 # Hany El Saydawy
 
-**Senior Full-Stack Engineer** — TypeScript · React · Node.js · LangChain · PostgreSQL · AWS
+**Senior Frontend / Full-Stack Engineer · Tech Lead**
+Cairo, Egypt · Open to remote roles in EU, Germany, UAE, Saudi Arabia
 
-Cairo, Egypt · [hanyrabah.com](https://hanyrabah.com) · [LinkedIn](https://linkedin.com/in/hanyrabah)
+10+ years shipping production web apps — from single-page dashboards to full
+e-commerce platforms and internal ERPs. I lead teams, own architecture, and
+write the code myself when it matters.
 
----
-
-18+ years building production-grade web platforms across fintech, B2B SaaS, and consumer marketplaces. I work across the full stack — frontend architecture and UX to backend APIs, data modelling, and cloud infrastructure — with a focus on systems that are reliable, observable, and maintainable in production.
-
-Currently at **Diligent** (YC W24) — a KYC/AML compliance automation platform for financial institutions — where I design and maintain core full-stack systems, integrate AI-powered features using LangChain and the OpenAI API, and set up Grafana dashboards for production observability.
-
----
-
-## Tech Stack
-
-**Frontend** · React · Next.js · TypeScript · Tailwind CSS · Redux · GraphQL
-
-**Backend** · Node.js · Express · REST · GraphQL · PostgreSQL · MongoDB · Redis · Elasticsearch
-
-**AI** · LangChain · OpenAI API · vector databases · embeddings · prompt engineering
-
-**Cloud & DevOps** · AWS (Lambda, EC2, S3, App Runner, Cognito) · Docker · GitHub Actions · GitLab CI · Grafana
-
-**Testing** · Jest · Playwright · Cypress · React Testing Library · TDD
+🌐 **[hanyrabah.com](https://hanyrabah.com)** — portfolio & case studies
+💼 **[LinkedIn](https://www.linkedin.com/in/hanyrabah/)** — let's talk
 
 ---
 
-## Selected Work
+## What I do
+
+- **Frontend at senior level** — React, Next.js (App Router), TypeScript, Tailwind, Radix / shadcn. Performance, accessibility, DX.
+- **Full-stack when needed** — Node.js, Prisma, PostgreSQL, REST & tRPC, auth, payments, background jobs.
+- **Lead / architect** — code review culture, hiring, mentoring, ADRs, migration strategy, splitting monoliths.
+- **AI features** — LLM integration, agentic workflows, RAG. Recent work: procurement AI, price-prediction dashboards.
+
+## Selected work
 
 | Project | What it is | Stack |
 |---|---|---|
-| **Carizmo** *(private)* | On-demand mobile car wash platform — full product, built from scratch | Next.js · Node.js · PostgreSQL · Redis · WebSockets · Stripe · AWS |
-| **[dp-interactive-map](https://github.com/HanyRabah/dp-interactive-map)** | Interactive SVG map component for data visualisation | React · TypeScript · D3 |
-| **[mark-bot](https://github.com/HanyRabah/mark-bot)** | NLP chatbot with Rasa, integrated with Twilio and WhatsApp | Python · Rasa · Node.js · Docker |
+| **[Interactive Map](https://interactive-map-orcin.vercel.app/)** | Multi-layer satellite imagery viewer | Next.js, Esri, Google Maps |
+| **[Carizmo](https://carizmo.app)** | Car-wash booking platform (live) | Next.js, full-stack |
+| **Rana** | E-commerce w/ admin, variants, coupons, tests | Next.js, Prisma, Vitest |
+| **Solana Dashboard** | AI-powered price prediction | Next.js, Prisma, AI |
+| **Stepup Travel ERP** | Multi-tenant travel operations platform | Next.js, Prisma, Playwright, i18n |
+| **Thndr Task** | Real-time stock tracker (fintech interview) | React |
+
+Full list & live demos → **[hanyrabah.com](https://hanyrabah.com)**
+
+## Currently
+
+Freelancing (part-time) with **Paylane GmbH** on their fintech platform.
+Actively **open to a Senior / Lead FE or Full-Stack role** — full-time, remote-first.
+
+## Stack I reach for
+
+`React` `Next.js` `TypeScript` `Node.js` `Prisma` `PostgreSQL` `Tailwind`
+`Vitest` `Playwright` `AWS` `Vercel` `Docker`
+
+## Beyond code
+
+- **Engineering Lead Handbook** — opinionated notes on leading FE teams *(publishing soon)*
+- Available for **technical interviews, systems design chats, and freelance sprints**
 
 ---
 
-📧 contact@hanyrabah.com
+*Building things that ship, not just things that compile.*

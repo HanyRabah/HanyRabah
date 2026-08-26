@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     default: 'Hany Rabah - Senior Fullstack Engineer',
     template: '%s | Hany Rabah'
   },
-  description: 'Senior Fullstack Engineer based in Berlin, crafting accessible, high-performance digital products. Expertise in React, Next.js, Node.js, and AWS.',
+  description: 'Senior Fullstack Engineer based in Cairo · Open to remote (EU · GCC), crafting accessible, high-performance digital products. Expertise in React, Next.js, Node.js, and AWS.',
   keywords: [
     'Hany Rabah',
     'Senior Fullstack Engineer',
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
     'Node.js Developer',
     'TypeScript',
     'AWS',
-    'Berlin Developer',
+    'Cairo Developer',
     'Fintech Engineer',
     'Full Stack Developer',
     'JavaScript Expert',
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://hanyrabah.com',
     title: 'Hany Rabah - Senior Fullstack Engineer',
-    description: 'Senior Fullstack Engineer based in Berlin, crafting accessible, high-performance digital products. Expertise in React, Next.js, Node.js, and AWS.',
+    description: 'Senior Fullstack Engineer based in Cairo · Open to remote (EU · GCC), crafting accessible, high-performance digital products. Expertise in React, Next.js, Node.js, and AWS.',
     siteName: 'Hany Rabah Portfolio',
     images: [
       {
@@ -73,7 +73,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Hany Rabah - Senior Fullstack Engineer',
-    description: 'Senior Fullstack Engineer based in Berlin, crafting accessible, high-performance digital products.',
+    description: 'Senior Fullstack Engineer based in Cairo · Open to remote (EU · GCC), crafting accessible, high-performance digital products.',
     images: ['/og-image.png'],
     creator: '@hanyrabah',
     site: '@hanyrabah',

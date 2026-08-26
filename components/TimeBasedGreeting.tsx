@@ -17,12 +17,12 @@ export function TimeBasedGreeting() {
   useEffect(() => {
     const updateGreeting = () => {
       const now = new Date();
-      const berlinTime = new Date(now.toLocaleString("en-US", { timeZone: "Europe/Berlin" }));
-      const hour = berlinTime.getHours();
+      const cairoTime = new Date(now.toLocaleString("en-US", { timeZone: "Africa/Cairo" }));
+      const hour = cairoTime.getHours();
       
       // Format time
-      const timeString = berlinTime.toLocaleString("en-US", {
-        timeZone: "Europe/Berlin",
+      const timeString = cairoTime.toLocaleString("en-US", {
+        timeZone: "Africa/Cairo",
         hour: "2-digit",
         minute: "2-digit",
         hour12: false,
@@ -36,28 +36,28 @@ export function TimeBasedGreeting() {
           greeting: "Good Morning!",
           message: "Starting the day with fresh ideas and clean code. Perfect time for deep work and creative problem-solving.",
           icon: Coffee,
-          timeInfo: "Morning in Berlin"
+          timeInfo: "Morning in Cairo"
         };
       } else if (hour >= 12 && hour < 17) {
         greetingData = {
           greeting: "Good Afternoon!",
           message: "Peak productivity hours. Currently building, collaborating, and bringing ideas to life.",
           icon: Sun,
-          timeInfo: "Afternoon in Berlin"
+          timeInfo: "Afternoon in Cairo"
         };
       } else if (hour >= 17 && hour < 21) {
         greetingData = {
           greeting: "Good Evening!",
           message: "Winding down but still passionate about great design and elegant solutions. Great time to connect!",
           icon: Sunset,
-          timeInfo: "Evening in Berlin"
+          timeInfo: "Evening in Cairo"
         };
       } else {
         greetingData = {
           greeting: "Good Evening!",
           message: "Late night coding session or early morning somewhere else? I appreciate the dedication to craft.",
           icon: Moon,
-          timeInfo: "Night in Berlin"
+          timeInfo: "Night in Cairo"
         };
       }
 

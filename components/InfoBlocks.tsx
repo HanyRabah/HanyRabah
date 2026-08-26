@@ -26,15 +26,15 @@ export function InfoBlocks() {
   useEffect(() => {
     setMounted(true);
     const updateTime = () => {
-      const berlinTime = new Date().toLocaleString("en-US", {
-        timeZone: "Europe/Berlin",
+      const cairoTime = new Date().toLocaleString("en-US", {
+        timeZone: "Africa/Cairo",
         weekday: "long",
         month: "long",
         day: "numeric",
         hour: "2-digit",
         minute: "2-digit",
       });
-      setCurrentTime(berlinTime);
+      setCurrentTime(cairoTime);
     };
 
     updateTime();
@@ -45,8 +45,8 @@ export function InfoBlocks() {
   const infoBlocks: InfoBlock[] = [
     {
       id: "location",
-      title: "Currently in Berlin",
-      content: mounted ? `${currentTime} (CET)` : "Loading time...",
+      title: "Currently in Cairo",
+      content: mounted ? `${currentTime} (EET)` : "Loading time...",
       icon: MapPin,
       highlight: true,
     },
@@ -68,7 +68,7 @@ export function InfoBlocks() {
     },
     {
       id: "growth",
-      title: "20+ Years Growing",
+      title: "15+ Years Growing",
       content: "From junior developer to technical lead, constantly evolving with technology and leading teams to success.",
       icon: TrendingUp,
       link: "/about",

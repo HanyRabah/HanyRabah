@@ -13,7 +13,7 @@ export const revalidate = 1800; // Revalidate every 30 minutes
 
 export const metadata: Metadata = {
   title: 'Blog - Hany Rabah | Technical Insights & Web Development Tutorials',
-  description: 'Technical blog by Hany Rabah, Senior Fullstack Engineer. Deep dives into React, Next.js, TypeScript, Node.js, AWS, and modern web development practices. Learn from 20+ years of industry experience.',
+  description: 'Technical blog by Hany Rabah, Senior Fullstack Engineer. Deep dives into React, Next.js, TypeScript, Node.js, AWS, and modern web development practices. Learn from 15+ years of industry experience.',
   keywords: [
     'Hany Rabah Blog',
     'Technical Blog',
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Technical Blog - Hany Rabah',
-    description: 'Technical insights, tutorials, and best practices from a Senior Fullstack Engineer with 20+ years of experience in React, Next.js, Node.js, and AWS.',
+    description: 'Technical insights, tutorials, and best practices from a Senior Fullstack Engineer with 15+ years of experience in React, Next.js, Node.js, and AWS.',
     type: 'website',
     locale: 'en_US',
     url: 'https://hanyrabah.com/blog',
@@ -82,7 +82,7 @@ export default async function BlogPage() {
   // Structured data for SEO
   const blogData = {
     name: 'Hany Rabah Technical Blog',
-    description: 'Technical insights, tutorials, and best practices from a Senior Fullstack Engineer with 20+ years of experience.',
+    description: 'Technical insights, tutorials, and best practices from a Senior Fullstack Engineer with 15+ years of experience.',
     url: 'https://hanyrabah.com/blog',
     author: {
       name: 'Hany Rabah',
@@ -105,7 +105,7 @@ export default async function BlogPage() {
             <PageHeader
               title="Technical Blog"
               subtitle="Latest Insights & Tutorials"
-              description="Deep dives into modern web development, architectural patterns, and engineering best practices. 20+ years of industry experience distilled into actionable insights."
+              description="Deep dives into modern web development, architectural patterns, and engineering best practices. 15+ years of industry experience distilled into actionable insights."
               icon={PenSquare}
               gradient={false}
               splitColor={true}

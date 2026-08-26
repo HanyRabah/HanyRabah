@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     'AI Integration Projects',
     'React Applications Portfolio',
     'Next.js Projects',
-    'Fullstack Projects Berlin',
+    'Fullstack Projects Cairo',
     'TypeScript Projects',
     'Node.js Applications',
     'AWS Projects',

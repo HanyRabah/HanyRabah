@@ -266,7 +266,7 @@ export function AboutSection() {
               <div className="space-y-6 text-lg text-muted-foreground leading-relaxed text-center">
                 <p>
                   I'm a Senior Fullstack Engineer based in
-                  Berlin, with over 20+ years of experience building scalable,
+                  Cairo, with over 15+ years of experience building scalable,
                   high-performance web applications and leading engineering
                   teams.
                 </p>
