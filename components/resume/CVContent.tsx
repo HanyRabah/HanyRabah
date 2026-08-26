@@ -46,8 +46,8 @@ export function CVContent() {
     {
       company: "Haykalah",
       location: "Saudi Arabia",
-      position: "Remote FullStack",
-      period: "Sep 2024 – Jul 2025",
+      position: "Technical Lead — Full-Stack Engineering",
+      period: "Jan 2025 – Jul 2025",
       responsibilities: [
         "Led the technical direction and implementation of AI-driven solutions and website development initiatives for clients undergoing digital transformation.",
         "Collaborated closely with a cross-functional team of designers, developers, and AI specialists to deliver high-impact digital products aligned with modern UX/UI standards.",
