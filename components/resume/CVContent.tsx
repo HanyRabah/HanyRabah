@@ -74,9 +74,11 @@ export function CVContent() {
       company: "Tradeling.com",
       location: "Dubai",
       position: "Sr. Frontend Consultant",
-      period: "Sep 2020 – Feb 2021",
+      period: "Sep 2020 – Mar 2021",
       responsibilities: [
-        "Collaborated across teams to develop user-centric dashboards, contributing to major project milestones."
+        "Senior frontend on the B2B MENA marketplace during pre-launch scaling.",
+        "Built data-driven internal dashboards backed by a mix of REST and GraphQL APIs.",
+        "Contributed Storybook documentation alongside designers to align UI patterns across product teams."
       ]
     },
     {
