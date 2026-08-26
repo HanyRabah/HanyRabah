@@ -20,6 +20,7 @@ import {
   PlusOutlined,
   CloseOutlined
 } from '@ant-design/icons'
+import Image from 'next/image'
 import { ImageUpload } from '@/components/admin/ImageUpload'
 import { NotionEditor } from '@/components/admin/NotionEditor'
 
@@ -233,24 +234,19 @@ export function ProjectEditForm({ project, onSave }: ProjectEditFormProps) {
                 {images.length > 0 && (
                   <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginTop: 12 }}>
                     {images.map((image, index) => (
-                      <div key={`${image}-${index}`} style={{ position: 'relative' }}>
-                        <img
+                      <div key={`${image}-${index}`} style={{ position: 'relative', width: 80, height: 80 }}>
+                        {/* ponytail: use next/image so it proxies through /_next/image
+                            — plain <img> to Vercel Blob got stripped by aggressive
+                            content-blocker extensions in the admin browser. */}
+                        <Image
                           src={image}
                           alt={`Gallery image ${index + 1}`}
-                          style={{ 
-                            width: 80, 
-                            height: 80, 
-                            objectFit: 'cover', 
+                          width={80}
+                          height={80}
+                          style={{
+                            objectFit: 'cover',
                             borderRadius: 4,
-                            border: '1px solid #d9d9d9'
-                          }}
-                          onError={(e) => {
-                            const target = e.target as HTMLImageElement
-                            target.style.display = 'none'
-                            const parent = target.parentElement
-                            if (parent) {
-                              parent.innerHTML = `<div style="width: 80px; height: 80px; background: #f5f5f5; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 10px; color: #999; text-align: center; padding: 4px;">Image<br/>Error</div>`
-                            }
+                            border: '1px solid #d9d9d9',
                           }}
                         />
                         <Button
