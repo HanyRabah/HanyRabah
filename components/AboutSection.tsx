@@ -116,7 +116,7 @@ export function AboutSection() {
     },
     {
       date: "Jan 2025 - Jul 2025",
-      title: "Sr. Full-Stack Engineer",
+      title: "Technical Lead — Full-Stack Engineering",
       company: "Mark Haykalah",
       location: "Saudi Arabia (Remote)",
       companyUrl: "https://mark.haykalah.com/",
