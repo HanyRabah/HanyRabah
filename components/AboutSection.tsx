@@ -150,6 +150,20 @@ export function AboutSection() {
       current: false,
     },
     {
+      date: "Sep 2020 - Mar 2021",
+      title: "Sr. Frontend Consultant",
+      company: "Tradeling.com",
+      location: "Dubai, United Arab Emirates",
+      companyUrl: "https://www.tradeling.com/",
+      description: "Senior frontend on the B2B MENA marketplace during pre-launch scaling. Built data-driven internal dashboards backed by REST and GraphQL APIs, and contributed Storybook documentation alongside designers to align UI patterns across product teams.",
+      moreDetails: `<ul>
+        <li>Senior frontend on the B2B MENA marketplace during pre-launch scaling.</li>
+        <li>Built data-driven internal dashboards backed by a mix of REST and GraphQL APIs.</li>
+        <li>Contributed Storybook documentation alongside designers to align UI patterns across product teams.</li>
+      </ul>`,
+      current: false,
+    },
+    {
       date: "Jun 2018 - Jun 2020",
       title: "Sr. Frontend Engineer",
       company: "dubizzle.com",
