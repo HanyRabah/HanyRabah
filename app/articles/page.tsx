@@ -8,8 +8,8 @@ import { prisma } from '@/lib/prisma'
 export const dynamic = 'force-dynamic'
 
 export const metadata: Metadata = {
-  title: 'Articles - Hany Rabah | Web Development Insights & Programming Tutorials Berlin',
-  description: 'Read Hany Rabah\'s latest articles on web development, React, Next.js, TypeScript, Node.js, AI integration, and modern programming practices. Technical insights from a Berlin-based Senior Fullstack Engineer.',
+  title: 'Articles - Hany Rabah | Web Development Insights & Programming Tutorials Cairo',
+  description: 'Read Hany Rabah\'s latest articles on web development, React, Next.js, TypeScript, Node.js, AI integration, and modern programming practices. Technical insights from a Cairo-based · Open to remote (EU · GCC) Senior Fullstack Engineer.',
   keywords: [
     'Hany Rabah Articles',
     'Web Development Articles',
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
     'JavaScript Articles',
     'Technical Blog Posts',
     'Software Engineering Articles',
-    'Berlin Developer Articles',
+    'Cairo Developer Articles',
     'Fullstack Development',
     'AWS Tutorials',
     'Technical Writing',
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: 'Articles - Hany Rabah | Web Development Insights & Programming Tutorials',
-    description: 'Technical articles on web development, React, Next.js, TypeScript, and AI integration by Berlin-based Senior Fullstack Engineer Hany Rabah.',
+    description: 'Technical articles on web development, React, Next.js, TypeScript, and AI integration by Cairo-based · Open to remote (EU · GCC) Senior Fullstack Engineer Hany Rabah.',
     type: 'website',
     locale: 'en_US',
     url: 'https://hanyrabah.com/articles',
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Articles - Hany Rabah | Web Development Insights',
-    description: 'Technical articles on web development, React, Next.js, and AI integration by Berlin-based Senior Fullstack Engineer.',
+    description: 'Technical articles on web development, React, Next.js, and AI integration by Cairo-based · Open to remote (EU · GCC) Senior Fullstack Engineer.',
     images: ['/og-articles.png'],
     creator: '@hanyrabah',
   },

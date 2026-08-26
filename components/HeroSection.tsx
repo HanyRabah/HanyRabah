@@ -75,14 +75,14 @@ export function HeroSection() {
             
             <FadeIn delay={0.5} direction="up">
               <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed mb-6">
-                20+ years building scalable fintech and marketplace platforms.
+                15+ years building scalable fintech and marketplace platforms.
                 Led teams at <strong className="text-foreground">OLX Group</strong> and <strong className="text-foreground">Diligent (YC W24)</strong>.
                 React, Next.js, Node.js, AWS specialist.
               </p>
               <p className="text-sm text-muted-foreground mb-8">
                 <span className="inline-flex items-center gap-2">
                   <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                  Open to full-time senior engineering roles • Based in Berlin 🇩🇪
+                  Open to full-time senior engineering roles • Based in Cairo 🇪🇬 · Open to remote
                 </span>
               </p>
             </FadeIn>

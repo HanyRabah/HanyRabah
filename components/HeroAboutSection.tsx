@@ -51,8 +51,8 @@ export function HeroAboutSection() {
                 Transforming complex problems into elegant solutions.
               </p> */}
                 <p>
-                  I'm a Senior Fullstack Engineer based in Berlin, 
-                  with over 20+ years of experience building scalable web applications 
+                  I'm a Senior Fullstack Engineer based in Cairo, 
+                  with over 15+ years of experience building scalable web applications 
                   and leading development teams. I specialize in React, Node.js, and 
                   cloud architecture, with a passion for creating exceptional user experiences.
                 </p>
@@ -63,7 +63,7 @@ export function HeroAboutSection() {
                   team environment.
                 </p> */}
                 <p>
-                  When I'm not coding, you'll find me exploring Berlin's tech scene, 
+                  When I'm not coding, you'll find me exploring Cairo's tech scene, 
                   contributing to open-source projects, or sharing knowledge through 
                   technical writing and mentoring.
                 </p>
