@@ -62,6 +62,36 @@ export function AboutSection() {
 
   const timeline: TimelineItem[] = [
     {
+      date: "Feb 2026 - Present",
+      title: "Founder",
+      company: "Carizmo",
+      location: "Cairo, Egypt",
+      companyUrl: "https://carizmo.app",
+      description: "On-demand, subscription-based mobile car wash service for residents of Al Brouj Compound, Cairo. Founder and lead engineer — building and operating the full platform end-to-end.",
+      moreDetails: `<div>Full monorepo covering mobile, web, and backend.</div>
+      <ul>
+        <li>Customer mobile app on iOS + Android (React Native / Expo) — booking, subscriptions, service tracking, payments.</li>
+        <li>Admin dashboard, marketing landing site, and partner docs (Next.js).</li>
+        <li>REST API (Node.js + Express + Prisma + PostgreSQL on Supabase) and WhatsApp gateway for notifications.</li>
+        <li>Deployed on AWS EC2 (API) + Vercel (web).</li>
+        <li>Stack: React Native · Expo · Next.js · TypeScript · Node.js · Prisma · PostgreSQL · Twilio · Docker · AWS.</li>
+      </ul>`,
+      current: true,
+    },
+    {
+      date: "Jan 2026 - Present",
+      title: "Co-Founder",
+      company: "A2gency",
+      location: "Berlin, Germany (Remote)",
+      companyUrl: "https://www.a2gency.ai/",
+      description: "Agency co-founded to build AI agents for clients — from strategy and design through delivery.",
+      moreDetails: `<ul>
+        <li>Co-founded and lead the technical direction for client engagements around agentic workflows and AI product integration.</li>
+        <li>Stack: Next.js · TypeScript · AI SDK · LangChain · Vercel.</li>
+      </ul>`,
+      current: true,
+    },
+    {
       date: "May 2025 - Present",
       title: "Sr. Full-Stack Engineer",
       company: "Diligent (YC W24)",

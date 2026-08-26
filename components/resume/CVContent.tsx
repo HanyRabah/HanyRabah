@@ -5,19 +5,42 @@ import { Badge } from './BadgeComp';
 export function CVContent() {
   const experienceData = [
     {
-      company: "Paylane GmbH",
-      location: "Germany",
-      position: "Full Stack Engineer",
+      company: "Carizmo",
+      location: "Cairo, Egypt",
+      position: "Founder",
+      period: "Feb 2026 – Present",
+      responsibilities: [
+        "Founded and lead a subscription-based on-demand mobile car wash service for Al Brouj Compound, Cairo.",
+        "Built and operate the full platform: React Native (Expo) customer app for iOS + Android, Next.js admin + landing + docs, Node.js + Express REST API, WhatsApp gateway.",
+        "Own the schema, backend, mobile, admin, tests, deployment, and day-to-day ops.",
+        "Stack: React Native · Expo · Next.js · TypeScript · Node.js · Express · Prisma · PostgreSQL (Supabase) · Twilio · Docker · AWS EC2 · Vercel."
+      ]
+    },
+    {
+      company: "A2gency",
+      location: "Berlin, Germany (Remote)",
+      position: "Co-Founder",
+      period: "Jan 2026 – Present",
+      responsibilities: [
+        "Co-founded an agency building AI agents for clients — strategy, design, delivery.",
+        "Lead the technical direction for agent-building engagements and client integrations.",
+        "Stack: Next.js · TypeScript · AI SDK · LangChain · Vercel."
+      ]
+    },
+    {
+      company: "Diligent (YC W24)",
+      location: "Berlin, Germany (Remote)",
+      position: "Senior Full-Stack Engineer",
       period: "May 2025 – Present",
       responsibilities: [
-        "Design, develop, and maintain highly scalable frontend and backend components for our platform.",
-        "Work closely with Product, Design, and Data teams to build features that streamline customer workflows and enhance insight delivery.",
-        "Build and extend APIs and integrate with external data providers and third-party services.",
-        "Ensure end-to-end quality with automated tests and performance tuning.",
-        "Own parts of the infrastructure and deployment lifecycle (CI/CD, AWS).",
-        "Collaborate in code reviews, architecture decisions, and design discussions.",
-        "Prioritize security, compliance, and best practices in a fintech environment.",
-        "Monitor, deploy, and manage infrastructure using AWS"
+        "Contributing to Paylane — Diligent's secure platform for legal-entity data processing and KYC/AML compliance automation used by financial institutions.",
+        "Ship full-stack features end-to-end across the platform in Next.js, React, TypeScript, and Node.js, owning slices from spec through production deployment.",
+        "Build reusable component libraries and workflow primitives for the KYC and AML modules so new customer integrations land faster.",
+        "Work directly with the founding team to scope technical work, prototype quickly, and validate decisions inside one-week iterations.",
+        "Maintain Playwright E2E suites wired into GitHub Actions to keep deployment confidence high as the platform expands.",
+        "Operate a serverless AWS stack — Cognito, Lambda, App Runner, CloudWatch — and contribute to ECS migration planning to improve streaming-response performance.",
+        "Led React 19 upgrade and component restructuring (250+ files) with zero downtime, improving developer productivity 30% and reducing security vulnerabilities 65%.",
+        "Architected an internationalization system supporting 4 languages across 180 files, eliminating 2,000+ hardcoded strings with automated validation."
       ]
     },
     {
