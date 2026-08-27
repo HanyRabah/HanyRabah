@@ -1,7 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { revalidatePath } from 'next/cache'
 import { getServerSession } from 'next-auth'
 import { isAdmin } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
+
+function bustBlogCache(slug?: string) {
+  revalidatePath('/blog')
+  if (slug) revalidatePath(`/blog/${slug}`)
+}
 
 export async function GET(
   request: NextRequest,
@@ -81,6 +87,7 @@ export async function PATCH(
       },
     })
 
+    bustBlogCache(post.slug)
     return NextResponse.json(post)
   } catch (error) {
     console.error('Error updating post:', error)
@@ -104,10 +111,12 @@ export async function DELETE(
     }
 
     const { id } = await params
+    const existing = await prisma.post.findUnique({ where: { id }, select: { slug: true } })
     await prisma.post.delete({
       where: { id },
     })
 
+    bustBlogCache(existing?.slug)
     return NextResponse.json({ success: true })
   } catch (error) {
     console.error('Error deleting post:', error)
