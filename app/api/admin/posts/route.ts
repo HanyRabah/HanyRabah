@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { revalidatePath } from 'next/cache'
 import { getServerSession } from 'next-auth'
 import { isAdmin } from '@/lib/auth'
 import { prisma } from '@/lib/prisma'
@@ -81,6 +82,8 @@ export async function POST(request: NextRequest) {
       },
     })
 
+    revalidatePath('/blog')
+    revalidatePath(`/blog/${post.slug}`)
     return NextResponse.json(post, { status: 201 })
   } catch (error) {
     console.error('Error creating post:', error)

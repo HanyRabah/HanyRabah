@@ -8,8 +8,9 @@ import { StructuredData } from '@/components/StructuredData'
 import { PageHeader } from '@/components/PageHeader'
 import { PenSquare } from 'lucide-react'
 
-// Enable ISR with 30-minute revalidation for blog list
-export const revalidate = 1800; // Revalidate every 30 minutes
+// Short ISR window as a safety net; admin routes call revalidatePath('/blog')
+// on create/update/delete so new posts appear instantly in normal flow.
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Blog - Hany Rabah | Technical Insights & Web Development Tutorials',
