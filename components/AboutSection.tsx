@@ -67,14 +67,14 @@ export function AboutSection() {
       company: "Carizmo",
       location: "Cairo, Egypt",
       companyUrl: "https://carizmo.app",
-      description: "On-demand, subscription-based mobile car wash service for residents of Al Brouj Compound, Cairo. Founder and lead engineer — building and operating the full platform end-to-end.",
-      moreDetails: `<div>Full monorepo covering mobile, web, and backend.</div>
-      <ul>
-        <li>Customer mobile app on iOS + Android (React Native / Expo) — booking, subscriptions, service tracking, payments.</li>
-        <li>Admin dashboard, marketing landing site, and partner docs (Next.js).</li>
-        <li>REST API (Node.js + Express + Prisma + PostgreSQL on Supabase) and WhatsApp gateway for notifications.</li>
-        <li>Deployed on AWS EC2 (API) + Vercel (web).</li>
-        <li>Stack: React Native · Expo · Next.js · TypeScript · Node.js · Prisma · PostgreSQL · Twilio · Docker · AWS.</li>
+      logo: "/company-logos/carizmo-logo.jpeg",
+      description: "Founded and operate a subscription-based on-demand mobile car-wash service for residents of Al Brouj Compound, Cairo. Own the platform end-to-end — product, tech, and ops. Live on iOS and Android.",
+      moreDetails: `<ul>
+        <li>Built the full monorepo: React Native (Expo) customer app for iOS + Android, Next.js admin + landing + docs sites, Node.js + Express REST API, PostgreSQL on Supabase.</li>
+        <li>Designed the domain model for subscriptions, service entitlements, wash-job state machines, and payment lifecycle — hardened by operating the business myself.</li>
+        <li>Set up the WhatsApp Business gateway for customer notifications, OTP verification, and support flows via Twilio.</li>
+        <li>Deployed the API to AWS EC2 and web apps to Vercel; own CI/CD, monitoring, and day-to-day operations.</li>
+        <li>Stack: React Native · Expo · Next.js · TypeScript · Node.js · Express · Prisma · PostgreSQL · Twilio · WhatsApp Business API · Docker · AWS · Vercel.</li>
       </ul>`,
       current: true,
     },
@@ -84,10 +84,13 @@ export function AboutSection() {
       company: "A2gency",
       location: "Berlin, Germany (Remote)",
       companyUrl: "https://www.a2gency.ai/",
-      description: "Agency co-founded to build AI agents for clients — from strategy and design through delivery.",
+      logo: "/company-logos/a2gency-logo.jpeg",
+      description: "Co-founded an agency building bespoke AI agents that integrate into how clients already work — automating repetitive roles, cutting operational cost, running 24/7. Not templates; every agent is designed around the client's processes, data, and objectives.",
       moreDetails: `<ul>
-        <li>Co-founded and lead the technical direction for client engagements around agentic workflows and AI product integration.</li>
-        <li>Stack: Next.js · TypeScript · AI SDK · LangChain · Vercel.</li>
+        <li>Lead the technical direction: agent architecture, provider selection, retrieval pipelines, tool interfaces, and delivery.</li>
+        <li>Ship production agent systems for client engagements across agencies and SMB operations.</li>
+        <li>Own the technical stack decisions and integration patterns for how agents connect to client systems.</li>
+        <li>Stack: Next.js · TypeScript · AI SDK · LangChain · OpenAI API · Vercel.</li>
       </ul>`,
       current: true,
     },
@@ -278,7 +281,7 @@ export function AboutSection() {
   ];
 
   const downloadResume = () => {
-    const resumeUrl = "/Hany_Elsaydawy_Resume.pdf";
+    const resumeUrl = "/Hany_Elsaydawy_full-stack_engineer.pdf";
     window.open(resumeUrl, "_blank");
   };
 

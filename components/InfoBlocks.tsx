@@ -1,12 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { 
-  MapPin, 
-  Briefcase, 
-  Code, 
-  TrendingUp
-} from "lucide-react";
+import { Briefcase, Code, TrendingUp } from "lucide-react";
 import Link from "next/link";
 
 interface InfoBlock {
@@ -20,51 +14,23 @@ interface InfoBlock {
 }
 
 export function InfoBlocks() {
-  const [currentTime, setCurrentTime] = useState<string>("");
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    const updateTime = () => {
-      const cairoTime = new Date().toLocaleString("en-US", {
-        timeZone: "Africa/Cairo",
-        weekday: "long",
-        month: "long",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-      setCurrentTime(cairoTime);
-    };
-
-    updateTime();
-    const interval = setInterval(updateTime, 60000);
-    return () => clearInterval(interval);
-  }, []);
-
   const infoBlocks: InfoBlock[] = [
-    {
-      id: "location",
-      title: "Currently in Cairo",
-      content: mounted ? `${currentTime} (EET)` : "Loading time...",
-      icon: MapPin,
-      highlight: true,
-    },
     {
       id: "status",
       title: "Open to Opportunities",
-      content: "Currently open to full-time senior engineering roles and technical leadership positions. Let's build something impactful together.",
+      content: "Currently open to full-time Senior / Lead FE or Full-Stack roles — remote-first, based in Cairo, targeting EU / Germany / UAE / Saudi.",
       icon: Briefcase,
       link: "/contact",
       linkText: "Get in touch",
+      highlight: true,
     },
     {
       id: "current",
       title: "What I'm Working On",
-      content: "Building Paylane at Diligent (YC W24) - scalable payment infrastructure with React, Node.js, and AWS. Led React 19 migration across 250+ files.",
+      content: "Founder + lead engineer at Carizmo — subscription-based mobile car-wash service, live on iOS + Android. Full monorepo: React Native, Next.js admin/landing/docs, Node.js API, WhatsApp gateway, PostgreSQL, AWS.",
       icon: Code,
-      link: "/work",
-      linkText: "View work",
+      link: "https://carizmo.app",
+      linkText: "See Carizmo",
     },
     {
       id: "handbook",
