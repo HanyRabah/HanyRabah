@@ -13,27 +13,31 @@ interface Testimonial {
   avatar?: string;
 }
 
+// Real LinkedIn recommendations — see linkedin.com/in/hanyrabah/details/recommendations/
 const testimonials: Testimonial[] = [
   {
     id: "1",
-    name: "Engineering Manager",
-    role: "Engineering Manager",
-    company: "OLX Group",
-    quote: "Hany's technical leadership was instrumental in modernizing our platform. His React 18 migration and GraphQL implementation improved our Time-to-Interactive by 30%.",
+    name: "Ibrahim AbouAlnaga",
+    role: "Software Development Manager",
+    company: "Amazon Web Services (AWS)",
+    quote:
+      "Hany has multiverse domain knowledge in Frontend Development, and his UI/UX background lets him write code that actually counts for the user. I've watched him grow — technically and personally — and he never misses an opportunity to learn something new.",
   },
   {
     id: "2",
-    name: "Product Lead",
-    role: "Product Lead",
-    company: "Diligent",
-    quote: "Working with Hany on Paylane was exceptional. His full-stack expertise and attention to detail helped us ship features faster while maintaining code quality.",
+    name: "Sami Eltamawy",
+    role: "Founder & Principal Security Architect",
+    company: "DeepGuards · Ex-Meta",
+    quote:
+      "Hany dedicated an hour a day to help and mentor colleagues while making sure his own deliverables were on time. He contributed to patching security vulnerabilities in the platform, stayed late when it mattered, and is genuinely eager to keep learning. I recommend him for any role.",
   },
   {
     id: "3",
-    name: "Frontend Developer",
-    role: "Frontend Developer",
-    company: "Mark Haykalah",
-    quote: "Hany mentored our team through a complete architecture overhaul. His knowledge of design systems and component libraries saved us months of development time.",
+    name: "Mohit Sharma",
+    role: "Engineering Leader",
+    company: "Ex-dubizzle",
+    quote:
+      "Hany doesn't just build features — he tries to understand impact: does this solve a user problem, or a business problem? He suggests new ideas, takes lead on things that make developer life easier, and gives up planned leaves to get releases out.",
   },
 ];
 
