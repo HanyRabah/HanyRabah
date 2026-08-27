@@ -80,13 +80,15 @@ export function HeroAboutSection() {
               </Button>
               
               <Button
-                onClick={scrollToContact}
+                asChild
                 variant="outline"
                 size="lg"
                 className="border-theme-primary text-theme-primary hover:bg-theme-primary hover:text-black"
               >
-                <Download className="mr-2 h-4 w-4" />
-                Download CV
+                <a href="/Hany_Elsaydawy_full-stack_engineer.pdf" download>
+                  <Download className="mr-2 h-4 w-4" />
+                  Download CV
+                </a>
               </Button>
             </div>
           </div>
