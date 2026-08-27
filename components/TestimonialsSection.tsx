@@ -14,14 +14,15 @@ interface Testimonial {
 }
 
 // Real LinkedIn recommendations — see linkedin.com/in/hanyrabah/details/recommendations/
+// Distilled to the lead-signalling passages of each full text.
 const testimonials: Testimonial[] = [
   {
     id: "1",
-    name: "Ibrahim AbouAlnaga",
-    role: "Software Development Manager",
-    company: "Amazon Web Services (AWS)",
+    name: "Mohit Sharma",
+    role: "Engineering Leader",
+    company: "Ex-dubizzle",
     quote:
-      "Hany has multiverse domain knowledge in Frontend Development, and his UI/UX background lets him write code that actually counts for the user. I've watched him grow — technically and personally — and he never misses an opportunity to learn something new.",
+      "Hany doesn't just do the task — he questions it. Does this solve a user problem, or a business problem? He takes lead on the things that make developer life easier, and pushes new ideas to complement the existing business.",
   },
   {
     id: "2",
@@ -29,15 +30,15 @@ const testimonials: Testimonial[] = [
     role: "Founder & Principal Security Architect",
     company: "DeepGuards · Ex-Meta",
     quote:
-      "Hany dedicated an hour a day to help and mentor colleagues while making sure his own deliverables were on time. He contributed to patching security vulnerabilities in the platform, stayed late when it mattered, and is genuinely eager to keep learning. I recommend him for any role.",
+      "Hany was the technical mentor teammates went to when they needed to level up. He dedicated an hour a day to mentoring colleagues while still hitting his own deliverables, and joined the dubizzle security guild to patch vulnerabilities across the platform. I recommend him for any role.",
   },
   {
     id: "3",
-    name: "Mohit Sharma",
-    role: "Engineering Leader",
-    company: "Ex-dubizzle",
+    name: "Ibrahim AbouAlnaga",
+    role: "Software Development Manager",
+    company: "Amazon Web Services (AWS)",
     quote:
-      "Hany doesn't just build features — he tries to understand impact: does this solve a user problem, or a business problem? He suggests new ideas, takes lead on things that make developer life easier, and gives up planned leaves to get releases out.",
+      "I met Hany when I joined dubizzle — from day one he was the one supporting my onboarding, and that told me everything about him. He has multiverse domain knowledge in frontend, and his UI/UX background means every piece of code he ships actually counts for the user. Teams get better around him.",
   },
 ];
 
