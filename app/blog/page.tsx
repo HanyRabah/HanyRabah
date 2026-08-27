@@ -201,7 +201,7 @@ export default async function BlogPage() {
                   
                   {/* Regular Posts Grid */}
                   {posts.length > 1 && (
-                    <div className="grid gap-8 lg:grid-cols-2">
+                    <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
                       {posts.slice(1).map((post) => (
                         <article
                           key={post.id}
