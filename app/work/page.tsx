@@ -278,7 +278,7 @@ function WorkContent() {
                         </p>
                       </div>
                     </FadeIn>
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                       {featuredWork.map((item, index) => (
                         <ScrollReveal key={item.id} direction="up" delay={0.1 * index}>
                           <ProjectCard 
