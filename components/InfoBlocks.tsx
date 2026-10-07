@@ -1,6 +1,6 @@
 "use client";
 
-import { Briefcase, Code, TrendingUp } from "lucide-react";
+import { Briefcase, Code, Shield, TrendingUp } from "lucide-react";
 import Link from "next/link";
 
 interface InfoBlock {
@@ -33,6 +33,14 @@ export function InfoBlocks() {
       linkText: "See Carizmo",
     },
     {
+      id: "diligent",
+      title: "Shipping at Diligent (YC W24)",
+      content: "Senior full-stack on Paylane — a KYC/AML compliance platform for financial institutions. Led the React 19 upgrade across 250+ files with zero downtime, and architected a 4-language i18n system removing 2,000+ hardcoded strings. Next.js · TypeScript · Node.js · PostgreSQL · AWS.",
+      icon: Shield,
+      link: "https://www.diligent-corp.com/",
+      linkText: "About Diligent",
+    },
+    {
       id: "handbook",
       title: "Engineering Lead Handbook",
       content: "Opinionated notes from 15+ years shipping — how I lead frontend and full-stack teams, review code, design APIs, run releases, and coach engineers.",
@@ -43,7 +51,7 @@ export function InfoBlocks() {
   ];
 
   return (
-    <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3 mb-12">
+    <div className="grid gap-4 md:grid-cols-2 mb-12">
       {infoBlocks.map((block) => {
         const Icon = block.icon;
         return (

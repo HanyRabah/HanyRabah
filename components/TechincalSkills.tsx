@@ -3,7 +3,7 @@ import { Badge } from './ui/badge';
 
 const techSkills = [
     'React', 'TypeScript', 'Node.js', 'Python', 'PostgreSQL', 'AWS',
-    'Docker', 'GraphQL', 'Next.js', 'Tailwind CSS', 'MongoDB', 'Redis'
+    'Docker', 'Kubernetes', 'GraphQL', 'Next.js', 'Tailwind CSS', 'MongoDB', 'Redis'
   ];
 
   const softSkills = [

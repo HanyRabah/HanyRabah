@@ -80,12 +80,12 @@ export function AboutSection() {
     },
     {
       date: "Jan 2026 - Present",
-      title: "Co-Founder",
+      title: "Co-Founder (Part-time, Advisory)",
       company: "A2gency",
       location: "Berlin, Germany (Remote)",
       companyUrl: "https://www.a2gency.ai/",
       logo: "/company-logos/a2gency-logo.jpeg",
-      description: "Co-founded an agency building bespoke AI agents that integrate into how clients already work — automating repetitive roles, cutting operational cost, running 24/7. Not templates; every agent is designed around the client's processes, data, and objectives.",
+      description: "Co-founded an agency building bespoke AI agents for clients — part-time advisory on technical direction, architecture, and delivery.",
       moreDetails: `<ul>
         <li>Lead the technical direction: agent architecture, provider selection, retrieval pipelines, tool interfaces, and delivery.</li>
         <li>Ship production agent systems for client engagements across agencies and SMB operations.</li>
