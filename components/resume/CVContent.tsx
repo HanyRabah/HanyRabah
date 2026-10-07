@@ -19,11 +19,10 @@ export function CVContent() {
     {
       company: "A2gency",
       location: "Germany",
-      position: "Co-Founder",
+      position: "Co-Founder (Part-time, Technical Direction)",
       period: "Jan 2026 – Present",
       responsibilities: [
-        "Co-founded an agency building AI agents for clients — strategy, design, delivery.",
-        "Lead the technical direction for agent-building engagements and client integrations.",
+        "Co-founded an agency building AI agents for clients — part-time advisory on technical direction, architecture, and delivery.",
         "Stack: Next.js · TypeScript · AI SDK · LangChain · Vercel."
       ]
     },
