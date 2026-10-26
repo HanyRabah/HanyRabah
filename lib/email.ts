@@ -79,6 +79,7 @@ export async function sendContactEmail(data: ContactEmailData) {
       html: emailHtml,
     })
 
+    if (result.error) throw new Error(`${result.error.name}: ${result.error.message}`)
     return { success: true, data: result }
   } catch (error) {
     console.error('Failed to send email:', error)
@@ -149,6 +150,7 @@ export async function sendAutoReply(data: ContactEmailData) {
       html: autoReplyHtml,
     })
 
+    if (result.error) throw new Error(`${result.error.name}: ${result.error.message}`)
     return { success: true, data: result }
   } catch (error) {
     console.error('Failed to send auto-reply:', error)
