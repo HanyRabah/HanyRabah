@@ -1,7 +1,9 @@
 import { PrismaClient } from '@prisma/client'
 
-const SOURCE_DATABASE_URL = "postgres://neondb_owner:REDACTED@ep-winter-wildflower-a2hk396j-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require"
-
+const SOURCE_DATABASE_URL = process.env.SOURCE_DATABASE_URL
+if (!SOURCE_DATABASE_URL) {
+  throw new Error("SOURCE_DATABASE_URL is not set")
+}
 const prisma = new PrismaClient({
   datasources: {
     db: {
