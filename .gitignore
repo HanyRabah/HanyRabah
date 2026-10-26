@@ -42,3 +42,7 @@ coverage
 TODO.md
 .env.local
 .env.*.local
+
+# local data dumps (contain contact-form PII)
+database-export.json
+source-data.json
