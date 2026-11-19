@@ -76,7 +76,20 @@ export async function fetchAll(): Promise<{
   }
 
   // ── Score + filter ─────────────────────────────────────────────────
-  const scored: ScoredJob[] = allRaw.map(scoreJob).filter((j) => j.score >= 40);
+  // Egypt-presence companies have very few postings, so even a modest score
+  // is worth surfacing. Keep the global threshold at 40 to cut noise.
+  const egyptSlugs = new Set(
+    (await prisma.targetCompany.findMany({
+      where: { egyptPresence: true },
+      select: { slug: true, source: true },
+    })).map((c) => `${c.source}:${c.slug}`),
+  );
+  const scored: ScoredJob[] = allRaw
+    .map(scoreJob)
+    .filter((j) => {
+      const isEgyptPresenceCompany = egyptSlugs.has(`${j.source}:${j.companySlug}`);
+      return isEgyptPresenceCompany ? j.score >= 15 : j.score >= 40;
+    });
   const droppedLowScore = allRaw.length - scored.length;
 
   // ── Persist (upsert on externalId + source) ────────────────────────

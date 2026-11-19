@@ -43,6 +43,7 @@ export async function GET(req: Request) {
           { location: { contains: 'Cairo', mode: 'insensitive' as const } },
           { location: { contains: 'Egypt', mode: 'insensitive' as const } },
           { location: { contains: 'MENA', mode: 'insensitive' as const } },
+          { location: { contains: 'Middle East', mode: 'insensitive' as const } },
         ],
       };
 
