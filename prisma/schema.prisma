@@ -273,6 +273,9 @@ model Job {
   remoteFromEgypt Boolean?      // null = unknown
   status          JobStatus     @default(NEW)
   action          JobAction?
+  // Cover letter drafted by the LLM — markdown string.
+  coverLetter     String?
+  coverLetterAt   DateTime?
 
   @@unique([externalId, source])
   @@index([status, score])
@@ -298,6 +301,7 @@ enum JobSource {
   LEVER
   REMOTEOK
   WORKDAY
+  WORKABLE
   WUZZUF
   BAYT
   LINKEDIN_POSTS

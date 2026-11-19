@@ -10,7 +10,10 @@ import {
   Flex,
   List,
   message,
+  Modal,
+  Popover,
   Space,
+  Spin,
   Switch,
   Tabs,
   Tag,
@@ -20,6 +23,8 @@ import {
 import {
   CheckCircleOutlined,
   CloseCircleOutlined,
+  CopyOutlined,
+  EditOutlined,
   LinkOutlined,
   ReloadOutlined,
   SyncOutlined,
@@ -70,6 +75,7 @@ export default function JobsPage() {
   const [loading, setLoading] = useState(true)
   const [syncing, setSyncing] = useState(false)
   const [includeGlobal, setIncludeGlobal] = useState<boolean>(false)
+  const [draftOpen, setDraftOpen] = useState<null | { jobId: string; title: string; company: string; text: string; loading: boolean }>(null)
 
   // Load toggle from localStorage on mount
   useEffect(() => {
@@ -112,6 +118,29 @@ export default function JobsPage() {
     try {
       localStorage.setItem(STORAGE_KEY, checked ? '1' : '0')
     } catch {}
+  }
+
+  const openDraftCover = async (job: Job, force = false) => {
+    setDraftOpen({ jobId: job.id, title: job.title, company: job.company, text: '', loading: true })
+    try {
+      const res = await fetch(`/api/jobs/${job.id}/draft-cover${force ? '?force=1' : ''}`, { method: 'POST' })
+      const data = (await res.json()) as { ok: boolean; coverLetter?: string; cached?: boolean; error?: string }
+      if (!data.ok || !data.coverLetter) throw new Error(data.error ?? 'draft failed')
+      setDraftOpen({ jobId: job.id, title: job.title, company: job.company, text: data.coverLetter, loading: false })
+      if (!data.cached) message.success('Cover letter drafted')
+    } catch (e) {
+      const msg = e instanceof Error ? e.message : 'draft failed'
+      message.error(msg)
+      setDraftOpen(null)
+    }
+  }
+
+  const copyDraft = () => {
+    if (!draftOpen) return
+    navigator.clipboard.writeText(draftOpen.text).then(
+      () => message.success('Copied'),
+      () => message.error('Copy failed'),
+    )
   }
 
   const triggerSync = async () => {
@@ -254,12 +283,23 @@ export default function JobsPage() {
                         {job.description}
                       </Paragraph>
                       {job.scoreReasons.length > 0 && (
-                        <Tooltip title={job.scoreReasons.join(' · ')}>
-                          <Text type="secondary" style={{ fontSize: 12 }}>
+                        <Popover
+                          placement="bottomLeft"
+                          content={
+                            <div style={{ maxWidth: 400 }}>
+                              {job.scoreReasons.map((r, i) => (
+                                <div key={i} style={{ fontSize: 12, fontFamily: 'monospace' }}>
+                                  {r}
+                                </div>
+                              ))}
+                            </div>
+                          }
+                        >
+                          <Text type="secondary" style={{ fontSize: 12, cursor: 'help' }}>
                             {job.scoreReasons.slice(0, 2).join(' · ')}
-                            {job.scoreReasons.length > 2 ? ' · …' : ''}
+                            {job.scoreReasons.length > 2 ? ` · +${job.scoreReasons.length - 2} more` : ''}
                           </Text>
-                        </Tooltip>
+                        </Popover>
                       )}
                     </div>
                     <Flex vertical gap={8} style={{ flexShrink: 0, width: 180 }}>
@@ -272,6 +312,13 @@ export default function JobsPage() {
                         block
                       >
                         Open posting
+                      </Button>
+                      <Button
+                        icon={<EditOutlined />}
+                        onClick={() => openDraftCover(job)}
+                        block
+                      >
+                        Draft cover
                       </Button>
                       {tab !== 'APPLIED' && (
                         <Button
@@ -299,6 +346,58 @@ export default function JobsPage() {
             )}
           />
         )}
+
+        <Modal
+          open={!!draftOpen}
+          title={draftOpen ? `Cover letter — ${draftOpen.title} @ ${draftOpen.company}` : ''}
+          onCancel={() => setDraftOpen(null)}
+          width={720}
+          footer={[
+            <Button
+              key="regen"
+              icon={<SyncOutlined />}
+              onClick={() => {
+                if (draftOpen) {
+                  const job = jobs.find((j) => j.id === draftOpen.jobId)
+                  if (job) openDraftCover(job, true)
+                }
+              }}
+              disabled={draftOpen?.loading}
+            >
+              Re-draft
+            </Button>,
+            <Button key="copy" type="primary" icon={<CopyOutlined />} onClick={copyDraft} disabled={draftOpen?.loading}>
+              Copy
+            </Button>,
+            <Button key="close" onClick={() => setDraftOpen(null)}>
+              Close
+            </Button>,
+          ]}
+        >
+          {draftOpen?.loading ? (
+            <Flex align="center" justify="center" style={{ padding: 48 }}>
+              <Spin tip="Drafting with Claude Haiku…" />
+            </Flex>
+          ) : (
+            <pre
+              style={{
+                whiteSpace: 'pre-wrap',
+                wordBreak: 'break-word',
+                fontFamily: 'inherit',
+                fontSize: 14,
+                lineHeight: 1.6,
+                padding: 16,
+                background: '#fafafa',
+                border: '1px solid #eee',
+                borderRadius: 4,
+                maxHeight: 500,
+                overflowY: 'auto',
+              }}
+            >
+              {draftOpen?.text ?? ''}
+            </pre>
+          )}
+        </Modal>
       </AdminLayout>
     </AntdProvider>
   )

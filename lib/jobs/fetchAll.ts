@@ -4,6 +4,7 @@ import { fetchAshby } from './sources/ashby';
 import { fetchGreenhouse } from './sources/greenhouse';
 import { fetchLever } from './sources/lever';
 import { fetchRemoteOK } from './sources/remoteok';
+import { fetchWorkable } from './sources/workable';
 import { fetchWorkday } from './sources/workday';
 import { scoreJob } from './score';
 import type { FetchReport, RawJob, ScoredJob } from './types';
@@ -37,6 +38,9 @@ export async function fetchAll(): Promise<{
         case 'WORKDAY':
           if (!c.workdayConfig) throw new Error('missing workdayConfig');
           jobs = await fetchWorkday(c.name, c.slug, c.workdayConfig);
+          break;
+        case 'WORKABLE':
+          jobs = await fetchWorkable(c.slug, c.name);
           break;
         case 'OTHER':
           // Watch-only company, no auto-fetch.

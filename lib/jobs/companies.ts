@@ -18,6 +18,7 @@ export type JobSource =
   | 'LEVER'
   | 'REMOTEOK'
   | 'WORKDAY'
+  | 'WORKABLE'
   | 'WUZZUF'
   | 'BAYT'
   | 'LINKEDIN_POSTS'
@@ -35,12 +36,14 @@ export interface TargetCompany {
 }
 
 export const TARGET_COMPANIES: TargetCompany[] = [
-  // ── Tier 1 — Egypt / MENA local (all watch-only; custom/private ATS) ──
-  { name: 'Instabug',       slug: 'instabug',       source: 'OTHER', tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://instabug.com/careers',          notes: 'Workable — adapter TBD' },
-  { name: 'Paymob',         slug: 'paymob',         source: 'OTHER', tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://paymob.com/en/careers',         notes: 'Custom ATS — watch-only' },
-  { name: 'Swvl',           slug: 'swvl',           source: 'OTHER', tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://www.swvl.com/careers',          notes: 'Custom ATS — watch-only' },
+  // ── Tier 1 — Egypt / MENA local ────────────────────────────────────
+  // All four exist as Workable accounts — currently empty (not hiring), but
+  // the adapter will catch new postings automatically.
+  { name: 'Instabug', slug: 'instabug', source: 'WORKABLE', tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://instabug.com/careers' },
+  { name: 'Paymob',   slug: 'paymob',   source: 'WORKABLE', tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://paymob.com/en/careers' },
+  { name: 'Swvl',     slug: 'swvl',     source: 'WORKABLE', tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://www.swvl.com/careers' },
+  { name: 'Halan',    slug: 'halan',    source: 'WORKABLE', tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://halan.com/careers' },
   { name: 'MaxAB',          slug: 'maxab',          source: 'OTHER', tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://www.maxab.io/careers',          notes: 'Custom ATS — watch-only' },
-  { name: 'Halan',          slug: 'halan',          source: 'OTHER', tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://halan.com/careers',             notes: 'Custom ATS — watch-only' },
   { name: 'Dubizzle Group', slug: 'dubizzlegroup',  source: 'OTHER', tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://group.dubizzle.com/careers',   notes: 'OLX Group migrated — watch-only' },
 
   // ── International consulting / Big 4 / MNCs with Egypt offices ─────
@@ -112,7 +115,7 @@ export const TARGET_COMPANIES: TargetCompany[] = [
   { name: 'Harvey',       slug: 'harvey',       source: 'ASHBY',      tier: 'GLOBAL_AI', careersUrl: 'https://www.harvey.ai/careers' },
   { name: 'Cursor',       slug: 'cursor',       source: 'ASHBY',      tier: 'GLOBAL_AI', careersUrl: 'https://cursor.com/careers' },
   { name: 'Perplexity',   slug: 'perplexity',   source: 'OTHER',      tier: 'GLOBAL_AI', careersUrl: 'https://www.perplexity.ai/hub/careers',       notes: 'Custom ATS — watch-only' },
-  { name: 'Hugging Face', slug: 'huggingface',  source: 'OTHER',      tier: 'GLOBAL_AI', careersUrl: 'https://apply.workable.com/huggingface/',    notes: 'Workable — adapter TBD' },
+  { name: 'Hugging Face', slug: 'huggingface',  source: 'WORKABLE',   tier: 'GLOBAL_AI', careersUrl: 'https://apply.workable.com/huggingface/' },
   { name: 'Mistral AI',   slug: 'mistralai',    source: 'OTHER',      tier: 'GLOBAL_AI', careersUrl: 'https://mistral.ai/careers',                 notes: 'Custom ATS — watch-only' },
   { name: 'Cohere',       slug: 'cohere',       source: 'ASHBY',      tier: 'GLOBAL_AI', careersUrl: 'https://cohere.com/careers' },
   { name: 'LangChain',    slug: 'langchain',    source: 'ASHBY',      tier: 'GLOBAL_AI', careersUrl: 'https://www.langchain.com/careers' },
