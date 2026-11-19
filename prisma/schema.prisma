@@ -225,3 +225,99 @@ enum ResourceType {
   BOOKS
   USEFUL_LINKS
 }
+
+// =====================
+// JOB RADAR (job-search automation)
+// =====================
+
+model TargetCompany {
+  id          String     @id @default(cuid())
+  name        String     @unique // human-readable, e.g. "Anthropic"
+  slug        String     // ATS board slug, e.g. "anthropic"
+  source      JobSource  // which ATS to use
+  tier        CompanyTier
+  careersUrl  String?
+  notes       String?
+  active      Boolean    @default(true)
+  lastFetched DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  jobs        Job[]
+
+  @@unique([slug, source])
+  @@map("target_companies")
+}
+
+model Job {
+  id              String        @id @default(cuid())
+  externalId      String        // the ATS's own id — used for dedup
+  source          JobSource
+  title           String
+  company         String
+  companyId       String?
+  companyRef      TargetCompany? @relation(fields: [companyId], references: [id])
+  location        String?
+  remote          Boolean       @default(false)
+  description     String        // truncated to ~4000 chars for storage
+  url             String
+  salary          String?
+  tags            String[]      @default([])
+  postedAt        DateTime?
+  fetchedAt       DateTime      @default(now())
+  score           Int           @default(0)   // 0–100
+  scoreReasons    String[]      @default([])
+  visaFriendly    Boolean?      // null = unknown
+  remoteFromEgypt Boolean?      // null = unknown
+  status          JobStatus     @default(NEW)
+  action          JobAction?
+
+  @@unique([externalId, source])
+  @@index([status, score])
+  @@index([fetchedAt])
+  @@map("jobs")
+}
+
+model JobAction {
+  id        String          @id @default(cuid())
+  jobId     String          @unique
+  job       Job             @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  kind      JobActionKind
+  note      String?
+  createdAt DateTime        @default(now())
+  updatedAt DateTime        @updatedAt
+
+  @@map("job_actions")
+}
+
+enum JobSource {
+  GREENHOUSE
+  ASHBY
+  LEVER
+  REMOTEOK
+  WUZZUF
+  BAYT
+  LINKEDIN_POSTS
+  OTHER
+}
+
+enum CompanyTier {
+  EGYPT_MENA      // tier 1 — local/regional
+  GLOBAL_AI       // tier 2 — AI/FDE sweet spot
+  GLOBAL_SENIOR   // tier 3 — senior remote-friendly
+  GLOBAL_ENTERPRISE // tier 4 — big-name occasional remote
+}
+
+enum JobStatus {
+  NEW
+  SURFACED
+  APPLIED
+  DISMISSED
+  ARCHIVED
+}
+
+enum JobActionKind {
+  APPLIED
+  DISMISSED
+  SAVED
+  DRAFTED_COVER
+}

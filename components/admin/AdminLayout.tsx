@@ -27,7 +27,8 @@ import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
   ContactsOutlined,
-  AppstoreOutlined
+  AppstoreOutlined,
+  ThunderboltOutlined
 } from '@ant-design/icons'
 import type { MenuProps } from 'antd'
 
@@ -94,6 +95,11 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
           label: 'Contact Messages',
         },
       ],
+    },
+    {
+      key: '/admin/jobs',
+      icon: <ThunderboltOutlined />,
+      label: 'Job Radar',
     },
     {
       key: '/admin/analytics',
