@@ -36,7 +36,7 @@ export function Sidebar({ activeSection, onSectionChange }: SidebarProps) {
             {/* <Logo size={48} /> */}
             <div>
               <h1 className="text-primary mb-1 font-bold">Hany El Saydawy</h1>
-              <p className="text-sm text-muted-foreground">Technical Lead & Fullstack Engineer</p>
+              <p className="text-sm text-muted-foreground">Senior Full-Stack / Forward Deployed Engineer</p>
             </div>
           </div>
           
