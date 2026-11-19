@@ -21,7 +21,7 @@ export function ProjectsCTA() {
             variant="default"
             size="lg"
           />
-          <Link href="/Hany_Elsaydawy_full-stack_engineer.pdf" target="_blank">
+          <Link href="/Hany_ElSaydawy_CV.pdf" target="_blank">
             <ThemedButton
               variant="outline"
               size="lg"

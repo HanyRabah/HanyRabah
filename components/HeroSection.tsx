@@ -9,7 +9,7 @@ import Image from "next/image";
 export function HeroSection() {
 
   const downloadResume = () => {
-    const resumeUrl = "/Hany_Elsaydawy_full-stack_engineer.pdf";
+    const resumeUrl = "/Hany_ElSaydawy_CV.pdf";
     window.open(resumeUrl, "_blank");
   };
 
@@ -62,8 +62,8 @@ export function HeroSection() {
               <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-4 pb-2">
                 <span className="sr-only">Senior Fullstack Engineer & Team Lead</span>
                 <span aria-hidden="true" className="bg-gradient-to-r from-theme-accent via-theme-primary to-theme-accent bg-clip-text text-transparent">
-                  <TypingAnimation 
-                    text={["Senior Fullstack Engineer", "Technical Team Lead", "Frontend Architect", "Fullstack Developer"]}
+                  <TypingAnimation
+                    text={["Senior Full-Stack Engineer", "Forward Deployed Engineer", "Technical Team Lead", "Frontend Architect"]}
                     duration={80}
                     delay={500}
                     loop={true}
@@ -75,14 +75,16 @@ export function HeroSection() {
             
             <FadeIn delay={0.5} direction="up">
               <p className="text-lg md:text-xl text-muted-foreground max-w-2xl leading-relaxed mb-6">
-                15+ years building scalable fintech and marketplace platforms.
-                Led teams at <strong className="text-foreground">OLX Group</strong> and <strong className="text-foreground">Diligent (YC W24)</strong>.
-                React, Next.js, Node.js, AWS specialist.
+                15+ years shipping production web and mobile apps across consumer marketplaces,
+                B2B platforms, and AI-driven fintech. Previously senior/lead at{" "}
+                <strong className="text-foreground">OLX Group</strong> and{" "}
+                <strong className="text-foreground">Diligent (YC W24)</strong>.
+                React, Next.js, Node.js, AWS, AI integration.
               </p>
               <p className="text-sm text-muted-foreground mb-8">
                 <span className="inline-flex items-center gap-2">
                   <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                  Open to full-time senior engineering roles • Based in Cairo 🇪🇬 · Open to remote
+                  Open to Senior Full-Stack / Forward Deployed Engineer roles • Based in Cairo 🇪🇬 · Remote-first
                 </span>
               </p>
             </FadeIn>

@@ -7,22 +7,24 @@ export function CVContent() {
     {
       company: "Carizmo",
       location: "Egypt",
-      position: "Founder",
+      position: "Founding Engineer & Technical Lead",
       period: "Feb 2026 – Present",
       responsibilities: [
-        "Founded and lead a subscription-based on-demand mobile car wash service for Al Brouj Compound, Cairo.",
-        "Built and operate the full platform: React Native (Expo) customer app for iOS + Android, Next.js admin + landing + docs, Node.js + Express REST API, WhatsApp gateway.",
+        "Built and operate a subscription-based on-demand mobile car wash service for Al Brouj Compound, Cairo — live on iOS + Android.",
+        "Full monorepo: React Native (Expo) customer app, Next.js admin + landing + docs, Node.js + Express REST API, WhatsApp gateway.",
         "Own the schema, backend, mobile, admin, tests, deployment, and day-to-day ops.",
+        "Part-time operational load — available for senior IC / lead / forward-deployed engagements.",
         "Stack: React Native · Expo · Next.js · TypeScript · Node.js · Express · Prisma · PostgreSQL (Supabase) · Twilio · Docker · AWS EC2 · Vercel."
       ]
     },
     {
       company: "A2gency",
       location: "Germany",
-      position: "Co-Founder (Part-time, Technical Direction)",
+      position: "Technical Advisor",
       period: "Jan 2026 – Present",
       responsibilities: [
-        "Co-founded an agency building AI agents for clients — part-time advisory on technical direction, architecture, and delivery.",
+        "Advisory role at a small AI consultancy building bespoke AI agents for client workflows — no operational commitment.",
+        "Advise on agent architecture, provider selection, retrieval pipelines, and tool interfaces.",
         "Stack: Next.js · TypeScript · AI SDK · LangChain · Vercel."
       ]
     },
@@ -30,7 +32,7 @@ export function CVContent() {
       company: "Diligent (YC W24)",
       location: "Germany",
       position: "Senior Full-Stack Engineer",
-      period: "May 2025 – Present",
+      period: "May 2025 – Nov 2026",
       responsibilities: [
         "Contributing to Paylane — Diligent's secure platform for legal-entity data processing and KYC/AML compliance automation used by financial institutions.",
         "Ship full-stack features end-to-end across the platform in Next.js, React, TypeScript, and Node.js, owning slices from spec through production deployment.",
@@ -183,10 +185,12 @@ export function CVContent() {
             <SectionHeader>Professional Summary</SectionHeader>
             <div className="bg-primary/5 p-6 rounded-lg border-l-4 border-primary">
               <p className="text-muted-foreground leading-relaxed">
-                Senior Frontend Developer with over 10 years of experience specializing in UI/UX design, programming, and 
-                platform maintenance across diverse teams. Expert in creating high-impact user interfaces and streamlined 
-                user experiences, resulting in significant revenue generation. Proven ability to tackle complex projects with 
-                robust problem-solving skills and a commitment to excellence.
+                Senior Full-Stack Engineer with 15+ years shipping production web and mobile apps across consumer
+                marketplaces, B2B platforms, AI-driven fintech, and products I own myself. I do my best work where
+                engineering meets the customer — translating ambiguous briefs into scoped builds, prototyping with
+                the people who will use the thing, and deploying AI into real workflows. Strongest on the frontend
+                (React, Next.js, TypeScript, design systems) with confident ownership across Node.js, PostgreSQL,
+                AWS, and CI/CD. Open to Senior Full-Stack / Forward Deployed Engineer roles.
               </p>
             </div>
           </div>

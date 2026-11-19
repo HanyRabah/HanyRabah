@@ -85,7 +85,7 @@ export function HeroAboutSection() {
                 size="lg"
                 className="border-theme-primary text-theme-primary hover:bg-theme-primary hover:text-black"
               >
-                <a href="/Hany_Elsaydawy_full-stack_engineer.pdf" download>
+                <a href="/Hany_ElSaydawy_CV.pdf" download>
                   <Download className="mr-2 h-4 w-4" />
                   Download CV
                 </a>

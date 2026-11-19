@@ -10,12 +10,13 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://hanyrabah.com'),
-  title: 'Resume - Hany Rabah | Senior Fullstack Engineer CV & Technical Experience Cairo',
-  description: 'Download Hany Rabah\'s resume. Senior Fullstack Engineer & Technical Lead with 15+ years experience in React, Next.js, Node.js, TypeScript, AWS. Based in Cairo, available for consulting and full-time opportunities.',
+  title: 'Resume - Hany Rabah | Senior Full-Stack / Forward Deployed Engineer CV Cairo',
+  description: 'Download Hany Rabah\'s resume. Senior Full-Stack / Forward Deployed Engineer with 15+ years experience in React, Next.js, Node.js, TypeScript, AWS, and shipping AI into production. Based in Cairo, open to senior engineering roles.',
   keywords: [
     'Hany Rabah Resume',
     'Hany Rabah CV',
-    'Senior Fullstack Engineer Resume',
+    'Senior Full-Stack Engineer Resume',
+    'Forward Deployed Engineer CV',
     'Technical Lead CV Cairo',
     'Technical Lead CV Egypt',
     'Technical Lead CV Saudi Arabia',
@@ -49,8 +50,8 @@ export const metadata: Metadata = {
     type: 'profile',
     locale: 'en_US',
     url: 'https://hanyrabah.com/resume',
-    title: 'Resume - Hany Rabah | Senior Fullstack Engineer CV Cairo',
-    description: 'Download Hany Rabah\'s resume. Senior Fullstack Engineer & Technical Lead with 15+ years experience in React, Next.js, Node.js, TypeScript, AWS. Based in Cairo.',
+    title: 'Resume - Hany Rabah | Senior Full-Stack / Forward Deployed Engineer CV Cairo',
+    description: 'Download Hany Rabah\'s resume. Senior Full-Stack / Forward Deployed Engineer with 15+ years experience in React, Next.js, Node.js, TypeScript, AWS, and shipping AI into production. Based in Cairo.',
     siteName: 'Hany Rabah Portfolio',
     images: [
       {
@@ -64,8 +65,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Resume - Hany Rabah | Senior Fullstack Engineer CV Cairo',
-    description: 'Download Hany Rabah\'s resume. Senior Fullstack Engineer with 15+ years experience. Available for consulting and opportunities.',
+    title: 'Resume - Hany Rabah | Senior Full-Stack / Forward Deployed Engineer CV Cairo',
+    description: 'Download Hany Rabah\'s resume. Senior Full-Stack / Forward Deployed Engineer with 15+ years experience. Open to senior engineering roles.',
     images: ['/og-resume.png'],
     creator: '@hanyrabah',
     site: '@hanyrabah',

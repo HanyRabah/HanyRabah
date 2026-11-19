@@ -1,11 +1,11 @@
 # Hany El Saydawy
 
-**Senior Frontend / Full-Stack Engineer · Tech Lead**
+**Senior Full-Stack / Forward Deployed Engineer**
 Cairo, Egypt · Open to remote roles in EU, Germany, UAE, Saudi Arabia
 
-15+ years shipping production web apps — from single-page dashboards to full
-e-commerce platforms and internal ERPs. I lead teams, own architecture, and
-write the code myself when it matters.
+15+ years shipping production web and mobile apps across consumer marketplaces,
+B2B platforms, and AI-driven fintech. I lead teams, own architecture, deploy AI
+into real workflows, and write the code myself when it matters.
 
 🌐 **[hanyrabah.com](https://hanyrabah.com)** — portfolio & case studies
 💼 **[LinkedIn](https://www.linkedin.com/in/hanyrabah/)** — let's talk
@@ -33,9 +33,14 @@ Full list & live demos → **[hanyrabah.com](https://hanyrabah.com)**
 
 ## Currently
 
-Freelancing (part-time) at **Diligent (YC W24)** on their **Paylane** KYC/AML
-platform for financial institutions.
-Actively **open to a Senior / Lead FE or Full-Stack role** — full-time, remote-first.
+Founding engineer at **[Carizmo](https://carizmo.app)** — subscription car-wash
+SaaS live on iOS + Android. Part-time operational load.
+
+Recently shipped at **Diligent (YC W24)** on their **Paylane** KYC/AML platform —
+React 19 migration across 250+ files, 4-language i18n system, RAG compliance
+chat for CDD analysts.
+
+Actively **open to Senior Full-Stack / Forward Deployed Engineer roles** — full-time, remote-first.
 
 ## Stack I reach for
 

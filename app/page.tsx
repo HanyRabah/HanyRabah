@@ -14,8 +14,8 @@ export const revalidate = 3600; // Revalidate every 1 hour
 
 // SEO
 export const metadata: Metadata = {
-  title: 'Hany Rabah - Cairo Fullstack Engineer · Remote EU · GCC | React, Next.js & AI Integration Expert',
-  description: 'Senior Fullstack Engineer based in Cairo · Open to remote (EU · GCC) with 15+ years experience. Expert in React, Next.js, Node.js, TypeScript, AWS, and AI integration. Building Paylane at Diligent (YC W24). Available for consulting.',
+  title: 'Hany Rabah - Senior Full-Stack / Forward Deployed Engineer · Cairo · Remote EU · GCC | React, Next.js & AI',
+  description: 'Senior Full-Stack / Forward Deployed Engineer based in Cairo · Open to remote (EU · GCC) with 15+ years experience. Expert in React, Next.js, Node.js, TypeScript, AWS, and shipping AI into production. Previously at Diligent (YC W24) and OLX Group.',
   keywords: [
     'Hany Rabah',
     'Cairo Fullstack Engineer · Remote EU · GCC',
@@ -25,6 +25,7 @@ export const metadata: Metadata = {
     'TypeScript Specialist',
     'AWS Solutions Architect',
     'Technical Lead Cairo',
+    'Forward Deployed Engineer',
     'Node.js Expert',
     'Fintech Engineer',
     'Diligent (YC W24)',
@@ -42,8 +43,8 @@ export const metadata: Metadata = {
     'Microservices Architecture'
   ],
   openGraph: {
-    title: 'Hany Rabah - Cairo Fullstack Engineer · Remote EU · GCC | React, Next.js & AI Integration Expert',
-    description: 'Senior Fullstack Engineer based in Cairo · Open to remote (EU · GCC) with 15+ years experience. Expert in React, Next.js, Node.js, TypeScript, AWS, and AI integration. Building Paylane at Diligent (YC W24).',
+    title: 'Hany Rabah - Senior Full-Stack / Forward Deployed Engineer · Cairo · Remote EU · GCC',
+    description: 'Senior Full-Stack / Forward Deployed Engineer based in Cairo · Open to remote (EU · GCC) with 15+ years experience. Expert in React, Next.js, Node.js, TypeScript, AWS, and shipping AI into production. Previously at Diligent (YC W24) and OLX Group.',
     type: 'profile',
     locale: 'en_US',
     url: 'https://hanyrabah.com',
@@ -80,13 +81,13 @@ export default function Home() {
   // Structured data for SEO
   const personData = {
     name: 'Hany Rabah',
-    jobTitle: 'Senior Fullstack Engineer',
-    description: 'Senior Fullstack Engineer with 15+ years of experience building scalable, high-performance web applications.',
+    jobTitle: 'Senior Full-Stack / Forward Deployed Engineer',
+    description: 'Senior Full-Stack Engineer with 15+ years of experience building scalable, high-performance web applications and shipping AI into production workflows.',
     url: 'https://hanyrabah.com',
     image: 'https://hanyrabah.com/og-image.png',
     location: 'Cairo',
-    company: 'Diligent (YC W24)',
-    companyUrl: 'https://www.godiligent.ai/',
+    company: 'Carizmo',
+    companyUrl: 'https://carizmo.app',
     sameAs: [
       'https://www.linkedin.com/in/hanyrabah/',
       'https://github.com/hanyrabah',

@@ -18,7 +18,7 @@ export function InfoBlocks() {
     {
       id: "status",
       title: "Open to Opportunities",
-      content: "Currently open to full-time Senior / Lead FE or Full-Stack roles — remote-first, based in Cairo, targeting EU / Germany / UAE / Saudi.",
+      content: "Open to Senior Full-Stack / Forward Deployed Engineer roles — remote-first, based in Cairo, targeting EU / Germany / UAE / Saudi.",
       icon: Briefcase,
       link: "/contact",
       linkText: "Get in touch",
@@ -27,15 +27,15 @@ export function InfoBlocks() {
     {
       id: "current",
       title: "What I'm Working On",
-      content: "Founder + lead engineer at Carizmo — subscription-based mobile car-wash service, live on iOS + Android. Full monorepo: React Native, Next.js admin/landing/docs, Node.js API, WhatsApp gateway, PostgreSQL, AWS.",
+      content: "Founding engineer at Carizmo — subscription-based mobile car-wash SaaS, live on iOS + Android. Full monorepo: React Native, Next.js admin/landing/docs, Node.js API, WhatsApp gateway, PostgreSQL, AWS. Part-time operational load, available for senior engagements.",
       icon: Code,
       link: "https://carizmo.app",
       linkText: "See Carizmo",
     },
     {
       id: "diligent",
-      title: "Shipping at Diligent (YC W24)",
-      content: "Senior full-stack on Paylane — a KYC/AML compliance platform for financial institutions. Led the React 19 upgrade across 250+ files with zero downtime, and architected a 4-language i18n system removing 2,000+ hardcoded strings. Next.js · TypeScript · Node.js · PostgreSQL · AWS.",
+      title: "Recently at Diligent (YC W24)",
+      content: "Senior full-stack on Paylane — a KYC/AML compliance platform for financial institutions. Led the React 19 upgrade across 250+ files with zero downtime, architected a 4-language i18n system removing 2,000+ hardcoded strings, and shipped a RAG compliance chat for CDD analysts. Next.js · TypeScript · Node.js · PostgreSQL · AWS.",
       icon: Shield,
       link: "https://www.diligent-corp.com/",
       linkText: "About Diligent",

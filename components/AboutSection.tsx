@@ -63,12 +63,12 @@ export function AboutSection() {
   const timeline: TimelineItem[] = [
     {
       date: "Feb 2026 - Present",
-      title: "Founder",
+      title: "Founding Engineer & Technical Lead",
       company: "Carizmo",
       location: "Cairo, Egypt",
       companyUrl: "https://carizmo.app",
       logo: "/company-logos/carizmo-logo.jpeg",
-      description: "Founded and operate a subscription-based on-demand mobile car-wash service for residents of Al Brouj Compound, Cairo. Own the platform end-to-end — product, tech, and ops. Live on iOS and Android.",
+      description: "Built and operate a subscription-based on-demand mobile car-wash service, live on iOS + Android. Own the platform end-to-end — product, tech, and ops. Part-time operational load — available for senior IC / lead / forward-deployed engagements.",
       moreDetails: `<ul>
         <li>Built the full monorepo: React Native (Expo) customer app for iOS + Android, Next.js admin + landing + docs sites, Node.js + Express REST API, PostgreSQL on Supabase.</li>
         <li>Designed the domain model for subscriptions, service entitlements, wash-job state machines, and payment lifecycle — hardened by operating the business myself.</li>
@@ -80,22 +80,21 @@ export function AboutSection() {
     },
     {
       date: "Jan 2026 - Present",
-      title: "Co-Founder (Part-time, Advisory)",
+      title: "Technical Advisor",
       company: "A2gency",
       location: "Berlin, Germany (Remote)",
       companyUrl: "https://www.a2gency.ai/",
       logo: "/company-logos/a2gency-logo.jpeg",
-      description: "Co-founded an agency building bespoke AI agents for clients — part-time advisory on technical direction, architecture, and delivery.",
+      description: "Advisory role at a small AI consultancy building bespoke AI agents for client workflows — no operational commitment.",
       moreDetails: `<ul>
-        <li>Lead the technical direction: agent architecture, provider selection, retrieval pipelines, tool interfaces, and delivery.</li>
-        <li>Ship production agent systems for client engagements across agencies and SMB operations.</li>
-        <li>Own the technical stack decisions and integration patterns for how agents connect to client systems.</li>
+        <li>Advise on agent architecture, provider selection, retrieval pipelines, and tool interfaces.</li>
+        <li>Review technical stack decisions and integration patterns for how agents connect to client systems.</li>
         <li>Stack: Next.js · TypeScript · AI SDK · LangChain · OpenAI API · Vercel.</li>
       </ul>`,
       current: true,
     },
     {
-      date: "May 2025 - Present",
+      date: "May 2025 - Nov 2026",
       title: "Sr. Full-Stack Engineer",
       company: "Diligent (YC W24)",
       location: "Germany",
@@ -115,7 +114,7 @@ export function AboutSection() {
         <li>Reduced onboarding time by 80% through a comprehensive documentation suite and automated quality gates (ESLint, Husky, TypeScript, i18n)</li>
         <li>Built a migration automation tool, saving 100+ hours and enabling safe large-scale refactoring without breaking changes</li>
       </ul>`,
-      current: true,
+      current: false,
     },
     {
       date: "Jan 2025 - Jul 2025",
@@ -281,7 +280,7 @@ export function AboutSection() {
   ];
 
   const downloadResume = () => {
-    const resumeUrl = "/Hany_Elsaydawy_full-stack_engineer.pdf";
+    const resumeUrl = "/Hany_ElSaydawy_CV.pdf";
     window.open(resumeUrl, "_blank");
   };
 
