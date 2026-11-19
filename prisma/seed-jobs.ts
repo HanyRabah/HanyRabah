@@ -17,7 +17,24 @@ async function main() {
       where: { slug_source: { slug: c.slug, source: c.source } },
     });
     const workdayConfig = c.workdayConfig ? JSON.parse(JSON.stringify(c.workdayConfig)) : null;
-    if (existing) {
+    // Find by name (canonical identity) — tolerates slug/source changes.
+    const byName = await prisma.targetCompany.findUnique({ where: { name: c.name } });
+    if (byName) {
+      await prisma.targetCompany.update({
+        where: { id: byName.id },
+        data: {
+          slug: c.slug,
+          source: c.source,
+          tier: c.tier,
+          egyptPresence: c.egyptPresence ?? false,
+          careersUrl: c.careersUrl,
+          notes: c.notes,
+          workdayConfig,
+        },
+      });
+      updated++;
+    } else if (existing) {
+      // Rare: name differs but slug+source matches an older row.
       await prisma.targetCompany.update({
         where: { id: existing.id },
         data: {

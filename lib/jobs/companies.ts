@@ -35,13 +35,13 @@ export interface TargetCompany {
 }
 
 export const TARGET_COMPANIES: TargetCompany[] = [
-  // ── Tier 1 — Egypt / MENA local ────────────────────────────────────
-  { name: 'Instabug',        slug: 'instabug',        source: 'LEVER',      tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://instabug.com/careers' },
-  { name: 'Paymob',          slug: 'paymob',          source: 'GREENHOUSE', tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://paymob.com/en/careers' },
-  { name: 'Swvl',            slug: 'swvl',            source: 'GREENHOUSE', tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://www.swvl.com/careers' },
-  { name: 'MaxAB',           slug: 'maxab',           source: 'GREENHOUSE', tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://www.maxab.io/careers' },
-  { name: 'Halan',           slug: 'halan',           source: 'LEVER',      tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://halan.com/careers' },
-  { name: 'Dubizzle Group',  slug: 'dubizzlegroup',   source: 'GREENHOUSE', tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://group.dubizzle.com/careers' },
+  // ── Tier 1 — Egypt / MENA local (all watch-only; custom/private ATS) ──
+  { name: 'Instabug',       slug: 'instabug',       source: 'OTHER', tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://instabug.com/careers',          notes: 'Workable — adapter TBD' },
+  { name: 'Paymob',         slug: 'paymob',         source: 'OTHER', tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://paymob.com/en/careers',         notes: 'Custom ATS — watch-only' },
+  { name: 'Swvl',           slug: 'swvl',           source: 'OTHER', tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://www.swvl.com/careers',          notes: 'Custom ATS — watch-only' },
+  { name: 'MaxAB',          slug: 'maxab',          source: 'OTHER', tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://www.maxab.io/careers',          notes: 'Custom ATS — watch-only' },
+  { name: 'Halan',          slug: 'halan',          source: 'OTHER', tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://halan.com/careers',             notes: 'Custom ATS — watch-only' },
+  { name: 'Dubizzle Group', slug: 'dubizzlegroup',  source: 'OTHER', tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://group.dubizzle.com/careers',   notes: 'OLX Group migrated — watch-only' },
 
   // ── International consulting / Big 4 / MNCs with Egypt offices ─────
   // Workday-based (adapter can fetch)
@@ -99,47 +99,47 @@ export const TARGET_COMPANIES: TargetCompany[] = [
   { name: 'Microsoft',  slug: 'microsoft',  source: 'OTHER', tier: 'GLOBAL_ENTERPRISE', egyptPresence: true, careersUrl: 'https://jobs.careers.microsoft.com/global/en/search', notes: 'Custom ATS — watch-only' },
   { name: 'Oracle',     slug: 'oracle',     source: 'OTHER', tier: 'GLOBAL_ENTERPRISE', egyptPresence: true, careersUrl: 'https://careers.oracle.com', notes: 'Taleo — watch-only' },
   { name: 'SAP',        slug: 'sap',        source: 'OTHER', tier: 'GLOBAL_ENTERPRISE', egyptPresence: true, careersUrl: 'https://jobs.sap.com', notes: 'SuccessFactors — watch-only' },
-  { name: 'Thoughtworks', slug: 'thoughtworks', source: 'LEVER', tier: 'GLOBAL_ENTERPRISE', egyptPresence: true, careersUrl: 'https://www.thoughtworks.com/careers' },
+  { name: 'Thoughtworks', slug: 'thoughtworks', source: 'OTHER', tier: 'GLOBAL_ENTERPRISE', egyptPresence: true, careersUrl: 'https://www.thoughtworks.com/careers', notes: 'SmartRecruiters — adapter TBD' },
   { name: 'EPAM',       slug: 'epam',       source: 'OTHER', tier: 'GLOBAL_ENTERPRISE', egyptPresence: true, careersUrl: 'https://www.epam.com/careers', notes: 'Custom ATS — watch-only' },
   { name: 'Cognizant',  slug: 'cognizant',  source: 'OTHER', tier: 'GLOBAL_ENTERPRISE', egyptPresence: true, careersUrl: 'https://careers.cognizant.com', notes: 'Workday (gated) — watch-only' },
 
   // ── Tier 2 — Global AI (FDE sweet spot) ────────────────────────────
   { name: 'Anthropic',    slug: 'anthropic',    source: 'GREENHOUSE', tier: 'GLOBAL_AI', careersUrl: 'https://www.anthropic.com/careers' },
-  { name: 'OpenAI',       slug: 'openai',       source: 'GREENHOUSE', tier: 'GLOBAL_AI', careersUrl: 'https://openai.com/careers/' },
+  { name: 'OpenAI',       slug: 'openai',       source: 'ASHBY',      tier: 'GLOBAL_AI', careersUrl: 'https://openai.com/careers/' },
   { name: 'Scale AI',     slug: 'scaleai',      source: 'GREENHOUSE', tier: 'GLOBAL_AI', careersUrl: 'https://scale.com/careers' },
   { name: 'Sierra',       slug: 'sierra',       source: 'ASHBY',      tier: 'GLOBAL_AI', careersUrl: 'https://sierra.ai/careers' },
   { name: 'Decagon',      slug: 'decagon',      source: 'ASHBY',      tier: 'GLOBAL_AI', careersUrl: 'https://decagon.ai/careers' },
   { name: 'Harvey',       slug: 'harvey',       source: 'ASHBY',      tier: 'GLOBAL_AI', careersUrl: 'https://www.harvey.ai/careers' },
-  { name: 'Cursor',       slug: 'anysphere',    source: 'ASHBY',      tier: 'GLOBAL_AI', careersUrl: 'https://cursor.com/careers' },
-  { name: 'Perplexity',   slug: 'perplexity',   source: 'GREENHOUSE', tier: 'GLOBAL_AI', careersUrl: 'https://www.perplexity.ai/hub/careers' },
-  { name: 'Hugging Face', slug: 'huggingface',  source: 'GREENHOUSE', tier: 'GLOBAL_AI', careersUrl: 'https://apply.workable.com/huggingface/' },
-  { name: 'Mistral AI',   slug: 'mistralai',    source: 'ASHBY',      tier: 'GLOBAL_AI', careersUrl: 'https://mistral.ai/careers' },
+  { name: 'Cursor',       slug: 'cursor',       source: 'ASHBY',      tier: 'GLOBAL_AI', careersUrl: 'https://cursor.com/careers' },
+  { name: 'Perplexity',   slug: 'perplexity',   source: 'OTHER',      tier: 'GLOBAL_AI', careersUrl: 'https://www.perplexity.ai/hub/careers',       notes: 'Custom ATS — watch-only' },
+  { name: 'Hugging Face', slug: 'huggingface',  source: 'OTHER',      tier: 'GLOBAL_AI', careersUrl: 'https://apply.workable.com/huggingface/',    notes: 'Workable — adapter TBD' },
+  { name: 'Mistral AI',   slug: 'mistralai',    source: 'OTHER',      tier: 'GLOBAL_AI', careersUrl: 'https://mistral.ai/careers',                 notes: 'Custom ATS — watch-only' },
   { name: 'Cohere',       slug: 'cohere',       source: 'ASHBY',      tier: 'GLOBAL_AI', careersUrl: 'https://cohere.com/careers' },
   { name: 'LangChain',    slug: 'langchain',    source: 'ASHBY',      tier: 'GLOBAL_AI', careersUrl: 'https://www.langchain.com/careers' },
   { name: 'Pinecone',     slug: 'pinecone',     source: 'ASHBY',      tier: 'GLOBAL_AI', careersUrl: 'https://www.pinecone.io/careers' },
-  { name: 'Replicate',    slug: 'replicate',    source: 'ASHBY',      tier: 'GLOBAL_AI', careersUrl: 'https://replicate.com/about#jobs' },
+  { name: 'Replicate',    slug: 'replicate',    source: 'OTHER',      tier: 'GLOBAL_AI', careersUrl: 'https://replicate.com/about#jobs',           notes: 'Custom ATS — watch-only' },
   { name: 'Vercel',       slug: 'vercel',       source: 'GREENHOUSE', tier: 'GLOBAL_AI', careersUrl: 'https://vercel.com/careers' },
 
   // ── Tier 3 — Global senior / full-stack (remote-friendly) ──────────
   { name: 'GitLab',      slug: 'gitlab',      source: 'GREENHOUSE', tier: 'GLOBAL_SENIOR', careersUrl: 'https://about.gitlab.com/jobs/' },
-  { name: 'Deel',        slug: 'deel',        source: 'GREENHOUSE', tier: 'GLOBAL_SENIOR', careersUrl: 'https://www.deel.com/careers' },
-  { name: 'Automattic',  slug: 'automattic',  source: 'GREENHOUSE', tier: 'GLOBAL_SENIOR', careersUrl: 'https://automattic.com/work-with-us/' },
-  { name: 'Zapier',      slug: 'zapier',      source: 'GREENHOUSE', tier: 'GLOBAL_SENIOR', careersUrl: 'https://zapier.com/jobs' },
+  { name: 'Deel',        slug: 'deel',        source: 'ASHBY',      tier: 'GLOBAL_SENIOR', careersUrl: 'https://www.deel.com/careers' },
+  { name: 'Automattic',  slug: 'automattic',  source: 'OTHER',      tier: 'GLOBAL_SENIOR', careersUrl: 'https://automattic.com/work-with-us/', notes: 'Custom ATS — watch-only' },
+  { name: 'Zapier',      slug: 'zapier',      source: 'ASHBY',      tier: 'GLOBAL_SENIOR', careersUrl: 'https://zapier.com/jobs' },
   { name: 'Supabase',    slug: 'supabase',    source: 'ASHBY',      tier: 'GLOBAL_SENIOR', careersUrl: 'https://supabase.com/careers' },
   { name: 'Linear',      slug: 'linear',      source: 'ASHBY',      tier: 'GLOBAL_SENIOR', careersUrl: 'https://linear.app/careers' },
   { name: 'PlanetScale', slug: 'planetscale', source: 'GREENHOUSE', tier: 'GLOBAL_SENIOR', careersUrl: 'https://planetscale.com/careers' },
   { name: 'Clerk',       slug: 'clerk',       source: 'ASHBY',      tier: 'GLOBAL_SENIOR', careersUrl: 'https://clerk.com/careers' },
-  { name: 'Turso',       slug: 'turso',       source: 'ASHBY',      tier: 'GLOBAL_SENIOR', careersUrl: 'https://turso.tech/careers' },
-  { name: 'Toptal',      slug: 'toptal',      source: 'GREENHOUSE', tier: 'GLOBAL_SENIOR', careersUrl: 'https://www.toptal.com/careers' },
+  { name: 'Turso',       slug: 'turso',       source: 'OTHER',      tier: 'GLOBAL_SENIOR', careersUrl: 'https://turso.tech/careers', notes: 'Custom ATS — watch-only' },
+  { name: 'Toptal',      slug: 'toptal',      source: 'OTHER',      tier: 'GLOBAL_SENIOR', careersUrl: 'https://www.toptal.com/careers', notes: 'Custom ATS — watch-only' },
 
   // ── Tier 4 — Enterprise / fintech (occasional remote) ──────────────
-  { name: 'Palantir',   slug: 'palantirtechnologies', source: 'LEVER',      tier: 'GLOBAL_ENTERPRISE', careersUrl: 'https://www.palantir.com/careers/' },
-  { name: 'Stripe',     slug: 'stripe',               source: 'GREENHOUSE', tier: 'GLOBAL_ENTERPRISE', careersUrl: 'https://stripe.com/jobs' },
-  { name: 'Datadog',    slug: 'datadog',              source: 'GREENHOUSE', tier: 'GLOBAL_ENTERPRISE', careersUrl: 'https://careers.datadoghq.com/' },
-  { name: 'Shopify',    slug: 'shopify',              source: 'GREENHOUSE', tier: 'GLOBAL_ENTERPRISE', careersUrl: 'https://www.shopify.com/careers' },
-  { name: 'Twilio',     slug: 'twilio',               source: 'GREENHOUSE', tier: 'GLOBAL_ENTERPRISE', careersUrl: 'https://www.twilio.com/en-us/company/jobs' },
-  { name: 'Figma',      slug: 'figma',                source: 'GREENHOUSE', tier: 'GLOBAL_ENTERPRISE', careersUrl: 'https://www.figma.com/careers/' },
-  { name: 'Notion',     slug: 'notion',               source: 'GREENHOUSE', tier: 'GLOBAL_ENTERPRISE', careersUrl: 'https://www.notion.so/careers' },
+  { name: 'Palantir', slug: 'palantir', source: 'LEVER',      tier: 'GLOBAL_ENTERPRISE', careersUrl: 'https://www.palantir.com/careers/' },
+  { name: 'Stripe',   slug: 'stripe',   source: 'GREENHOUSE', tier: 'GLOBAL_ENTERPRISE', careersUrl: 'https://stripe.com/jobs' },
+  { name: 'Datadog',  slug: 'datadog',  source: 'GREENHOUSE', tier: 'GLOBAL_ENTERPRISE', careersUrl: 'https://careers.datadoghq.com/' },
+  { name: 'Shopify',  slug: 'shopify',  source: 'OTHER',      tier: 'GLOBAL_ENTERPRISE', careersUrl: 'https://www.shopify.com/careers',    notes: 'Custom ATS — watch-only' },
+  { name: 'Twilio',   slug: 'twilio',   source: 'GREENHOUSE', tier: 'GLOBAL_ENTERPRISE', careersUrl: 'https://www.twilio.com/en-us/company/jobs' },
+  { name: 'Figma',    slug: 'figma',    source: 'GREENHOUSE', tier: 'GLOBAL_ENTERPRISE', careersUrl: 'https://www.figma.com/careers/' },
+  { name: 'Notion',   slug: 'notion',   source: 'ASHBY',      tier: 'GLOBAL_ENTERPRISE', careersUrl: 'https://www.notion.so/careers' },
 ];
 
 /**
@@ -204,6 +204,32 @@ export const PROFILE_KEYWORDS_LO = [
   'payments',
   'stripe',
   'marketplace',
+];
+
+/**
+ * Programming languages Hany doesn't work in day-to-day. Jobs that require
+ * these take a score hit — either in the title (strong) or when the body
+ * mentions multiple of them (moderate signal of a mismatch stack).
+ *
+ * "java " has a trailing space to avoid matching "javascript".
+ */
+export const MISMATCH_LANGUAGES = [
+  'python',
+  'rust',
+  'golang',
+  'scala',
+  'ruby ',
+  'ruby,',
+  'ruby.',
+  'java ',
+  'java,',
+  'java.',
+  'c\\+\\+',
+  'kotlin',
+  'elixir',
+  'erlang',
+  'haskell',
+  'clojure',
 ];
 
 /**

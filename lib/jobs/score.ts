@@ -4,6 +4,7 @@ import {
   BLOCKERS,
   EGYPT_SIGNALS,
   FRONTEND_KEYWORDS,
+  MISMATCH_LANGUAGES,
   PROFILE_KEYWORDS_HI,
   PROFILE_KEYWORDS_LO,
   REMOTE_GLOBAL_SIGNALS,
@@ -22,11 +23,22 @@ export function scoreJob(j: RawJob): ScoredJob {
   const reasons: string[] = [];
   let score = 0;
 
-  // ── Title weighting (strongest signal) ─────────────────────────────
+  // ── Stack signal (prerequisite for the title bonus) ────────────────
+  // Node / TypeScript / React in the body means the role is actually in
+  // Hany's stack, not just an FDE/fullstack title bolted onto a Python shop.
+  const HAS_STACK_SIGNAL = /\b(node\.?js|typescript|react|next\.?js|express|prisma|graphql)\b/i;
+  const stackSignal = HAS_STACK_SIGNAL.test(j.description) || HAS_STACK_SIGNAL.test(j.title);
+
+  // ── Title weighting (strongest signal — gated by stack signal) ─────
   for (const kw of PROFILE_KEYWORDS_HI) {
     if (titleLo.includes(kw)) {
-      score += 30;
-      reasons.push(`+30 title match: ${kw}`);
+      if (stackSignal) {
+        score += 30;
+        reasons.push(`+30 title match: ${kw}`);
+      } else {
+        score += 10;
+        reasons.push(`+10 title match: ${kw} (but no JS/TS stack signal)`);
+      }
       break;
     }
   }
@@ -116,6 +128,34 @@ export function scoreJob(j: RawJob): ScoredJob {
       reasons.push(`+10 visa signal: "${s}"`);
       break;
     }
+  }
+
+  // ── Mismatch languages (user is JS/TS, not Python/Rust/Go/Scala) ───
+  // Title mention is a strong signal; body mentions suggest the stack
+  // leans on that language too.
+  for (const lang of MISMATCH_LANGUAGES) {
+    const re = new RegExp(`\\b${lang}\\b`, 'i');
+    if (re.test(j.title)) {
+      score -= 25;
+      reasons.push(`−25 mismatch-lang in title: ${lang.trim()}`);
+      break;
+    }
+  }
+  let mismatchHits = 0;
+  for (const lang of MISMATCH_LANGUAGES) {
+    const re = new RegExp(`\\b${lang}\\b`, 'gi');
+    const matches = j.description.match(re);
+    if (matches) mismatchHits += matches.length;
+  }
+  if (mismatchHits >= 4) {
+    score -= 50;
+    reasons.push(`−50 heavy stack mismatch: ${mismatchHits} mentions of Python/Rust/Go/etc.`);
+  } else if (mismatchHits >= 2) {
+    score -= 35;
+    reasons.push(`−35 stack lean: ${mismatchHits} mentions of Python/Rust/Go/etc.`);
+  } else if (mismatchHits === 1) {
+    score -= 20;
+    reasons.push(`−20 mismatch-lang mentioned once`);
   }
 
   // ── Blockers (strong negative) ─────────────────────────────────────
