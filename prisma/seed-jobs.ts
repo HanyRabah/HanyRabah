@@ -16,10 +16,18 @@ async function main() {
     const existing = await prisma.targetCompany.findUnique({
       where: { slug_source: { slug: c.slug, source: c.source } },
     });
+    const workdayConfig = c.workdayConfig ? JSON.parse(JSON.stringify(c.workdayConfig)) : null;
     if (existing) {
       await prisma.targetCompany.update({
         where: { id: existing.id },
-        data: { name: c.name, tier: c.tier, careersUrl: c.careersUrl, notes: c.notes },
+        data: {
+          name: c.name,
+          tier: c.tier,
+          egyptPresence: c.egyptPresence ?? false,
+          careersUrl: c.careersUrl,
+          notes: c.notes,
+          workdayConfig,
+        },
       });
       updated++;
     } else {
@@ -29,8 +37,10 @@ async function main() {
           slug: c.slug,
           source: c.source,
           tier: c.tier,
+          egyptPresence: c.egyptPresence ?? false,
           careersUrl: c.careersUrl,
           notes: c.notes,
+          workdayConfig,
         },
       });
       created++;

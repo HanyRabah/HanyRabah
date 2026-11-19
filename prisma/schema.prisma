@@ -231,18 +231,21 @@ enum ResourceType {
 // =====================
 
 model TargetCompany {
-  id          String     @id @default(cuid())
-  name        String     @unique // human-readable, e.g. "Anthropic"
-  slug        String     // ATS board slug, e.g. "anthropic"
-  source      JobSource  // which ATS to use
-  tier        CompanyTier
-  careersUrl  String?
-  notes       String?
-  active      Boolean    @default(true)
-  lastFetched DateTime?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
-  jobs        Job[]
+  id             String     @id @default(cuid())
+  name           String     @unique // human-readable, e.g. "Anthropic"
+  slug           String     // ATS board slug, e.g. "anthropic"
+  source         JobSource  // which ATS to use
+  tier           CompanyTier
+  egyptPresence  Boolean    @default(false) // true = has Egypt office / hires MENA
+  careersUrl     String?
+  notes          String?
+  // Workday-specific config (JSON blob so we don't explode the schema)
+  workdayConfig  Json?
+  active         Boolean    @default(true)
+  lastFetched    DateTime?
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+  jobs           Job[]
 
   @@unique([slug, source])
   @@map("target_companies")
@@ -294,6 +297,7 @@ enum JobSource {
   ASHBY
   LEVER
   REMOTEOK
+  WORKDAY
   WUZZUF
   BAYT
   LINKEDIN_POSTS

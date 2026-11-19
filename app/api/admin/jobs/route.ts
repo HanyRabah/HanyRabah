@@ -7,8 +7,14 @@ export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
 /**
- * GET /api/admin/jobs?status=NEW|APPLIED|DISMISSED|SURFACED
- * Returns jobs ordered by score desc, fetchedAt desc.
+ * GET /api/admin/jobs
+ *   ?status=SURFACED|APPLIED|DISMISSED  (default SURFACED = NEW + SURFACED)
+ *   ?includeGlobal=1                    (default 0 — Egypt-first)
+ *
+ * When includeGlobal=0, returns only:
+ *   - Jobs from companies with egyptPresence=true, OR
+ *   - Jobs with remoteFromEgypt=true, OR
+ *   - Jobs where the source is RemoteOK AND remote=true (unknown-region remote).
  */
 export async function GET(req: Request) {
   const session = await getServerSession();
@@ -17,20 +23,32 @@ export async function GET(req: Request) {
   }
 
   const { searchParams } = new URL(req.url);
-  const statusParam = (searchParams.get('status') ?? 'NEW').toUpperCase();
+  const statusParam = (searchParams.get('status') ?? 'SURFACED').toUpperCase();
+  const includeGlobal = searchParams.get('includeGlobal') === '1';
 
-  // "SURFACED" = NEW + SURFACED (anything not applied/dismissed)
-  const whereByStatus =
+  const statusWhere =
     statusParam === 'SURFACED'
       ? { status: { in: ['NEW' as const, 'SURFACED' as const] } }
       : { status: statusParam as 'NEW' | 'APPLIED' | 'DISMISSED' | 'SURFACED' | 'ARCHIVED' };
 
+  const egyptWhere = includeGlobal
+    ? {}
+    : {
+        OR: [
+          { companyRef: { egyptPresence: true } },
+          { remoteFromEgypt: true },
+        ],
+      };
+
   const jobs = await prisma.job.findMany({
-    where: whereByStatus,
+    where: { ...statusWhere, ...egyptWhere },
     orderBy: [{ score: 'desc' }, { fetchedAt: 'desc' }],
-    include: { action: true, companyRef: { select: { tier: true } } },
+    include: {
+      action: true,
+      companyRef: { select: { tier: true, egyptPresence: true } },
+    },
     take: 100,
   });
 
-  return NextResponse.json({ jobs });
+  return NextResponse.json({ jobs, includeGlobal });
 }

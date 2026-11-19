@@ -11,6 +11,7 @@ import {
   List,
   message,
   Space,
+  Switch,
   Tabs,
   Tag,
   Tooltip,
@@ -49,8 +50,10 @@ interface Job {
   postedAt: string | null
   fetchedAt: string
   status: string
-  companyRef?: { tier: JobTier } | null
+  companyRef?: { tier: JobTier; egyptPresence?: boolean } | null
 }
+
+const STORAGE_KEY = 'jobRadar.includeGlobal'
 
 const TIER_LABEL: Record<JobTier, { label: string; color: string }> = {
   EGYPT_MENA: { label: 'Egypt / MENA', color: 'red' },
@@ -66,20 +69,34 @@ export default function JobsPage() {
   const [jobs, setJobs] = useState<Job[]>([])
   const [loading, setLoading] = useState(true)
   const [syncing, setSyncing] = useState(false)
+  const [includeGlobal, setIncludeGlobal] = useState<boolean>(false)
 
-  const fetchJobs = useCallback(async (which: typeof tab) => {
-    setLoading(true)
+  // Load toggle from localStorage on mount
+  useEffect(() => {
     try {
-      const res = await fetch(`/api/admin/jobs?status=${which}`)
-      if (!res.ok) throw new Error(`HTTP ${res.status}`)
-      const data = (await res.json()) as { jobs: Job[] }
-      setJobs(data.jobs)
-    } catch (e) {
-      message.error('Failed to load jobs')
-    } finally {
-      setLoading(false)
-    }
+      const saved = localStorage.getItem(STORAGE_KEY)
+      if (saved === '1') setIncludeGlobal(true)
+    } catch {}
   }, [])
+
+  const fetchJobs = useCallback(
+    async (which: typeof tab, global: boolean) => {
+      setLoading(true)
+      try {
+        const res = await fetch(
+          `/api/admin/jobs?status=${which}&includeGlobal=${global ? 1 : 0}`,
+        )
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        const data = (await res.json()) as { jobs: Job[] }
+        setJobs(data.jobs)
+      } catch {
+        message.error('Failed to load jobs')
+      } finally {
+        setLoading(false)
+      }
+    },
+    [],
+  )
 
   useEffect(() => {
     if (authStatus === 'loading') return
@@ -87,8 +104,15 @@ export default function JobsPage() {
       router.push('/admin/login')
       return
     }
-    fetchJobs(tab)
-  }, [authStatus, session, router, tab, fetchJobs])
+    fetchJobs(tab, includeGlobal)
+  }, [authStatus, session, router, tab, includeGlobal, fetchJobs])
+
+  const handleToggleGlobal = (checked: boolean) => {
+    setIncludeGlobal(checked)
+    try {
+      localStorage.setItem(STORAGE_KEY, checked ? '1' : '0')
+    } catch {}
+  }
 
   const triggerSync = async () => {
     setSyncing(true)
@@ -105,7 +129,7 @@ export default function JobsPage() {
         message.success(
           `Sync done — ${data.inserted ?? 0} new, ${data.skippedDuplicates ?? 0} refreshed, ${data.droppedLowScore ?? 0} dropped (low score)`,
         )
-        fetchJobs(tab)
+        fetchJobs(tab, includeGlobal)
       } else {
         message.error(`Sync failed: ${data.error ?? 'unknown'}`)
       }
@@ -125,7 +149,7 @@ export default function JobsPage() {
       })
       if (!res.ok) throw new Error()
       message.success(`Marked ${kind.toLowerCase()}`)
-      fetchJobs(tab)
+      fetchJobs(tab, includeGlobal)
     } catch {
       message.error('Action failed')
     }
@@ -150,8 +174,14 @@ export default function JobsPage() {
             <ThunderboltOutlined style={{ marginRight: 8 }} />
             Job Radar
           </Title>
-          <Space>
-            <Button icon={<ReloadOutlined />} onClick={() => fetchJobs(tab)} loading={loading}>
+          <Space size="middle">
+            <Tooltip title="Off → only Egypt-presence companies + Egypt-friendly remote. On → everything, including global-only roles.">
+              <Space size="small">
+                <Switch checked={includeGlobal} onChange={handleToggleGlobal} />
+                <Text>Include global jobs</Text>
+              </Space>
+            </Tooltip>
+            <Button icon={<ReloadOutlined />} onClick={() => fetchJobs(tab, includeGlobal)} loading={loading}>
               Refresh
             </Button>
             <Button
