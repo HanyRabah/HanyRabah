@@ -76,23 +76,32 @@ export function scoreJob(j: RawJob): ScoredJob {
     reasons.push(`+${add} ${loBody} stack-match keyword${loBody > 1 ? 's' : ''}`);
   }
 
-  // ── Egypt location (STRONG — user wants Egypt-first) ───────────────
+  // ── Egypt location (STRICT — flag flips only on LOCATION match) ────
+  // "remoteFromEgypt" controls the Egypt-first filter, so a body mention
+  // like "EMEA benefits" or "global remote" is NOT enough. It only gives
+  // a score bump.
   let remoteFromEgypt: boolean | null = null;
-  const egyptHit = EGYPT_SIGNALS.some((s) => loc.includes(s) || text.includes(s));
-  if (egyptHit) {
+  const egyptInLocation = EGYPT_SIGNALS.some((s) => loc.includes(s));
+  const egyptInBody = EGYPT_SIGNALS.some((s) => text.includes(s));
+  if (egyptInLocation) {
     score += 40;
-    reasons.push('+40 Egypt/MENA mentioned');
+    reasons.push('+40 Egypt/MENA in location');
     remoteFromEgypt = true;
+  } else if (egyptInBody) {
+    score += 10;
+    reasons.push('+10 Egypt/MENA mentioned in body');
+    // do NOT flip remoteFromEgypt — body mentions are too noisy
   }
 
   // ── Remote + global language (moderate) ────────────────────────────
+  // "fully remote / worldwide" does NOT imply Egypt-friendly either — many
+  // remote-first companies still restrict by region. Only score bump.
   if (j.remote) {
     const globalOk = REMOTE_GLOBAL_SIGNALS.some((s) => text.includes(s) || loc.includes(s));
     if (globalOk) {
       score += 15;
       reasons.push('+15 fully-remote language');
-      if (remoteFromEgypt === null) remoteFromEgypt = true;
-    } else if (!egyptHit) {
+    } else if (!egyptInLocation) {
       score += 5;
       reasons.push('+5 remote (region unspecified)');
     }

@@ -31,12 +31,18 @@ export async function GET(req: Request) {
       ? { status: { in: ['NEW' as const, 'SURFACED' as const] } }
       : { status: statusParam as 'NEW' | 'APPLIED' | 'DISMISSED' | 'SURFACED' | 'ARCHIVED' };
 
+  // Egypt-first filter: require a REAL Egypt signal, not just a noisy body mention.
+  //   1. Company has an Egypt office (egyptPresence=true), OR
+  //   2. Job location literally mentions Cairo / Egypt / MENA
+  //      (we check via a case-insensitive location contains)
   const egyptWhere = includeGlobal
     ? {}
     : {
         OR: [
           { companyRef: { egyptPresence: true } },
-          { remoteFromEgypt: true },
+          { location: { contains: 'Cairo', mode: 'insensitive' as const } },
+          { location: { contains: 'Egypt', mode: 'insensitive' as const } },
+          { location: { contains: 'MENA', mode: 'insensitive' as const } },
         ],
       };
 
