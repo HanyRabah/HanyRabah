@@ -65,8 +65,20 @@ export async function GET(req: Request) {
         }
       : {};
 
+  // Freshness cap: drop jobs posted > 14 days ago. Null postedAt is kept
+  // (unknown age — common for Serper results that have no date).
+  const MAX_AGE_DAYS = 14;
+  const freshnessCutoff = new Date(Date.now() - MAX_AGE_DAYS * 86400_000);
+  const freshnessWhere = {
+    OR: [{ postedAt: null }, { postedAt: { gte: freshnessCutoff } }],
+  };
+
   const allJobs = await prisma.job.findMany({
-    where: { ...statusWhere, ...egyptWhere, ...sourceWhere },
+    where: {
+      AND: [statusWhere, egyptWhere, sourceWhere, freshnessWhere].filter(
+        (x) => Object.keys(x).length > 0,
+      ),
+    },
     orderBy: [{ score: 'desc' }, { fetchedAt: 'desc' }],
     include: {
       action: true,
