@@ -152,12 +152,23 @@ export default function JobsPage() {
         inserted?: number
         skippedDuplicates?: number
         droppedLowScore?: number
+        reports?: Array<{ source: string; companySlug?: string; count: number; ok: boolean; error?: string }>
         error?: string
       }
       if (data.ok) {
-        message.success(
-          `Sync done — ${data.inserted ?? 0} new, ${data.skippedDuplicates ?? 0} refreshed, ${data.droppedLowScore ?? 0} dropped (low score)`,
-        )
+        const okReports = (data.reports ?? []).filter((r) => r.ok && r.count > 0)
+        const totalRaw = okReports.reduce((s, r) => s + r.count, 0)
+        const successCount = (data.reports ?? []).filter((r) => r.ok).length
+        const failCount = (data.reports ?? []).filter((r) => !r.ok).length
+        const inserted = data.inserted ?? 0
+        const refreshed = data.skippedDuplicates ?? 0
+        const dropped = data.droppedLowScore ?? 0
+        message.success({
+          content: inserted > 0
+            ? `${inserted} NEW · ${refreshed} refreshed · ${dropped} dropped (low score) · ${successCount}/${successCount + failCount} sources OK · ${totalRaw} raw`
+            : `No new jobs this run — all ${refreshed} refreshed from cache · ${successCount}/${successCount + failCount} sources OK · ${totalRaw} raw`,
+          duration: 6,
+        })
         fetchJobs(tab, includeGlobal)
       } else {
         message.error(`Sync failed: ${data.error ?? 'unknown'}`)

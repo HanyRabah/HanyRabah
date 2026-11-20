@@ -158,6 +158,20 @@ export function scoreJob(j: RawJob): ScoredJob {
     reasons.push(`−20 mismatch-lang mentioned once`);
   }
 
+  // ── Hard cap when mismatch languages are present ───────────────────
+  // If body requires Python/Rust/Go/Scala/etc. and the title doesn't declare
+  // a frontend lane, cap the score. Stops "Forward Deployed Engineer" scoring
+  // 90+ when the actual stack is Python.
+  const titleIsFrontendExplicit =
+    /\b(front[- ]?end|ui engineer|ux engineer|react|next\.?js)\b/i.test(j.title);
+  if (mismatchHits >= 1 && !titleIsFrontendExplicit) {
+    const cap = mismatchHits >= 2 ? 35 : 50;
+    if (score > cap) {
+      reasons.push(`→ capped at ${cap}: mismatch lang + no frontend title`);
+      score = cap;
+    }
+  }
+
   // ── Blockers (strong negative) ─────────────────────────────────────
   for (const b of BLOCKERS) {
     if (text.includes(b)) {

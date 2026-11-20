@@ -4,6 +4,11 @@ import { fetchAshby } from './sources/ashby';
 import { fetchGreenhouse } from './sources/greenhouse';
 import { fetchLever } from './sources/lever';
 import { fetchRemoteOK } from './sources/remoteok';
+import {
+  fetchBaytViaSerper,
+  fetchLinkedInHiringPosts,
+  fetchWuzzufViaSerper,
+} from './sources/serper';
 import { fetchWorkable } from './sources/workable';
 import { fetchWorkday } from './sources/workday';
 import { scoreJob } from './score';
@@ -62,14 +67,27 @@ export async function fetchAll(): Promise<{
   });
 
   // ── Broad sources (parallel with company fetches) ──────────────────
-  const broadPromises: Promise<{ report: FetchReport; jobs: RawJob[] }>[] = [
-    fetchRemoteOK()
-      .then((jobs) => ({ report: { source: 'REMOTEOK', count: jobs.length, ok: true }, jobs }))
+  const wrap = (source: string, p: Promise<RawJob[]>) =>
+    p
+      .then((jobs) => ({ report: { source, count: jobs.length, ok: true }, jobs }))
       .catch((err: unknown) => {
         const msg = err instanceof Error ? err.message : String(err);
-        return { report: { source: 'REMOTEOK', count: 0, ok: false, error: msg }, jobs: [] };
-      }),
+        return { report: { source, count: 0, ok: false, error: msg }, jobs: [] as RawJob[] };
+      });
+
+  const broadPromises: Promise<{ report: FetchReport; jobs: RawJob[] }>[] = [
+    wrap('REMOTEOK', fetchRemoteOK()),
   ];
+
+  // Serper queries — only if the API key is set. 3 queries per run, well
+  // inside the 2500/mo free tier.
+  if (process.env.SERPER_API_KEY) {
+    broadPromises.push(
+      wrap('LINKEDIN_POSTS', fetchLinkedInHiringPosts()),
+      wrap('WUZZUF', fetchWuzzufViaSerper()),
+      wrap('BAYT', fetchBaytViaSerper()),
+    );
+  }
 
   const settled = await Promise.all([...companyPromises, ...broadPromises]);
 

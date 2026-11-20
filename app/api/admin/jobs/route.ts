@@ -47,15 +47,25 @@ export async function GET(req: Request) {
         ],
       };
 
-  const jobs = await prisma.job.findMany({
+  const allJobs = await prisma.job.findMany({
     where: { ...statusWhere, ...egyptWhere },
     orderBy: [{ score: 'desc' }, { fetchedAt: 'desc' }],
     include: {
       action: true,
       companyRef: { select: { tier: true, egyptPresence: true } },
     },
-    take: 100,
+    take: 150,
   });
+
+  // Egypt-first ordering: within the same status, Egypt-presence companies
+  // and Egypt-located jobs float to the top, score desc inside each group.
+  const isEgypt = (j: typeof allJobs[number]) =>
+    j.companyRef?.egyptPresence === true ||
+    /\b(cairo|egypt|mena|middle east)\b/i.test(j.location ?? '');
+
+  const egypt = allJobs.filter(isEgypt);
+  const global = allJobs.filter((j) => !isEgypt(j));
+  const jobs = [...egypt, ...global].slice(0, 100);
 
   return NextResponse.json({ jobs, includeGlobal });
 }
