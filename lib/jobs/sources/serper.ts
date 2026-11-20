@@ -33,7 +33,10 @@ async function serperQuery(query: string, num = 10): Promise<SerperResult[]> {
     body: JSON.stringify({ q: query, num }),
     next: { revalidate: 0 },
   });
-  if (!res.ok) throw new Error(`Serper: HTTP ${res.status}`);
+  if (!res.ok) {
+    const body = await res.text().catch(() => '');
+    throw new Error(`Serper: HTTP ${res.status} — ${body.slice(0, 200)}`);
+  }
   const data = (await res.json()) as SerperResponse;
   return data.organic ?? [];
 }
@@ -50,15 +53,27 @@ function hashId(s: string): string {
  * in Egypt, DM me" that recruiters publish on their feed.
  */
 export async function fetchLinkedInHiringPosts(): Promise<RawJob[]> {
-  const query =
-    'site:linkedin.com/posts ("hiring" OR "we\'re hiring" OR "we are hiring") ' +
-    '("senior" OR "staff" OR "lead") ' +
-    '("full-stack" OR "fullstack" OR "frontend" OR "front-end" OR "forward deployed") ' +
-    '("egypt" OR "cairo" OR "mena" OR "middle east" OR "remote")';
-
-  const results = await serperQuery(query, 20);
+  // Serper rejects overly nested queries. Run simple AND-only queries, one
+  // per angle, then merge. Smaller result sets each but Serper doesn't 400.
+  const queries = [
+    'site:linkedin.com/posts hiring senior frontend egypt',
+    'site:linkedin.com/posts hiring senior "full stack" egypt',
+    'site:linkedin.com/posts hiring senior "full stack" remote',
+    'site:linkedin.com/posts hiring frontend engineer remote',
+    'site:linkedin.com/posts hiring "forward deployed" remote',
+  ];
+  const results: SerperResult[] = [];
+  for (const q of queries) {
+    try {
+      const r = await serperQuery(q, 10);
+      results.push(...r);
+    } catch {
+      // single query failure is non-fatal
+    }
+  }
+  const seen = new Set<string>();
   return results
-    .filter((r) => r.link.includes('/posts/'))
+    .filter((r) => r.link.includes('/posts/') && !seen.has(r.link) && seen.add(r.link))
     .map((r) => ({
       externalId: hashId(r.link),
       source: 'LINKEDIN_POSTS' as const,
@@ -77,13 +92,22 @@ export async function fetchLinkedInHiringPosts(): Promise<RawJob[]> {
  * Wuzzuf jobs via Google index (direct scraping is CF-blocked).
  */
 export async function fetchWuzzufViaSerper(): Promise<RawJob[]> {
-  const query =
-    'site:wuzzuf.net/jobs ("senior" OR "lead" OR "staff") ' +
-    '("full stack" OR "fullstack" OR "frontend" OR "front-end" OR "react" OR "next.js" OR "node")';
-
-  const results = await serperQuery(query, 20);
+  const queries = [
+    'site:wuzzuf.net/jobs senior frontend',
+    'site:wuzzuf.net/jobs senior "full stack"',
+    'site:wuzzuf.net/jobs senior react',
+    'site:wuzzuf.net/jobs lead frontend',
+  ];
+  const results: SerperResult[] = [];
+  for (const q of queries) {
+    try {
+      const r = await serperQuery(q, 10);
+      results.push(...r);
+    } catch {}
+  }
+  const seen = new Set<string>();
   return results
-    .filter((r) => r.link.includes('/jobs/'))
+    .filter((r) => r.link.includes('/jobs/') && !seen.has(r.link) && seen.add(r.link))
     .map((r) => ({
       externalId: hashId(r.link),
       source: 'WUZZUF' as const,
@@ -101,13 +125,22 @@ export async function fetchWuzzufViaSerper(): Promise<RawJob[]> {
  * Bayt jobs via Google index.
  */
 export async function fetchBaytViaSerper(): Promise<RawJob[]> {
-  const query =
-    'site:bayt.com/en/egypt ("senior" OR "lead") ' +
-    '("full stack" OR "fullstack" OR "frontend" OR "front-end" OR "react" OR "next.js" OR "node")';
-
-  const results = await serperQuery(query, 20);
+  const queries = [
+    'site:bayt.com egypt senior frontend',
+    'site:bayt.com egypt senior "full stack"',
+    'site:bayt.com egypt senior react',
+    'site:bayt.com egypt lead frontend',
+  ];
+  const results: SerperResult[] = [];
+  for (const q of queries) {
+    try {
+      const r = await serperQuery(q, 10);
+      results.push(...r);
+    } catch {}
+  }
+  const seen = new Set<string>();
   return results
-    .filter((r) => /\/job(s)?\//i.test(r.link))
+    .filter((r) => /\/job(s)?\//i.test(r.link) && !seen.has(r.link) && seen.add(r.link))
     .map((r) => ({
       externalId: hashId(r.link),
       source: 'BAYT' as const,
