@@ -53,14 +53,15 @@ function hashId(s: string): string {
  * in Egypt, DM me" that recruiters publish on their feed.
  */
 export async function fetchLinkedInHiringPosts(): Promise<RawJob[]> {
-  // Serper rejects overly nested queries. Run simple AND-only queries, one
-  // per angle, then merge. Smaller result sets each but Serper doesn't 400.
+  // Serper rejects nested OR groups. Run simple AND-only queries and merge.
+  // Google indexes very few LinkedIn posts, so queries have to be broad.
   const queries = [
-    'site:linkedin.com/posts hiring senior frontend egypt',
-    'site:linkedin.com/posts hiring senior "full stack" egypt',
-    'site:linkedin.com/posts hiring senior "full stack" remote',
-    'site:linkedin.com/posts hiring frontend engineer remote',
-    'site:linkedin.com/posts hiring "forward deployed" remote',
+    'site:linkedin.com/posts hiring frontend egypt',
+    'site:linkedin.com/posts hiring full stack egypt',
+    'site:linkedin.com/posts hiring senior egypt',
+    'site:linkedin.com/posts we are hiring frontend',
+    'site:linkedin.com/posts hiring react developer',
+    'site:linkedin.com/posts forward deployed engineer',
   ];
   const results: SerperResult[] = [];
   for (const q of queries) {
@@ -92,11 +93,14 @@ export async function fetchLinkedInHiringPosts(): Promise<RawJob[]> {
  * Wuzzuf jobs via Google index (direct scraping is CF-blocked).
  */
 export async function fetchWuzzufViaSerper(): Promise<RawJob[]> {
+  // Wuzzuf indexes jobs under /jobs/p/<id>-<slug>. Broaden the query set.
   const queries = [
-    'site:wuzzuf.net/jobs senior frontend',
-    'site:wuzzuf.net/jobs senior "full stack"',
-    'site:wuzzuf.net/jobs senior react',
-    'site:wuzzuf.net/jobs lead frontend',
+    'site:wuzzuf.net senior frontend',
+    'site:wuzzuf.net senior full stack',
+    'site:wuzzuf.net senior react',
+    'site:wuzzuf.net lead frontend',
+    'site:wuzzuf.net senior next.js',
+    'site:wuzzuf.net senior node.js',
   ];
   const results: SerperResult[] = [];
   for (const q of queries) {
@@ -106,8 +110,10 @@ export async function fetchWuzzufViaSerper(): Promise<RawJob[]> {
     } catch {}
   }
   const seen = new Set<string>();
+  // Real Wuzzuf job URLs: /jobs/p/<id-slug>
+  const isRealJob = (url: string) => /\/jobs\/p\//i.test(url);
   return results
-    .filter((r) => r.link.includes('/jobs/') && !seen.has(r.link) && seen.add(r.link))
+    .filter((r) => isRealJob(r.link) && !seen.has(r.link) && seen.add(r.link))
     .map((r) => ({
       externalId: hashId(r.link),
       source: 'WUZZUF' as const,
@@ -126,10 +132,12 @@ export async function fetchWuzzufViaSerper(): Promise<RawJob[]> {
  */
 export async function fetchBaytViaSerper(): Promise<RawJob[]> {
   const queries = [
-    'site:bayt.com egypt senior frontend',
-    'site:bayt.com egypt senior "full stack"',
-    'site:bayt.com egypt senior react',
-    'site:bayt.com egypt lead frontend',
+    'site:bayt.com/en/egypt senior frontend',
+    'site:bayt.com/en/egypt senior "full stack"',
+    'site:bayt.com/en/egypt senior react',
+    'site:bayt.com/en/egypt lead frontend',
+    'site:bayt.com/en/egypt next.js',
+    'site:bayt.com/en/egypt node.js senior',
   ];
   const results: SerperResult[] = [];
   for (const q of queries) {
@@ -139,8 +147,11 @@ export async function fetchBaytViaSerper(): Promise<RawJob[]> {
     } catch {}
   }
   const seen = new Set<string>();
+  // Bayt real jobs end with a numeric id (e.g. ...75427004/).
+  // List pages end with `-jobs/` and should be skipped.
+  const isRealJob = (url: string) => /-\d{5,}\/?$/.test(url) && !/\-jobs\/?$/i.test(url);
   return results
-    .filter((r) => /\/job(s)?\//i.test(r.link) && !seen.has(r.link) && seen.add(r.link))
+    .filter((r) => isRealJob(r.link) && !seen.has(r.link) && seen.add(r.link))
     .map((r) => ({
       externalId: hashId(r.link),
       source: 'BAYT' as const,
