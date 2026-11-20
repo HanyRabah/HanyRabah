@@ -28,10 +28,14 @@ export async function POST(
   const job = await prisma.job.findUnique({ where: { id } });
   if (!job) return NextResponse.json({ error: 'not found' }, { status: 404 });
 
+  const emailSubject = `Application: ${job.title} — Hany El Saydawy`;
+
   if (job.coverLetter && !force) {
     return NextResponse.json({
       ok: true,
       coverLetter: job.coverLetter,
+      emailSubject,
+      contactEmail: job.contactEmail,
       cached: true,
       coverLetterAt: job.coverLetterAt,
     });
@@ -56,6 +60,8 @@ export async function POST(
     return NextResponse.json({
       ok: true,
       coverLetter: result.text,
+      emailSubject,
+      contactEmail: job.contactEmail,
       cached: false,
       model: result.model,
       inputTokens: result.inputTokens,

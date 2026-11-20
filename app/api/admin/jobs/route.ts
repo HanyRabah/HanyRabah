@@ -25,6 +25,7 @@ export async function GET(req: Request) {
   const { searchParams } = new URL(req.url);
   const statusParam = (searchParams.get('status') ?? 'SURFACED').toUpperCase();
   const includeGlobal = searchParams.get('includeGlobal') === '1';
+  const sourcesParam = searchParams.get('sources'); // CSV of JobSource names
 
   const statusWhere =
     statusParam === 'SURFACED'
@@ -47,8 +48,25 @@ export async function GET(req: Request) {
         ],
       };
 
+  const validSources = [
+    'GREENHOUSE', 'ASHBY', 'LEVER', 'REMOTEOK', 'WORKDAY', 'WORKABLE',
+    'WUZZUF', 'BAYT', 'LINKEDIN_POSTS', 'OTHER',
+  ] as const;
+  type JobSourceEnum = (typeof validSources)[number];
+  const sourceWhere =
+    sourcesParam
+      ? {
+          source: {
+            in: sourcesParam
+              .split(',')
+              .map((s) => s.trim().toUpperCase())
+              .filter((s): s is JobSourceEnum => (validSources as readonly string[]).includes(s)),
+          },
+        }
+      : {};
+
   const allJobs = await prisma.job.findMany({
-    where: { ...statusWhere, ...egyptWhere },
+    where: { ...statusWhere, ...egyptWhere, ...sourceWhere },
     orderBy: [{ score: 'desc' }, { fetchedAt: 'desc' }],
     include: {
       action: true,

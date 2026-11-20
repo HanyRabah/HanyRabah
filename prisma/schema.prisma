@@ -276,6 +276,8 @@ model Job {
   // Cover letter drafted by the LLM — markdown string.
   coverLetter     String?
   coverLetterAt   DateTime?
+  // Email address scraped from the posting (LinkedIn posts often include one).
+  contactEmail    String?
 
   @@unique([externalId, source])
   @@index([status, score])

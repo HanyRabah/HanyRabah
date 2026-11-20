@@ -48,6 +48,12 @@ function hashId(s: string): string {
   return `s_${Math.abs(h).toString(36)}`;
 }
 
+// Extract first email address from text, if present.
+function extractEmail(text: string): string | undefined {
+  const m = text.match(/\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/);
+  return m ? m[0].toLowerCase() : undefined;
+}
+
 /**
  * LinkedIn hiring-post discovery. Finds posts like "we're hiring Senior Frontend
  * in Egypt, DM me" that recruiters publish on their feed.
@@ -75,18 +81,22 @@ export async function fetchLinkedInHiringPosts(): Promise<RawJob[]> {
   const seen = new Set<string>();
   return results
     .filter((r) => r.link.includes('/posts/') && !seen.has(r.link) && seen.add(r.link))
-    .map((r) => ({
-      externalId: hashId(r.link),
-      source: 'LINKEDIN_POSTS' as const,
-      companySlug: 'linkedin-post',
-      companyName: 'LinkedIn Post',
-      title: r.title.replace(/ \| LinkedIn$/i, '').slice(0, 200),
-      location: inferLocation(`${r.title} ${r.snippet ?? ''}`),
-      remote: /remote/i.test(`${r.title} ${r.snippet ?? ''}`),
-      description: (r.snippet ?? '').slice(0, 4000),
-      url: r.link,
-      postedAt: r.date ? parseRelative(r.date) : undefined,
-    }));
+    .map((r) => {
+      const combined = `${r.title} ${r.snippet ?? ''}`;
+      return {
+        externalId: hashId(r.link),
+        source: 'LINKEDIN_POSTS' as const,
+        companySlug: 'linkedin-post',
+        companyName: 'LinkedIn Post',
+        title: r.title.replace(/ \| LinkedIn$/i, '').slice(0, 200),
+        location: inferLocation(combined),
+        remote: /remote/i.test(combined),
+        description: (r.snippet ?? '').slice(0, 4000),
+        url: r.link,
+        postedAt: r.date ? parseRelative(r.date) : undefined,
+        contactEmail: extractEmail(combined),
+      };
+    });
 }
 
 /**
@@ -114,17 +124,21 @@ export async function fetchWuzzufViaSerper(): Promise<RawJob[]> {
   const isRealJob = (url: string) => /\/jobs\/p\//i.test(url);
   return results
     .filter((r) => isRealJob(r.link) && !seen.has(r.link) && seen.add(r.link))
-    .map((r) => ({
-      externalId: hashId(r.link),
-      source: 'WUZZUF' as const,
-      companySlug: 'wuzzuf',
-      companyName: extractWuzzufCompany(r.title) ?? 'Wuzzuf',
-      title: r.title.replace(/ \| Wuzzuf.*$/i, '').slice(0, 200),
-      location: 'Egypt',
-      remote: /remote/i.test(`${r.title} ${r.snippet ?? ''}`),
-      description: (r.snippet ?? '').slice(0, 4000),
-      url: r.link,
-    }));
+    .map((r) => {
+      const combined = `${r.title} ${r.snippet ?? ''}`;
+      return {
+        externalId: hashId(r.link),
+        source: 'WUZZUF' as const,
+        companySlug: 'wuzzuf',
+        companyName: extractWuzzufCompany(r.title) ?? 'Wuzzuf',
+        title: r.title.replace(/ \| Wuzzuf.*$/i, '').slice(0, 200),
+        location: 'Egypt',
+        remote: /remote/i.test(combined),
+        description: (r.snippet ?? '').slice(0, 4000),
+        url: r.link,
+        contactEmail: extractEmail(combined),
+      };
+    });
 }
 
 /**
@@ -152,17 +166,21 @@ export async function fetchBaytViaSerper(): Promise<RawJob[]> {
   const isRealJob = (url: string) => /-\d{5,}\/?$/.test(url) && !/\-jobs\/?$/i.test(url);
   return results
     .filter((r) => isRealJob(r.link) && !seen.has(r.link) && seen.add(r.link))
-    .map((r) => ({
-      externalId: hashId(r.link),
-      source: 'BAYT' as const,
-      companySlug: 'bayt',
-      companyName: extractBaytCompany(r.title) ?? 'Bayt',
-      title: r.title.replace(/ \| Bayt.*$/i, '').slice(0, 200),
-      location: 'Egypt',
-      remote: /remote/i.test(`${r.title} ${r.snippet ?? ''}`),
-      description: (r.snippet ?? '').slice(0, 4000),
-      url: r.link,
-    }));
+    .map((r) => {
+      const combined = `${r.title} ${r.snippet ?? ''}`;
+      return {
+        externalId: hashId(r.link),
+        source: 'BAYT' as const,
+        companySlug: 'bayt',
+        companyName: extractBaytCompany(r.title) ?? 'Bayt',
+        title: r.title.replace(/ \| Bayt.*$/i, '').slice(0, 200),
+        location: 'Egypt',
+        remote: /remote/i.test(combined),
+        description: (r.snippet ?? '').slice(0, 4000),
+        url: r.link,
+        contactEmail: extractEmail(combined),
+      };
+    });
 }
 
 function inferLocation(text: string): string | undefined {

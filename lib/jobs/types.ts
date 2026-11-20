@@ -16,6 +16,7 @@ export interface RawJob {
   salary?: string;
   tags?: string[];
   postedAt?: Date;
+  contactEmail?: string;
 }
 
 export interface ScoredJob extends RawJob {

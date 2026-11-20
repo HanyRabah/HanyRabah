@@ -138,6 +138,7 @@ export async function fetchAll(): Promise<{
           salary: j.salary,
           visaFriendly: j.visaFriendly,
           remoteFromEgypt: j.remoteFromEgypt,
+          contactEmail: j.contactEmail ?? undefined,
         },
         create: {
           externalId: j.externalId,
@@ -156,6 +157,7 @@ export async function fetchAll(): Promise<{
           scoreReasons: j.reasons,
           visaFriendly: j.visaFriendly,
           remoteFromEgypt: j.remoteFromEgypt,
+          contactEmail: j.contactEmail ?? undefined,
           status: 'NEW',
         },
       });

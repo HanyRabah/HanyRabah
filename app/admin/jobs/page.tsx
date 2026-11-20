@@ -12,6 +12,7 @@ import {
   message,
   Modal,
   Popover,
+  Select,
   Space,
   Spin,
   Switch,
@@ -26,6 +27,7 @@ import {
   CopyOutlined,
   EditOutlined,
   LinkOutlined,
+  MailOutlined,
   ReloadOutlined,
   SyncOutlined,
   ThunderboltOutlined,
@@ -55,10 +57,18 @@ interface Job {
   postedAt: string | null
   fetchedAt: string
   status: string
+  contactEmail?: string | null
   companyRef?: { tier: JobTier; egyptPresence?: boolean } | null
 }
 
 const STORAGE_KEY = 'jobRadar.includeGlobal'
+const SOURCES_KEY = 'jobRadar.sources'
+
+const ALL_SOURCES = [
+  'GREENHOUSE', 'ASHBY', 'LEVER', 'REMOTEOK', 'WORKDAY', 'WORKABLE',
+  'WUZZUF', 'BAYT', 'LINKEDIN_POSTS', 'OTHER',
+] as const
+type JobSource = typeof ALL_SOURCES[number]
 
 const TIER_LABEL: Record<JobTier, { label: string; color: string }> = {
   EGYPT_MENA: { label: 'Egypt / MENA', color: 'red' },
@@ -75,22 +85,34 @@ export default function JobsPage() {
   const [loading, setLoading] = useState(true)
   const [syncing, setSyncing] = useState(false)
   const [includeGlobal, setIncludeGlobal] = useState<boolean>(false)
-  const [draftOpen, setDraftOpen] = useState<null | { jobId: string; title: string; company: string; text: string; loading: boolean }>(null)
+  const [selectedSources, setSelectedSources] = useState<JobSource[]>([...ALL_SOURCES])
+  const [draftOpen, setDraftOpen] = useState<null | {
+    jobId: string; title: string; company: string; text: string; loading: boolean
+    contactEmail?: string | null; emailSubject?: string
+  }>(null)
 
-  // Load toggle from localStorage on mount
+  // Load toggles from localStorage on mount
   useEffect(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY)
       if (saved === '1') setIncludeGlobal(true)
+      const srcSaved = localStorage.getItem(SOURCES_KEY)
+      if (srcSaved) {
+        const arr = JSON.parse(srcSaved) as string[]
+        const valid = arr.filter((s): s is JobSource => (ALL_SOURCES as readonly string[]).includes(s))
+        if (valid.length > 0) setSelectedSources(valid)
+      }
     } catch {}
   }, [])
 
   const fetchJobs = useCallback(
-    async (which: typeof tab, global: boolean) => {
+    async (which: typeof tab, global: boolean, sources: JobSource[]) => {
       setLoading(true)
       try {
+        const sourcesParam =
+          sources.length === ALL_SOURCES.length ? '' : `&sources=${sources.join(',')}`
         const res = await fetch(
-          `/api/admin/jobs?status=${which}&includeGlobal=${global ? 1 : 0}`,
+          `/api/admin/jobs?status=${which}&includeGlobal=${global ? 1 : 0}${sourcesParam}`,
         )
         if (!res.ok) throw new Error(`HTTP ${res.status}`)
         const data = (await res.json()) as { jobs: Job[] }
@@ -110,8 +132,16 @@ export default function JobsPage() {
       router.push('/admin/login')
       return
     }
-    fetchJobs(tab, includeGlobal)
-  }, [authStatus, session, router, tab, includeGlobal, fetchJobs])
+    fetchJobs(tab, includeGlobal, selectedSources)
+  }, [authStatus, session, router, tab, includeGlobal, selectedSources, fetchJobs])
+
+  const handleSourcesChange = (sources: JobSource[]) => {
+    const next = sources.length === 0 ? [...ALL_SOURCES] : sources
+    setSelectedSources(next)
+    try {
+      localStorage.setItem(SOURCES_KEY, JSON.stringify(next))
+    } catch {}
+  }
 
   const handleToggleGlobal = (checked: boolean) => {
     setIncludeGlobal(checked)
@@ -121,18 +151,38 @@ export default function JobsPage() {
   }
 
   const openDraftCover = async (job: Job, force = false) => {
-    setDraftOpen({ jobId: job.id, title: job.title, company: job.company, text: '', loading: true })
+    setDraftOpen({
+      jobId: job.id, title: job.title, company: job.company, text: '', loading: true,
+      contactEmail: job.contactEmail, emailSubject: undefined,
+    })
     try {
       const res = await fetch(`/api/jobs/${job.id}/draft-cover${force ? '?force=1' : ''}`, { method: 'POST' })
-      const data = (await res.json()) as { ok: boolean; coverLetter?: string; cached?: boolean; error?: string }
+      const data = (await res.json()) as {
+        ok: boolean; coverLetter?: string; emailSubject?: string; contactEmail?: string | null
+        cached?: boolean; error?: string
+      }
       if (!data.ok || !data.coverLetter) throw new Error(data.error ?? 'draft failed')
-      setDraftOpen({ jobId: job.id, title: job.title, company: job.company, text: data.coverLetter, loading: false })
+      setDraftOpen({
+        jobId: job.id, title: job.title, company: job.company,
+        text: data.coverLetter, loading: false,
+        contactEmail: data.contactEmail ?? job.contactEmail,
+        emailSubject: data.emailSubject,
+      })
       if (!data.cached) message.success('Cover letter drafted')
     } catch (e) {
       const msg = e instanceof Error ? e.message : 'draft failed'
       message.error(msg)
       setDraftOpen(null)
     }
+  }
+
+  const openEmail = () => {
+    if (!draftOpen) return
+    const to = draftOpen.contactEmail ?? ''
+    const subject = draftOpen.emailSubject ?? `Application: ${draftOpen.title} — Hany El Saydawy`
+    const body = draftOpen.text + '\n\n— Hany\n\n(CV attached)'
+    const href = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    window.location.href = href
   }
 
   const copyDraft = () => {
@@ -169,7 +219,7 @@ export default function JobsPage() {
             : `No new jobs this run — all ${refreshed} refreshed from cache · ${successCount}/${successCount + failCount} sources OK · ${totalRaw} raw`,
           duration: 6,
         })
-        fetchJobs(tab, includeGlobal)
+        fetchJobs(tab, includeGlobal, selectedSources)
       } else {
         message.error(`Sync failed: ${data.error ?? 'unknown'}`)
       }
@@ -189,7 +239,7 @@ export default function JobsPage() {
       })
       if (!res.ok) throw new Error()
       message.success(`Marked ${kind.toLowerCase()}`)
-      fetchJobs(tab, includeGlobal)
+      fetchJobs(tab, includeGlobal, selectedSources)
     } catch {
       message.error('Action failed')
     }
@@ -214,14 +264,23 @@ export default function JobsPage() {
             <ThunderboltOutlined style={{ marginRight: 8 }} />
             Job Radar
           </Title>
-          <Space size="middle">
+          <Space size="middle" wrap>
+            <Select
+              mode="multiple"
+              value={selectedSources}
+              onChange={handleSourcesChange}
+              options={ALL_SOURCES.map((s) => ({ label: s, value: s }))}
+              maxTagCount="responsive"
+              placeholder="Sources"
+              style={{ minWidth: 220, maxWidth: 360 }}
+            />
             <Tooltip title="Off → only Egypt-presence companies + Egypt-friendly remote. On → everything, including global-only roles.">
               <Space size="small">
                 <Switch checked={includeGlobal} onChange={handleToggleGlobal} />
                 <Text>Include global jobs</Text>
               </Space>
             </Tooltip>
-            <Button icon={<ReloadOutlined />} onClick={() => fetchJobs(tab, includeGlobal)} loading={loading}>
+            <Button icon={<ReloadOutlined />} onClick={() => fetchJobs(tab, includeGlobal, selectedSources)} loading={loading}>
               Refresh
             </Button>
             <Button
@@ -279,6 +338,11 @@ export default function JobsPage() {
                           <Tag color={TIER_LABEL[job.companyRef.tier].color}>
                             {TIER_LABEL[job.companyRef.tier].label}
                           </Tag>
+                        )}
+                        {job.contactEmail && (
+                          <Tooltip title={job.contactEmail}>
+                            <Tag color="magenta" icon={<MailOutlined />}>Email</Tag>
+                          </Tooltip>
                         )}
                       </Flex>
                       <Text type="secondary" style={{ display: 'block' }}>
@@ -376,6 +440,15 @@ export default function JobsPage() {
               disabled={draftOpen?.loading}
             >
               Re-draft
+            </Button>,
+            <Button
+              key="email"
+              icon={<MailOutlined />}
+              onClick={openEmail}
+              disabled={draftOpen?.loading}
+              title={draftOpen?.contactEmail ? `Opens mailto:${draftOpen.contactEmail}` : 'No email found — opens mailto with empty To'}
+            >
+              Open email {draftOpen?.contactEmail ? `(to ${draftOpen.contactEmail})` : ''}
             </Button>,
             <Button key="copy" type="primary" icon={<CopyOutlined />} onClick={copyDraft} disabled={draftOpen?.loading}>
               Copy
