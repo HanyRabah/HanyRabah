@@ -20,9 +20,22 @@ interface SerperResponse {
   organic?: SerperResult[];
 }
 
-async function serperQuery(query: string, num = 10): Promise<SerperResult[]> {
+async function serperQuery(
+  query: string,
+  num = 10,
+  opts: { recentDays?: 7 | 14 | 30 } = {},
+): Promise<SerperResult[]> {
   const key = process.env.SERPER_API_KEY;
   if (!key) return [];
+
+  // tbs=qdr:w restricts to past week; qdr:d past day; qdr:m past month.
+  // Serper accepts it as a top-level field on the search body.
+  const tbs = opts.recentDays
+    ? opts.recentDays <= 7 ? 'qdr:w' : opts.recentDays <= 14 ? 'qdr:w2' : 'qdr:m'
+    : undefined;
+
+  const body: Record<string, unknown> = { q: query, num };
+  if (tbs) body.tbs = tbs;
 
   const res = await fetch('https://google.serper.dev/search', {
     method: 'POST',
@@ -30,7 +43,7 @@ async function serperQuery(query: string, num = 10): Promise<SerperResult[]> {
       'X-API-KEY': key,
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ q: query, num }),
+    body: JSON.stringify(body),
     next: { revalidate: 0 },
   });
   if (!res.ok) {
@@ -72,15 +85,20 @@ export async function fetchLinkedInHiringPosts(): Promise<RawJob[]> {
   const results: SerperResult[] = [];
   for (const q of queries) {
     try {
-      const r = await serperQuery(q, 10);
+      const r = await serperQuery(q, 10, { recentDays: 14 });
       results.push(...r);
     } catch {
       // single query failure is non-fatal
     }
   }
   const seen = new Set<string>();
+  // Gate: must mention at least one Hany-stack keyword in title+snippet,
+  // else it's a non-match that would just score artificially high on
+  // "senior full-stack" title keywords alone.
+  const STACK_GATE = /\b(react|next\.?js|nodejs|node\.?js|typescript|frontend|front.end|fullstack|full.stack|forward.deployed|fde)\b/i;
   return results
     .filter((r) => r.link.includes('/posts/') && !seen.has(r.link) && seen.add(r.link))
+    .filter((r) => STACK_GATE.test(`${r.title} ${r.snippet ?? ''}`))
     .map((r) => {
       const combined = `${r.title} ${r.snippet ?? ''}`;
       return {
@@ -115,7 +133,7 @@ export async function fetchWuzzufViaSerper(): Promise<RawJob[]> {
   const results: SerperResult[] = [];
   for (const q of queries) {
     try {
-      const r = await serperQuery(q, 10);
+      const r = await serperQuery(q, 10, { recentDays: 14 });
       results.push(...r);
     } catch {}
   }
@@ -156,7 +174,7 @@ export async function fetchBaytViaSerper(): Promise<RawJob[]> {
   const results: SerperResult[] = [];
   for (const q of queries) {
     try {
-      const r = await serperQuery(q, 10);
+      const r = await serperQuery(q, 10, { recentDays: 14 });
       results.push(...r);
     } catch {}
   }

@@ -39,6 +39,7 @@ export const TARGET_COMPANIES: TargetCompany[] = [
   // ── Tier 1 — Egypt / MENA local ────────────────────────────────────
   // All four exist as Workable accounts — currently empty (not hiring), but
   // the adapter will catch new postings automatically.
+  { name: 'Foodics',  slug: 'foodics',  source: 'WORKABLE', tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://careers.foodics.com' },
   { name: 'Instabug', slug: 'instabug', source: 'WORKABLE', tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://instabug.com/careers' },
   { name: 'Paymob',   slug: 'paymob',   source: 'WORKABLE', tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://paymob.com/en/careers' },
   { name: 'Swvl',     slug: 'swvl',     source: 'WORKABLE', tier: 'EGYPT_MENA', egyptPresence: true, careersUrl: 'https://www.swvl.com/careers' },
