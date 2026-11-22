@@ -96,9 +96,23 @@ export async function fetchLinkedInHiringPosts(): Promise<RawJob[]> {
   // else it's a non-match that would just score artificially high on
   // "senior full-stack" title keywords alone.
   const STACK_GATE = /\b(react|next\.?js|nodejs|node\.?js|typescript|frontend|front.end|fullstack|full.stack|forward.deployed|fde)\b/i;
+  // qdr:w2 doesn't work on LinkedIn — Google indexes posts without reliable
+  // dates. Reject anything where the snippet or Serper's `date` field says
+  // the post is older than 14 days (e.g. "2yr", "3mo ago"), and anything
+  // where no age marker is parseable at all.
+  const MAX_AGE_MS = 14 * 86400_000;
+  const AGE_MARKER = /\b(\d+)\s*(yr|mo|y|month|months|year|years)\b/i;
+  const isRecentEnough = (r: SerperResult): boolean => {
+    const combined = `${r.title} ${r.snippet ?? ''}`;
+    if (AGE_MARKER.test(combined)) return false; // "2yr", "3mo" → stale
+    const parsed = r.date ? parseRelative(r.date) : undefined;
+    if (!parsed) return false; // no reliable date → reject
+    return Date.now() - parsed.getTime() <= MAX_AGE_MS;
+  };
   return results
     .filter((r) => r.link.includes('/posts/') && !seen.has(r.link) && seen.add(r.link))
     .filter((r) => STACK_GATE.test(`${r.title} ${r.snippet ?? ''}`))
+    .filter(isRecentEnough)
     .map((r) => {
       const combined = `${r.title} ${r.snippet ?? ''}`;
       return {
